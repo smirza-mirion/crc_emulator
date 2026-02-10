@@ -1,0 +1,106 @@
+<!--
+	Byte
+	100 = Show Warning Message (0xFF)
+
+	Word
+	101 = Background X
+	102 = Background Y
+	103 = Title X
+	104 = Title Y
+	105 = Message X
+	106 = Message Y
+	107 = Button X
+	108 = Button Y
+	
+	String
+	100,101 - Title
+	102,103,104,105 - Warning Message
+	106 - OK
+	
+	REQUIRES
+		%ConfigX
+		%ConfigY
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Amulet" CONTENT="GrayLCD.Page">
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_WARNING_MSG);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.sfTitle.forceUpdate(),
+														     Amulet:document.sfMessage.forceUpdate(),
+														     Amulet:document.btnOK.forceUpdate(),
+														     Amulet:document.btnOK.reappear();
+														     NAME=refreshShowWarning">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+														     Amulet:document.sfTitle.forceUpdate(),
+														     Amulet:document.sfMessage.forceUpdate();
+														     NAME=refreshShowWarningNoOK">
+		<style type="text/css">
+			#backgnd {position:absolute;left:190;top:90;width:0;height:0}
+			#title {position:absolute;left:300;top:200;width:0;height:0}
+			#message {position:absolute;left:250;top:250;width:0;height:0}
+			#button {position:absolute;left:325;top:365;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="backgnd">
+			<IMG SRC="Images/warning.png" WIDTH="420" HEIGHT="420" INVISIBLE="FALSE" NAME="imgWarningBkg">
+		</DIV>
+		
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="200" HEIGHT="40" NAME="sfTitle">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="TOP">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(100).value()">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="fontStyle" VALUE="BOLD|UNDERLINE">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="message">
+			<APPLET CODE="StringField.class" WIDTH="300" HEIGHT="100" NAME="sfMessage">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(102).value()">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.101s">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="button">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="55" NAME="btnOK">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(106).value()">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

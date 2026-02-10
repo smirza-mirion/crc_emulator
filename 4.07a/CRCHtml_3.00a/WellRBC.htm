@@ -1,0 +1,383 @@
+<!--
+	Byte
+
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_WELL_RBC);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.sfDetector.forceUpdate(),
+														     Amulet:document.sfBackgroundLabel.forceUpdate(),
+														     Amulet:document.btnBackground.forceUpdate(),
+														     Amulet:document.btnBackground.reappear(),
+														     Amulet:document.btnDoseHCT.forceUpdate(),
+														     Amulet:document.btnDoseHCT.reappear(),
+														     Amulet:document.btnPatientHCT.forceUpdate(),
+														     Amulet:document.btnPatientHCT.reappear(),
+														     Amulet:document.btnPatWeight.forceUpdate(),
+														     Amulet:document.btnPatWeight.reappear(),
+														     Amulet:document.btnWholeStandardMeasurement.forceUpdate(),
+														     Amulet:document.btnWholeStandardMeasurement.reappear(),
+														     Amulet:document.btnPlasmaStandardMeasurement.forceUpdate(),
+														     Amulet:document.btnPlasmaStandardMeasurement.reappear(),
+														     Amulet:document.btnWholeMeasurement.forceUpdate(),
+														     Amulet:document.btnWholeMeasurement.reappear(),
+														     Amulet:document.btnPlasmaMeasurement.forceUpdate(),
+														     Amulet:document.btnPlasmaMeasurement.reappear();														     
+														     NAME=refreshShow">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+														     Amulet:document.btnCalculate.reappear();
+														     NAME=refreshShowCalculate">
+		
+		<style type="text/css">
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#currentdetector {position:absolute;left:0;top:543;width:0;height:0}
+			
+			#backgroundlabel {position:absolute;left:0;top:70;width:0;height:0}
+			#backgroundtext {position:absolute;left:570;top:70;width:0;height:0}
+			
+			#dosehctlabel {position:absolute;left:0;top:120;width:0;height:0}
+			#dosehcttext {position:absolute;left:570;top:120;width:0;height:0}
+			
+			#patienthctlabel {position:absolute;left:0;top:170;width:0;height:0}
+			#patienthcttext {position:absolute;left:570;top:170;width:0;height:0}
+			
+			#patweightlabel {position:absolute;left:0;top:220;width:0;height:0}
+			#patweighttext {position:absolute;left:570;top:220;width:0;height:0}
+			
+			#wholestandardmeasurementlabel {position:absolute;left:0;top:270;width:0;height:0}
+			#wholestandardmeasurementtext {position:absolute;left:570;top:270;width:0;height:0}
+			
+			#plasmastandardmeasurementlabel {position:absolute;left:0;top:320;width:0;height:0}
+			#plasmastandardmeasurementtext {position:absolute;left:570;top:320;width:0;height:0}
+			
+			#wholemeasurementlabel {position:absolute;left:0;top:370;width:0;height:0}
+			#wholemeasurementtext {position:absolute;left:570;top:370;width:0;height:0}
+			
+			#plasmameasurementlabel {position:absolute;left:0;top:420;width:0;height:0}
+			#plasmameasurementtext {position:absolute;left:570;top:420;width:0;height:0}
+			
+			#calculate {position:absolute;left:570;top:470;width:0;height:0}
+			
+			#home {position:absolute;left:8;top:13;width:0;height:0}
+			#back {position:absolute;left:693;top:13;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="RBC Test">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="currentdetector">
+			<APPLET CODE="StringField.class" WIDTH="170" HEIGHT="50" NAME="sfDetector">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="22pt">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(9).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="home">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnHome">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Home">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/home_big.png">
+				<PARAM NAME="downImage" VALUE="Images/home_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBack">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="backgroundlabel">
+			<APPLET CODE="Stringfield.class" WIDTH="570" HEIGHT="40" NAME="sfBackgroundLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(100).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		<DIV ID="backgroundtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnBackground">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(102).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Background Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_BACKGROUND)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dosehctlabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Dose Hematocrit (%):</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="dosehcttext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnDoseHCT">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(103).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Dose Hematocrit (%):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(1), %ConfigMinValue('.1'), %ConfigMaxValue('100.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_RBC_DOSE_HEMATOCRIT)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="patienthctlabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Patient Hematocrit (%):</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="patienthcttext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnPatientHCT">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(104).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Patient Hematocrit (%):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(1), %ConfigMinValue('.1'), %ConfigMaxValue('100.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_RBC_PAT_HEMATOCRIT)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="patweightlabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Patient Weight (kg):</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="patweighttext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnPatWeight">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(105).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Patient Weight (kg):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('1.0'), %ConfigMaxValue('9999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_RBC_PAT_WEIGHT)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="wholestandardmeasurementlabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Measured Whole Blood Standard:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="wholestandardmeasurementtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnWholeStandardMeasurement">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(106).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Whole Blood Standard'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_RBC_WHOLE_STD)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="plasmastandardmeasurementlabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Measured Plasma Standard:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="plasmastandardmeasurementtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnPlasmaStandardMeasurement">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(107).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Plasma Standard'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_RBC_PLASMA_STD)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="wholemeasurementlabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Measured Whole Blood Sample:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="wholemeasurementtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnWholeMeasurement">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(108).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Whole Blood Sample'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_RBC_WHOLE_SAMPLE)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="plasmameasurementlabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Measured Plasma Sample:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="plasmameasurementtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnPlasmaMeasurement">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(109).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Plasma Sample'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_RBC_PLASMA_SAMPLE)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="calculate">
+			<APPLET CODE="FunctionButton.class" WIDTH="200" HEIGHT="40" NAME="btnCalculate">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="Calculate">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

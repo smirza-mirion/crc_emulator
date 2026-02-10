@@ -1,0 +1,61 @@
+/*
+*
+*                Language Independent Library
+*
+*        Copyright 1983-2000 Green Hills Software,Inc.
+*
+*  This program is the property of Green Hills Software, Inc,
+*  its contents are proprietary information and no part of it
+*  is to be disclosed to anyone except employees of Green Hills
+*  Software, Inc., or as agreed in writing signed by the President
+*  of Green Hills Software, Inc.
+*
+*/
+/* ind_gcnt.68: compiler internal wrapper for Graph Profiling (68000 family). */
+
+#if defined(EMBEDDED) || (defined(CHORUS) && defined(__ELF))
+
+#if defined(__GHS_UNDERSCORE)
+#define __ghs_gcount ___ghs_gcount
+#define __ghs_indgcount ___ghs_indgcount
+#endif
+
+	FILE	"ind_gcnt.68"
+	SECT	.text,x
+	OPT	NOLC		/* do not assume _symbol is local */
+
+	XREF	__ghs_indgcount
+* (SP) points to the address we RTS to (duh)
+*with -pg, -ga is set so 4(A6) points to the address our caller will RTS to.
+	XDEF	__ghs_gcount
+__ghs_gcount:
+	MOVE.L	(SP),D0
+	PEA	4(A6)
+	MOVE.L	D0,-(SP)
+	MOVE.L	#__ghs_indgcount-__ghs_gcount,A0
+	JSR	__ghs_gcount(PC,A0.L)
+	ADDQ.L	#8,SP
+	RTS
+
+	END
+
+#elif defined(__sun)
+
+	.comm	__G_empty_file_illegal,4
+
+#elif defined(__BSD) /* CHORUS || VXWORKS */
+
+	.text
+	.globl ___ghs_indgcount
+	.globl ___ghs_gcount
+
+___ghs_gcount:
+	movel	(sp),d0
+	pea 	4(a6)
+	movel	d0,-(sp)
+	movel	#___ghs_indgcount-___ghs_gcount,a0
+	jsr	___ghs_gcount(pc,a0.l)
+	addql	#8,sp
+	rts
+
+#endif

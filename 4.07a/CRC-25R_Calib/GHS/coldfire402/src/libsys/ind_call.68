@@ -1,0 +1,65 @@
+/*
+*
+*                Language Independent Library
+*
+*       Copyright 1983-2000 Green Hills Software,Inc.
+*
+*  This program is the property of Green Hills Software, Inc,
+*  its contents are proprietary information and no part of it
+*  is to be disclosed to anyone except employees of Green Hills
+*  Software, Inc., or as agreed in writing signed by the President
+*  of Green Hills Software, Inc.
+*
+*/
+/* ind_call.68: C callable wrapper for Host I/O system calls (68000 family). */
+
+#if defined(EMBEDDED)
+
+#if defined(__GHS_UNDERSCORE)
+#define __ghs_syscall	___ghs_syscall
+#define __gh_set_errno	___gh_set_errno
+#endif
+
+#if defined(__ELF)
+	.file	"ind_call.68"
+	.text
+#else
+	FILE	"ind_call.68"
+	COFF
+	SECT	.text,x
+	OPT	NOLC			| do not assume _symbol is local
+#endif
+
+	XDEF	__ghs_syscall
+	XREF	__dotsyscall
+	XREF	__gh_set_errno
+
+__ghs_syscall:
+	LINK	A6,#0			| make stack traces more sensible
+	MOVE.L	8(A6),D1		| call number in D1
+	LEA	didsyscall(PC),A0
+	MOVEQ	#0,D0			| return -1, errno=0 if no host
+	MOVE	#1,CCR			| set carry
+lab1:	MOVE.L	#__dotsyscall-lab1,A1
+;*****************************************************************************
+;       Clive Added following line of code as per GHS Memo
+	MOVE	#1,CCR			| set CARRY Flag
+;*****************************************************************************
+;       Clive Removed following line of code
+;	MOVE.L	4(A6),-(SP)		| fake return address for stack trace
+;*****************************************************************************
+;
+	JMP	lab1(PC,A1.L)		| branch with link in A0
+didsyscall:
+	BCC.S	allclear
+	MOVE.L	D0,-(SP)
+lab2:	MOVE.L	#__gh_set_errno-lab2,A1
+	JSR	lab2(PC,A1.L)
+	MOVEQ	#-1,D0
+allclear:
+	UNLK	A6			| this cleans up the stack for us
+	RTS
+
+#elif defined(__sun)
+	.comm	__G_empty_file_illegal,4
+#endif

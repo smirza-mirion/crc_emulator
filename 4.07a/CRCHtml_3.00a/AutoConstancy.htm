@@ -1,0 +1,567 @@
+<!--
+	Memory Map
+	Byte	Desc
+	 90 = Language		(STATE) English = 0, Spanish = 1
+	
+	100 = 0xFF - Display Report
+	101 = 0xFF - Display Line 1
+	102 = 0xFF - Display Line 2
+	103 = 0xFF - Display Line 3
+	104 = 0xFF - Display Line 4
+	105 = 0xFF - Display Line 5
+	106 = 0xFF - Display Line 6
+	107 = 0xFF - Display Line 7
+	108 = 0xFF - Display Line 8
+	109 = 0xFF - Display Line 9
+	110 = 0xFF - Display Line 10
+	111 = 0xFF - Display Line 11
+	112 = 0xFF - Display Line 12
+	
+	String	Desc
+	90 - Title
+	100,101 - Line 1
+	102,103 - Line 2
+	104,105 - Line 3
+	106,107 - Line 4
+	108,109 - Line 5
+	110,111 - Line 6
+	112,113 - Line 7
+	114,115 - Line 8
+	116,117 - Line 9
+	118,119 - Line 10
+	120,121 - Line 11
+	122,123 - Line 12
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0, 0.01; URL=%SetScreen(%%SCREEN_AUTOCONSTANCY); NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;URL=Amulet:document.refreshShowHomeEnglish.forceUpdate(),
+							    Amulet:document.refreshShowHomeSpanish.forceUpdate();
+							    NAME=refreshShowHome">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x00;URL=Amulet:document.btnHome.reappear();
+													     	    NAME=refreshShowHomeEnglish">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x01;URL=Amulet:document.btnHomeSpanish.reappear();
+													     	    NAME=refreshShowHomeSpanish">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;URL=Amulet:document.refreshHideHomeEnglish.forceUpdate(),
+							    Amulet:document.refreshHideHomeSpanish.forceUpdate();
+							    NAME=refreshHideHome">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x00;URL=Amulet:document.btnHome.disappear();
+													     	    NAME=refreshHideHomeEnglish">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x01;URL=Amulet:document.btnHomeSpanish.disappear();
+													     	    NAME=refreshHideHomeSpanish">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;URL=Amulet:document.refreshShowBackEnglish.forceUpdate(),
+							    Amulet:document.refreshShowBackSpanish.forceUpdate();
+							    NAME=refreshShowBack">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x00;URL=Amulet:document.btnBack.reappear();
+													     	    NAME=refreshShowBackEnglish">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x01;URL=Amulet:document.btnBackSpanish.reappear();
+													     	    NAME=refreshShowBackSpanish">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;URL=Amulet:document.refreshHideBackEnglish.forceUpdate(),
+							    Amulet:document.refreshHideBackSpanish.forceUpdate();
+							    NAME=refreshHideBack">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x00;URL=Amulet:document.btnBack.disappear();
+													     	    NAME=refreshHideBackEnglish">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x01;URL=Amulet:document.btnBackSpanish.disappear();
+													     	    NAME=refreshHideBackSpanish">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;URL=Amulet:document.refreshShowPrintEnglish.forceUpdate(),
+							    Amulet:document.refreshShowPrintSpanish.forceUpdate();
+							    NAME=refreshShowPrint">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x00;URL=Amulet:document.btnPrint.reappear();
+													     	    NAME=refreshShowPrintEnglish">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x01;URL=Amulet:document.btnPrintSpanish.reappear();
+													     	    NAME=refreshShowPrintSpanish">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;URL=Amulet:document.refreshHidePrintEnglish.forceUpdate(),
+							    Amulet:document.refreshHidePrintSpanish.forceUpdate();
+							    NAME=refreshHidePrint">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x00;URL=Amulet:document.btnPrint.disappear();
+													     	    NAME=refreshHidePrintEnglish">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0x01;URL=Amulet:document.btnPrintSpanish.disappear();
+													     	    NAME=refreshHidePrintSpanish">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.sfLine1.reappear(),
+														     Amulet:document.sfLine1.forceUpdate(),
+														     Amulet:document.sfLine2.reappear(),
+														     Amulet:document.sfLine2.forceUpdate(),
+														     Amulet:document.sfLine3.reappear(),
+														     Amulet:document.sfLine3.forceUpdate(),
+														     Amulet:document.sfLine4.reappear(),
+														     Amulet:document.sfLine4.forceUpdate(),
+														     Amulet:document.sfLine5.reappear(),
+														     Amulet:document.sfLine5.forceUpdate(),
+														     Amulet:document.sfLine6.reappear(),
+														     Amulet:document.sfLine6.forceUpdate(),
+														     Amulet:document.sfLine7.reappear(),
+														     Amulet:document.sfLine7.forceUpdate(),
+														     Amulet:document.sfLine8.reappear(),
+														     Amulet:document.sfLine8.forceUpdate(),
+														     Amulet:document.sfLine9.reappear(),
+														     Amulet:document.sfLine9.forceUpdate(),
+														     Amulet:document.sfLine10.reappear(),
+														     Amulet:document.sfLine10.forceUpdate(),
+														     Amulet:document.sfLine11.reappear(),
+														     Amulet:document.sfLine11.forceUpdate(),
+														     Amulet:document.sfLine12.reappear(),
+														     Amulet:document.sfLine12.forceUpdate(),
+														     Amulet:document.sfTitle.reappear(),
+														     Amulet:document.sfTitle.forceUpdate(),
+														     Amulet:document.refreshShowHome.forceUpdate(),
+														     Amulet:document.refreshShowBack.forceUpdate();
+														     NAME=refreshShowDisplay">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+														     Amulet:document.line1.reappear();
+														     NAME=refreshShowLine1">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(102).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(102).setValue(0),
+														     Amulet:document.line2.reappear();
+														     NAME=refreshShowLine2">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(103).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(103).setValue(0),
+														     Amulet:document.line3.reappear();
+														     NAME=refreshShowLine3">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(104).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(104).setValue(0),
+														     Amulet:document.line4.reappear();
+														     NAME=refreshShowLine4">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(105).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(105).setValue(0),
+														     Amulet:document.line5.reappear();
+														     NAME=refreshShowLine5">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(106).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(106).setValue(0),
+														     Amulet:document.line6.reappear();
+														     NAME=refreshShowLine6">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(107).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(107).setValue(0),
+														     Amulet:document.line7.reappear();
+														     NAME=refreshShowLine7">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(108).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(108).setValue(0),
+														     Amulet:document.line8.reappear();
+														     NAME=refreshShowLine8">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(109).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(109).setValue(0),
+														     Amulet:document.line9.reappear();
+														     NAME=refreshShowLine9">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(110).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(110).setValue(0),
+														     Amulet:document.line10.reappear();
+														     NAME=refreshShowLine10">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(111).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(111).setValue(0),
+														     Amulet:document.line11.reappear();
+														     NAME=refreshShowLine11">
+		<!--META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(112).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(112).setValue(0),
+														     Amulet:document.line12.reappear();
+														     NAME=refreshShowLine12"-->
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(113).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(113).setValue(0),
+														     Amulet:document.refreshShowHome.forceUpdate(),
+														     Amulet:document.refreshShowBack.forceUpdate(),
+														     Amulet:document.refreshShowPrint.forceUpdate();
+														     NAME=refreshShowPrintOld">
+		
+		<!--style type="text/css">
+			#backgnd {position:absolute;left:0;top:0;width:800;height:600}
+			#backgnd1 {position:absolute;left:0;top:41;width:800;height:518}
+			#top {position:absolute;left:0;top:0;width:0;height:0}
+			#bottom {position:absolute;left:0;top:556;width:0;height:0}
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#logo {position:absolute;left:5;top:4;width:0;height:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#message {position:absolute;left:5;top:563;width:0;height:0}
+			#back {position:absolute;left:695;top:10;width:0;height:0}
+			#print {position:absolute;left:695;top:563;width:0;height:0}
+			#setup {position:absolute;left:5;top:563;width:0;height:0}
+			
+			#line1 {position:absolute;left:5;top:45;width:0;height:0}
+			#line2 {position:absolute;left:5;top:90;width:0;height:0}
+			#line3 {position:absolute;left:5;top:132;width:0;height:0}
+			#line4 {position:absolute;left:5;top:175;width:0;height:0}
+			#line5 {position:absolute;left:5;top:217;width:0;height:0}
+			#line6 {position:absolute;left:5;top:260;width:0;height:0}
+			#line7 {position:absolute;left:5;top:302;width:0;height:0}
+			#line8 {position:absolute;left:5;top:345;width:0;height:0}
+			#line9 {position:absolute;left:5;top:387;width:0;height:0}
+			#line10 {position:absolute;left:5;top:430;width:0;height:0}
+			#line11 {position:absolute;left:5;top:472;width:0;height:0}
+			#line12 {position:absolute;left:5;top:515;width:0;height:0}
+			
+			#1_line {position:absolute;left:0;top:88;width:0;height:0}
+			#2_line {position:absolute;left:0;top:130;width:0;height:0}
+			#3_line {position:absolute;left:0;top:173;width:0;height:0}
+			#4_line {position:absolute;left:0;top:215;width:0;height:0}
+			#5_line {position:absolute;left:0;top:258;width:0;height:0}
+			#6_line {position:absolute;left:0;top:300;width:0;height:0}
+			#7_line {position:absolute;left:0;top:343;width:0;height:0}
+			#8_line {position:absolute;left:0;top:385;width:0;height:0}
+			#9_line {position:absolute;left:0;top:428;width:0;height:0}
+			#10_line {position:absolute;left:0;top:470;width:0;height:0}
+			#11_line {position:absolute;left:0;top:513;width:0;height:0}
+			#12_line {position:absolute;left:0;top:555;width:0;height:0}
+		</style-->
+		
+		<style type="text/css">
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			
+			#line1 {position:absolute;left:5;top:70;width:0;height:0}
+			#line2 {position:absolute;left:5;top:115;width:0;height:0}
+			#line3 {position:absolute;left:5;top:157;width:0;height:0}
+			#line4 {position:absolute;left:5;top:200;width:0;height:0}
+			#line5 {position:absolute;left:5;top:242;width:0;height:0}
+			#line6 {position:absolute;left:5;top:285;width:0;height:0}
+			#line7 {position:absolute;left:5;top:327;width:0;height:0}
+			#line8 {position:absolute;left:5;top:370;width:0;height:0}
+			#line9 {position:absolute;left:5;top:412;width:0;height:0}
+			#line10 {position:absolute;left:5;top:455;width:0;height:0}
+			#line11 {position:absolute;left:5;top:497;width:0;height:0}
+			#line12 {position:absolute;left:400;top:70;width:0;height:0}
+			
+			#1_line {position:absolute;left:0;top:113;width:0;height:0}
+			#2_line {position:absolute;left:0;top:155;width:0;height:0}
+			#3_line {position:absolute;left:0;top:198;width:0;height:0}
+			#4_line {position:absolute;left:0;top:240;width:0;height:0}
+			#5_line {position:absolute;left:0;top:283;width:0;height:0}
+			#6_line {position:absolute;left:0;top:325;width:0;height:0}
+			#7_line {position:absolute;left:0;top:368;width:0;height:0}
+			#8_line {position:absolute;left:0;top:410;width:0;height:0}
+			#9_line {position:absolute;left:0;top:453;width:0;height:0}
+			#10_line {position:absolute;left:0;top:495;width:0;height:0}
+			#11_line {position:absolute;left:0;top:538;width:0;height:0}
+			#12_line {position:absolute;left:0;top:580;width:0;height:0}
+			
+			#home {position:absolute;left:8;top:13;width:0;height:0}
+			#back {position:absolute;left:693;top:13;width:0;height:0}
+			#print {position:absolute;left:692;top:543;width:0;height:0}
+		</style>
+	</HEAD>
+	
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<!--PARAM NAME="initialCondition" VALUE="Auto Constancy">
+				<PARAM NAME="href" VALUE="Amulet:NOP()"-->
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(90).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="home">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnHome">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Home">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/home_big.png">
+				<PARAM NAME="downImage" VALUE="Images/home_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="home">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnHomeSpanish">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Home">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/spanish_home_big.png">
+				<PARAM NAME="downImage" VALUE="Images/spanish_home_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBack">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBackSpanish">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/spanish_back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/spanish_back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="print">
+			<APPLET CODE="CustomButton.class" WIDTH="101" HEIGHT="50" NAME="btnPrint">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:document.btnPrint.disappear(),Amulet:document.refreshHideHome.forceUpdate(),Amulet:document.refreshHideBack.forceUpdate(),Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/print_33.png">
+				<PARAM NAME="downImage" VALUE="Images/print_33.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="print">
+			<APPLET CODE="CustomButton.class" WIDTH="101" HEIGHT="50" NAME="btnPrintSpanish">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:document.btnPrintSpanish.disappear(),Amulet:document.refreshHideHome.forceUpdate(),Amulet:document.refreshHideBack.forceUpdate(),Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/spanish_print_33.png">
+				<PARAM NAME="downImage" VALUE="Images/spanish_print_33.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="line1">
+			<APPLET CODE="StringField.class" WIDTH="395" HEIGHT="39" NAME="sfLine1">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(100).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="1_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line1">
+		</DIV>
+		
+		<DIV ID="line2">
+			<APPLET CODE="StringField.class" WIDTH="795" HEIGHT="39" NAME="sfLine2">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(102).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="2_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line2">
+		</DIV>
+		
+		<DIV ID="line3">
+			<APPLET CODE="StringField.class" WIDTH="795" HEIGHT="39" NAME="sfLine3">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(104).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="3_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line3">
+		</DIV>
+		
+		<DIV ID="line4">
+			<APPLET CODE="StringField.class" WIDTH="795" HEIGHT="39" NAME="sfLine4">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(106).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="4_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line4">
+		</DIV>
+		
+		<DIV ID="line5">
+			<APPLET CODE="StringField.class" WIDTH="795" HEIGHT="39" NAME="sfLine5">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(108).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="5_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line5">
+		</DIV>
+		
+		<DIV ID="line6">
+			<APPLET CODE="StringField.class" WIDTH="795" HEIGHT="39" NAME="sfLine6">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(110).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="6_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line6">
+		</DIV>
+		
+		<DIV ID="line7">
+			<APPLET CODE="StringField.class" WIDTH="795" HEIGHT="39" NAME="sfLine7">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(112).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="7_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line7">
+		</DIV>
+		
+		<DIV ID="line8">
+			<APPLET CODE="StringField.class" WIDTH="795" HEIGHT="39" NAME="sfLine8">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(114).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="8_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line8">
+		</DIV>
+		
+		<DIV ID="line9">
+			<APPLET CODE="StringField.class" WIDTH="795" HEIGHT="39" NAME="sfLine9">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(116).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="9_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line9">
+		</DIV>
+		
+		<DIV ID="line10">
+			<APPLET CODE="StringField.class" WIDTH="795" HEIGHT="39" NAME="sfLine10">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(118).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="10_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line10">
+		</DIV>
+		
+		<DIV ID="line11">
+			<APPLET CODE="StringField.class" WIDTH="795" HEIGHT="39" NAME="sfLine11">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(120).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="11_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line11">
+		</DIV>
+		
+		<DIV ID="line12">
+			<APPLET CODE="StringField.class" WIDTH="400" HEIGHT="39" NAME="sfLine12">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(122).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="4">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="12_line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="TRUE" NAME="line12">
+		</DIV>
+	</BODY>
+</HTML>

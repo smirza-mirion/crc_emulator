@@ -1,0 +1,86 @@
+// MULTI Server Script
+// This is an example Setup Script which sets up the Motorola  M5282C3
+// for running programs.
+
+//target rst run
+//target sleep 2
+//target halt
+
+print "file changed at March 13, 2006 for Lite"
+
+target rst stop
+
+//setup system clock
+target m -d2 0x40120000 0x6000   
+
+//Invalidate and enable instruction cache.
+// You may have to disable caches on this board because at least
+// the prototype boards seem to have a bug with clearing the cache
+// through the BDM port.
+
+
+//disable cache
+target reg cacr 0x01000000  
+//disable ACRs
+target reg acr0 0x00000000
+target reg acr1 0x00000000
+//set rambar to 0x20000000 & enable it
+target reg rambar 0x20000001
+//set VBR (vector base register) to base of SRAM 0x20000000
+target reg vbr 0x20000000
+//enable FLASH
+target reg flashbar 0xffc00001
+//set PFPAR to allow A21-A23 to be enabled
+target m -d1 0x40100051 0xe0
+//set PJPAR to allow BS3-BS0 and CS3-CS0 to be enabled
+target m -d1 0x40100054 0xff
+//set PEPAR to allow BUS SIGNALS to be enabled
+target m -d2 0x40100052 0x555f
+
+//setup SDRAM
+
+//set PBCDPAR for 32-bit SDRAM port size
+target m -d1 0x40100050 0xc0    
+
+//set SDRAM controller DCR: RTIM = 6 clocks, RC = 0x30
+target m -d2 0x40000040  0x023c  
+
+//set SDRAM DACR0: BA = 0x02000000, CAS latency = 01, CBM = 3(011), PS = 10 (16-bit port)
+target m -d4 0x40000048 0x02001320
+
+//set SDRAM  DMR0: BAM = 0x1f , AMx = 0 (all access enabled), Valid bit set
+target m -d4 0x4000004c 0x00fc0001
+
+//set SDRAM DACR0: IP = 1 to initiate precharge all (PALL) command
+target m -d4 0x40000048 0x02001328
+target sleep 1
+
+// Write to any SDRAM location do PreCharge
+//target m -d4 0x02000000 0xa5a59696
+target m -d2 0x02100000 0xa5a5
+
+//set SDRAM DACR0: RE = 1 (enable refresh), turn off PreCharge and wait awhile
+target m -d4 0x40000048 0x02009320 
+target sleep 1
+
+//Set SDRAM DACR0: IMRS Bit 
+target m -d4 0x40000048 0x02009360
+
+//initiate IMRS command by writing any value to address corresponding to CAS latency
+//with SDRAM burst capability disabled
+//target m -d4 0x02000400 0xa5a59696         
+target m -d2 0x02000800 0xa5a5       
+
+target reg cacr 0x01000000  
+
+
+//turn off watchdog controller (WCR)
+target m -d2 0x40140000 0x00
+ 
+
+
+
+
+
+
+

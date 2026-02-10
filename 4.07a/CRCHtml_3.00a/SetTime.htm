@@ -1,0 +1,168 @@
+<HTML>
+<HEAD>
+	<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+	<META NAME="Macro" SRC="Amulet.h">
+	
+	<style type="text/css">
+		#backgnd {position:absolute;left:0;top:0;height:272;width:480}
+		
+		#monthlabel {position:absolute;left:0;top:0;height:0;width:0}
+		#month {position:absolute;left:0;top:24;height:0;width:0}
+		#monthlist {position:absolute;left:0;top:49;height:0;width:0}
+		
+		#daylabel {position:absolute;left:50;top:0;height:0;width:0}
+		#day {position:absolute;left:50;top:24;height:0;width:0}
+		#daylist {position:absolute;left:50;top:49;height:0;width:0}
+		
+		#yearlabel {position:absolute;left:100;top:0;height:0;width:0}
+		#year {position:absolute;left:100;top:24;height:0;width:0}
+		#yearlist {position:absolute;left:100;top:49;height:0;width:0}
+		
+		#hourlabel {position:absolute;left:200;top:0;height:0;width:0}
+		#hour {position:absolute;left:200;top:24;height:0;width:0}
+		#hourlist {position:absolute;left:200;top:49;height:0;width:0}
+		
+		#minutelabel {position:absolute;left:250;top:0;height:0;width:0}
+		#minute {position:absolute;left:250;top:24;height:0;width:0}
+		#minutelist {position:absolute;left:250;top:49;height:0;width:0}
+		
+		#accept {position:absolute;left:359;top:161;height:0;width:0}
+		#cancel {position:absolute;left:359;top:221;height:0;width:0}
+	</style>
+</HEAD>
+
+<BODY>
+	<DIV ID="backgnd">
+		<IMG SRC="Images/sky_480x272.jpg" HEIGHT="272" WIDTH="480" USEMAP="#BackgndMap">
+	</DIV>
+	
+	<DIV ID="monthlabel"> <TABLE HEIGHT="24" WIDTH="48"> <TR> <TD ALIGN="CENTER" VALIGN="BOTTOM"> <FONT SIZE="14"> <B> mm </B> </FONT> </TD> </TR> </TABLE> </DIV>
+	<DIV ID="month">
+		<APPLET CODE="StringField.class" HEIGHT="25" WIDTH="48" NAME="sfMonth">
+			<PARAM NAME="border" VALUE="1">
+			<PARAM NAME="horizontalAlign" VALUE="LEFT">
+			<PARAM NAME="verticalAlign" VALUE="TOP">
+			<PARAM NAME="href" VALUE="Amulet:InternalRAM.string(190).value()">
+			<PARAM NAME="printf" VALUE="%s">
+			<PARAM NAME="font" VALUE="Arial">
+			<PARAM NAME="fontSize" VALUE="14">
+			<PARAM NAME="fontColor" VALUE="black">
+			<PARAM NAME="updateRate" VALUE=".5">
+		</APPLET>
+	</DIV>
+	<DIV ID="monthlist">
+		<APPLET CODE="List.class" HEIGHT="223" WIDTH="50" NAME="listMonth">
+			<PARAM NAME="initialCondition" VALUE="FromInitHref">
+			<PARAM NAME="initHref" VALUE="Amulet:UART.string(1).value()">
+			<PARAM NAME="href" VALUE="%Beep,Amulet:internalRAM.string(190).setValue(),Amulet:document.sfMonth.forceUpdate()">
+			<PARAM NAME="options" VALUE='01="01",02="02",03="03",04="04",05="05",06="06",07="07",08="08",09="09",10="10",11="11",12="12"'>
+		</APPLET>
+	</DIV>
+	
+	<DIV ID="daylabel"> <TABLE HEIGHT="24" WIDTH="48"> <TR> <TD ALIGN="CENTER" VALIGN="BOTTOM"> <FONT SIZE="14"> <B> dd </B> </FONT> </TD> </TR> </TABLE> </DIV>
+	<DIV ID="day">
+		<APPLET CODE="StringField.class" HEIGHT="25" WIDTH="48" NAME="sfDay">
+			<PARAM NAME="border" VALUE="1">
+			<PARAM NAME="horizontalAlign" VALUE="LEFT">
+			<PARAM NAME="verticalAlign" VALUE="TOP">
+			<PARAM NAME="href" VALUE="Amulet:InternalRAM.string(191).value()">
+			<PARAM NAME="printf" VALUE="%s">
+			<PARAM NAME="font" VALUE="Arial">
+			<PARAM NAME="fontSize" VALUE="14">
+			<PARAM NAME="fontColor" VALUE="black">
+			<PARAM NAME="updateRate" VALUE=".5">
+		</APPLET>
+	</DIV>
+	<DIV ID="daylist">
+		<APPLET CODE="List.class" HEIGHT="223" WIDTH="50" NAME="listDay">
+			<PARAM NAME="initialCondition" VALUE="FromInitHref">
+			<PARAM NAME="initHref" VALUE="Amulet:UART.string(2).value()">
+			<PARAM NAME="href" VALUE="%Beep,Amulet:internalRAM.string(191).setValue(),Amulet:document.sfDay.forceUpdate()">
+			<PARAM NAME="options" VALUE='01="01",02="02",03="03",04="04",05="05",06="06",07="07",08="08",09="09",10="10",11="11",12="12",13="13",14="14",15="15",16="16",17="17",18="18",19="19",20="20",21="21",22="22",23="23",24="24",25="25",26="26",27="27",28="28",29="29",30="30",31="31"'>
+		</APPLET>
+	</DIV>
+	
+	<DIV ID="yearlabel"> <TABLE HEIGHT="24" WIDTH="70"> <TR> <TD ALIGN="CENTER" VALIGN="BOTTOM"> <FONT SIZE="14"> <B> yyyy </B> </FONT> </TD> </TR> </TABLE> </DIV>
+	<DIV ID="year">
+		<APPLET CODE="StringField.class" HEIGHT="25" WIDTH="68" NAME="sfYear">
+			<PARAM NAME="border" VALUE="1">
+			<PARAM NAME="horizontalAlign" VALUE="LEFT">
+			<PARAM NAME="verticalAlign" VALUE="TOP">
+			<PARAM NAME="href" VALUE="Amulet:InternalRAM.string(189).value()">
+			<PARAM NAME="printf" VALUE="%s">
+			<PARAM NAME="font" VALUE="Arial">
+			<PARAM NAME="fontSize" VALUE="14">
+			<PARAM NAME="fontColor" VALUE="black">
+			<PARAM NAME="updateRate" VALUE=".5">
+		</APPLET>
+	</DIV>
+	<DIV ID="yearlist">
+		<APPLET CODE="List.class" HEIGHT="223" WIDTH="50" NAME="listDay">
+			<PARAM NAME="initialCondition" VALUE="FromInitHref">
+			<PARAM NAME="initHref" VALUE="Amulet:UART.string(0).value()">
+			<PARAM NAME="href" VALUE="%Beep,Amulet:internalRAM.string(189).setValue(),Amulet:document.sfYear.forceUpdate()">
+			<PARAM NAME="options" VALUE='1990="1990",1991="1991",1992="1992",1993="1993",1994="1994",1995="1995",1996="1996",1997="1997",1998="1998",1999="1999",2000="2000",2001="2001",2002="2002",2003="2003",2004="2004",2005="2005",2006="2006",2007="2007",2008="2008",2009="2009",2010="2010",2011="2011",2012="2012",2013="2013",2014="2014",2015="2015",2016="2016",2017="2017",2018="2018",2019="2019",2020="2020"'>
+		</APPLET>
+	</DIV>
+	
+	<DIV ID="hourlabel"> <TABLE HEIGHT="24" WIDTH="48"> <TR> <TD ALIGN="CENTER" VALIGN="BOTTOM"> <FONT SIZE="14"> <B> hh </B> </FONT> </TD> </TR> </TABLE> </DIV>
+	<DIV ID="hour">
+		<APPLET CODE="StringField.class" HEIGHT="25" WIDTH="48" NAME="sfHour">
+			<PARAM NAME="border" VALUE="1">
+			<PARAM NAME="horizontalAlign" VALUE="LEFT">
+			<PARAM NAME="verticalAlign" VALUE="TOP">
+			<PARAM NAME="href" VALUE="Amulet:InternalRAM.string(192).value()">
+			<PARAM NAME="printf" VALUE="%s">
+			<PARAM NAME="font" VALUE="Arial">
+			<PARAM NAME="fontSize" VALUE="14">
+			<PARAM NAME="fontColor" VALUE="black">
+			<PARAM NAME="updateRate" VALUE=".5">
+		</APPLET>
+	</DIV>
+	<DIV ID="hourlist">
+		<APPLET CODE="List.class" HEIGHT="223" WIDTH="50" NAME="listHour">
+			<PARAM NAME="initialCondition" VALUE="FromInitHref">
+			<PARAM NAME="initHref" VALUE="Amulet:UART.string(3).value()">
+			<PARAM NAME="href" VALUE="%Beep,Amulet:internalRAM.string(192).setValue(),Amulet:document.sfHour.forceUpdate()">
+			<PARAM NAME="options" VALUE='00="00",01="01",02="02",03="03",04="04",05="05",06="06",07="07",08="08",09="09",10="10",11="11",12="12",13="13",14="14",15="15",16="16",17="17",18="18",19="19",20="20",21="21",22="22",23="23"'>
+		</APPLET>
+	</DIV>
+	
+	<DIV ID="minutelabel"> <TABLE HEIGHT="24" WIDTH="48"> <TR> <TD ALIGN="CENTER" VALIGN="BOTTOM"> <FONT SIZE="14"> <B> mm </B> </FONT> </TD> </TR> </TABLE> </DIV>
+	<DIV ID="minute">
+		<APPLET CODE="StringField.class" HEIGHT="25" WIDTH="48" NAME="sfMinute">
+			<PARAM NAME="border" VALUE="1">
+			<PARAM NAME="horizontalAlign" VALUE="LEFT">
+			<PARAM NAME="verticalAlign" VALUE="TOP">
+			<PARAM NAME="href" VALUE="Amulet:InternalRAM.string(193).value()">
+			<PARAM NAME="printf" VALUE="%s">
+			<PARAM NAME="font" VALUE="Arial">
+			<PARAM NAME="fontSize" VALUE="14">
+			<PARAM NAME="fontColor" VALUE="black">
+			<PARAM NAME="updateRate" VALUE=".5">
+		</APPLET>
+	</DIV>
+	<DIV ID="minutelist">
+		<APPLET CODE="List.class" HEIGHT="223" WIDTH="50" NAME="listMinute">
+			<PARAM NAME="initialCondition" VALUE="FromInitHref">
+			<PARAM NAME="initHref" VALUE="Amulet:UART.string(4).value()">
+			<PARAM NAME="href" VALUE="%Beep,Amulet:internalRAM.string(193).setValue(),Amulet:document.sfMinute.forceUpdate()">
+			<PARAM NAME="options" VALUE='00="00",01="01",02="02",03="03",04="04",05="05",06="06",07="07",08="08",09="09",10="10",11="11",12="12",13="13",14="14",15="15",16="16",17="17",18="18",19="19",20="20",21="21",22="22",23="23",24="24",25="25",26="26",27="27",28="28",29="29",30="30",31="31",32="32",33="33",34="34",35="35",36="36",37="37",38="38",39="39",40="40",41="41",42="42",43="43",44="44",45="45",46="46",47="47",48="48",49="49",50="50",51="51",52="52",53="53",54="54",55="55",56="56",57="57",58="58",59="59"'>
+		</APPLET>
+	</DIV>
+	
+	<DIV ID="accept">
+		<APPLET CODE="FunctionButton.class" HEIGHT="50" WIDTH="120" NAME="btnAccept">
+			<PARAM NAME="href" VALUE="%Beep,Amulet:UART.byte(0).setValue(3),Amulet:UART.string(1).SetValue(InternalRAM.string(189)),Amulet:UART.string(2).SetValue(InternalRAM.string(190)),Amulet:UART.string(3).SetValue(InternalRAM.string(191)),Amulet:UART.string(4).SetValue(InternalRAM.string(192)),Amulet:UART.string(5).SetValue(InternalRAM.string(193)),Amulet:UART.byte(0).setValue(4),Amulet:back()">
+			<PARAM NAME="label" VALUE="Accept">
+		</APPLET>
+	</DIV>
+	
+	<DIV ID="cancel">
+		<APPLET CODE="FunctionButton.class" HEIGHT="50" WIDTH="120" NAME="btnCancel">
+			<PARAM NAME="href" VALUE="%Beep,Amulet:back()">
+			<PARAM NAME="label" VALUE="Cancel">
+		</APPLET>
+	</DIV>
+</BODY>
+</HTML>

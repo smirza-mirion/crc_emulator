@@ -1,0 +1,331 @@
+<!--
+	Byte
+	100 - Display
+	101 - Display Calculate Button
+	102 - Display Result
+	
+	String
+	100,101 - Background Label
+	102 - Background Activity
+	103 - Urine Volume
+	104 - Aliqot Volume
+	105 - Dilution Factor
+	106 - Standard Activity
+	107 - Aliqot Activity
+	108 - 
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_WELL_SCHILLING);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.sfDetector.forceUpdate(),
+														     Amulet:document.sfBackgroundLabel.forceUpdate(),
+														     Amulet:document.btnBackground.forceUpdate(),
+														     Amulet:document.btnBackground.reappear(),
+														     Amulet:document.btnUrine.forceUpdate(),
+														     Amulet:document.btnUrine.reappear(),
+														     Amulet:document.btnAliqotVol.forceUpdate(),
+														     Amulet:document.btnAliqotVol.reappear(),
+														     Amulet:document.btnDilution.forceUpdate(),
+														     Amulet:document.btnDilution.reappear(),
+														     Amulet:document.btnStandard.forceUpdate(),
+														     Amulet:document.btnStandard.reappear(),
+														     Amulet:document.btnAliqot.forceUpdate(),
+														     Amulet:document.btnAliqot.reappear();
+														     Name=refreshShow">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+														     Amulet:document.btnCalculate.reappear();
+														     NAME=refreshShowCalculate">
+		
+		<style type="text/css">
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#currentdetector {position:absolute;left:0;top:543;width:0;height:0}
+			
+			#backgroundlabel {position:absolute;left:0;top:70;width:0;height:0}
+			#backgroundtext {position:absolute;left:570;top:70;width:0;height:0}
+			
+			#urinevollabel {position:absolute;left:0;top:120;width:0;height:0}
+			#urinevoltext {position:absolute;left:570;top:120;width:0;height:0}
+			
+			#aliqotvollabel {position:absolute;left:0;top:170;width:0;height:0}
+			#aliqotvoltext {position:absolute;left:570;top:170;width:0;height:0}
+			
+			#dillabel {position:absolute;left:0;top:220;width:0;height:0}
+			#diltext {position:absolute;left:570;top:220;width:0;height:0}
+			
+			#standardmeasurementlabel {position:absolute;left:0;top:270;width:0;height:0}
+			#standardmeasurementtext {position:absolute;left:570;top:270;width:0;height:0}
+			
+			#aliqotmeasurementlabel {position:absolute;left:0;top:320;width:0;height:0}
+			#aliqotmeasurementtext {position:absolute;left:570;top:320;width:0;height:0}
+			
+			#calculate {position:absolute;left:570;top:370;width:0;height:0}
+			
+			#home {position:absolute;left:8;top:13;width:0;height:0}
+			#back {position:absolute;left:693;top:13;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="Schilling Test">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="currentdetector">
+			<APPLET CODE="StringField.class" WIDTH="170" HEIGHT="50" NAME="sfDetector">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="22pt">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(9).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="home">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnHome">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Home">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/home_big.png">
+				<PARAM NAME="downImage" VALUE="Images/home_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBack">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="backgroundlabel">
+			<APPLET CODE="Stringfield.class" WIDTH="570" HEIGHT="40" NAME="sfBackgroundLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(100).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="backgroundtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnBackground">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(102).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Background Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_BACKGROUND)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="urinevollabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Urine Volume (ml):</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="urinevoltext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnUrine">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(103).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Total Urine Volume (ml):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(1), %ConfigMinValue('.1'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_SHILLING_URINE_VOL)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="aliqotvollabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Urine Aliquot Volume (ml):</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>		
+		<DIV ID="aliqotvoltext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnAliqotVol">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(104).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Urine Aliquot Volume (ml):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('.1'), %ConfigMaxValue('9999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_SHILLING_ALIQOT_VOL)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dillabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>(Standard Dilution Factor) 1:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="diltext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnDilution">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(105).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Dilution Factor:'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(1), %ConfigMinValue('.1'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_SHILLING_DIL_FACTOR)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="standardmeasurementlabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Measured Standard:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="standardmeasurementtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnStandard">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(106).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Schilling Standard'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_SCHILLING_STD)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="aliqotmeasurementlabel">
+			<TABLE WIDTH="570" HEIGHT="40">
+				<TR><TD WIDTH="570" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Measured Urine Aliquot:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="aliqotmeasurementtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnAliqot">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(107).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Schilling Urine Aliquot'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_SCHILLING_ALIQOT)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="calculate">
+			<APPLET CODE="FunctionButton.class" WIDTH="200" HEIGHT="40" NAME="btnCalculate">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="Calculate">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

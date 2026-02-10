@@ -1,0 +1,30 @@
+/*
+*
+*                Language Independent Library
+*
+*       Copyright 1983-2000 Green Hills Software,Inc.
+*
+*  This program is the property of Green Hills Software, Inc,
+*  its contents are proprietary information and no part of it
+*  is to be disclosed to anyone except employees of Green Hills
+*  Software, Inc., or as agreed in writing signed by the President
+*  of Green Hills Software, Inc.
+*
+*/
+/* ind_dots.68: .syscall section for 68000 family */
+
+#if defined(EMBEDDED)
+
+	FILE	"ind_dots.68"
+	SECT	.syscall,x
+
+	OPT	NOLC		* do not assume _symbol is local
+
+	XDEF	__dotsyscall
+__dotsyscall:
+	NOP			* the debugger puts a special breakpoint here
+	JMP	(A0)
+
+	END
+
+#endif

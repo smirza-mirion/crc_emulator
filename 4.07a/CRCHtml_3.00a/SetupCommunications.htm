@@ -1,0 +1,124 @@
+<!--
+	Byte
+
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_SETUP_COMMUNICATIONS);NAME=refreshInit">
+
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+		                                                                                                     Amulet:document.HotKey.forceUpdate(),
+														     Amulet:document.radioRHotKey.reappear(),
+														     Amulet:document.radioPHotKey.reappear();
+														     Name=refreshShowRadio">
+		
+		<style type="text/css">
+			#backgnd {position:absolute;left:0;top:0;width:800;height:600}
+			#backgnd1 {position:absolute;left:0;top:41;width:800;height:518}
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#logo {position:absolute;left:5;top:1;width:0;height:0}
+			#title {position:absolute;left:5;top:4;width:0;height:0}
+			#message {position:absolute;left:5;top:563;width:0;height:0}
+			
+			#r_hotkey {position:absolute;left:300;top:200;width:0;height:0}
+			#p_hotkey {position:absolute;left:300;top:300;width:0;height:0}
+			
+			#accept {position:absolute;left:490;top:542;width:0;height:0}
+			#cancel {position:absolute;left:645;top:542;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="Setup Communications">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r_hotkey">
+			<APPLET CODE="RadioButton.class" WIDTH="200" HEIGHT="50" NAME="radioRHotKey">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="HotKey">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(100).value()">
+				<PARAM NAME="internalNumber" VALUE="1">
+				<PARAM NAME="label" VALUE="Use R Hotkeys">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p_hotkey">
+			<APPLET CODE="RadioButton.class" WIDTH="200" HEIGHT="50" NAME="radioPHotKey">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="HotKey">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0103)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(100).value()">
+				<PARAM NAME="internalNumber" VALUE="2">
+				<PARAM NAME="label" VALUE="Use PET Hotkeys">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="accept">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnAccept">
+				<PARAM NAME="label" VALUE="Accept">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="green">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0104)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="cancel">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnCancel">
+				<PARAM NAME="label" VALUE="Cancel">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnCancel.disappear(), %Back">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

@@ -1,0 +1,29 @@
+#!gbuild
+[Library]
+	:sourceDir=../../src/libstartup
+	-I../../src/libstartup
+# in order to compress .text, code in this library
+# can not call out to routines in other libraries
+# this requires that we disable out-of-line prologues.
+	-ansi
+	--incorrect_pragma_warnings
+	--unknown_pragma_warnings
+	--prototype_warnings
+	--diag_error 236
+	--no_coverage_analysis
+	-Z2216
+	-check=nomemory
+	-fnone
+	{optional} -inline_prologue
+	-pnone
+ind_crt0.c
+	{optional} -no_parameter_check
+	-Xnopicpidfixups
+	{optional} -globalreg=99
+	{optional} -no_16bit_data_pointer
+ind_mcpy.gpj		[Select One]
+ind_bcpy.gpj		[Select One]
+ind_mset.gpj		[Select One]
+ind_reset.gpj		[Select One]
+ind_uzip.c
+	{optional} -no_16bit_data_pointer

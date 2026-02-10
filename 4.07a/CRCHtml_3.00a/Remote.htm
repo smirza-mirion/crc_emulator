@@ -1,0 +1,122 @@
+<!--
+	Byte
+	100 - Display Title
+	
+	String
+	100,101 - Title
+	102 - Activity
+	104,105 - Error
+	106 - Notification
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_REMOTE);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+		                                       								     Amulet:document.sfTitle.forceUpdate();
+														     NAME=refreshShowRemoteInProgress">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+														     Amulet:document.pwm1.setPeriod(1),
+														     Amulet:document.pwm1.setPulseWidth(InternalRAM.word(100)),
+														     Amulet:document.pwm1.start();
+														     NAME=refreshSetBacklight">
+		<style type="text/css">
+			#pwm {position:absolute;left:0;top:0;width:0;height:0}
+			#background {position:absolute;left:0;top:0;height:600;width:800}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#error {position:absolute;left:0;top:125;width:0;height:0}
+			#message {position:absolute;left:0;top:225;width:0;height:0}
+			#notification {position:absolute;left:0;top:375;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="background" STYLE="background-color:black">
+		</DIV>
+		
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="790" HEIGHT="60" NAME="sfTitle">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#000030">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="BOTTOM">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(100).value()">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontColor" VALUE="#FFFF30">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="updateRate" VALUE="0.0">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="error">
+			<APPLET CODE="StringField.class" WIDTH="800" HEIGHT="100" NAME="sfError">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(104).value()">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="font" VALUE="Arial Black Bold">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="fontColor" VALUE="#FF3030">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="updateRate" VALUE=".5">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="message">
+			<APPLET CODE="StringField.class" WIDTH="800" HEIGHT="150" NAME="sfMessage">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(102).value()">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="font" VALUE="Arial Black Bold">
+				<PARAM NAME="fontSize" VALUE="72pt">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="updateRate" VALUE=".5">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="notification">
+			<APPLET CODE="StringField.class" WIDTH="800" HEIGHT="100" NAME="sfNotification">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(106).value()">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="font" VALUE="Arial Black Bold">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="updateRate" VALUE=".5">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="pwm">
+			<APPLET CODE="Pwm.class" WIDTH="0" HEIGHT="0" name="pwm1">
+				<PARAM NAME="channel" VALUE="0">
+				<PARAM NAME="initialCondition" VALUE="ON">
+				<PARAM NAME="periodIn_ms" VALUE=".99">
+				<PARAM NAME="pulseWidthIn_ms" VALUE="1">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

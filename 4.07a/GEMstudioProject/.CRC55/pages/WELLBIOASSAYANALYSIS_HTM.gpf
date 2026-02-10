@@ -1,0 +1,883 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PAGE NAME="WELLBIOASSAYANALYSIS_HTM">
+  <PROPERTIES>
+    <HEAD>
+      <FUNCTIONS SOURCE="WELLBIOASSAYANALYSIS_HTM.gsf"/>
+      <PARENT_PAGE NAME=""/>
+    </HEAD>
+  </PROPERTIES>
+  <BKGND/>
+  <BODY>
+    <Image>
+      <Name Type="12">Image_36</Name>
+      <MidX Type="13">400</MidX>
+      <MidY Type="13">34</MidY>
+      <Width Type="13">806</Width>
+      <Height Type="13">75</Height>
+      <cacheImage Type="2" Editable="True">True	True	False</cacheImage>
+      <invisible Type="2" Editable="True">False	True	False</invisible>
+      <file Type="16" Editable="True">./Images/top_bar.png</file>
+    </Image>
+    <Image>
+      <Name Type="12">Image_37</Name>
+      <MidX Type="13">400</MidX>
+      <MidY Type="13">568</MidY>
+      <Width Type="13">806</Width>
+      <Height Type="13">69</Height>
+      <cacheImage Type="2" Editable="True">True	True	False</cacheImage>
+      <invisible Type="2" Editable="True">False	True	False</invisible>
+      <file Type="16" Editable="True">./Images/bottom_bar.png</file>
+    </Image>
+    <StringField>
+      <Name Type="12">sfTitle</Name>
+      <MidX Type="13">400</MidX>
+      <MidY Type="13">34</MidY>
+      <Width Type="13">506</Width>
+      <Height Type="13">75</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <fillColor Type="11" Editable="True">#FFFFFF00</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 24PT (local)</font>
+      <fontColor Type="11" Editable="True">#FFFFFF</fontColor>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">BioAssay Report</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <CustomButton>
+      <Name Type="12">btnBack</Name>
+      <MidX Type="13">743</MidX>
+      <MidY Type="13">38</MidY>
+      <Width Type="13">106</Width>
+      <Height Type="13">56</Height>
+      <cacheImage Type="2" Editable="True">True	True	False</cacheImage>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <downImage Type="16" Editable="True">./Images/back_big.png</downImage>
+      <upImage Type="16" Editable="True">./Images/back_big.png</upImage>
+      <href Type="15" Editable="True">MyUART.byte(0).setValue(4)</href>
+      <label Type="12" Editable="True"/>
+      <onButtonPress Type="10" Editable="True">GRAY	Depress	Gray</onButtonPress>
+      <repeatRate Type="20" Editable="True">0.00</repeatRate>
+    </CustomButton>
+    <CustomButton>
+      <Name Type="12">btnInactivate</Name>
+      <MidX Type="13">83</MidX>
+      <MidY Type="13">568</MidY>
+      <Width Type="13">156</Width>
+      <Height Type="13">56</Height>
+      <cacheImage Type="2" Editable="True">True	True	False</cacheImage>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <downImage Type="16" Editable="True">./Images/inactivate.png</downImage>
+      <upImage Type="16" Editable="True">./Images/inactivate.png</upImage>
+      <href Type="15" Editable="True">Amulet:document.btnInactivate.disappear(),MyUART.byte(36).setValue(8),MyUART.byte(14).setValue(63)</href>
+      <label Type="12" Editable="True"/>
+      <onButtonPress Type="10" Editable="True">GRAY	Depress	Gray</onButtonPress>
+      <repeatRate Type="20" Editable="True">0.00</repeatRate>
+    </CustomButton>
+    <StringField>
+      <Name Type="12">sfInactivate</Name>
+      <MidX Type="13">271</MidX>
+      <MidY Type="13">568</MidY>
+      <Width Type="13">533</Width>
+      <Height Type="13">56</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <fillColor Type="11" Editable="True">#FFFFFF00</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 16PT (local)</font>
+      <fontColor Type="11" Editable="True">#FFFFFF</fontColor>
+      <horizontalAlign Type="10" Editable="True">LEFT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(99).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">INACTIVE: %s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <CustomButton>
+      <Name Type="12">btnPrint</Name>
+      <MidX Type="13">742</MidX>
+      <MidY Type="13">568</MidY>
+      <Width Type="13">107</Width>
+      <Height Type="13">56</Height>
+      <cacheImage Type="2" Editable="True">True	True	False</cacheImage>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <downImage Type="16" Editable="True">./Images/print_33.png</downImage>
+      <upImage Type="16" Editable="True">./Images/print_33.png</upImage>
+      <href Type="15" Editable="True">Amulet:document.btnPrint.disappear(),Amulet:document.btnBack.disappear(),Amulet:document.btnBackgroundLabel.disappear(),Amulet:document.btnNetLabel.disappear(),Amulet:document.refreshHideInactivate.forceUpdate(),MyUART.word(0).setValue(0x0104)</href>
+      <label Type="12" Editable="True"/>
+      <onButtonPress Type="10" Editable="True">GRAY	Depress	Gray</onButtonPress>
+      <repeatRate Type="20" Editable="True">0.00</repeatRate>
+    </CustomButton>
+    <StringField>
+      <Name Type="12">sfStaffLabel</Name>
+      <MidX Type="13">55</MidX>
+      <MidY Type="13">90</MidY>
+      <Width Type="13">116</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">RIGHT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">Staff:</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+      <abcC Type="2">True</abcC>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfStaffText</Name>
+      <MidX Type="13">300</MidX>
+      <MidY Type="13">90</MidY>
+      <Width Type="13">396</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">LEFT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(100).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%.51s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfCountTimeLabel</Name>
+      <MidX Type="13">560</MidX>
+      <MidY Type="13">90</MidY>
+      <Width Type="13">136</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">RIGHT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">Live Time:</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+      <abcC Type="2">True</abcC>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfCountTimeText</Name>
+      <MidX Type="13">710</MidX>
+      <MidY Type="13">90</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">LEFT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(102).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s sec</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfDistanceLabel</Name>
+      <MidX Type="13">55</MidX>
+      <MidY Type="13">130</MidY>
+      <Width Type="13">116</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">RIGHT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">Distance:</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+      <abcC Type="2">True</abcC>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfDistanceText</Name>
+      <MidX Type="13">250</MidX>
+      <MidY Type="13">130</MidY>
+      <Width Type="13">296</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">LEFT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(103).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s cm</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfDateLabel</Name>
+      <MidX Type="13">450</MidX>
+      <MidY Type="13">130</MidY>
+      <Width Type="13">106</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">RIGHT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">Date:</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+      <abcC Type="2">True</abcC>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfDateText</Name>
+      <MidX Type="13">645</MidX>
+      <MidY Type="13">130</MidY>
+      <Width Type="13">306</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">LEFT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(104).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI131Label</Name>
+      <MidX Type="13">300</MidX>
+      <MidY Type="13">190</MidY>
+      <Width Type="13">206</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 20PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC|UNDERLINE	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">I131</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI125Label</Name>
+      <MidX Type="13">500</MidX>
+      <MidY Type="13">190</MidY>
+      <Width Type="13">206</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 20PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC|UNDERLINE	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">I125</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI123Label</Name>
+      <MidX Type="13">700</MidX>
+      <MidY Type="13">190</MidY>
+      <Width Type="13">206</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 20PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC|UNDERLINE	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">I123</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfROILabel</Name>
+      <MidX Type="13">100</MidX>
+      <MidY Type="13">230</MidY>
+      <Width Type="13">206</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">RIGHT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">ROI (keV):</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+      <abcC Type="2">True</abcC>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI131ROI</Name>
+      <MidX Type="13">300</MidX>
+      <MidY Type="13">230</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(105).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI125ROI</Name>
+      <MidX Type="13">500</MidX>
+      <MidY Type="13">230</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(106).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI123ROI</Name>
+      <MidX Type="13">700</MidX>
+      <MidY Type="13">230</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(107).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <CustomButton>
+      <Name Type="12">btnBackgroundLabel</Name>
+      <MidX Type="13">105</MidX>
+      <MidY Type="13">270</MidY>
+      <Width Type="13">196</Width>
+      <Height Type="13">46</Height>
+      <cacheImage Type="2" Editable="True">True	True	False</cacheImage>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <downImage Type="16" Editable="True">./Images/190x40.png</downImage>
+      <upImage Type="16" Editable="True">./Images/190x40.png</upImage>
+      <alphaColor Type="11" Editable="True">#000000FF</alphaColor>
+      <buttonType Type="10" Editable="True">SPRING-LOADED	Toggle	Spring-Loaded</buttonType>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">RIGHT	Left	Center	Right</horizontalAlign>
+      <href Type="15" Editable="True">MyUART.word(0).setValue(0x0106)</href>
+      <label Type="12" Editable="True">Background:</label>
+      <onButtonPress Type="10" Editable="True">ALPHA	Depress	Gray</onButtonPress>
+      <repeatDelay Type="20" Editable="True">0.01</repeatDelay>
+      <repeatRate Type="20" Editable="True">0.00</repeatRate>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </CustomButton>
+    <StringField>
+      <Name Type="12">sfI131Background</Name>
+      <MidX Type="13">300</MidX>
+      <MidY Type="13">270</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(108).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI125Background</Name>
+      <MidX Type="13">500</MidX>
+      <MidY Type="13">270</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(109).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI123Background</Name>
+      <MidX Type="13">700</MidX>
+      <MidY Type="13">270</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(110).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <CustomButton>
+      <Name Type="12">btnNetLabel</Name>
+      <MidX Type="13">105</MidX>
+      <MidY Type="13">310</MidY>
+      <Width Type="13">196</Width>
+      <Height Type="13">46</Height>
+      <cacheImage Type="2" Editable="True">True	True	False</cacheImage>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <downImage Type="16" Editable="True">./Images/190x40.png</downImage>
+      <upImage Type="16" Editable="True">./Images/190x40.png</upImage>
+      <alphaColor Type="11" Editable="True">#000000FF</alphaColor>
+      <buttonType Type="10" Editable="True">SPRING-LOADED	Toggle	Spring-Loaded</buttonType>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">RIGHT	Left	Center	Right</horizontalAlign>
+      <href Type="15" Editable="True">MyUART.word(0).setValue(0x0107)</href>
+      <label Type="12" Editable="True">Net Counts:</label>
+      <onButtonPress Type="10" Editable="True">ALPHA	Depress	Gray</onButtonPress>
+      <repeatDelay Type="20" Editable="True">0.01</repeatDelay>
+      <repeatRate Type="20" Editable="True">0.00</repeatRate>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </CustomButton>
+    <StringField>
+      <Name Type="12">sfI131Net</Name>
+      <MidX Type="13">300</MidX>
+      <MidY Type="13">310</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(111).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI125Net</Name>
+      <MidX Type="13">500</MidX>
+      <MidY Type="13">310</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(112).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI123Net</Name>
+      <MidX Type="13">700</MidX>
+      <MidY Type="13">310</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(113).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfContaminationAdjustedLabel</Name>
+      <MidX Type="13">135</MidX>
+      <MidY Type="13">350</MidY>
+      <Width Type="13">256</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 16PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">LEFT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">Contamination Adjusted:</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI125ContaminationAdjusted</Name>
+      <MidX Type="13">500</MidX>
+      <MidY Type="13">350</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(121).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfActivityLabel</Name>
+      <MidX Type="13">100</MidX>
+      <MidY Type="13">390</MidY>
+      <Width Type="13">206</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">RIGHT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">Activity:</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+      <abcC Type="2">True</abcC>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI131Activity</Name>
+      <MidX Type="13">300</MidX>
+      <MidY Type="13">390</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(114).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI125Activity</Name>
+      <MidX Type="13">500</MidX>
+      <MidY Type="13">390</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(115).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI123Activity</Name>
+      <MidX Type="13">700</MidX>
+      <MidY Type="13">390</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(116).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfThresholdLabel</Name>
+      <MidX Type="13">100</MidX>
+      <MidY Type="13">430</MidY>
+      <Width Type="13">206</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">RIGHT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">Threshold:</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+      <abcC Type="2">True</abcC>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI131Threshold</Name>
+      <MidX Type="13">300</MidX>
+      <MidY Type="13">430</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(117).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI125Threshold</Name>
+      <MidX Type="13">500</MidX>
+      <MidY Type="13">430</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(118).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI123Threshold</Name>
+      <MidX Type="13">700</MidX>
+      <MidY Type="13">430</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(119).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI131High</Name>
+      <MidX Type="13">300</MidX>
+      <MidY Type="13">470</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">red</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">High</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI125High</Name>
+      <MidX Type="13">500</MidX>
+      <MidY Type="13">470</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">red</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">High</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfI123High</Name>
+      <MidX Type="13">700</MidX>
+      <MidY Type="13">470</MidY>
+      <Width Type="13">186</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">red</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <StringField>
+      <Name Type="12">sfCommentLabel</Name>
+      <MidX Type="13">100</MidX>
+      <MidY Type="13">510</MidY>
+      <Width Type="13">206</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD|ITALIC	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">RIGHT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:NOP()</href>
+      <initialCondition Type="12" Editable="True">Comment:</initialCondition>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+      <abcC Type="2">True</abcC>
+    </StringField>
+    <CustomButton>
+      <Name Type="12">btnComment</Name>
+      <MidX Type="13">385</MidX>
+      <MidY Type="13">510</MidY>
+      <Width Type="13">386</Width>
+      <Height Type="13">46</Height>
+      <cacheImage Type="2" Editable="True">True	True	False</cacheImage>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <downImage Type="16" Editable="True">./Images/380x40.png</downImage>
+      <upImage Type="16" Editable="True">./Images/380x40.png</upImage>
+      <alphaColor Type="11" Editable="True">#000000FF</alphaColor>
+      <buttonType Type="10" Editable="True">SPRING-LOADED	Toggle	Spring-Loaded</buttonType>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">PLAIN	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">LEFT	Left	Center	Right</horizontalAlign>
+      <href Type="15" Editable="True">MyUART.string(1).setValue('Please enter Comment:'), MyUART.byte(1).setValue(22), MyUART.byte(28).setValue(2), MyUART.byte(0).setValue(0x41), MyUART.byte(18).setValue(50)</href>
+      <initHref Type="24" Editable="True">Amulet:internalRAM.label(120).value()</initHref>
+      <label Type="12" Editable="True">FromInitHref</label>
+      <onButtonPress Type="10" Editable="True">ALPHA	Depress	Gray</onButtonPress>
+      <repeatDelay Type="20" Editable="True">0.01</repeatDelay>
+      <repeatRate Type="20" Editable="True">0.00</repeatRate>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </CustomButton>
+    <StringField>
+      <Name Type="12">sfCommentText</Name>
+      <MidX Type="13">385</MidX>
+      <MidY Type="13">510</MidY>
+      <Width Type="13">386</Width>
+      <Height Type="13">46</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <border Type="13" Editable="True">0</border>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 14PT (local)</font>
+      <fontColor Type="11" Editable="True">#000000</fontColor>
+      <fontStyle Type="18" Editable="True">PLAIN	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">LEFT	Left	Center	Right</horizontalAlign>
+      <href Type="24" Editable="True">Amulet:internalRAM.string(120).value()</href>
+      <initialCondition Type="12" Editable="True"/>
+      <printf Type="12" Editable="True">%s</printf>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </StringField>
+    <FunctionButton>
+      <Name Type="12">btnSaveAndPrint</Name>
+      <MidX Type="13">355</MidX>
+      <MidY Type="13">567</MidY>
+      <Width Type="13">256</Width>
+      <Height Type="13">56</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">green</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="15" Editable="True">Amulet:document.btnSaveAndPrint.disappear(),Amulet:document.btnSave.disappear(),Amulet:document.btnCancel.disappear(),Amulet:document.btnBackgroundLabel.disappear(),Amulet:document.btnNetLabel.disappear(),Amulet:document.btnComment.disappear(),MyUART.word(0).setValue(0x0105)</href>
+      <label Type="12" Editable="True">Save And Print</label>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </FunctionButton>
+    <FunctionButton>
+      <Name Type="12">btnSave</Name>
+      <MidX Type="13">565</MidX>
+      <MidY Type="13">567</MidY>
+      <Width Type="13">156</Width>
+      <Height Type="13">56</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">green</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="15" Editable="True">Amulet:document.btnSave.disappear(),Amulet:document.btnSaveAndPrint.disappear(),Amulet:document.btnCancel.disappear(),MyUART.word(0).setValue(0x0102)</href>
+      <label Type="12" Editable="True">Save</label>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </FunctionButton>
+    <FunctionButton>
+      <Name Type="12">btnCancel</Name>
+      <MidX Type="13">720</MidX>
+      <MidY Type="13">567</MidY>
+      <Width Type="13">156</Width>
+      <Height Type="13">56</Height>
+      <invisible Type="2" Editable="True">True	True	False</invisible>
+      <fillColor Type="11" Editable="True">#FFFFFF</fillColor>
+      <font Type="14" Editable="True">Franklin Gothic Book, 18PT (local)</font>
+      <fontColor Type="11" Editable="True">red</fontColor>
+      <fontStyle Type="18" Editable="True">BOLD	Plain	Bold	Italic	Underline	Strike</fontStyle>
+      <horizontalAlign Type="10" Editable="True">CENTER	Left	Center	Right</horizontalAlign>
+      <href Type="15" Editable="True">Amulet:document.btnCancel.disappear(),MyUART.word(0).setValue(0x0103)</href>
+      <label Type="12" Editable="True">Cancel</label>
+      <verticalAlign Type="10" Editable="True">MIDDLE	Top	Middle	Bottom</verticalAlign>
+    </FunctionButton>
+  </BODY>
+</PAGE>

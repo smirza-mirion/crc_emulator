@@ -1,0 +1,201 @@
+<!--
+	Byte
+	100 - Show Display
+	
+	String
+	100 - UserName
+	101 - Password
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_LOGIN);NAME=refreshInit">
+
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.btnUsername.forceUpdate(),
+														     Amulet:document.btnUsername.reappear(),
+														     Amulet:document.btnPassword.forceUpdate(),
+														     Amulet:document.btnPassword.reappear(),
+														     Amulet:document.btnGuest.reappear(),
+														     Amulet:document.btnAccept.reappear(),
+														     Amulet:document.btnCancel.reappear();
+														     NAME=refreshShowDisplay">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+														     Amulet:document.btnUsername.forceUpdate(),
+														     Amulet:document.btnUsername.reappear(),
+														     Amulet:document.btnPassword.forceUpdate(),
+														     Amulet:document.btnPassword.reappear(),
+														     Amulet:document.btnAccept.reappear(),
+														     Amulet:document.btnCancel.reappear();
+														     NAME=refreshShowDisplayExceptForGuest">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(102).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(102).setValue(0),
+														     Amulet:document.sfOverrideCode.forceUpdate(),
+														     Amulet:document.sfOverrideCode.reappear();
+														     NAME=refreshShowOverride">
+														     
+		<style type="text/css">
+			#backgnd1 {position:absolute;left:0;top:61;width:800;height:518}
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#username_label {position:absolute;left:0;top:150;width:0;height:0}
+			#username_text {position:absolute;left:300;top:150;width:0;height:0}
+			#password_label {position:absolute;left:0;top:220;width:0;height:0}
+			#password_text {position:absolute;left:300;top:220;width:0;height:0}
+			#override_code {position:absolute;left:300;top:290;width:0;height:0}
+			#guest {position:absolute;left:5;top:544;width:0;height:0}
+			#accept {position:absolute;left:483;top:544;width:0;height:0}
+			#cancel {position:absolute;left:641;top:544;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+		
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="Login">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="username_label">
+			<TABLE WIDTH="300" HEIGHT="40">
+				<TR>
+					<TD WIDTH="300" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>User Name:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="username_text">
+			<APPLET CODE="CustomButton.class" WIDTH="320" HEIGHT="40" Name="btnUsername">
+				<PARAM NAME="upImage" VALUE="Images/320x40.png">
+				<PARAM NAME="downImage" VALUE="Images/320x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(100).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please enter Username:'), %ConfigMaxStrLen(13), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_LOWER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_LOGIN_USERNAME)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="password_label">
+			<TABLE WIDTH="300" HEIGHT="40">
+				<TR>
+					<TD WIDTH="300" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Password:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="password_text">
+			<APPLET CODE="CustomButton.class" WIDTH="320" HEIGHT="40" Name="btnPassword">
+				<PARAM NAME="upImage" VALUE="Images/320x40.png">
+				<PARAM NAME="downImage" VALUE="Images/320x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(101).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please enter Password:'), %ConfigMaxStrLen(13), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_LOWER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_LOGIN_PASSWORD)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="override_code">
+			<APPLET CODE="Stringfield.class" WIDTH="320" HEIGHT="40" NAME="sfOverrideCode">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(102).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="updateRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="guest">
+			<APPLET CODE="FunctionButton.class" WIDTH="250" HEIGHT= "50" NAME="btnGuest">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="green">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="Login as Guest">
+				<PARAM NAME="href" VALUE="Amulet:document.btnGuest.disappear(),Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="accept">
+			<APPLET CODE="FunctionButton.class" WIDTH="154" HEIGHT= "50" NAME="btnAccept">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="green">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="Accept">
+				<PARAM NAME="href" VALUE="Amulet:document.btnAccept.disappear(),Amulet:UART.word(0).setValue(0x0103)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+
+		<DIV ID="cancel">
+			<APPLET CODE="FunctionButton.class" WIDTH="154" HEIGHT= "50" NAME="btnCancel">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="Cancel">
+				<PARAM NAME="href" VALUE="Amulet:document.btnCancel.disappear(),%Back">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

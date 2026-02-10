@@ -1,0 +1,342 @@
+/*
+*
+*	Filename:	C:\GHS\coldfire40\src\libstartup\crt0.68
+*	Date:		7/21/04
+*
+*                Language Independent Library
+*
+*       Copyright 2004 Capintec Inc.
+*
+*  The original startup code has been modified by Capintec to 
+*	incorporate our custom Hardware Initialization
+*
+*       Copyright 1983-2002 Green Hills Software,Inc.
+*
+*  This program is the property of Green Hills Software, Inc,
+*  its contents are proprietary information and no part of it
+*  is to be disclosed to anyone except employees of Green Hills
+*  Software, Inc., or as agreed in writing signed by the President
+*  of Green Hills Software, Inc.
+*
+*/
+/* crt0.68: initial C runtime startup file for Motorola 68000 family systems. */
+
+/*	!!!!!!!!!!!!!!!!!!!! NOTE NOTE NOTE NOTE !!!!!!!!!!!!!!!!!
+ *
+ * FLASH is defined in the builder file crt0flash.gpj. This option
+ * is selected when building the Bootloader program and optionally from 
+ * the default.gpj file in C:\GHS\coldfire402\lib\cf5200e when you build
+ * flashbuild.gpj
+ * 
+ * For normal (default) use when building a project to run out of RAM
+ * FLASH is undefined and in this case the cpu register initialisation 
+ * is performed in the mpserv_standard.mbs file
+ */
+//#define FLASH
+
+#if defined(EMBEDDED)
+
+#include "indsyscl.h"
+
+#if defined(__GHS_UNDERSCORE)
+#define __ghs_ind_crt0		___ghs_ind_crt0
+#define __ghs_set_errno		___ghs_set_errno
+#define __ghsend_stack		___ghsend_stack
+#define _start			__start
+#define	__ghsbegin_picbase	___ghsbegin_picbase
+#define	__ghsbegin_robase	___ghsbegin_robase
+#define	__ghsbegin_pidbase	___ghsbegin_pidbase
+#define __ghsbegin_sdabase	___ghsbegin_sdabase
+
+#define __ghs_rambootcodestart  ___ghs_rambootcodestart
+#define	__ghs_rambootcodeend    ___ghs_rambootcodeend
+#define __ghs_rombootcodestart  ___ghs_rombootcodestart
+#define __ghs_rombootcodeend    ___ghs_rombootcodeend
+
+#define __ghs_init_d2		___ghs_init_d2
+#define __ghs_init_d3		___ghs_init_d3
+#define __ghs_init_d4		___ghs_init_d4
+#define __ghs_init_d5		___ghs_init_d5
+
+
+#endif
+
+; ******************************************************************************
+; ******************************************************************************
+;
+; Clive Added these definitions for SDRAM Initialization 
+;
+IPSBARBASE	EQU 0x40000000
+
+SDRAMBASE	EQU 0x02000000
+SRAMBASE	EQU 0x20000000
+RAMSIZE		EQU 0x00010000
+;
+;RAMBAR		EQU IPSBARBASE+0x04
+;FLASHBAR	EQU IPSBARBASE+0x08
+SDCR		EQU IPSBARBASE+0x40
+DACR0		EQU IPSBARBASE+0x48
+DMR0		EQU IPSBARBASE+0x4C
+PBCDPAR		EQU IPSBARBASE+0x100050
+PFPAR		EQU IPSBARBASE+0x100051
+PEPAR		EQU IPSBARBASE+0x100052
+PJPAR		EQU IPSBARBASE+0x100054
+CONF		EQU IPSBARBASE+0x110004
+SYNCR		EQU IPSBARBASE+0x120000
+WCR		EQU IPSBARBASE+0x140000
+;
+CFMDACC		EQU 0x0401D0018
+;
+RAMBAR_INIT	EQU 0x20000001
+VBR_INIT	EQU 0x20000000
+FLASHBAR_INIT	EQU 0xFFC00001
+PFPAR_INIT	EQU 0xe0
+PEPAR_INIT	EQU 0x555f
+PJPAR_INIT	EQU 0xff
+WCR_INIT	EQU 0x0000
+SYNTH_INIT	EQU 0x7000
+;
+
+;	DCR See MCF5282UM,Table 15-4
+DCR_INIT	EQU 0x023F		;RTIM=6,RC=0x3F
+;
+;	DACR0 See MCF5282UM,Table 15-5
+DACR0_INIT	EQU 0x02001320		;BA=0x02000000,CASL=01,CBM=3,PortSize=16Bit
+DACR0_PALL	EQU 0x02001328		;As DACR0_INIT + PreCharge Bit Set
+DACR0_RFSH	EQU 0x02009320		;As DACR0_INIT + RFSH Bit Set
+DACR0_MRS	EQU 0x02009360		;As DACR0_INIT + IMRS Bit Set
+;
+;	DMR0 See MCF5282UM,Table 15-6
+DMR_INIT	EQU 0x007C0001		;BAM=0x1f,AMx=0(all access),Set Valid
+;
+;	SDRAM Mode Register Set, See MCF5282UM,Section 15.3.5, Table 15-30
+SDRAM_CASL	EQU 0x02000800	;
+;
+;
+	XREF	handle_ex	;Reference Exception Handler in main
+;
+; ******************************************************************************
+; ******************************************************************************
+#if defined(FLASH)
+	SECT	.flashboot,x
+					;__ghs_xxx symbols from linker command file
+	DC.L	__ghs_endstack-4	;Set SP = End of Stack
+	DC.L	__ghs_flashstart	;Set PC = 1st Executable Address
+	
+;Following prevents address access exceptions when executing from Internal Flash...
+					;62 Vectors Initialized with the address
+	DCB.L	0x3e,handle_ex		;of the Exception Handler defined in main
+
+
+;Flash Module Initialization Section
+	SECT	.cfmsect,x
+	DCB.L	0x6,0			;6Longs=24Bytes for CFM Initialization at Reset
+#endif
+	FILE	"crt0.68"
+	SECT	.text,x
+
+	OPT	NOLC		; do not assume _symbol is local
+
+	XREF	__dotsyscall
+	XREF	__ghsend_stack
+	WEAK	__ghsbegin_picbase	; THIS SHOULD BE A WEAK REFERENCE
+	WEAK	__ghsbegin_robase	; THIS SHOULD BE A WEAK REFERENCE
+	WEAK	__ghsbegin_pidbase	; THIS SHOULD BE A WEAK REFERENCE
+	WEAK	__ghsbegin_sdabase
+        WEAK	__ghs_rambootcodestart
+        WEAK	__ghs_rambootcodeend
+        WEAK	__ghs_rombootcodestart
+        WEAK	__ghs_rombootcodeend
+	WEAK	__ghs_init_d2
+	WEAK	__ghs_init_d3
+	WEAK	__ghs_init_d4
+	WEAK	__ghs_init_d5
+	
+		
+	XREF	__ghs_ind_crt0
+
+	XDEF	_start
+_start:
+
+; Clear the frame pointer so stack traces terminate nicely
+	SUBA.L	A6,A6			; smaller than move.w 0,a6
+;
+; First order of business is to detect whether or not the debugger ran us.
+; We do that by making a special system call that does not use the stack.
+; The code to do this is a carbon copy of the sequence in __ghs_syscall.
+; If it returns with the carry clear then somebody caught the system call.
+; Otherwise we must set the stack pointer and the PID base ourselves.
+	MOVEQ	#SYSCALL_HELLO,D1
+	LEA	didsyscall(PC),A0
+	MOVEQ	#0,D0			; return -1, errno=0 if no host
+	MOVE	#1,CCR			; set carry
+lab1:	MOVE.L	#__dotsyscall-lab1,A1	; 68000 PIC-safe jump to __dotsyscall
+	JMP	lab1(PC,A1.L)		; branch with link in A0
+didsyscall:
+;	
+; *****************************************************************************
+; *****************************************************************************
+;
+;	Clive: Basically do Register Setup like mpserv_standard.mbs
+;
+	move.w #SYNTH_INIT,d0		;Clock Synthesizer Control Register
+	move.w d0,SYNCR
+;
+	move.l #0x0,d0			;Init Cache Register - turn off cache
+	movec.l d0,CACR
+;
+	move.l #0x20000001,d0		;Setup RAMBAR to point at SRAMBASE
+	movec.l d0,RAMBAR
+;
+	move.l #0x20000000,d0		;Setup Vector Base
+	movec.l d0,VBR
+;
+	move.l #0x00000121,d0		;Setup FLASHBAR
+	movec.l d0,FLASHBAR
+;
+	move.b #0xe0,d0			;allow A21-A23 to be enabled
+	move.b d0,PFPAR
+;
+	move.b #0xff,d0			;allow BS3-BS0 and CS3-CS0 to be enabled
+	move.b d0,PJPAR
+;
+	move.w #0x555f,d0		;allow BUS SIGNALS to be enabled
+	move.w d0,PEPAR
+;
+	move.w #0x0000,d0		;Turn Off Watchdog Timer
+	move.w d0,WCR
+
+;
+#if defined(FLASH)
+;
+; SDRAM Initialization Here
+;
+; Ref: MCF5282UM, Section 15.3.6 for SDRAM Example Setup
+;
+	move.b #0x80,d0			;SDRAM Size=16-bit
+	move.b d0,PBCDPAR
+;	
+	move.w #0x023F,d0		;See MCF5282UM Table 15-4
+	move.w d0,SDCR
+;
+	move.l #0x02001320,d0		;Disable SDRAM Controller
+	move.l d0,DACR0
+;
+	move.l #0x007C0001,d0		;SDRAM Mode
+	move.l d0,DMR0
+;
+	move.l #0x02001328,d0		;Send PreCharge Command (PALL)
+	move.l d0,DACR0
+;
+	move.w #0x0,d0
+	move.w d0,0x02000000		;Write to SDRAM to Init PreCharge
+;	
+	move.l #0x02009320,d0		;Enable Refresh Command (Disable PreCharge)
+	move.l d0,DACR0
+;
+; Wait awhile for Refresh to Happen
+	move.l #0,d1
+waitref:
+	add.l #1,d1
+	cmp.l #0x200000,d1		;Clive: NOTE: Tune to reduce startup time later
+	bne waitref
+;
+	move.l #0x02009360,d0		;Issue MRS Command (IMRS)
+	move.l d0,DACR0
+;
+	move.w #0x0,d0
+	move.w d0,0x02000800		;Initiate MRS Command by writing to address
+;					 corresponding to CAS Latency
+;
+	move.l #0,d1
+waitmrs:
+	add.l #1,d1
+	cmp.l #0x80000,d1		;Clive: Wait for mrs to take effect
+	bne waitmrs
+;
+;
+; Copy the Vector Table from ROM into Vector RAM
+;
+	move.l #0,d1			;Init d1 counter
+	move.l #0,a0			;Flash Base in a0
+	move.l #VBR_INIT,a1		;VBR Base in a1
+nexvec:
+	move.l (A0)+,(A1)+		;copy the longword
+	add.l #1,d1
+	cmp.l #0x40,d1			;64 Longword Vectors
+	bne nexvec
+;
+#endif
+;
+; *****************************************************************************
+; *****************************************************************************
+;
+;	Note: this code originally followed didsyscall
+	LEA	hang(PC),A0		; DOES NOT AFFECT CARRY FLAG
+	;
+#if defined(FLASH)
+	; Clive remove unwanted Branch in ROM-Only build by setting Carry
+	MOVE	#1,CCR			; set carry
+#endif
+;
+	BCC.S	regs_okay		; host present, use SP and PID base
+	LEA	__ghsend_stack,SP	; .stack is always absolutely located.
+;
+#if defined(__motcoff)
+	LEA 	__ghsbegin_pidbase,A5   ; COFF uses pidbase
+#else
+	LEA	__ghsbegin_sdabase,A5	; .sdabase section in link map, used for PID and SDA
+#endif
+	CLR.L	-(SP)			; push 0 value for envp
+	CLR.L	-(SP)			; push 0 value for argv
+	CLR.L	-(SP)			; push 0 value for argc
+	SUBQ.L	#4,SP			; make space for return address
+	LEA	croak(PC),A0
+regs_okay:
+	LEA	baseptrs(PC),A1
+	MOVE.L	A1,(SP)			; overwrite return address
+
+; Setup SDA/PID base pointer for signed offsets - not supported on COFF
+#if !defined(__motcoff)	
+	ADDA.L	#$8000,A5
+#endif
+
+	
+; Initialize potential global registers 
+	MOVE.L	#__ghs_init_d2,D2
+	MOVE.L	#__ghs_init_d3,D3
+	MOVE.L	#__ghs_init_d4,D4
+	MOVE.L	#__ghs_init_d5,D5
+	
+; Arrange to handle the case where exit(main(...)) returns to us. (!!)
+; If we are under the debugger, hang (loop forever) so we can be halted.
+; If we are not under the debugger, croak (force a double bus fault).
+; The default _exit() function usually prevents this case from happening.
+	MOVE.L	A0,-(SP)		; give ind_crt0 our chosen return addr
+
+
+; Now do 68000 PIC-safe transfer to C startup routine (ind_crt0.c)
+lab2:	MOVE.L	#__ghs_ind_crt0-lab2,A0
+	JMP	lab2(PC,A0.L)
+
+hang:	BRA.S	hang
+
+; If __ghs_ind_crt0 returns, then something went wrong. Try to double bus fault.
+croak:	MOVE.W	#-1,SP
+	RTS
+
+baseptrs:	; this is still in .text so we can find it in all memory models
+	DC.L	1			; baseptr version number
+	DC.L	__ghsbegin_picbase	; link-time address of .text label
+	DC.L	__ghsbegin_robase	; link-time address of .rodata label
+	DC.L	__ghsbegin_pidbase	; link-time address of .data label
+	DC.L	__ghs_rambootcodestart	; link-time address of start of RAM bool code
+	DC.L	__ghs_rambootcodeend	; link-time address of end of RAM boot code
+	DC.L	__ghs_rombootcodestart	; link-time address of start of ROM boot code
+	DC.L	__ghs_rombootcodeend	; link-time address of end of ROM boot code
+	NOP				; data in code section makes 
+	NOP				; disassembly difficult so use NOP
+	NOP				; to keep disassembler in sync.
+	END
+
+#endif

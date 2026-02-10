@@ -1,0 +1,1079 @@
+<!-- Memory Map
+	Byte
+	80	= Language		(STATE) English = 0, Spanish = 1
+	
+	98 = Show Year, Month, Day, Hour, Minute, Second
+	99 = Show Year, Month, Day
+	100 = Month
+	101 = Day Tens Digit
+	102 = Day Ones Digit
+	103 = Hour Tens Digit
+	104 = Hour Ones Digit
+	105 = Minute Tens Digit
+	106 = Minute Ones Digit
+	107 = Show Year, Month, Day, Hour, Minute
+	108 = Show Hour Error
+	109 = Show Month Error
+	110 = Exit
+	111 = Second Tens Digit
+	112 = Second Ones Digit
+	
+	Word
+	96 = Year 10 lower limit
+	97 = Year 10 upper limit
+	98 = Year lower limit
+	99 = Year upper limit
+	100 = Year
+	
+	String
+	100,101 - Title
+	102 - Accept
+	103 - Cancel
+	104 - Invalid Date
+	105 - Invalid Hour
+	
+	LAUNCHES
+		%SetTime
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0, 0.01; URL=%SetScreen(%%SCREEN_TIME); NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;URL=Amulet:document.refreshShowYearLabelEnglish.forceUpdate(),
+							    Amulet:document.refreshShowYearLabelSpanish.forceUpdate();
+							    NAME=refreshShowYearLabel">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(80).value();TRIGGER=0x00;URL=Amulet:document.sfYearLabel.reappear();
+														    NAME=refreshShowYearLabelEnglish">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(80).value();TRIGGER=0x01;URL=Amulet:document.sfYearLabelSpanish.reappear();
+														    NAME=refreshShowYearLabelSpanish">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(107).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(107).setValue(0),
+														     Amulet:document.refreshShowYearLabel.forceUpdate(),
+														     Amulet:internalRAM.word(98).copyToRamWord(96),
+														     Amulet:internalRAM.word(96).add(9),
+														     Amulet:internalRAM.word(99).copyToRamWord(97),
+														     Amulet:internalRAM.word(97).sub(9),
+														     Amulet:document.nfMonth.setUpdateRate(0.01),
+														     Amulet:document.nfMonth.reappear(),
+														     Amulet:document.nfDayTen.setUpdateRate(0.01),
+														     Amulet:document.nfDayTen.reappear(),
+														     Amulet:document.nfDayOne.setUpdateRate(0.01),
+														     Amulet:document.nfDayOne.reappear(),
+														     Amulet:document.nfYear.setUpdateRate(0.01),
+														     Amulet:document.nfYear.reappear(),
+														     Amulet:document.nfHourTen.setUpdateRate(0.01),
+														     Amulet:document.nfHourTen.reappear(),
+														     Amulet:document.nfHourOne.setUpdateRate(0.01),
+														     Amulet:document.nfHourOne.reappear(),
+														     Amulet:document.nfMinuteTen.setUpdateRate(0.01),
+														     Amulet:document.nfMinuteTen.reappear(),
+														     Amulet:document.nfMinuteOne.setUpdateRate(0.01),
+														     Amulet:document.nfMinuteOne.reappear(),
+														     Amulet:document.sfColon2.disappear(),
+														     Amulet:document.btnSecondTenMinus.disappear(),
+														     Amulet:document.btnSecondTenPlus.disappear(),
+														     Amulet:document.sfSecondTenLabel.disappear(),
+														     Amulet:document.btnSecondOneMinus.disappear(),
+														     Amulet:document.btnSecondOnePlus.disappear(),
+														     Amulet:document.sfSecondOneLabel.disappear(),
+														     Amulet:document.sfTitle.forceUpdate(),
+														     Amulet:document.sfMonthError.forceUpdate(),
+														     Amulet:document.sfHourError.forceUpdate(),
+														     Amulet:document.btnAccept.forceUpdate(),
+														     Amulet:document.btnCancel.forceUpdate();
+														     NAME=refreshShowDateTime">
+								 
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(108).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(108).setValue(0),
+															 Amulet:document.btnAccept.reappear(),
+															 Amulet:document.sfHourError.reappear();
+		                                                                                                         NAME=refreshShowHourError">
+															 
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(109).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(109).setValue(0),
+															 Amulet:document.btnAccept.reappear(),
+															 Amulet:document.sfMonthError.reappear();
+		                                                                                                         NAME=refreshShowMonthError">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(99).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(99).setValue(0),
+														    Amulet:document.refreshShowYearLabel.forceUpdate(),
+														    Amulet:internalRAM.word(98).copyToRamWord(96),
+														    Amulet:internalRAM.word(96).add(9),
+														    Amulet:internalRAM.word(99).copyToRamWord(97),
+														    Amulet:internalRAM.word(97).sub(9),
+														    Amulet:document.nfMonth.setUpdateRate(0.01),
+														    Amulet:document.nfMonth.reappear(),
+														    Amulet:document.nfDayTen.setUpdateRate(0.01),
+														    Amulet:document.nfDayTen.reappear(),
+														    Amulet:document.nfDayOne.setUpdateRate(0.01),
+														    Amulet:document.nfDayOne.reappear(),
+														    Amulet:document.nfYear.setUpdateRate(0.01),
+														    Amulet:document.nfYear.reappear(),
+														    Amulet:document.btnHourTenMinus.disappear(),
+														    Amulet:document.btnHourTenPlus.disappear(),
+														    Amulet:document.sfHourTenLabel.disappear(),
+														    Amulet:document.btnHourOneMinus.disappear(),
+														    Amulet:document.btnHourOnePlus.disappear(),
+														    Amulet:document.sfHourOneLabel.disappear(),
+														    Amulet:document.sfColon1.disappear(),
+														    Amulet:document.btnMinuteTenMinus.disappear(),
+														    Amulet:document.btnMinuteTenPlus.disappear(),
+														    Amulet:document.sfMinuteTenLabel.disappear(),
+														    Amulet:document.btnMinuteOneMinus.disappear(),
+														    Amulet:document.btnMinuteOnePlus.disappear(),
+														    Amulet:document.sfMinuteOneLabel.disappear(),
+														    Amulet:document.sfColon2.disappear(),
+														    Amulet:document.btnSecondTenMinus.disappear(),
+														    Amulet:document.btnSecondTenPlus.disappear(),
+														    Amulet:document.sfSecondTenLabel.disappear(),
+														    Amulet:document.btnSecondOneMinus.disappear(),
+														    Amulet:document.btnSecondOnePlus.disappear(),
+														    Amulet:document.sfSecondOneLabel.disappear(),
+														    Amulet:document.sfTitle.forceUpdate(),
+														    Amulet:document.sfMonthError.forceUpdate(),
+														    Amulet:document.sfHourError.forceUpdate(),
+														    Amulet:document.btnAccept.forceUpdate(),
+														    Amulet:document.btnCancel.forceUpdate();
+														    NAME=refreshShowDate">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(98).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(98).setValue(0),
+														     Amulet:document.refreshShowYearLabel.forceUpdate(),
+														     Amulet:internalRAM.word(98).copyToRamWord(96),
+														     Amulet:internalRAM.word(96).add(9),
+														     Amulet:internalRAM.word(99).copyToRamWord(97),
+														     Amulet:internalRAM.word(97).sub(9),
+														     Amulet:document.nfMonth.setUpdateRate(0.01),
+														     Amulet:document.nfMonth.reappear(),
+														     Amulet:document.nfDayTen.setUpdateRate(0.01),
+														     Amulet:document.nfDayTen.reappear(),
+														     Amulet:document.nfDayOne.setUpdateRate(0.01),
+														     Amulet:document.nfDayOne.reappear(),
+														     Amulet:document.nfYear.setUpdateRate(0.01),
+														     Amulet:document.nfYear.reappear(),
+														     Amulet:document.nfHourTen.setUpdateRate(0.01),
+														     Amulet:document.nfHourTen.reappear(),
+														     Amulet:document.nfHourOne.setUpdateRate(0.01),
+														     Amulet:document.nfHourOne.reappear(),
+														     Amulet:document.nfMinuteTen.setUpdateRate(0.01),
+														     Amulet:document.nfMinuteTen.reappear(),
+														     Amulet:document.nfMinuteOne.setUpdateRate(0.01),
+														     Amulet:document.nfMinuteOne.reappear(),
+														     Amulet:document.nfSecondTen.setUpdateRate(0.01),
+														     Amulet:document.nfSecondTen.reappear(),
+														     Amulet:document.nfSecondOne.setUpdateRate(0.01),
+														     Amulet:document.nfSecondOne.reappear(),
+														     Amulet:document.sfTitle.forceUpdate(),
+														     Amulet:document.sfMonthError.forceUpdate(),
+														     Amulet:document.sfHourError.forceUpdate(),
+														     Amulet:document.btnAccept.forceUpdate(),
+														     Amulet:document.btnCancel.forceUpdate();
+														     NAME=refreshShowDateTimeSec">
+															 
+		<!--META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(100).value();TRIGGER.LT=2030;URL=Amulet:internalRAM.word(100).inc();NAME=refreshIncYear">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(100).value();TRIGGER.NEQ=1970;URL=Amulet:internalRAM.word(100).dec();NAME=refreshDecYear"-->
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(100).value();TRIGGER.LT=Amulet:internalRAM.word(99).value();URL=Amulet:internalRAM.word(100).inc();NAME=refreshIncYear">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(100).value();TRIGGER.LT=Amulet:internalRAM.word(97).value();URL=Amulet:internalRAM.word(100).add(10);NAME=refreshIncYear10">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(100).value();TRIGGER.NEQ=Amulet:internalRAM.word(98).value();URL=Amulet:internalRAM.word(100).dec();NAME=refreshDecYear">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(100).value();TRIGGER.GT=Amulet:internalRAM.word(96).value();URL=Amulet:internalRAM.word(100).sub(10);NAME=refreshDecYear10">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER.LT=12;URL=Amulet:internalRAM.byte(100).inc();NAME=refreshIncMonth">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=12;URL=Amulet:internalRAM.byte(100).setValue(1);NAME=refreshIncBarMonth">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER.NEQ=1;URL=Amulet:internalRAM.byte(100).dec();NAME=refreshDecMonth">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=1;URL=Amulet:internalRAM.byte(100).setValue(12);NAME=refreshDecBarMonth">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER.LT=3;URL=Amulet:internalRAM.byte(101).inc();NAME=refreshIncDayTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=3;URL=Amulet:internalRAM.byte(101).setValue(0);NAME=refreshIncBarDayTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER.NEQ=0;URL=Amulet:internalRAM.byte(101).dec();NAME=refreshDecDayTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0;URL=Amulet:internalRAM.byte(101).setValue(3);NAME=refreshDecBarDayTen">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(102).value();TRIGGER.LT=9;URL=Amulet:internalRAM.byte(102).inc();NAME=refreshIncDayOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(102).value();TRIGGER=9;URL=Amulet:internalRAM.byte(102).setValue(0);NAME=refreshIncBarDayOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(102).value();TRIGGER.NEQ=0;URL=Amulet:internalRAM.byte(102).dec();NAME=refreshDecDayOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(102).value();TRIGGER=0;URL=Amulet:internalRAM.byte(102).setValue(9);NAME=refreshDecBarDayOne">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(103).value();TRIGGER.LT=2;URL=Amulet:internalRAM.byte(103).inc();NAME=refreshIncHourTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(103).value();TRIGGER=2;URL=Amulet:internalRAM.byte(103).setValue(0);NAME=refreshIncBarHourTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(103).value();TRIGGER.NEQ=0;URL=Amulet:internalRAM.byte(103).dec();NAME=refreshDecHourTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(103).value();TRIGGER=0;URL=Amulet:internalRAM.byte(103).setValue(2);NAME=refreshDecBarHourTen">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(104).value();TRIGGER.LT=9;URL=Amulet:internalRAM.byte(104).inc();NAME=refreshIncHourOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(104).value();TRIGGER=9;URL=Amulet:internalRAM.byte(104).setValue(0);NAME=refreshIncBarHourOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(104).value();TRIGGER.NEQ=0;URL=Amulet:internalRAM.byte(104).dec();NAME=refreshDecHourOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(104).value();TRIGGER=0;URL=Amulet:internalRAM.byte(104).setValue(9);NAME=refreshDecBarHourOne">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(105).value();TRIGGER.LT=5;URL=Amulet:internalRAM.byte(105).inc();NAME=refreshIncMinuteTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(105).value();TRIGGER=5;URL=Amulet:internalRAM.byte(105).setValue(0);NAME=refreshIncBarMinuteTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(105).value();TRIGGER.NEQ=0;URL=Amulet:internalRAM.byte(105).dec();NAME=refreshDecMinuteTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(105).value();TRIGGER=0;URL=Amulet:internalRAM.byte(105).setValue(5);NAME=refreshDecBarMinuteTen">
+
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(106).value();TRIGGER.LT=9;URL=Amulet:internalRAM.byte(106).inc();NAME=refreshIncMinuteOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(106).value();TRIGGER=9;URL=Amulet:internalRAM.byte(106).setValue(0);NAME=refreshIncBarMinuteOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(106).value();TRIGGER.NEQ=0;URL=Amulet:internalRAM.byte(106).dec();NAME=refreshDecMinuteOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(106).value();TRIGGER=0;URL=Amulet:internalRAM.byte(106).setValue(9);NAME=refreshDecBarMinuteOne">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(111).value();TRIGGER.LT=5;URL=Amulet:internalRAM.byte(111).inc();NAME=refreshIncSecondTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(111).value();TRIGGER=5;URL=Amulet:internalRAM.byte(111).setValue(0);NAME=refreshIncBarSecondTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(111).value();TRIGGER.NEQ=0;URL=Amulet:internalRAM.byte(111).dec();NAME=refreshDecSecondTen">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(111).value();TRIGGER=0;URL=Amulet:internalRAM.byte(111).setValue(5);NAME=refreshDecBarSecondTen">
+
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(112).value();TRIGGER.LT=9;URL=Amulet:internalRAM.byte(112).inc();NAME=refreshIncSecondOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(112).value();TRIGGER=9;URL=Amulet:internalRAM.byte(112).setValue(0);NAME=refreshIncBarSecondOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(112).value();TRIGGER.NEQ=0;URL=Amulet:internalRAM.byte(112).dec();NAME=refreshDecSecondOne">
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(112).value();TRIGGER=0;URL=Amulet:internalRAM.byte(112).setValue(9);NAME=refreshDecBarSecondOne">
+
+		<style type="text/css">
+			#background {position:absolute;left:0;top:0;height:600;width:800}
+			#title {position:absolute;left:5;top:0;height:0;width:0}
+			
+			#year_label {position:absolute;left:55;top:165;width:0;height:0}
+			#year_plus10 {position:absolute;left:55;top:205;width:0;height:0}
+			#year_plus {position:absolute;left:110;top:205;width:0;height:0}
+			#year {position:absolute;left:55;top:275;width:0;height:0}
+			#year_minus {position:absolute;left:110;top:325;width:0;height:0}
+			#year_minus10 {position:absolute;left:55;top:325;width:0;height:0}
+			
+			#slash1 {position:absolute;left:160;top:275;width:0;height:0}
+			
+			#month_label {position:absolute;left:175;top:165;width:0;height:0}
+			#month_plus {position:absolute;left:175;top:205;width:0;height:0}
+			#month {position:absolute;left:175;top:275;width:0;height:0}
+			#month_minus {position:absolute;left:175;top:325;width:0;height:0}
+			#month_error {position:absolute;left:55;top:400;width:0;height:0}
+			
+			#slash2 {position:absolute;left:245;top:275;width:0;height:0}
+			
+			#day_ten_label {position:absolute;left:260;top:165;width:0;height:0}
+			#day_ten_plus {position:absolute;left:260;top:205;width:0;height:0}
+			#day_ten {position:absolute;left:260;top:275;width:0;height:0}
+			#day_ten_minus {position:absolute;left:260;top:325;width:0;height:0}
+			
+			#day_one_label {position:absolute;left:330;top:165;width:0;height:0}
+			#day_one_plus {position:absolute;left:330;top:205;width:0;height:0}
+			#day_one {position:absolute;left:330;top:275;width:0;height:0}
+			#day_one_minus {position:absolute;left:330;top:325;width:0;height:0}
+			
+			#hour_ten_label {position:absolute;left:450;top:165;width:0;height:0}
+			#hour_ten_plus {position:absolute;left:450;top:205;width:0;height:0}
+			#hour_ten {position:absolute;left:450;top:275;width:0;height:0}
+			#hour_ten_minus {position:absolute;left:450;top:325;width:0;height:0}
+			#hour_error {position:absolute;left:450;top:400;width:0;height:0}
+			
+			#hour_one_label {position:absolute;left:500;top:165;width:0;height:0}
+			#hour_one_plus {position:absolute;left:500;top:205;width:0;height:0}
+			#hour_one {position:absolute;left:500;top:275;width:0;height:0}
+			#hour_one_minus {position:absolute;left:500;top:325;width:0;height:0}
+			
+			#colon1 {position:absolute;left:550;top:275;width:0;height:0}
+			
+			#minute_ten_label {position:absolute;left:565;top:165;width:0;height:0}
+			#minute_ten_plus {position:absolute;left:565;top:205;width:0;height:0}
+			#minute_ten {position:absolute;left:565;top:275;width:0;height:0}
+			#minute_ten_minus {position:absolute;left:565;top:325;width:0;height:0}
+			
+			#minute_one_label {position:absolute;left:615;top:165;width:0;height:0}
+			#minute_one_plus {position:absolute;left:615;top:205;width:0;height:0}
+			#minute_one {position:absolute;left:615;top:275;width:0;height:0}
+			#minute_one_minus {position:absolute;left:615;top:325;width:0;height:0}
+			
+			#colon2 {position:absolute;left:665;top:275;width:0;height:0}
+			
+			#second_ten_label {position:absolute;left:680;top:165;width:0;height:0}
+			#second_ten_plus {position:absolute;left:680;top:205;width:0;height:0}
+			#second_ten {position:absolute;left:680;top:275;width:0;height:0}
+			#second_ten_minus {position:absolute;left:680;top:325;width:0;height:0}
+			
+			#second_one_label {position:absolute;left:730;top:165;width:0;height:0}
+			#second_one_plus {position:absolute;left:730;top:205;width:0;height:0}
+			#second_one {position:absolute;left:730;top:275;width:0;height:0}
+			#second_one_minus {position:absolute;left:730;top:325;width:0;height:0}
+			
+			#accept {position:absolute;left:483;top:533;width:0;height:0}
+			#cancel {position:absolute;left:641;top:533;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="background" STYLE="background-color:black">
+		</DIV>
+	
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="790" HEIGHT="60" NAME="sfTitle">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#000030">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="BOTTOM">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(100).value()">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontColor" VALUE="#FFFF30">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="updateRate" VALUE="0.0">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="month_label">
+			<APPLET CODE="StringField.class" WIDTH="70" HEIGHT="50" NAME="sfMonthLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="mm">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="month_plus">
+			<APPLET CODE="FunctionButton.class" WIDTH="70" HEIGHT="70" NAME="btnMonthPlus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="+">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshIncMonth.forceUpdate(),Amulet:document.refreshIncBarMonth.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="month">
+			<APPLET CODE="NumericField.class" WIDTH="70" HEIGHT="50" NAME="nfMonth">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="max" VALUE="12">
+				<PARAM NAME="maxFld" VALUE="12">
+				<PARAM NAME="min" VALUE="1">
+				<PARAM NAME="minFld" VALUE="1">
+				<PARAM NAME="printf" VALUE="%2i">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.byte(100).value()">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="month_minus">
+			<APPLET CODE="FunctionButton.class" WIDTH="70" HEIGHT="70" NAME="btnMonthMinus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="-">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshDecMonth.forceUpdate(),Amulet:document.refreshDecBarMonth.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="month_error">
+			<APPLET CODE="StringField.class" WIDTH="350" HEIGHT="50" NAME="sfMonthError">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FF0000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(104).value()">
+				<!--PARAM NAME="href" VALUE="Amulet:NOP()"-->
+				<!--PARAM NAME="initialCondition" VALUE="Invalid Day"-->
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="slash1">
+			<APPLET CODE="StringField.class" WIDTH="15" HEIGHT="50" NAME="sfSlash1">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="/">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="day_ten_label">
+			<APPLET CODE="StringField.class" WIDTH="70" HEIGHT="50" NAME="sfDayTenLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="d">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="day_ten_plus">
+			<APPLET CODE="FunctionButton.class" WIDTH="70" HEIGHT="70" NAME="btnDayTenPlus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="+">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshIncDayTen.forceUpdate(),Amulet:document.refreshIncBarDayTen.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="day_ten">
+			<APPLET CODE="NumericField.class" WIDTH="70" HEIGHT="50" NAME="nfDayTen">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="max" VALUE="3">
+				<PARAM NAME="maxFld" VALUE="3">
+				<PARAM NAME="min" VALUE="0">
+				<PARAM NAME="minFld" VALUE="0">
+				<PARAM NAME="printf" VALUE="%1i">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.byte(101).value()">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="day_ten_minus">
+			<APPLET CODE="FunctionButton.class" WIDTH="70" HEIGHT="70" NAME="btnDayTenMinus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="-">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshDecDayTen.forceUpdate(),Amulet:document.refreshDecBarDayTen.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="day_one_label">
+			<APPLET CODE="StringField.class" WIDTH="70" HEIGHT="50" NAME="sfDayOneLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="d">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="day_one_plus">
+			<APPLET CODE="FunctionButton.class" WIDTH="70" HEIGHT="70" NAME="btnDayOnePlus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="+">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshIncDayOne.forceUpdate(),Amulet:document.refreshIncBarDayOne.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="day_one">
+			<APPLET CODE="NumericField.class" WIDTH="70" HEIGHT="50" NAME="nfDayOne">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="max" VALUE="9">
+				<PARAM NAME="maxFld" VALUE="9">
+				<PARAM NAME="min" VALUE="0">
+				<PARAM NAME="minFld" VALUE="0">
+				<PARAM NAME="printf" VALUE="%1i">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.byte(102).value()">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="day_one_minus">
+			<APPLET CODE="FunctionButton.class" WIDTH="70" HEIGHT="70" NAME="btnDayOneMinus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="-">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshDecDayOne.forceUpdate(),Amulet:document.refreshDecBarDayOne.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="slash2">
+			<APPLET CODE="StringField.class" WIDTH="15" HEIGHT="50" NAME="sfSlash2">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="/">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="year_label">
+			<APPLET CODE="StringField.class" WIDTH="105" HEIGHT="50" NAME="sfYearLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="yyyy">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="year_label">
+			<APPLET CODE="StringField.class" WIDTH="105" HEIGHT="50" NAME="sfYearLabelSpanish">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="aaaa">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="year_plus10">
+			<APPLET CODE="FunctionButton.class" WIDTH="55" HEIGHT="70" NAME="btnYearPlus10">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="+10">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshIncYear10.forceUpdate()">
+			</APPLET>
+		</DIV>
+		<DIV ID="year_plus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnYearPlus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="+">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshIncYear.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="year">
+			<APPLET CODE="NumericField.class" WIDTH="105" HEIGHT="50" NAME="nfYear">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="max" VALUE="2100">
+				<PARAM NAME="maxFld" VALUE="2100">
+				<PARAM NAME="min" VALUE="1900">
+				<PARAM NAME="minFld" VALUE="1900">
+				<PARAM NAME="printf" VALUE="%4i">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.word(100).value()">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="year_minus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnYearMinus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="-">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshDecYear.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="year_minus10">
+			<APPLET CODE="FunctionButton.class" WIDTH="55" HEIGHT="70" NAME="btnYearMinus10">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="-10">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshDecYear10.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="hour_ten_label">
+			<APPLET CODE="StringField.class" WIDTH="50" HEIGHT="50" NAME="sfHourTenLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="h">
+			</APPLET>
+		</DIV>
+		<DIV ID="hour_ten_plus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnHourTenPlus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="+">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshIncHourTen.forceUpdate(),Amulet:document.refreshIncBarHourTen.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="hour_ten">
+			<APPLET CODE="NumericField.class" WIDTH="50" HEIGHT="50" NAME="nfHourTen">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="max" VALUE="2">
+				<PARAM NAME="maxFld" VALUE="2">
+				<PARAM NAME="min" VALUE="0">
+				<PARAM NAME="minFld" VALUE="0">
+				<PARAM NAME="printf" VALUE="%1i">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.byte(103).value()">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="hour_ten_minus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnHourTenMinus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="-">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshDecHourTen.forceUpdate(),Amulet:document.refreshDecBarHourTen.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="hour_one_label">
+			<APPLET CODE="StringField.class" WIDTH="50" HEIGHT="50" NAME="sfHourOneLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="h">
+			</APPLET>
+		</DIV>
+		<DIV ID="hour_one_plus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnHourOnePlus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="+">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshIncHourOne.forceUpdate(),Amulet:document.refreshIncBarHourOne.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="hour_one">
+			<APPLET CODE="NumericField.class" WIDTH="50" HEIGHT="50" NAME="nfHourOne">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="max" VALUE="9">
+				<PARAM NAME="maxFld" VALUE="9">
+				<PARAM NAME="min" VALUE="0">
+				<PARAM NAME="minFld" VALUE="0">
+				<PARAM NAME="printf" VALUE="%1i">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.byte(104).value()">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="hour_one_minus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnHourOneMinus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="-">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshDecHourOne.forceUpdate(),Amulet:document.refreshDecBarHourOne.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="hour_error">
+			<APPLET CODE="StringField.class" WIDTH="350" HEIGHT="50" NAME="sfHourError">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FF0000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="printf" VALUE="%s">
+				<!--PARAM NAME="href" VALUE="Amulet:NOP()"-->
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(105).value()">
+				<!--PARAM NAME="initialCondition" VALUE="Invalid Hour"-->
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="colon1">
+			<APPLET CODE="StringField.class" WIDTH="15" HEIGHT="50" NAME="sfColon1">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE=":">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="minute_ten_label">
+			<APPLET CODE="StringField.class" WIDTH="50" HEIGHT="50" NAME="sfMinuteTenLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="updateRate" VALUE="0.0,0.00">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="m">
+			</APPLET>
+		</DIV>
+		<DIV ID="minute_ten_plus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnMinuteTenPlus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="+">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshIncMinuteTen.forceUpdate(),Amulet:document.refreshIncBarMinuteTen.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="minute_ten">
+			<APPLET CODE="NumericField.class" WIDTH="50" HEIGHT="50" NAME="nfMinuteTen">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="max" VALUE="5">
+				<PARAM NAME="maxFld" VALUE="5">
+				<PARAM NAME="min" VALUE="0">
+				<PARAM NAME="minFld" VALUE="0">
+				<PARAM NAME="printf" VALUE="%1i">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.byte(105).value()">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="minute_ten_minus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnMinuteTenMinus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="-">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshDecMinuteTen.forceUpdate(),Amulet:document.refreshDecBarMinuteTen.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="minute_one_label">
+			<APPLET CODE="StringField.class" WIDTH="50" HEIGHT="50" NAME="sfMinuteOneLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="m">
+			</APPLET>
+		</DIV>
+		<DIV ID="minute_one_plus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnMinuteOnePlus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="+">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshIncMinuteOne.forceUpdate(),Amulet:document.refreshIncBarMinuteOne.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="minute_one">
+			<APPLET CODE="NumericField.class" WIDTH="50" HEIGHT="50" NAME="nfMinuteOne">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="max" VALUE="9">
+				<PARAM NAME="maxFld" VALUE="9">
+				<PARAM NAME="min" VALUE="0">
+				<PARAM NAME="minFld" VALUE="0">
+				<PARAM NAME="printf" VALUE="%1i">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.byte(106).value()">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="minute_one_minus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnMinuteOneMinus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="-">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshDecMinuteOne.forceUpdate(),Amulet:document.refreshDecBarMinuteOne.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="colon2">
+			<APPLET CODE="StringField.class" WIDTH="15" HEIGHT="50" NAME="sfColon2">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE=":">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="second_ten_label">
+			<APPLET CODE="StringField.class" WIDTH="50" HEIGHT="50" NAME="sfSecondTenLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="updateRate" VALUE="0.0,0.00">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="s">
+			</APPLET>
+		</DIV>
+		<DIV ID="second_ten_plus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnSecondTenPlus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="+">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshIncSecondTen.forceUpdate(),Amulet:document.refreshIncBarSecondTen.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="second_ten">
+			<APPLET CODE="NumericField.class" WIDTH="50" HEIGHT="50" NAME="nfSecondTen">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="max" VALUE="5">
+				<PARAM NAME="maxFld" VALUE="5">
+				<PARAM NAME="min" VALUE="0">
+				<PARAM NAME="minFld" VALUE="0">
+				<PARAM NAME="printf" VALUE="%1i">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.byte(111).value()">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="second_ten_minus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnSecondTenMinus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="-">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshDecSecondTen.forceUpdate(),Amulet:document.refreshDecBarSecondTen.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="second_one_label">
+			<APPLET CODE="StringField.class" WIDTH="50" HEIGHT="50" NAME="sfSecondOneLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="s">
+			</APPLET>
+		</DIV>
+		<DIV ID="second_one_plus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnSecondOnePlus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="+">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshIncSecondOne.forceUpdate(),Amulet:document.refreshIncBarSecondOne.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="second_one">
+			<APPLET CODE="NumericField.class" WIDTH="50" HEIGHT="50" NAME="nfSecondOne">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="max" VALUE="9">
+				<PARAM NAME="maxFld" VALUE="9">
+				<PARAM NAME="min" VALUE="0">
+				<PARAM NAME="minFld" VALUE="0">
+				<PARAM NAME="printf" VALUE="%1i">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.byte(112).value()">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="second_one_minus">
+			<APPLET CODE="FunctionButton.class" WIDTH="50" HEIGHT="70" NAME="btnSecondOneMinus">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="26pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="-">
+				<PARAM NAME="href" VALUE="%Beep,Amulet:document.refreshDecSecondOne.forceUpdate(),Amulet:document.refreshDecBarSecondOne.forceUpdate()">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="accept">
+			<APPLET CODE="FunctionButton.class" WIDTH="154" HEIGHT="62" NAME="btnAccept">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="green">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(102).value()">
+				<PARAM NAME="href" VALUE="Amulet:document.btnAccept.disappear(),
+							  Amulet:document.sfMonthError.disappear(),
+							  Amulet:document.sfHourError.disappear(),
+							  Amulet:UART.word(0x01).setValue(Amulet:internalRAM.word(100).value()),
+							  Amulet:UART.byte(0x07).setValue(Amulet:internalRAM.byte(100).value()),
+							  Amulet:UART.byte(0x08).setValue(Amulet:internalRAM.byte(102).value()),
+							  Amulet:UART.byte(0x09).setValue(Amulet:internalRAM.byte(101).value()),
+							  Amulet:UART.byte(0x0A).setValue(Amulet:internalRAM.byte(104).value()),
+							  Amulet:UART.byte(0x0B).setValue(Amulet:internalRAM.byte(103).value()),
+							  Amulet:UART.byte(0x0C).setValue(Amulet:internalRAM.byte(106).value()),
+							  Amulet:UART.byte(0x0D).setValue(Amulet:internalRAM.byte(105).value()),
+							  Amulet:UART.byte(0x28).setValue(Amulet:internalRAM.byte(112).value()),
+							  Amulet:UART.byte(0x29).setValue(Amulet:internalRAM.byte(111).value()),
+							  Amulet:UART.word(0).setValue(0x0102)">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="cancel">
+			<APPLET CODE="FunctionButton.class" WIDTH="154" HEIGHT="62" NAME="btnCancel">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(103).value()">
+				<PARAM NAME="href" VALUE="Amulet:document.btnCancel.disappear(),%Back">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

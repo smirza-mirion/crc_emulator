@@ -1,0 +1,796 @@
+<!--
+	Word
+	90 - sfDetector, btnDetector
+	91 - btnStart
+	92 - btnStopCal
+	93 - sfFirst, sfFirstPercent, sfSecond, sfSecondPercent, sfThird, sfThirdPercent, sfFourth, sfFourthPercent, sfFifth, sfFifthPercent
+	94 - btnLinearity
+	95 - btnStopLin
+	96 - btnAccept
+	97 - btnCancel
+	98 - Show Buttons
+	100 - Display Graph
+	101 - Display Value
+
+	String
+	95 - Start Label
+	96 - Start2 Label
+	97 - Channels
+	98 - HV
+	99 - Threshold
+	101 - Gain1
+	102 - Gain2
+	103 - Zero
+	104 - Ymax
+	105 - Threshold
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_WELL_AUTOCALIBRATE);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(90).value();TRIGGER=0xFFFF;URL=Amulet:document.btnDetector.reappear();
+														     NAME=refreshShowDetector">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(90).value();TRIGGER.NEQ=0xFFFF;URL=Amulet:document.btnDetector.disappear();
+															 NAME=refreshHideDetector">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(91).value();TRIGGER=0xFFFF;URL=Amulet:document.btnStart.forceUpdate(),
+														     Amulet:document.btnStart.reappear();
+														     NAME=refreshShowStart">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(91).value();TRIGGER.NEQ=0xFFFF;URL=Amulet:document.btnStart.disappear();
+															 NAME=refreshHideStart">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(92).value();TRIGGER=0xFFFF;URL=Amulet:document.btnStart2.forceUpdate(),
+														     Amulet:document.btnStart2.reappear();
+														     NAME=refreshShowStart2">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(92).value();TRIGGER.NEQ=0xFFFF;URL=Amulet:document.btnStart2.disappear();
+															 NAME=refreshHideStart2">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(93).value();TRIGGER=0xFFFF;URL=Amulet:document.btnStopCal.reappear();
+														     NAME=refreshShowStopCal">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(93).value();TRIGGER.NEQ=0xFFFF;URL=Amulet:document.btnStopCal.disappear();
+														     	 NAME=refreshHideStopCal">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(94).value();TRIGGER=0xFFFF;URL=Amulet:document.sfFirst.forceUpdate(),
+														     Amulet:document.sfFirst.reappear(),
+														     Amulet:document.sfFirstPercent.forceUpdate(),
+														     Amulet:document.sfFirstPercent.reappear(),
+														     Amulet:document.sfSecond.forceUpdate(),
+														     Amulet:document.sfSecond.reappear(),
+														     Amulet:document.sfSecondPercent.forceUpdate(),
+														     Amulet:document.sfSecondPercent.reappear(),
+														     Amulet:document.sfThird.forceUpdate(),
+														     Amulet:document.sfThird.reappear(),
+														     Amulet:document.sfThirdPercent.forceUpdate(),
+														     Amulet:document.sfThirdPercent.reappear(),
+														     Amulet:document.sfFourth.forceUpdate(),
+														     Amulet:document.sfFourth.reappear(),
+														     Amulet:document.sfFourthPercent.forceUpdate(),
+														     Amulet:document.sfFourthPercent.reappear(),
+														     Amulet:document.sfFifth.forceUpdate(),
+														     Amulet:document.sfFifth.reappear(),
+														     Amulet:document.sfFifthPercent.forceUpdate(),
+														     Amulet:document.sfFifthPercent.reappear();
+														     NAME=refreshShowOneToFiveLine">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(94).value();TRIGGER.NEQ=0xFFFF;URL=Amulet:document.sfFirst.disappear(),
+															 Amulet:document.sfFirstPercent.disappear(),
+															 Amulet:document.sfSecond.disappear(),
+															 Amulet:document.sfSecondPercent.disappear(),
+															 Amulet:document.sfThird.disappear(),
+															 Amulet:document.sfThirdPercent.disappear(),
+															 Amulet:document.sfFourth.disappear(),
+															 Amulet:document.sfFourthPercent.disappear(),
+															 Amulet:document.sfFifth.disappear(),
+															 Amulet:document.sfFifthPercent.disappear();
+															 NAME=refreshHideOneToFiveLine">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(95).value();TRIGGER=0xFFFF;URL=Amulet:document.btnLinearity.reappear();
+														     NAME=refreshShowLinearity">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(95).value();TRIGGER.NEQ=0xFFFF;URL=Amulet:document.btnLinearity.disappear();
+														     	 NAME=refreshHideLinearity">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(96).value();TRIGGER=0xFFFF;URL=Amulet:document.btnStopLin.reappear();
+														     NAME=refreshShowStopLin">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(96).value();TRIGGER.NEQ=0xFFFF;URL=Amulet:document.btnStopLin.disappear();
+														     NAME=refreshHideStopLin">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(97).value();TRIGGER=0xFFFF;URL=Amulet:document.btnAccept.reappear();
+														     NAME=refreshShowAccept">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(97).value();TRIGGER.NEQ=0xFFFF;URL=Amulet:document.btnAccept.disappear();
+														     	 NAME=refreshHideAccept">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(98).value();TRIGGER=0xFFFF;URL=Amulet:document.btnCancel.reappear();
+														     NAME=refreshShowCancel">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.word(98).value();TRIGGER.NEQ=0xFFFF;URL=Amulet:document.btnCancel.disappear();
+														     	 NAME=refreshHideCancel">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.word(99).value();TRIGGER=0xFFFF;URL=Amulet:internalRAM.word(99).setValue(0),
+														      Amulet:document.refreshShowDetector.forceUpdate(),
+														      Amulet:document.refreshShowStart.forceUpdate(),
+														      Amulet:document.refreshShowStart2.forceUpdate(),
+														      Amulet:document.refreshShowStopCal.forceUpdate(),
+														      Amulet:document.refreshHideStopCal.forceUpdate(),
+														      Amulet:document.refreshShowOneToFiveLine.forceUpdate(),
+														      Amulet:document.refreshShowLinearity.forceUpdate(),
+														      Amulet:document.refreshShowStopLin.forceUpdate(),
+														      Amulet:document.refreshHideStopLin.forceUpdate(),
+														      Amulet:document.refreshShowAccept.forceUpdate(),
+														      Amulet:document.refreshShowCancel.forceUpdate();
+														      NAME=refreshShowButtons">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.word(100).value();TRIGGER=0xFFFF;URL=Amulet:internalRAM.word(100).setValue(0),
+														       Amulet:document.sfChannels.forceUpdate(),
+														       Amulet:document.sfHV.forceUpdate(),
+														       Amulet:document.sfThreshold.forceUpdate(),
+														       Amulet:document.sfGain1.forceUpdate(),
+														       Amulet:document.sfZero.forceUpdate(),
+														       Amulet:document.sfDetector.forceUpdate();
+														       NAME=refreshDisplay">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.word(101).value();TRIGGER=0xFFFF;URL=Amulet:internalRAM.word(101).setValue(0),
+														       Amulet:document.sfYMax.forceUpdate();
+														       NAME=refreshUpdateYMax">
+														       
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.word(102).value();TRIGGER=0xFFFF;URL=Amulet:internalRAM.word(102).setValue(0),
+														       Amulet:document.sfThresholdCalc.reappear();
+														       NAME=refreshShowThresholdCalc">
+														       
+		<!--META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.word(103).value();TRIGGER=0xFFFF;URL=Amulet:internalRAM.word(103).setValue(0),
+														       Amulet:document.btnStopCal.disappear(),
+														       Amulet:document.btnStopLin.disappear(),;
+														       NAME=refreshHideStopButtons"-->
+														       
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.word(122).value();TRIGGER=0xFFFF;URL=Amulet:internalRAM.word(122).setValue(0),
+														       Amulet:document.graph1.forceUpdate();
+														       NAME=refreshGraph1">
+														       
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.word(123).value();TRIGGER=0xFFFF;URL=Amulet:internalRAM.word(123).setValue(0),
+														       Amulet:document.graph2.forceUpdate();
+														       NAME=refreshGraph2">
+														       
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.word(124).value();TRIGGER=0xFFFF;URL=Amulet:internalRAM.word(124).setValue(0),
+														       Amulet:document.graph3.forceUpdate();
+														       NAME=refreshGraph3">												       
+		
+		<style type="text/css">
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#currentdetector {position:absolute;left:0;top:543;width:0;height:0}
+			#detector {position:absolute;left:170;top:543;width:0;height:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#hvtext {position:absolute;left:10;top:70;width:0;height:0}
+			#channelstext {position:absolute;left:10;top:105;width:0;height:0}
+			#thresholdlabel {position:absolute;left:5;top:140;width:0;height:0}
+			#thresholdtext {position:absolute;left:125;top:140;width:0;height:0}
+			#gain1label {position:absolute;left:5;top:175;width:0;height:0}
+			#gain1text {position:absolute;left:75;top:175;width:0;height:0}
+			#zerolabel {position:absolute;left:5;top:210;width:0;height:0}
+			#zerotext {position:absolute;left:75;top:210;width:0;height:0}
+			
+			#start {position:absolute;left:5;top:256;width:0;height:0}
+			#abort {position:absolute;left:5;top:322;width:0;height:0}
+			#firsttext {position:absolute;left:5;top:362;width:0;height:0}
+			#firstpercenttext {position:absolute;left:300;top:362;width:0;height:0}
+			#secondtext {position:absolute;left:5;top:397;width:0;height:0}
+			#secondpercenttext {position:absolute;left:300;top:397;width:0;height:0}
+			#thirdtext {position:absolute;left:5;top:432;width:0;height:0}
+			#thirdpercenttext {position:absolute;left:300;top:432;width:0;height:0}
+			#fourthtext {position:absolute;left:5;top:467;width:0;height:0}
+			#fourthpercenttext {position:absolute;left:300;top:467;width:0;height:0}
+			#fifthtext {position:absolute;left:5;top:502;width:0;height:0}
+			#fifthpercenttext {position:absolute;left:300;top:502;width:0;height:0}
+			#linearity {position:absolute;left:540;top:335;width:0;height:0}
+			#abortlinearity {position:absolute;left:540;top:431;width:0;height:0}
+			#clearlinearity {position:absolute;left:540;top:430;width:0;height:0}
+			#accept {position:absolute;left:490;top:542;width:0;height:0}
+			#cancel {position:absolute;left:645;top:542;width:0;height:0}
+			#ymax {position:absolute;left:188;top:75;width:0;height:0}
+			
+			#graph1 {position:absolute;left:288;top:75;width:0;height:0}
+			#graph2 {position:absolute;left:542;top:75;width:0;height:0}
+			#graph3 {position:absolute;left:796;top:75;width:0;height:0}
+			#counts {position:absolute;left:206;top:160;width:0;height:0}
+			#advanced {position:absolute;left:5;top:110;width:0;height:0}
+			#thresholdcalc {position:absolute;left:394;top:200;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="AutoCalibrate">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="detector">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnDetector">
+				<PARAM NAME="label" VALUE="Detector">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="%ConfigGenericItems(%%SET_GENERICITEMS_DETECTOR700),%SetHTML(%%SET_HTML_GENERIC_ITEMS)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="currentdetector">
+			<APPLET CODE="StringField.class" WIDTH="170" HEIGHT="50" NAME="sfDetector">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="22pt">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(9).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="hvtext">
+			<APPLET CODE="Stringfield.class" WIDTH="200" HEIGHT="35" NAME="sfHV">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="verticalAlign" VALUE="TOP">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(98).value()">
+				<PARAM NAME="printf" VALUE="%s Volts">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="channelstext">
+			<APPLET CODE="Stringfield.class" WIDTH="200" HEIGHT="35" NAME="sfChannels">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="verticalAlign" VALUE="TOP">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(97).value()">
+				<PARAM NAME="printf" VALUE="%s Channels">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="thresholdlabel">
+			<TABLE WIDTH="125" HEIGHT="40">
+				<TR>
+					<TD WIDTH="125" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Threshold:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="thresholdtext">
+			<APPLET CODE="Stringfield.class" WIDTH="150" HEIGHT="35" NAME="sfThreshold">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="verticalAlign" VALUE="BOTTOM">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(99).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="gain1label">
+			<TABLE WIDTH="75" HEIGHT="40">
+				<TR>
+					<TD WIDTH="75" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Gain:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="gain1text">
+			<APPLET CODE="Stringfield.class" WIDTH="200" HEIGHT="35" NAME="sfGain1">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="verticalAlign" VALUE="BOTTOM">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(101).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="zerolabel">
+			<TABLE WIDTH="75" HEIGHT="40">
+				<TR>
+					<TD WIDTH="75" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Zero :</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="zerotext">
+			<APPLET CODE="Stringfield.class" WIDTH="120" HEIGHT="35" NAME="sfZero">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="verticalAlign" VALUE="BOTTOM">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(103).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="start">
+			<APPLET CODE="FunctionButton.class" WIDTH="278" HEIGHT="40" NAME="btnStart">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(95).value()">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnStart.disappear(),
+							  Amulet:internalRAM.word(91).setValue(0),
+							  Amulet:document.btnDetector.disappear(),
+							  Amulet:internalRAM.word(90).setValue(0),
+							  Amulet:document.btnStart2.disappear(),
+							  Amulet:internalRAM.word(92).setValue(0),
+							  Amulet:document.btnStopCal.disappear(),
+							  Amulet:internalRAM.word(93).setValue(0),
+							  Amulet:document.sfFirst.disappear(), 
+							  Amulet:document.sfFirstPercent.disappear(), 
+							  Amulet:document.sfSecond.disappear(), 
+							  Amulet:document.sfSecondPercent.disappear(),
+							  Amulet:document.sfThird.disappear(),
+							  Amulet:document.sfThirdPercent.disappear(),
+							  Amulet:document.sfFourth.disappear(),
+							  Amulet:document.sfFourthPercent.disappear(),
+							  Amulet:document.sfFifth.disappear(),
+							  Amulet:document.sfFifthPercent.disappear(),
+							  Amulet:internalRAM.word(94).setValue(0),
+							  Amulet:document.btnLinearity.disappear(),
+							  Amulet:internalRAM.word(95).setValue(0),
+							  Amulet:document.btnStopLin.disappear(),
+							  Amulet:internalRAM.word(96).setValue(0),
+							  Amulet:document.btnAccept.disappear(),
+							  Amulet:internalRAM.word(97).setValue(0),
+							  Amulet:document.btnCancel.disappear(),
+							  Amulet:internalRAM.word(98).setValue(0),
+							  Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="start">
+			<APPLET CODE="FunctionButton.class" WIDTH="278" HEIGHT="40" NAME="btnStart2">
+				<!--PARAM NAME="label" VALUE="Cal with Cs137"-->
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(96).value()">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnStart2.disappear(),
+							  Amulet:internalRAM.word(92).setValue(0),
+							  Amulet:document.btnDetector.disappear(),
+							  Amulet:internalRAM.word(90).setValue(0),
+							  Amulet:document.btnStart.disappear(),
+							  Amulet:internalRAM.word(91).setValue(0),
+							  Amulet:document.btnStopCal.disappear(),
+							  Amulet:internalRAM.word(93).setValue(0),
+							  Amulet:document.sfFirst.disappear(), 
+							  Amulet:document.sfFirstPercent.disappear(), 
+							  Amulet:document.sfSecond.disappear(), 
+							  Amulet:document.sfSecondPercent.disappear(),
+							  Amulet:document.sfThird.disappear(),
+							  Amulet:document.sfThirdPercent.disappear(),
+							  Amulet:document.sfFourth.disappear(),
+							  Amulet:document.sfFourthPercent.disappear(),
+							  Amulet:document.sfFifth.disappear(),
+							  Amulet:document.sfFifthPercent.disappear(),
+							  Amulet:internalRAM.word(94).setValue(0),
+							  Amulet:document.btnLinearity.disappear(),
+							  Amulet:internalRAM.word(95).setValue(0),
+							  Amulet:document.btnStopLin.disappear(),
+							  Amulet:internalRAM.word(96).setValue(0),
+							  Amulet:document.btnAccept.disappear(),
+							  Amulet:internalRAM.word(97).setValue(0),
+							  Amulet:document.btnCancel.disappear(),
+							  Amulet:internalRAM.word(98).setValue(0),
+							  Amulet:UART.word(0).setValue(0x010f)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="abort">
+			<APPLET CODE="FunctionButton.class" WIDTH="278" HEIGHT="40" NAME="btnStopCal">
+				<PARAM NAME="label" VALUE="Abort Cal">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnStopCal.disappear(), Amulet:internalRAM.word(93).setValue(0), Amulet:UART.byte(5).setValue(13)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="firsttext">
+			<APPLET CODE="Stringfield.class" WIDTH="295" HEIGHT="35" NAME="sfFirst">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(106).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="firstpercenttext">
+			<APPLET CODE="Stringfield.class" WIDTH="120" HEIGHT="35" NAME="sfFirstPercent">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(108).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="secondtext">
+			<APPLET CODE="Stringfield.class" WIDTH="295" HEIGHT="35" NAME="sfSecond">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(109).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="secondpercenttext">
+			<APPLET CODE="Stringfield.class" WIDTH="120" HEIGHT="35" NAME="sfSecondPercent">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(111).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="thirdtext">
+			<APPLET CODE="Stringfield.class" WIDTH="295" HEIGHT="35" NAME="sfThird">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(112).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="thirdpercenttext">
+			<APPLET CODE="Stringfield.class" WIDTH="120" HEIGHT="35" NAME="sfThirdPercent">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(114).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="fourthtext">
+			<APPLET CODE="Stringfield.class" WIDTH="295" HEIGHT="35" NAME="sfFourth">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(115).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="fourthpercenttext">
+			<APPLET CODE="Stringfield.class" WIDTH="120" HEIGHT="35" NAME="sfFourthPercent">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(117).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="fifthtext">
+			<APPLET CODE="Stringfield.class" WIDTH="295" HEIGHT="35" NAME="sfFifth">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(118).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="fifthpercenttext">
+			<APPLET CODE="Stringfield.class" WIDTH="120" HEIGHT="35" NAME="sfFifthPercent">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(120).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="linearity">
+			<APPLET CODE="FunctionButton.class" WIDTH="250" HEIGHT="70" NAME="btnLinearity">
+				<PARAM NAME="label" VALUE="Linearity Correction\nwith Eu152">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnLinearity.disappear(),
+							  Amulet:internalRAM.word(95).setValue(0),
+							  Amulet:document.btnDetector.disappear(),
+							  Amulet:internalRAM.word(90).setValue(0),
+							  Amulet:document.btnStart.disappear(),
+							  Amulet:internalRAM.word(91).setValue(0),
+							  Amulet:document.btnStart2.disappear(),
+							  Amulet:internalRAM.word(92).setValue(0),
+							  Amulet:document.btnStopCal.disappear(),
+							  Amulet:internalRAM.word(93).setValue(0),
+							  Amulet:document.sfFirst.disappear(), 
+							  Amulet:document.sfFirstPercent.disappear(), 
+							  Amulet:document.sfSecond.disappear(), 
+							  Amulet:document.sfSecondPercent.disappear(),
+							  Amulet:document.sfThird.disappear(),
+							  Amulet:document.sfThirdPercent.disappear(),
+							  Amulet:document.sfFourth.disappear(),
+							  Amulet:document.sfFourthPercent.disappear(),
+							  Amulet:document.sfFifth.disappear(),
+							  Amulet:document.sfFifthPercent.disappear(),
+							  Amulet:internalRAM.word(94).setValue(0),
+							  Amulet:document.btnStopLin.disappear(),
+							  Amulet:internalRAM.word(96).setValue(0),
+							  Amulet:document.btnAccept.disappear(),
+							  Amulet:internalRAM.word(97).setValue(0),
+							  Amulet:document.btnCancel.disappear(),
+							  Amulet:internalRAM.word(98).setValue(0),
+							  Amulet:UART.word(0).setValue(0x0109)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="abortlinearity">
+			<APPLET CODE="FunctionButton.class" WIDTH="250" HEIGHT="70" NAME="btnStopLin">
+				<PARAM NAME="label" VALUE="Abort\nLinearity Correction">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnStopLin.disappear(), Amulet:internalRAM.word(96).setValue(0), Amulet:UART.byte(5).setValue(14)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="accept">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnAccept">
+				<PARAM NAME="label" VALUE="Accept">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="green">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0107)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="cancel">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnCancel">
+				<PARAM NAME="label" VALUE="Cancel">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnCancel.disappear(), Amulet:UART.word(0).setValue(0x0108)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="ymax">
+			<APPLET CODE="Stringfield.class" WIDTH="100" HEIGHT="35" NAME="sfYMax">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="verticalAlign" VALUE="TOP">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(104).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="graph1">
+			<APPLET CODE="LineGraph.class" WIDTH="256" HEIGHT="256" NAME="graph1">
+				<PARAM NAME="axisColor" VALUE="#000000">
+				<PARAM NAME="cursorColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="lineColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.bytes(0).value()">
+				<PARAM NAME="lineWeight" VALUE="1">
+				<PARAM NAME="updateRate" VALUE="0.00">
+				<PARAM NAME="xSamples" VALUE="255">
+				<PARAM NAME="yMax" VALUE="255">
+				<PARAM NAME="yMin" VALUE="0">
+				<PARAM NAME="invisible" VALUE="FALSE">
+				<PARAM NAME="showAxis" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="graph2">
+			<APPLET CODE="LineGraph.class" WIDTH="256" HEIGHT="256" NAME="graph2">
+				<PARAM NAME="axisColor" VALUE="#000000">
+				<PARAM NAME="cursorColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="lineColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.bytes(0).value()">
+				<PARAM NAME="lineWeight" VALUE="1">
+				<PARAM NAME="updateRate" VALUE="0.00">
+				<PARAM NAME="xSamples" VALUE="255">
+				<PARAM NAME="yMax" VALUE="255">
+				<PARAM NAME="yMin" VALUE="0">
+				<PARAM NAME="invisible" VALUE="FALSE">
+				<PARAM NAME="showAxis" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="graph3">
+			<APPLET CODE="LineGraph.class" WIDTH="5" HEIGHT="256" NAME="graph3">
+				<PARAM NAME="axisColor" VALUE="#000000">
+				<PARAM NAME="cursorColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="lineColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.bytes(0).value()">
+				<PARAM NAME="lineWeight" VALUE="1">
+				<PARAM NAME="updateRate" VALUE="0.00">
+				<PARAM NAME="xSamples" VALUE="4">
+				<PARAM NAME="yMax" VALUE="255">
+				<PARAM NAME="yMin" VALUE="0">
+				<PARAM NAME="invisible" VALUE="FALSE">
+				<PARAM NAME="showAxis" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="counts">
+			<TABLE WIDTH="60" HEIGHT="30">
+				<TR>
+					<TD WIDTH="60" HEIGHT="30" ALIGN="LEFT"><FONT SIZE="4" FACE="Franklin Gothic Book"><I>counts</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="thresholdcalc">
+			<APPLET CODE="Stringfield.class" WIDTH="300" HEIGHT="35" NAME="sfThresholdCalc">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="12pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="Calculating Trigger Level ...">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

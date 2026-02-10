@@ -1,0 +1,31 @@
+#!gbuild
+primaryTarget=coldfire_standalone.tgt
+[Project]
+#wbuild autoconvert:silent
+	:outputDir=./objs
+	-object_dir=./objs
+	-sda=0
+	-cf5282
+	-dbg_source_root ../..
+	-DEMBEDDED
+	-fsoft
+	-gs
+	-I../../src/libsys
+	:sourceDir=../../src/libsys
+	-Ospace
+	:noSelfDepend
+	:select=68
+	:select=cxx
+	:select=cc
+	:select=c
+	:debug_option=ghs_library
+libsys.gpj		[Library]
+	:sourceDir=../../src/libsys
+libstartup.gpj		[Library]
+	:sourceDir=../../src/libstartup
+crt0.gpj		[Select One]
+	:sourceDir=../../src/libstartup
+	:sourceDir=../../src/libstartup
+crt0flash.gpj		[Select One]
+	:sourceDir=../../src/libstartup
+	:sourceDir=../../src/libstartup

@@ -1,0 +1,33 @@
+#!build
+default:
+	nobuild
+#wbuild autoconvert:silent
+#gbldconvert no compat
+	:debug_option=ghs_library
+	:optimize=standard
+	:optimize=small
+	:config_setting=sda
+	:dependency=nodepend
+	:fputype=soft
+	:m68_cputype=CF5282
+	:xda_thresholdkind=small
+	:debuglevel=stack
+	:object_dir=./objs
+	:target=68k
+	:xda_threshold=0
+	:sourcedirs=../../src/libsys
+	:dbg_source_root=../..
+	:defines=EMBEDDED
+	:select=68
+	:select=cxx
+	:select=cc
+	:select=c
+libsys.bld
+	library
+	:sourcedirs=../../src/libsys
+libstartup.bld
+	library
+	:sourcedirs=../../src/libstartup
+crt0.bld
+	select_one
+	:sourcedirs=../../src/libstartup

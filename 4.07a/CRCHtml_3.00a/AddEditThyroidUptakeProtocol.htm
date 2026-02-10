@@ -1,0 +1,1126 @@
+<!--
+	Byte
+	100 - Display Edit
+	101 - Display View
+	102 - Display Delete
+	103 - Restore ROI Refresh
+	
+	String
+	100,101		- Title
+	102		- Protocol Name
+	103,104,105	- Counting Method  
+	106,107,108	- Dose Measurement
+	109		- Isotope
+	110		- Dose Form
+	111		- Pre-Dose
+	112		- Residual
+	113		- Counting Time
+	114		- Probe Distance
+	115		- I123Start
+	116		- I123End
+	117		- I131Start
+	118		- I131End
+	119		- Tc99mStart
+	120		- Tc99mEnd
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_ADDEDIT_THYROID_UPTAKE_PROTOCOL);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.sfTitle.forceUpdate(),
+														     Amulet:document.sfTitle.reappear(),
+														     Amulet:document.btnName.forceUpdate(),
+														     Amulet:document.btnName.reappear(),
+														     Amulet:document.btnMethod.forceUpdate(),
+														     Amulet:document.btnMethod.reappear(),
+														     Amulet:document.btnMeasurement.forceUpdate(),
+														     Amulet:document.btnMeasurement.reappear(),
+														     Amulet:document.btnIsotope.forceUpdate(),
+														     Amulet:document.btnIsotope.reappear(),
+														     Amulet:document.btnForm.forceUpdate(),
+														     Amulet:document.btnForm.reappear(),
+														     Amulet:document.btnPreDose.forceUpdate(),
+														     Amulet:document.btnPreDose.reappear(),
+														     Amulet:document.btnResidual.forceUpdate(),
+														     Amulet:document.btnResidual.reappear(),
+														     Amulet:document.btnCountingTime.forceUpdate(),
+														     Amulet:document.btnCountingTime.reappear(),
+														     Amulet:document.btnDistance.forceUpdate(),
+														     Amulet:document.btnDistance.reappear(),
+														     Amulet:document.btnI123Start.forceUpdate(),
+														     Amulet:document.btnI123Start.reappear(),
+														     Amulet:document.btnI123End.forceUpdate(),
+														     Amulet:document.btnI123End.reappear(),
+														     Amulet:document.btnI131Start.forceUpdate(),
+														     Amulet:document.btnI131Start.reappear(),
+														     Amulet:document.btnI131End.forceUpdate(),
+														     Amulet:document.btnI131End.reappear(),
+														     Amulet:document.btnTc99mStart.forceUpdate(),
+														     Amulet:document.btnTc99mStart.reappear(),
+														     Amulet:document.btnTc99mEnd.forceUpdate(),
+														     Amulet:document.btnTc99mEnd.reappear(),
+														     Amulet:document.btnDefaultROI.reappear(),
+														     Amulet:document.btnAccept.reappear(),
+														     Amulet:document.btnCancel.reappear();
+														     NAME=refreshDisplay">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+														     Amulet:document.sfTitle.forceUpdate(),
+														     Amulet:document.sfTitle.reappear(),
+														     Amulet:document.sfName.forceUpdate(),
+														     Amulet:document.sfName.reappear(),
+														     Amulet:document.sfMethod.forceUpdate(),
+														     Amulet:document.sfMethod.reappear(),
+														     Amulet:document.sfMeasurement.forceUpdate(),
+														     Amulet:document.sfMeasurement.reappear(),
+														     Amulet:document.sfIsotope.forceUpdate(),
+														     Amulet:document.sfIsotope.reappear(),
+														     Amulet:document.sfForm.forceUpdate(),
+														     Amulet:document.sfForm.reappear(),
+														     Amulet:document.sfPreDose.forceUpdate(),
+														     Amulet:document.sfPreDose.reappear(),
+														     Amulet:document.sfResidual.forceUpdate(),
+														     Amulet:document.sfResidual.reappear(),
+														     Amulet:document.sfCountingTime.forceUpdate(),
+														     Amulet:document.sfCountingTime.reappear(),
+														     Amulet:document.sfDistance.forceUpdate(),
+														     Amulet:document.sfDistance.reappear(),
+														     Amulet:document.sfI123Start.forceUpdate(),
+														     Amulet:document.sfI123Start.reappear(),
+														     Amulet:document.sfI123End.forceUpdate(),
+														     Amulet:document.sfI123End.reappear(),
+														     Amulet:document.sfI131Start.forceUpdate(),
+														     Amulet:document.sfI131Start.reappear(),
+														     Amulet:document.sfI131End.forceUpdate(),
+														     Amulet:document.sfI131End.reappear(),
+														     Amulet:document.sfTc99mStart.forceUpdate(),
+														     Amulet:document.sfTc99mStart.reappear(),
+														     Amulet:document.sfTc99mEnd.forceUpdate(),
+														     Amulet:document.sfTc99mEnd.reappear(),
+														     Amulet:document.btnNormalValues.reappear(),
+														     Amulet:document.btnBack.reappear();
+														     NAME=refreshView">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(102).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(102).setValue(0),
+														     Amulet:document.sfTitle.forceUpdate(),
+														     Amulet:document.sfTitle.reappear(),
+														     Amulet:document.sfName.forceUpdate(),
+														     Amulet:document.sfName.reappear(),
+														     Amulet:document.sfMethod.forceUpdate(),
+														     Amulet:document.sfMethod.reappear(),
+														     Amulet:document.sfMeasurement.forceUpdate(),
+														     Amulet:document.sfMeasurement.reappear(),
+														     Amulet:document.sfIsotope.forceUpdate(),
+														     Amulet:document.sfIsotope.reappear(),
+														     Amulet:document.sfForm.forceUpdate(),
+														     Amulet:document.sfForm.reappear(),
+														     Amulet:document.sfPreDose.forceUpdate(),
+														     Amulet:document.sfPreDose.reappear(),
+														     Amulet:document.sfResidual.forceUpdate(),
+														     Amulet:document.sfResidual.reappear(),
+														     Amulet:document.sfCountingTime.forceUpdate(),
+														     Amulet:document.sfCountingTime.reappear(),
+														     Amulet:document.sfDistance.forceUpdate(),
+														     Amulet:document.sfDistance.reappear(),
+														     Amulet:document.sfI123Start.forceUpdate(),
+														     Amulet:document.sfI123Start.reappear(),
+														     Amulet:document.sfI123End.forceUpdate(),
+														     Amulet:document.sfI123End.reappear(),
+														     Amulet:document.sfI131Start.forceUpdate(),
+														     Amulet:document.sfI131Start.reappear(),
+														     Amulet:document.sfI131End.forceUpdate(),
+														     Amulet:document.sfI131End.reappear(),
+														     Amulet:document.sfTc99mStart.forceUpdate(),
+														     Amulet:document.sfTc99mStart.reappear(),
+														     Amulet:document.sfTc99mEnd.forceUpdate(),
+														     Amulet:document.sfTc99mEnd.reappear(),
+														     Amulet:document.btnBack.reappear(),
+														     Amulet:document.sfDelete.reappear(),
+														     Amulet:document.btnYes.reappear(),
+														     Amulet:document.btnNo.reappear();
+														     NAME=refreshDelete">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(103).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(103).setValue(0),
+														     Amulet:document.btnI123Start.forceUpdate(),
+														     Amulet:document.btnI123End.forceUpdate(),
+														     Amulet:document.btnI131Start.forceUpdate(),
+														     Amulet:document.btnI131End.forceUpdate(),
+														     Amulet:document.btnTc99mStart.forceUpdate(),
+														     Amulet:document.btnTc99mEnd.forceUpdate(),
+														     Amulet:document.btnDefaultROI.reappear();
+														     NAME=refreshUpdateROI">
+														     
+		<style type="text/css">
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:150;top:0;width:0;height:0}
+			#back {position:absolute;left:693;top:13;width:0;height:0}
+			
+			#namelabel {position:absolute;left:0;top:80;width:0;height:0}
+			#nametext {position:absolute;left:200;top:80;width:0;height:0}
+			
+			#methodlabel {position:absolute;left:0;top:140;width:0;height:0}
+			#methodtext {position:absolute;left:200;top:140;width:0;height:0}
+			
+			#measurementlabel {position:absolute;left:0;top:200;width:0;height:0}
+			#measurementtext {position:absolute;left:200;top:200;width:0;height:0}
+			
+			#isotopelabel {position:absolute;left:0;top:270;width:0;height:0}
+			#isotopetext {position:absolute;left:95;top:270;width:0;height:0}
+			
+			#formlabel {position:absolute;left:195;top:270;width:0;height:0}
+			#formtext {position:absolute;left:270;top:270;width:0;height:0}
+			
+			#prelabel {position:absolute;left:370;top:270;width:0;height:0}
+			#pretext {position:absolute;left:445;top:270;width:0;height:0}
+			
+			#residuallabel {position:absolute;left:545;top:270;width:0;height:0}
+			#residualtext {position:absolute;left:665;top:270;width:0;height:0}
+			
+			#countingtimelabel {position:absolute;left:0;top:330;width:0;height:0}
+			#countingtimetext {position:absolute;left:205;top:330;width:0;height:0}
+			
+			#distancelabel {position:absolute;left:470;top:330;width:0;height:0}
+			#distancetext {position:absolute;left:665;top:330;width:0;height:0}
+			
+			#I123label {position:absolute;left:0;top:380;width:0;height:0}
+			#I123start {position:absolute;left:205;top:380;width:0;height:0}
+			#I123to {position:absolute;left:305;top:380;width:0;height:0}
+			#I123end {position:absolute;left:365;top:380;width:0;height:0}
+			
+			#I131label {position:absolute;left:0;top:430;width:0;height:0}
+			#I131start {position:absolute;left:205;top:430;width:0;height:0}
+			#I131to {position:absolute;left:305;top:430;width:0;height:0}
+			#I131end {position:absolute;left:365;top:430;width:0;height:0}
+			
+			#Tc99mlabel {position:absolute;left:0;top:480;width:0;height:0}
+			#Tc99mstart {position:absolute;left:205;top:480;width:0;height:0}
+			#Tc99mto {position:absolute;left:305;top:480;width:0;height:0}
+			#Tc99mend {position:absolute;left:365;top:480;width:0;height:0}
+			
+			#defaultROI {position:absolute;left:10;top:542;width:0;height:0}
+			#accept {position:absolute;left:490;top:542;width:0;height:0}
+			#cancel {position:absolute;left:645;top:542;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="500" HEIGHT="50" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(100).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBack">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="namelabel">
+			<TABLE WIDTH="200" HEIGHT="40">
+				<TR>
+					<TD WIDTH="200" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Name:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="nametext">
+			<APPLET CODE="CustomButton.class" WIDTH="590" HEIGHT="40" Name="btnName">
+				<PARAM NAME="upImage" VALUE="Images/590x40.png">
+				<PARAM NAME="downImage" VALUE="Images/590x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(102).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter Protocol Name:'), %ConfigMaxStrLen(23), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_TU_PROTOCOL_NAME)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="nametext">
+			<APPLET CODE="StringField.class" WIDTH="590" HEIGHT="40" NAME="sfName">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(102).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="methodlabel">
+			<TABLE WIDTH="200" HEIGHT="40">
+				<TR>
+					<TD WIDTH="200" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Counting Method:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="methodtext">
+			<APPLET CODE="CustomButton.class" WIDTH="590" HEIGHT="40" Name="btnMethod">
+				<PARAM NAME="upImage" VALUE="Images/590x40.png">
+				<PARAM NAME="downImage" VALUE="Images/590x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref(75)">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(103).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_COUNTING_METHOD),%SetHTML(%%SET_HTML_GENERIC_ITEMS)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="methodtext">
+			<APPLET CODE="StringField.class" WIDTH="590" HEIGHT="40" NAME="sfMethod">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(103).value()">
+				<PARAM NAME="printf" VALUE="%.75s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="measurementlabel">
+			<TABLE WIDTH="200" HEIGHT="40">
+				<TR>
+					<TD WIDTH="200" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Dose Measurement:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="measurementtext">
+			<APPLET CODE="CustomButton.class" WIDTH="590" HEIGHT="40" Name="btnMeasurement">
+				<PARAM NAME="upImage" VALUE="Images/590x40.png">
+				<PARAM NAME="downImage" VALUE="Images/590x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref(75)">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(106).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_DOSE_MEASUREMENT),%SetHTML(%%SET_HTML_GENERIC_ITEMS)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="measurementtext">
+			<APPLET CODE="StringField.class" WIDTH="590" HEIGHT="40" NAME="sfMeasurement">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(106).value()">
+				<PARAM NAME="printf" VALUE="%.75s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="isotopelabel">
+			<TABLE WIDTH="100" HEIGHT="40">
+				<TR>
+					<TD WIDTH="100" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Nuclide:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="isotopetext">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnIsotope">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(109).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_ISOTOPE),%SetHTML(%%SET_HTML_GENERIC_ITEMS)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="isotopetext">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfIsotope">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(109).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="formlabel">
+			<TABLE WIDTH="80" HEIGHT="40">
+				<TR>
+					<TD WIDTH="80" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Dose Form:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="formtext">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnForm">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(110).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_DOSE_FORM),%SetHTML(%%SET_HTML_GENERIC_ITEMS)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="formtext">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfForm">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(110).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="prelabel">
+			<TABLE WIDTH="80" HEIGHT="40">
+				<TR>
+					<TD WIDTH="80" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Pre Dose:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="pretext">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnPreDose">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(111).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_PRE_DOSE),%SetHTML(%%SET_HTML_GENERIC_ITEMS)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="pretext">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfPreDose">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(111).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="residuallabel">
+			<TABLE WIDTH="120" HEIGHT="40">
+				<TR>
+					<TD WIDTH="120" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Residual:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="residualtext">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnResidual">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(112).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_RESIDUAL),%SetHTML(%%SET_HTML_GENERIC_ITEMS)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="residualtext">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfResidual">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(112).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="countingtimelabel">
+			<TABLE WIDTH="205" HEIGHT="40">
+				<TR>
+					<TD WIDTH="205" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Counting Time:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="countingtimetext">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnCountingTime">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(113).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Count Time (sec):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(0), %ConfigMinValue('10.0'), %ConfigMaxValue('9999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_DEFAULT_COUNTTIME)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="countingtimetext">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfCountingTime">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(113).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="distancelabel">
+			<TABLE WIDTH="200" HEIGHT="40">
+				<TR>
+					<TD WIDTH="200" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Probe Distance:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="distancetext">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnDistance">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(114).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Distance (cm):'), %ConfigMaxStrLen(2), %ConfigMaxFractionLen(0), %ConfigMinValue('10.0'), %ConfigMaxValue('50.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_DEFAULT_DISTANCE)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="distancetext">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfDistance">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(114).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I123label">
+			<APPLET CODE="StringField.class" WIDTH="210" HEIGHT="40" NAME="sfI123">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="initialCondition" VALUE="I123 ROI (keV):">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I123start">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnI123Start">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(115).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter I123 Start ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_I123_STARTROI)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I123start">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfI123Start">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(115).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I123to">
+			<APPLET CODE="StringField.class" WIDTH="60" HEIGHT="40" NAME="sfI123To">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="initialCondition" VALUE="to">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I123end">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnI123End">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(116).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter I123 End ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_I123_ENDROI)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I123end">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfI123End">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(116).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I131label">
+			<APPLET CODE="StringField.class" WIDTH="210" HEIGHT="40" NAME="sfI131">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="initialCondition" VALUE="I131 ROI (keV):">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I131start">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnI131Start">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(117).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter I131 Start ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_I131_STARTROI)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I131start">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfI131Start">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(117).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I131to">
+			<APPLET CODE="StringField.class" WIDTH="60" HEIGHT="40" NAME="sfI131To">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="initialCondition" VALUE="to">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I131end">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnI131End">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(118).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter I131 End ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_I131_ENDROI)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="I131end">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfI131End">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(118).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="Tc99mlabel">
+			<APPLET CODE="StringField.class" WIDTH="210" HEIGHT="40" NAME="sfTc99m">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="initialCondition" VALUE="Tc99m ROI (keV):">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="Tc99mstart">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnTc99mStart">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(119).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter Tc99m Start ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_TC99M_STARTROI)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="Tc99mstart">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfTc99mStart">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(119).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="Tc99mto">
+			<APPLET CODE="StringField.class" WIDTH="60" HEIGHT="40" NAME="sfTc99mTo">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="initialCondition" VALUE="to">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="Tc99mend">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="40" Name="btnTc99mEnd">
+				<PARAM NAME="upImage" VALUE="Images/100x40.png">
+				<PARAM NAME="downImage" VALUE="Images/100x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(120).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter Tc99m End ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_TC99M_ENDROI)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="Tc99mend">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="40" NAME="sfTc99mEnd">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(120).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="defaultROI">
+			<APPLET CODE="FunctionButton.class" WIDTH="300" HEIGHT="50" NAME="btnDefaultROI">
+				<PARAM NAME="label" VALUE="Restore Original ROI">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnDefaultROI.disappear(),Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="defaultROI">
+			<APPLET CODE="StringField.class" WIDTH="450" HEIGHT="50" NAME="sfDelete">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="22pt">
+				<PARAM NAME="initialCondition" VALUE="Delete this Protocol?">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="defaultROI">
+			<APPLET CODE="FunctionButton.class" WIDTH="300" HEIGHT="50" NAME="btnNormalValues">
+				<PARAM NAME="label" VALUE="Normal Values">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnNormalValues.disappear(),%ViewTUNormal,%SetClear(%%SET_CLEAR_WELLTHYROIDUPTAKEENTERNORMAL)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+
+		<DIV ID="accept">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnAccept">
+				<PARAM NAME="label" VALUE="Accept">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="green">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0103)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="accept">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnYes">
+				<PARAM NAME="label" VALUE="Yes">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnYes.disappear(), Amulet:UART.word(0).setValue(0x0104)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="cancel">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnCancel">
+				<PARAM NAME="label" VALUE="Cancel">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnCancel.disappear(), %Back">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="cancel">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnNo">
+				<PARAM NAME="label" VALUE="No">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnNo.disappear(), %Back">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

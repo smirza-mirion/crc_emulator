@@ -1,0 +1,786 @@
+<!-- Memory Map
+	Byte
+	 99 = Initial Radio Button  1 = Ci, 2=mCi, 3=uCi, 4=GBq, 5=MBq, 6=Year_English, 7=Day_English, 8=Hour_English, 9=Minute_English, 10=Second_English, 11=KBq, 12=Year_Spanish, 13=Day_Spanish, 14=Hour_Spanish, 15=Minute_Spanish, 16=Second_Spanish 
+	100 = Show keypad (0xFF)
+	101 = Refresh Display
+	102 = Show CI (0xFF)
+	103 = Show Bq (0xFF)
+	104 = Show Halflife (0xFF)
+	105 = Show kBq (0xFF)
+	106 = Show Halflife Spanish (0xFF)
+	
+	Word
+	101 = Background X
+	102 = Background Y
+	
+	103 = Title X
+	104 = Title Y
+	
+	105 = Display X
+	106 = Display Y
+	
+	107 = Display Unit X
+	108 = Display Unit Y
+	
+	109 = Ci X
+	110 = Ci Y
+	
+	111 = mCi X
+	112 = mCi Y
+	
+	113 = uCi X
+	114 = uCi Y
+	
+	115 = 7 X
+	116 = 7 Y
+	117 = 8 X
+	118 = 8 Y
+	119 = 9 X
+	120 = 9 Y
+	121 = Enter X
+	122 = Enter Y
+	
+	123 = 4 X
+	124 = 4 Y
+	125 = 5 X
+	126 = 5 Y
+	127 = 6 X
+	128 = 6 Y
+	
+	129 = 1 X
+	130 = 1 Y
+	131 = 2 X
+	132 = 2 Y
+	133 = 3 X
+	134 = 3 Y
+	
+	135 = 0 X
+	136 = 0 Y
+	137 = Period X
+	138 = Period Y
+	139 = Backspace X
+	140 = Backspace Y
+	
+	141 = GBq X
+	142 = GBq Y
+	
+	143 = MBq X
+	144 = MBq Y
+	
+	145 = Sec X
+	146 = Sec Y
+	
+	147 = Min X
+	148 = Min Y
+	
+	149 = Hr X
+	150 = Hr Y
+	
+	151 = Day X
+	152 = Day Y
+	
+	153 = Year X
+	154 = Year Y
+	
+	155 = KBq X
+	156 = KBq Y
+
+	String
+	100,101 = Title
+	102,103 = Number String
+	104 = Unit String
+	105 = Backspace
+	106 = Accept
+	107 = Cancel
+	
+	LAUNCHES
+		%SetActivity
+	REQUIRES
+		%ConfigTitle
+		%ConfigX
+		%ConfigY
+		%ConfigMaxStrLen
+		%ConfigActivity
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0, 0.01; URL=%SetScreen(%%SCREEN_ACTIVITY); NAME=refreshInit">
+
+		<!--META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.imgBack.setX(Amulet:internalRAM.word(101).value()),
+														     Amulet:document.imgBack.setY(Amulet:internalRAM.word(102).value()),
+														     Amulet:document.imgBack.reappear(),
+														     Amulet:document.sfTitle.forceUpdate(),														     
+														     Amulet:document.sfTitle.setX(Amulet:internalRAM.word(103).value()),
+														     Amulet:document.sfTitle.setY(Amulet:internalRAM.word(104).value()),
+														     Amulet:document.sfTitle.reappear(),
+														     Amulet:document.sfDisplay.forceUpdate(),
+														     Amulet:document.sfDisplay.setX(Amulet:internalRAM.word(105).value()),
+														     Amulet:document.sfDisplay.setY(Amulet:internalRAM.word(106).value()),
+														     Amulet:document.sfDisplay.reappear(),
+														     Amulet:document.sfDisplay_Unit.forceUpdate(),
+														     Amulet:document.sfDisplay_Unit.setX(Amulet:internalRAM.word(107).value()),
+														     Amulet:document.sfDisplay_Unit.setY(Amulet:internalRAM.word(108).value()),
+														     Amulet:document.sfDisplay_Unit.reappear(),
+														     Amulet:document.btn7.setX(Amulet:internalRAM.word(115).value()),
+														     Amulet:document.btn7.setY(Amulet:internalRAM.word(116).value()),
+														     Amulet:document.btn7.reappear(),
+														     Amulet:document.btn8.setX(Amulet:internalRAM.word(117).value()),
+														     Amulet:document.btn8.setY(Amulet:internalRAM.word(118).value()),
+														     Amulet:document.btn8.reappear(),
+														     Amulet:document.btn9.setX(Amulet:internalRAM.word(119).value()),
+														     Amulet:document.btn9.setY(Amulet:internalRAM.word(120).value()),
+														     Amulet:document.btn9.reappear(),
+														     Amulet:document.btnEnter.setX(Amulet:internalRAM.word(121).value()),
+														     Amulet:document.btnEnter.setY(Amulet:internalRAM.word(122).value()),
+														     Amulet:document.btnEnter.reappear(),
+														     Amulet:document.btn4.setX(Amulet:internalRAM.word(123).value()),
+														     Amulet:document.btn4.setY(Amulet:internalRAM.word(124).value()),
+														     Amulet:document.btn4.reappear(),
+														     Amulet:document.btn5.setX(Amulet:internalRAM.word(125).value()),
+														     Amulet:document.btn5.setY(Amulet:internalRAM.word(126).value()),
+														     Amulet:document.btn5.reappear(),
+														     Amulet:document.btn6.setX(Amulet:internalRAM.word(127).value()),
+														     Amulet:document.btn6.setY(Amulet:internalRAM.word(128).value()),
+														     Amulet:document.btn6.reappear(),
+														     Amulet:document.btn1.setX(Amulet:internalRAM.word(129).value()),
+														     Amulet:document.btn1.setY(Amulet:internalRAM.word(130).value()),
+														     Amulet:document.btn1.reappear(),
+														     Amulet:document.btn2.setX(Amulet:internalRAM.word(131).value()),
+														     Amulet:document.btn2.setY(Amulet:internalRAM.word(132).value()),
+														     Amulet:document.btn2.reappear(),
+														     Amulet:document.btn3.setX(Amulet:internalRAM.word(133).value()),
+														     Amulet:document.btn3.setY(Amulet:internalRAM.word(134).value()),
+														     Amulet:document.btn3.reappear(),
+														     Amulet:document.btn0.setX(Amulet:internalRAM.word(135).value()),
+														     Amulet:document.btn0.setY(Amulet:internalRAM.word(136).value()),
+														     Amulet:document.btn0.reappear(),
+														     Amulet:document.btnPeriod.setX(Amulet:internalRAM.word(137).value()),
+														     Amulet:document.btnPeriod.setY(Amulet:internalRAM.word(138).value()),
+														     Amulet:document.btnPeriod.reappear(),
+														     Amulet:document.btnBackSP.setX(Amulet:internalRAM.word(139).value()),
+														     Amulet:document.btnBackSP.setY(Amulet:internalRAM.word(140).value()),
+														     Amulet:document.btnBackSP.reappear();
+														     NAME=refreshShowActivity"-->
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.sfTitle.forceUpdate(),	
+														     Amulet:document.sfDisplay.forceUpdate(),
+														     Amulet:document.sfDisplay_Unit.forceUpdate(),
+														     Amulet:document.btnBackSP.forceUpdate(),
+														     Amulet:document.btnAccept.forceUpdate(),
+														     Amulet:document.btnCancel.forceUpdate();
+														     NAME=refreshShowActivity">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+														     Amulet:document.sfDisplay.forceUpdate(),
+														     Amulet:document.sfDisplay_Unit.forceUpdate();
+														     NAME=refreshUpdateDisplay">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(102).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(102).setValue(0),
+														     Amulet:document.radioCurie.setX(Amulet:internalRAM.word(109).value()),
+														     Amulet:document.radioCurie.setY(Amulet:internalRAM.word(110).value()),
+														     Amulet:document.radioCurie.reappear(),
+														     Amulet:document.radioMilliCurie.setX(Amulet:internalRAM.word(111).value()),
+														     Amulet:document.radioMilliCurie.setY(Amulet:internalRAM.word(112).value()),
+														     Amulet:document.radioMilliCurie.reappear(),
+														     Amulet:document.radioMicroCurie.setX(Amulet:internalRAM.word(113).value()),
+														     Amulet:document.radioMicroCurie.setY(Amulet:internalRAM.word(114).value()),
+														     Amulet:document.radioMicroCurie.reappear(),
+														     Amulet:document.Curie.forceUpdate();
+														     NAME=refreshShowCI">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(103).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(103).setValue(0),
+														     Amulet:document.radioGigaBq.setX(Amulet:internalRAM.word(141).value()),
+														     Amulet:document.radioGigaBq.setY(Amulet:internalRAM.word(142).value()),
+														     Amulet:document.radioGigaBq.reappear(),
+														     Amulet:document.radioMegaBq.setX(Amulet:internalRAM.word(143).value()),
+														     Amulet:document.radioMegaBq.setY(Amulet:internalRAM.word(144).value()),
+														     Amulet:document.radioMegaBq.reappear(),
+														     Amulet:document.Curie.forceUpdate();
+														     NAME=refreshShowBQ">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(104).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(104).setValue(0),
+														     Amulet:document.radioYear.setX(Amulet:internalRAM.word(153).value()),
+														     Amulet:document.radioYear.setY(Amulet:internalRAM.word(154).value()),
+														     Amulet:document.radioYear.reappear(),
+														     Amulet:document.radioDay.setX(Amulet:internalRAM.word(151).value()),
+														     Amulet:document.radioDay.setY(Amulet:internalRAM.word(152).value()),
+														     Amulet:document.radioDay.reappear(),
+														     Amulet:document.radioHour.setX(Amulet:internalRAM.word(149).value()),
+														     Amulet:document.radioHour.setY(Amulet:internalRAM.word(150).value()),
+														     Amulet:document.radioHour.reappear(),
+														     Amulet:document.radioMinute.setX(Amulet:internalRAM.word(147).value()),
+														     Amulet:document.radioMinute.setY(Amulet:internalRAM.word(148).value()),
+														     Amulet:document.radioMinute.reappear(),
+														     Amulet:document.radioSecond.setX(Amulet:internalRAM.word(145).value()),
+														     Amulet:document.radioSecond.setY(Amulet:internalRAM.word(146).value()),
+														     Amulet:document.radioSecond.reappear(),
+														     Amulet:document.Time.forceUpdate();
+														     NAME=rfreshShowTime">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(105).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(105).setValue(0),
+														     Amulet:document.radioGigaBq.setX(Amulet:internalRAM.word(141).value()),
+														     Amulet:document.radioGigaBq.setY(Amulet:internalRAM.word(142).value()),
+														     Amulet:document.radioGigaBq.reappear(),
+														     Amulet:document.radioMegaBq.setX(Amulet:internalRAM.word(143).value()),
+														     Amulet:document.radioMegaBq.setY(Amulet:internalRAM.word(144).value()),
+														     Amulet:document.radioMegaBq.reappear(),
+														     Amulet:document.radioKiloBq.setX(Amulet:internalRAM.word(155).value()),
+														     Amulet:document.radioKiloBq.setY(Amulet:internalRAM.word(156).value()),
+														     Amulet:document.radioKiloBq.reappear(),
+														     Amulet:document.Curie.forceUpdate();
+														     NAME=refreshShowBQwithKiloBq">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(106).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(106).setValue(0),
+														     Amulet:document.radioYearSpanish.setX(Amulet:internalRAM.word(153).value()),
+														     Amulet:document.radioYearSpanish.setY(Amulet:internalRAM.word(154).value()),
+														     Amulet:document.radioYearSpanish.reappear(),
+														     Amulet:document.radioDaySpanish.setX(Amulet:internalRAM.word(151).value()),
+														     Amulet:document.radioDaySpanish.setY(Amulet:internalRAM.word(152).value()),
+														     Amulet:document.radioDaySpanish.reappear(),
+														     Amulet:document.radioHourSpanish.setX(Amulet:internalRAM.word(149).value()),
+														     Amulet:document.radioHourSpanish.setY(Amulet:internalRAM.word(150).value()),
+														     Amulet:document.radioHourSpanish.reappear(),
+														     Amulet:document.radioMinuteSpanish.setX(Amulet:internalRAM.word(147).value()),
+														     Amulet:document.radioMinuteSpanish.setY(Amulet:internalRAM.word(148).value()),
+														     Amulet:document.radioMinuteSpanish.reappear(),
+														     Amulet:document.radioSecondSpanish.setX(Amulet:internalRAM.word(145).value()),
+														     Amulet:document.radioSecondSpanish.setY(Amulet:internalRAM.word(146).value()),
+														     Amulet:document.radioSecondSpanish.reappear(),
+														     Amulet:document.Time.forceUpdate();
+														     NAME=rfreshShowTimeSpanish">
+														     
+		<style type="text/css">
+			#background {position:absolute;left:0;top:0;height:600;width:800}
+			#unit_area {position:absolute;left:250;top:139;height:50;width:360}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#display {position:absolute;left:250;top:87;width:0;height:0}
+			#display_unit {position:absolute;left:450;top:87;width:0;height:0}
+			#backsp {position:absolute;left:614;top:87;width:0;height:0}
+			#7 {position:absolute;left:250;top:191;width:0;height:0}
+			#8 {position:absolute;left:326;top:191;width:0;height:0}
+			#9 {position:absolute;left:402;top:191;width:0;height:0}
+			#4 {position:absolute;left:250;top:267;width:0;height:0}
+			#5 {position:absolute;left:326;top:267;width:0;height:0}
+			#6 {position:absolute;left:402;top:267;width:0;height:0}
+			#1 {position:absolute;left:250;top:343;width:0;height:0}
+			#2 {position:absolute;left:326;top:343;width:0;height:0}
+			#3 {position:absolute;left:402;top:343;width:0;height:0}
+			#0 {position:absolute;left:250;top:419;width:0;height:0}
+			#period {position:absolute;left:326;top:419;width:0;height:0}
+			#accept {position:absolute;left:483;top:533;width:0;height:0}
+			#cancel {position:absolute;left:641;top:533;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="background" STYLE="background-color:black">
+		</DIV>
+		
+		<DIV ID="unit_area" STYLE="background-color:white">
+		</DIV>
+		
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="790" HEIGHT="60" NAME="sfTitle">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#000030">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="BOTTOM">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(100).value()">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontColor" VALUE="#FFFF30">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="updateRate" VALUE="0.0">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="display">
+			<APPLET CODE="StringField.class" WIDTH="200" HEIGHT="50" NAME="sfDisplay">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(102).value()">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="22">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="updateRate" VALUE="0.0">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="display_unit">
+			<APPLET CODE="StringField.class" WIDTH="160" HEIGHT="50" NAME="sfDisplay_Unit">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(104).value()">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="22">
+				<PARAM NAME="fontColor" VALUE="#000030">
+				<PARAM NAME="updateRate" VALUE="0.0">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioCurie">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Curie">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="1">
+				<PARAM NAME="label" VALUE="Ci">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioMilliCurie">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Curie">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0103)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="2">
+				<PARAM NAME="label" VALUE="mCi">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioMicroCurie">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Curie">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0104)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="3">
+				<PARAM NAME="label" VALUE="uCi">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioGigaBq">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Curie">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0113)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="4">
+				<PARAM NAME="label" VALUE="GBq">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioMegaBq">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Curie">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0114)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="5">
+				<PARAM NAME="label" VALUE="MBq">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioYear">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Time">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0115)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="6">
+				<PARAM NAME="label" VALUE="Yr">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioYearSpanish">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Time">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0115)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="12">
+				<PARAM NAME="label" VALUE="Ano">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioDay">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Time">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0116)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="7">
+				<PARAM NAME="label" VALUE="Day">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioDaySpanish">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Time">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0116)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="13">
+				<PARAM NAME="label" VALUE="Dia">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioHour">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Time">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0117)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="8">
+				<PARAM NAME="label" VALUE="Hr">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioHourSpanish">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Time">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0117)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="14">
+				<PARAM NAME="label" VALUE="Hora">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioMinute">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Time">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0118)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="9">
+				<PARAM NAME="label" VALUE="Min">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioMinuteSpanish">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Time">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0118)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="15">
+				<PARAM NAME="label" VALUE="Min">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioSecond">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Time">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0119)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="10">
+				<PARAM NAME="label" VALUE="Sec">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioSecondSpanish">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Time">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0119)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="16">
+				<PARAM NAME="label" VALUE="Seg">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="unit_area">
+			<APPLET CODE="RadioButton.class" WIDTH="50" HEIGHT="50" NAME="radioKiloBq">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="groupName" VALUE="Curie">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x011A)">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="11">
+				<PARAM NAME="label" VALUE="kBq">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		<DIV ID="7">
+			<APPLET CODE="FunctionButton.class" WIDTH="72" HEIGHT= "72" NAME="btn7">
+				<PARAM NAME="label" VALUE="7">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0105)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="8">
+			<APPLET CODE="FunctionButton.class" WIDTH="72" HEIGHT= "72" NAME="btn8">
+				<PARAM NAME="label" VALUE="8">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0106)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="9">
+			<APPLET CODE="FunctionButton.class" WIDTH="72" HEIGHT= "72" NAME="btn9">
+				<PARAM NAME="label" VALUE="9">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0107)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="4">
+			<APPLET CODE="FunctionButton.class" WIDTH="72" HEIGHT= "72" NAME="btn4">
+				<PARAM NAME="label" VALUE="4">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0108)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="5">
+			<APPLET CODE="FunctionButton.class" WIDTH="72" HEIGHT= "72" NAME="btn5">
+				<PARAM NAME="label" VALUE="5">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0109)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="6">
+			<APPLET CODE="FunctionButton.class" WIDTH="72" HEIGHT= "72" NAME="btn6">
+				<PARAM NAME="label" VALUE="6">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010A)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="1">
+			<APPLET CODE="FunctionButton.class" WIDTH="72" HEIGHT= "72" NAME="btn1">
+				<PARAM NAME="label" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010B)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="2">
+			<APPLET CODE="FunctionButton.class" WIDTH="72" HEIGHT= "72" NAME="btn2">
+				<PARAM NAME="label" VALUE="2">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010C)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="3">
+			<APPLET CODE="FunctionButton.class" WIDTH="72" HEIGHT= "72" NAME="btn3">
+				<PARAM NAME="label" VALUE="3">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010D)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="0">
+			<APPLET CODE="FunctionButton.class" WIDTH="72" HEIGHT= "72" NAME="btn0">
+				<PARAM NAME="label" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010E)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="period">
+			<APPLET CODE="FunctionButton.class" WIDTH="72" HEIGHT= "72" NAME="btnPeriod">
+				<PARAM NAME="label" VALUE=".">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="black">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010F)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="backsp">
+			<APPLET CODE="FunctionButton.class" WIDTH="148" HEIGHT= "50" NAME="btnBackSP">
+				<!--PARAM NAME="label" VALUE="Backspace"-->
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(105).value()">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0110)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="accept">
+			<APPLET CODE="FunctionButton.class" WIDTH="154" HEIGHT= "62" NAME="btnAccept">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="green">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(106).value()">
+				<PARAM NAME="href" VALUE="Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0111)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+
+		<DIV ID="cancel">
+			<APPLET CODE="FunctionButton.class" WIDTH="154" HEIGHT= "62" NAME="btnCancel">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(107).value()">
+				<PARAM NAME="href" VALUE="Amulet:document.btnCancel.disappear(), %Back">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

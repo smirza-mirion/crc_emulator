@@ -1,0 +1,473 @@
+<!--
+	Byte
+	100 - Show
+	
+	String
+	101 - Test ID
+	102 - Patient ID
+	103 - First Name
+	104 - Last Name
+	105 - Date Of Birth
+	106 - Sex
+	107 - Physician
+	108 - Tech ID
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_TEST_IDENT);NAME=refreshInit">
+
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.sfTestIDLabel.reappear(),
+														     Amulet:document.btnTestID.forceUpdate(),
+														     Amulet:document.btnTestID.reappear(),
+														     Amulet:document.sfPatientIDLabel.reappear(),
+														     Amulet:document.btnPatientID.forceUpdate(),
+														     Amulet:document.btnPatientID.reappear(),
+														     Amulet:document.sfFirstNameLabel.reappear(),
+														     Amulet:document.btnFirstName.forceUpdate(),
+														     Amulet:document.btnFirstName.reappear(),
+														     Amulet:document.sfLastNameLabel.reappear(),
+														     Amulet:document.btnLastName.forceUpdate(),
+														     Amulet:document.btnLastName.reappear(),
+														     Amulet:document.sfLastNameRequired.reappear(),
+														     Amulet:document.sfDateOfBirthLabel.reappear(),
+														     Amulet:document.btnDateOfBirth.forceUpdate(),
+														     Amulet:document.btnDateOfBirth.reappear(),
+														     Amulet:document.sfSexLabel.reappear(),
+														     Amulet:document.btnSex.forceUpdate(),
+														     Amulet:document.btnSex.reappear(),
+														     Amulet:document.sfPhysicianLabel.reappear(),
+														     Amulet:document.btnPhysician.forceUpdate(),
+														     Amulet:document.btnPhysician.reappear(),
+														     Amulet:document.sfTechIDLabel.reappear(),
+														     Amulet:document.btnTechID.forceUpdate(),
+														     Amulet:document.btnTechID.reappear(),
+														     Amulet:document.btnBack.reappear();
+														     NAME=refreshShowDisplay">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+														     Amulet:document.btnSave.reappear();
+														     NAME=refreshShowSave">
+		
+		<style type="text/css">
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			
+			#testidlabel {position:absolute;left:0;top:100;width:0;height:0}
+			#testidtext {position:absolute;left:200;top:100;width:0;height:0}
+			
+			#patientidlabel {position:absolute;left:0;top:150;width:0;height:0}
+			#patientidtext {position:absolute;left:200;top:150;width:0;height:0}
+			
+			#firstnamelabel {position:absolute;left:0;top:200;width:0;height:0}
+			#firstnametext {position:absolute;left:200;top:200;width:0;height:0}
+			
+			#lastnamelabel {position:absolute;left:0;top:250;width:0;height:0}
+			#lastnametext {position:absolute;left:200;top:250;width:0;height:0}
+			#lastnamerequired {position:absolute;left:590;top:250;width:0;height:0}
+			
+			#dateofbirthlabel {position:absolute;left:0;top:300;width:0;height:0}
+			#dateofbirthtext {position:absolute;left:200;top:300;width:0;height:0}
+			
+			#sexlabel {position:absolute;left:0;top:350;width:0;height:0}
+			#sextext {position:absolute;left:200;top:350;width:0;height:0}
+			
+			#physicianlabel {position:absolute;left:0;top:400;width:0;height:0}
+			#physiciantext {position:absolute;left:200;top:400;width:0;height:0}
+			
+			#techidlabel {position:absolute;left:0;top:450;width:0;height:0}
+			#techidtext {position:absolute;left:200;top:450;width:0;height:0}
+			
+			#back {position:absolute;left:693;top:13;width:0;height:0}
+			#save {position:absolute;left:692;top:543;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="Additional Test Information">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBack">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="save">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnSave">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:document.btnSave.disappear(),Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/Save.png">
+				<PARAM NAME="downImage" VALUE="Images/Save.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="testidlabel">
+			<APPLET CODE="StringField.class" WIDTH="200" HEIGHT="40" NAME="sfTestIDLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="initialCondition" VALUE="Test ID: ">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="testidtext">
+			<APPLET CODE="CustomButton.class" WIDTH="380" HEIGHT="40" Name="btnTestID">
+				<PARAM NAME="upImage" VALUE="Images/380x40.png">
+				<PARAM NAME="downImage" VALUE="Images/380x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(101).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please enter Test ID:'), %ConfigMaxStrLen(23), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_TESTIDENT_TESTID)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="patientidlabel">
+			<APPLET CODE="StringField.class" WIDTH="200" HEIGHT="40" NAME="sfPatientIDLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="initialCondition" VALUE="Patient ID: ">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="patientidtext">
+			<APPLET CODE="CustomButton.class" WIDTH="380" HEIGHT="40" Name="btnPatientID">
+				<PARAM NAME="upImage" VALUE="Images/380x40.png">
+				<PARAM NAME="downImage" VALUE="Images/380x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(102).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please enter Patient ID:'), %ConfigMaxStrLen(23), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_TESTIDENT_PATIENTID)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="firstnamelabel">
+			<APPLET CODE="StringField.class" WIDTH="200" HEIGHT="40" NAME="sfFirstNameLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="initialCondition" VALUE="First Name: ">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="firstnametext">
+			<APPLET CODE="CustomButton.class" WIDTH="380" HEIGHT="40" Name="btnFirstName">
+				<PARAM NAME="upImage" VALUE="Images/380x40.png">
+				<PARAM NAME="downImage" VALUE="Images/380x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(103).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please enter First Name:'), %ConfigMaxStrLen(22), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_TESTIDENT_FIRSTNAME)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="lastnamelabel">
+			<APPLET CODE="StringField.class" WIDTH="200" HEIGHT="40" NAME="sfLastNameLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="initialCondition" VALUE="Last Name: ">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="lastnametext">
+			<APPLET CODE="CustomButton.class" WIDTH="380" HEIGHT="40" Name="btnLastName">
+				<PARAM NAME="upImage" VALUE="Images/380x40.png">
+				<PARAM NAME="downImage" VALUE="Images/380x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(104).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please enter Last Name:'), %ConfigMaxStrLen(22), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_TESTIDENT_LASTNAME)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="lastnamerequired">
+			<APPLET CODE="StringField.class" WIDTH="200" HEIGHT="40" NAME="sfLastNameRequired">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="initialCondition" VALUE="(Required)">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dateofbirthlabel">
+			<APPLET CODE="StringField.class" WIDTH="200" HEIGHT="40" NAME="sfDateOfBirthLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="initialCondition" VALUE="Date Of Birth: ">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dateofbirthtext">
+			<APPLET CODE="CustomButton.class" WIDTH="380" HEIGHT="40" Name="btnDateOfBirth">
+				<PARAM NAME="upImage" VALUE="Images/380x40.png">
+				<PARAM NAME="downImage" VALUE="Images/380x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(105).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter Date Of Birth:'),%ConfigDateOnly,%SetTime(%%SET_TIME_TEST_IDENT_DOB)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="sexlabel">
+			<APPLET CODE="StringField.class" WIDTH="200" HEIGHT="40" NAME="sfSexLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="initialCondition" VALUE="Sex: ">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="sextext">
+			<APPLET CODE="CustomButton.class" WIDTH="380" HEIGHT="40" Name="btnSex">
+				<PARAM NAME="upImage" VALUE="Images/380x40.png">
+				<PARAM NAME="downImage" VALUE="Images/380x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(106).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please enter Sex (M/F):'), %ConfigMaxStrLen(1), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_TESTIDENT_SEX)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="physicianlabel">
+			<APPLET CODE="StringField.class" WIDTH="200" HEIGHT="40" NAME="sfPhysicianLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="initialCondition" VALUE="Physician: ">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="physiciantext">
+			<APPLET CODE="CustomButton.class" WIDTH="380" HEIGHT="40" Name="btnPhysician">
+				<PARAM NAME="upImage" VALUE="Images/380x40.png">
+				<PARAM NAME="downImage" VALUE="Images/380x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(107).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please enter Physician:'), %ConfigMaxStrLen(23), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_TESTIDENT_PHYSICIAN)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="techidlabel">
+			<APPLET CODE="StringField.class" WIDTH="200" HEIGHT="40" NAME="sfTechIDLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD|ITALIC">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="initialCondition" VALUE="Tech ID: ">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="techidtext">
+			<APPLET CODE="CustomButton.class" WIDTH="380" HEIGHT="40" Name="btnTechID">
+				<PARAM NAME="upImage" VALUE="Images/380x40.png">
+				<PARAM NAME="downImage" VALUE="Images/380x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(108).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please enter Tech ID:'), %ConfigMaxStrLen(23), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_TESTIDENT_TECHID)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

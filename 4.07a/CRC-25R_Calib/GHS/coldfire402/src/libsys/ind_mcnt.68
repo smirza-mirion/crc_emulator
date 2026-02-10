@@ -1,0 +1,63 @@
+/*
+*
+*                Language Independent Library
+*
+*        Copyright 1983-2000 Green Hills Software,Inc.
+*
+*  This program is the property of Green Hills Software, Inc,
+*  its contents are proprietary information and no part of it
+*  is to be disclosed to anyone except employees of Green Hills
+*  Software, Inc., or as agreed in writing signed by the President
+*  of Green Hills Software, Inc.
+*
+*/
+/* ind_mcnt.68: compiler internal wrapper for Call Count Profiling (68000). */
+
+#if defined(EMBEDDED)  || (defined(CHORUS) && defined(__ELF))
+
+#if defined(__GHS_UNDERSCORE)
+#define __ghs_mcount	___ghs_mcount
+#define __ghs_indmcount	___ghs_indmcount
+#endif
+
+	FILE	"ind_mcnt.68"
+	SECT	.text,x
+	OPT	NOLC		/* do not assume _symbol is local */
+
+	XREF	__ghs_indmcount
+*68K mcount passes the address of the count variable in A0, not as an argument.
+*with -p, (SP) points to the address we RTS to (duh)
+	XDEF	__ghs_mcount
+__ghs_mcount:
+	MOVE.L	(SP),D0
+	MOVE.L	D0,-(SP)
+	MOVE.L	A0,-(SP)
+	MOVE.L	#__ghs_indmcount,A0
+	SUBA.L	#__ghs_mcount,A0
+	JSR	__ghs_mcount(PC,A0.L)
+	ADDQ.L	#8,SP
+	RTS
+
+	END
+
+#elif defined(__sun)
+
+	.comm	__G_empty_file_illegal,4
+
+#elif defined(__BSD) /* CHORUS || VXWORKS */
+
+	.text
+	.globl ___ghs_indmcount
+	.globl ___ghs_mcount
+
+___ghs_mcount:
+	movel	(sp),d0
+	movel	d0,-(sp)
+	movel	a0,-(sp)
+	movel	#___ghs_indmcount,a0
+	subl	#___ghs_mcount,a0
+	jsr	___ghs_mcount(pc,a0.l)
+	addql	#8,sp
+	rts
+	
+#endif

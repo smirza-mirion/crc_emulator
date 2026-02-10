@@ -1,0 +1,43 @@
+#!build
+default:
+	library
+	:cx_error=236
+	:c_option=unknownpragmawarn
+	:c_option=nonopragmawarn
+	:c_option=wantprototype
+	:c_mode=ansi
+	:ec_mode=ansi
+	:profilelevel=none
+	:coverage=false
+	:memcheck=none
+	:xfputype=none
+	:yfputype=none
+	# in order to compress .text, code in this library
+	# can not call out to routines in other libraries
+	# this requires that we disable out-of-line prologues.
+#gbldconvert makeOptional:	-inline_prologue
+	:ppc_option=inline_prologue
+	:v800_option=inline_prologue
+	:xswitches=-Z2216
+ind_crt0.c
+	C
+	:globalreg=99
+	:xswitches=-Xnopicpidfixups
+	:full_parameter_check=false
+#gbldconvert makeOptional:	-no_parameter_check
+	:parameter_check=false
+#gbldconvert makeOptional:	-no_16bit_data_pointer
+	:v800_option=no16bit_data_pointer
+ind_mcpy.bld
+	select_one
+ind_bcpy.bld
+	select_one
+ind_mset.bld
+	select_one
+ind_reset.bld
+	select_one
+ind_uzip.c
+	C
+#gbldconvert makeOptional:	-no_16bit_data_pointer
+	:v800_option=no16bit_data_pointer
+
