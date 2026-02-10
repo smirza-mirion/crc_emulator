@@ -98,6 +98,22 @@ The system uses global structs declared `extern` across files:
 - `DETECTOR detector[]` - Detector configuration (`Headers/crc.h:480`)
 - `m_iMenu` / `m_iPhase` - UI navigation state (`Amulet.c`)
 
+## Localization
+
+The firmware is **dual-language**: index 0 = English, index 1 = French. This was migrated from English+Spanish in v4.07a.
+
+| Component | Details |
+|-----------|---------|
+| Language enum | `ENGLISH=0`, `FRENCH=1` in `Headers/crc.h:195` |
+| String table | 891 entries in `LanguageStrings.c` (`lang_str[]` + `lang_map[]`) |
+| String reference | Commented `amulet_messages[]` in `DisplayMessage.c` (lines 24–5438) |
+| String IDs | `amulet_strings_id` enum in `Headers/message.h` (891 `L_*` constants) |
+| Runtime lookup | `get_amulet_message()` / `get_amulet_message_with_language()` in `DisplayMessage.c` |
+| Database columns | Paired `*TextEnglish` / `*TextFrench` fields in 8 struct types |
+| Button images | `french_*.png` in `CRCHtml_3.00a/Images/` (28 images) |
+| Amulet fonts | Arial Black Bold and Franklin Gothic Book cover full Latin-1 (0x20–0xFF) for French accented characters |
+| Extended ASCII | French uses: À É È Ô à ç è é ê ï ô û (all in Latin-1 / ISO 8859-1 range) |
+
 ## Additional Documentation
 
 Consult these files for specialized topics:
