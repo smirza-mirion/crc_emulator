@@ -43,7 +43,7 @@ void send_to_amulet_string(uchar ucIndex, char message0[]);
 /**
  * \details Handles the Amulet Screen DoseTable.htm. DoseTable.htm is decay dose table screen.
  * \param Amulet_Byte_ID Description
- * \param 92 Language (STATE) English = 0, Spanish = 1
+ * \param 92 Language (STATE) English = 0, French = 1
  * \param Amulet_String_ID Description
  * \param 150_151 Title
  * \param 152 Nuclide

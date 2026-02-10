@@ -65,7 +65,7 @@ static void AmuletAutoLinearitySearch_displayPage(void);
 /**
  * \details Handles the Amulet Screen AutoLinearitySearch.htm. AutoLinearitySearch.htm searches the database for autolinearity test from a date range.
  * \param Amulet_Byte_ID Description
- * \param 80 Language	(STATE) English = 0, Spanish = 1
+ * \param 80 Language	(STATE) English = 0, French = 1
  * \param 91 PageUp
  * \param 92 PageDown
  * \param 99 Show Buttons

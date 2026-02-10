@@ -32,7 +32,7 @@ void praccuracy_db(void);
  * \details Handles the Amulet Screen ChamberAutoconstancyTestView.htm. ChamberAutoconstancyTestView.htm shows an autoconstancy test from the database.
  * \param Amulet_Byte_ID Description
  * \param 20 Show Chamber Label (TOGGLE)
- * \param 80 Language (STATE) English = 0, Spanish = 1
+ * \param 80 Language (STATE) English = 0, French = 1
  * \param 100 Print Button (STATE)
  * \param 101 Display Line 1 (STATE)
  * \param 102 Display Line 2 (STATE)
@@ -110,7 +110,7 @@ void AmuletChamberAutoconstancyTestView_menu(void){
 				if(AmuletChamberSearchMenu_AutoConstancy[i].ChamberAutoConstancyID != 0){
 					acMsg[0] = 0;
 					if(current.language == ENGLISH) sprintf(acMsg, "%d) %s: %s", j+1, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyNuclide, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyActivityTextEnglish);
-					else if(current.language == SPANISH) sprintf(acMsg, "%d) %s: %s", j+1, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyNuclide, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyActivityTextSpanish);
+					else if(current.language == FRENCH) sprintf(acMsg, "%d) %s: %s", j+1, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyNuclide, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyActivityTextFrench);
 					send_to_amulet_string((2*j) + 109, acMsg);
 					delayloop(2);
 					SetAmuletByte(101 + j, 0xFF);

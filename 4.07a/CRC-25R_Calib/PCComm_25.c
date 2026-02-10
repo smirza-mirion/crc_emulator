@@ -180,7 +180,7 @@ char InCDCPeep(short BufferIndex);
 short InCDCScan(char testFor);
 void InCDCStrip(char testFor);
 unsigned short InBufferPop1(char *Output);
-void DB_UpdateDailyTestDataCheck(long long int ChamberDailyTestID, char *DataCheckTextEnglish, char *DataCheckTextSpanish, bool DataCheckFailed, char *DataCheckCRC, bool bookEnd);
+void DB_UpdateDailyTestDataCheck(long long int ChamberDailyTestID, char *DataCheckTextEnglish, char *DataCheckTextFrench, bool DataCheckFailed, char *DataCheckCRC, bool bookEnd);
 void splitoutunits(char *act, char *numbers, char *units);
 #ifdef TERMINAL
 void setup_short_watchdog(void);
@@ -1812,7 +1812,7 @@ static void parse_extended(char *msg, short len){
 				acMsg = malloc(20);
 				acMsg2 = malloc(20);
 				get_amulet_message_with_language(L_CAPS_OK, acMsg, ENGLISH);    // "OK"
-				get_amulet_message_with_language(L_CAPS_OK, acMsg2, SPANISH);    // "OK"
+				get_amulet_message_with_language(L_CAPS_OK, acMsg2, FRENCH);    // "OK"
 				DB_UpdateDailyTestDataCheck(AmuletDailyMenu_ChamberDailyTestID, acMsg, acMsg2, FALSE, hex_str, TRUE);
 				free(acMsg2);
 				free(acMsg);
@@ -1822,7 +1822,7 @@ static void parse_extended(char *msg, short len){
 				get_amulet_message_with_language(L_ERROR, acMsg, ENGLISH);    // "ERROR"
 				strcat(acMsg, ", ");
 				strcat(acMsg, hex_str);
-				get_amulet_message_with_language(L_ERROR, acMsg2, SPANISH);    // "ERROR"
+				get_amulet_message_with_language(L_ERROR, acMsg2, FRENCH);    // "ERROR"
 				strcat(acMsg2, ", ");
 				strcat(acMsg2, hex_str);
 				DB_UpdateDailyTestDataCheck(AmuletDailyMenu_ChamberDailyTestID, acMsg, acMsg2, TRUE, hex_str, TRUE);

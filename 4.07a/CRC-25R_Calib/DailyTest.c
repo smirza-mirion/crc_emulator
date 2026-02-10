@@ -730,35 +730,35 @@ void prdailysection_db(char *header_name){
 		strcat(buffer, AmuletChamberSearchMenu_DailyTest.DataCheckTextEnglish);
 		insertconst(strng, 0, 0, 0, buffer);
 		pr_write2_language_dbsec(strng, header_name);
-	}else if(current.language == SPANISH){
+	}else if(current.language == FRENCH){
 		get_amulet_message(L_ZERO, buffer);    // "ZERO:"
 		strcat(buffer, " ");
-		strcat(buffer, AmuletChamberSearchMenu_Zero.ZeroTextSpanish);
+		strcat(buffer, AmuletChamberSearchMenu_Zero.ZeroTextFrench);
 		insertconst(strng, 0, 0, 0, buffer);
 		pr_write2_language_dbsec(strng, header_name);
 
 		get_amulet_message(L_BACKGROUND, buffer);    // "BACKGROUND:"
 		strcat(buffer, " ");
-		strcat(buffer, AmuletChamberSearchMenu_Background.BackgroundTextSpanish);
+		strcat(buffer, AmuletChamberSearchMenu_Background.BackgroundTextFrench);
 		insertconst(strng, 0, 0, 0, buffer);
 		pr_write2_language_dbsec(strng, header_name);
 
 		get_amulet_message(L_CHAMBER_VOLTAGE, buffer);    // "CHAMBER VOLTAGE:"
 		strcat(buffer, " ");
-		strcat(buffer, AmuletChamberSearchMenu_Voltage.VoltageTextSpanish);
+		strcat(buffer, AmuletChamberSearchMenu_Voltage.VoltageTextFrench);
 		insertconst(strng, 0, 0, 0, buffer);
 		pr_write2_language_dbsec(strng, header_name);
 
 
 		get_amulet_message(L_DATA_CHECK_PRINTED, buffer);    // "DATA CHECK:"
 		strcat(buffer, " ");
-		strcat(buffer, AmuletChamberSearchMenu_DailyTest.DataCheckTextSpanish);
+		strcat(buffer, AmuletChamberSearchMenu_DailyTest.DataCheckTextFrench);
 		if(printer == ROLL_PRINTER || printer == SLIP_PRINTER){
 			if(strlen(buffer) > 34){
 				get_amulet_message(L_DATA_CHECK_PRINTED, buffer);    // "DATA CHECK:"
 				insertconst(strng, 0, 0, 0, buffer);
 				pr_write2_language_dbsec(strng, header_name);
-				strcpy(buffer, AmuletChamberSearchMenu_DailyTest.DataCheckTextSpanish);
+				strcpy(buffer, AmuletChamberSearchMenu_DailyTest.DataCheckTextFrench);
 			}
 		}
 		insertconst(strng, 0, 0, 0, buffer);
@@ -845,7 +845,7 @@ void przerosection_db(char *header_name, bool space){
 	get_amulet_message(L_ZERO, buffer);    // "ZERO:"
 	strcat(buffer, " ");
 	if(current.language == ENGLISH) strcat(buffer, AmuletChamberSearchMenu_Zero.ZeroTextEnglish);
-	else if(current.language == SPANISH) strcat(buffer, AmuletChamberSearchMenu_Zero.ZeroTextSpanish);
+	else if(current.language == FRENCH) strcat(buffer, AmuletChamberSearchMenu_Zero.ZeroTextFrench);
 	insertconst(strng, 0, 0, 0, buffer);
 	pr_write2_language_dbsec(strng, header_name);
 
@@ -897,7 +897,7 @@ void prbackgroundsection_db(char *header_name, bool space){
 	get_amulet_message(L_BACKGROUND, buffer);    // "BACKGROUND:"
 	strcat(buffer, " ");
 	if(current.language == ENGLISH) strcat(buffer, AmuletChamberSearchMenu_Background.BackgroundTextEnglish);
-	else if(current.language == SPANISH) strcat(buffer, AmuletChamberSearchMenu_Background.BackgroundTextSpanish);
+	else if(current.language == FRENCH) strcat(buffer, AmuletChamberSearchMenu_Background.BackgroundTextFrench);
 	insertconst(strng, 0, 0, 0, buffer);
 	pr_write2_language_dbsec(strng, header_name);
 
@@ -950,7 +950,7 @@ void prchambervoltagesection_db(char *header_name, bool space){
 	get_amulet_message(L_CHAMBER_VOLTAGE, buffer);    // "CHAMBER VOLTAGE:"
 	strcat(buffer, " ");
 	if(current.language == ENGLISH) strcat(buffer, AmuletChamberSearchMenu_Voltage.VoltageTextEnglish);
-	else if(current.language == SPANISH) strcat(buffer, AmuletChamberSearchMenu_Voltage.VoltageTextSpanish);
+	else if(current.language == FRENCH) strcat(buffer, AmuletChamberSearchMenu_Voltage.VoltageTextFrench);
 	insertconst(strng, 0, 0, 0, buffer);
 	pr_write2_language_dbsec(strng, header_name);
 

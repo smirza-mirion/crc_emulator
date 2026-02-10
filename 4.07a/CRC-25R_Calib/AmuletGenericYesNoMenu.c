@@ -128,7 +128,7 @@ void AmuletGenericYesNo_saveInDatabase(bool autoconstancy){
 					strcpy(chamberaccuracymeasurement->CalculatedActivityTextEnglish, acc_data[i].test_res[ch_num].pract);
 					trim(chamberaccuracymeasurement->CalculatedActivityTextEnglish);
 					replace(chamberaccuracymeasurement->CalculatedActivityTextEnglish, '$', 'u');
-					strcpy(chamberaccuracymeasurement->CalculatedActivityTextSpanish, chamberaccuracymeasurement->CalculatedActivityTextEnglish);
+					strcpy(chamberaccuracymeasurement->CalculatedActivityTextFrench, chamberaccuracymeasurement->CalculatedActivityTextEnglish);
 					chamberaccuracymeasurement->CalculatedActivity = acc_data[i].test_res[ch_num].pred_act;
 					chamberaccuracymeasurement->Response = acc_data[i].test_res[ch_num].resp0;
 					chamberaccuracymeasurement->HalfLife = NuclideData_getHalflife(chamberaccuracymeasurement->SourceNuclideIndex);
@@ -138,27 +138,27 @@ void AmuletGenericYesNo_saveInDatabase(bool autoconstancy){
 						strcpy(chamberaccuracymeasurement->MeasuredActivityTextEnglish, acc_data[i].test_res[ch_num].msact);
 						trim(chamberaccuracymeasurement->MeasuredActivityTextEnglish);
 						replace(chamberaccuracymeasurement->MeasuredActivityTextEnglish, '$', 'u');
-						strcpy(chamberaccuracymeasurement->MeasuredActivityTextSpanish, chamberaccuracymeasurement->MeasuredActivityTextEnglish);
+						strcpy(chamberaccuracymeasurement->MeasuredActivityTextFrench, chamberaccuracymeasurement->MeasuredActivityTextEnglish);
 						chamberaccuracymeasurement->MeasuredActivity = acc_data[i].test_res[ch_num].ms_act;
 						if(acc_data[i].test_res[ch_num].nc == -1){
 							chamberaccuracymeasurement->DeviationStatus = 1;
 							get_amulet_message_with_language(L_ERROR2, chamberaccuracymeasurement->DeviationTextEnglish, ENGLISH);    // "Error"
-							get_amulet_message_with_language(L_ERROR2, chamberaccuracymeasurement->DeviationTextSpanish, SPANISH);    // "Error"
+							get_amulet_message_with_language(L_ERROR2, chamberaccuracymeasurement->DeviationTextFrench, FRENCH);    // "Error"
 						}else{
 							chamberaccuracymeasurement->DeviationStatus = 0;
 							strcpy(chamberaccuracymeasurement->DeviationTextEnglish, acc_data[i].test_res[ch_num].var);
 							trim(chamberaccuracymeasurement->DeviationTextEnglish);
 							strcat(chamberaccuracymeasurement->DeviationTextEnglish, " %");
-							strcpy(chamberaccuracymeasurement->DeviationTextSpanish, chamberaccuracymeasurement->DeviationTextEnglish);
+							strcpy(chamberaccuracymeasurement->DeviationTextFrench, chamberaccuracymeasurement->DeviationTextEnglish);
 						}
 						chamberaccuracymeasurement->Deviation = acc_data[i].test_res[ch_num].diff;
 					}else{
 						get_amulet_message_with_language(L_OVERRANGE2, chamberaccuracymeasurement->MeasuredActivityTextEnglish, ENGLISH);    // "Over Range"
-						get_amulet_message_with_language(L_OVERRANGE2, chamberaccuracymeasurement->MeasuredActivityTextSpanish, SPANISH);    // "Over Range"
+						get_amulet_message_with_language(L_OVERRANGE2, chamberaccuracymeasurement->MeasuredActivityTextFrench, FRENCH);    // "Over Range"
 						chamberaccuracymeasurement->MeasuredActivity = 100.0;
 						chamberaccuracymeasurement->DeviationStatus = 1;
 						get_amulet_message_with_language(L_ERROR2, chamberaccuracymeasurement->DeviationTextEnglish, ENGLISH);    // "Error"
-						get_amulet_message_with_language(L_ERROR2, chamberaccuracymeasurement->DeviationTextSpanish, SPANISH);    // "Error"
+						get_amulet_message_with_language(L_ERROR2, chamberaccuracymeasurement->DeviationTextFrench, FRENCH);    // "Error"
 						chamberaccuracymeasurement->Deviation = 999;
 					}
 
@@ -205,7 +205,7 @@ void AmuletGenericYesNo_saveInDatabase(bool autoconstancy){
 							strcpy(chamberautoconstancy->ConstancyActivityTextEnglish, measurement[8].actstr);
 							trim(chamberautoconstancy->ConstancyActivityTextEnglish);
 							replace(chamberautoconstancy->ConstancyActivityTextEnglish, '$', 'u');
-							strcpy(chamberautoconstancy->ConstancyActivityTextSpanish, chamberautoconstancy->ConstancyActivityTextEnglish);
+							strcpy(chamberautoconstancy->ConstancyActivityTextFrench, chamberautoconstancy->ConstancyActivityTextEnglish);
 							chamberautoconstancy->ConstancyActivity = measurement[8].act0;
 							DB_CreateChamberAutoConstancy(chamberautoconstancy, FALSE);
 						}

@@ -18,7 +18,7 @@ extern CURRENT current;
 /**
  * \details Handles the Amulet Screen SetupLinearity.htm. SetupLinearity.htm shows the setup options for linearity.
  * \param Amulet_Byte_ID Description
- * \param 92 Language (STATE) English = 0, Spanish = 1
+ * \param 92 Language (STATE) English = 0, French = 1
  * \param 93 CRC-77t (STATE) Not CRC-77t = 0, CRC-77t = 1
  * \param Amulet_String_ID Description
  * \param 110 Title

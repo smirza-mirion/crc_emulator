@@ -85,7 +85,7 @@ void send_to_amulet_string(uchar ucIndex, char message0[]);
 /**
  * \details Handles the Amulet Screen AutoLinearityTest.htm. AutoLinearityTest.htm runs the autolinearity test.
  * \param Amulet_Byte_ID Description
- * \param 80 Language (STATE) English = 0, Spanish = 1
+ * \param 80 Language (STATE) English = 0, French = 1
  * \param 81 Show Nuclide Button
  * \param 82 Show Nuclide Text
  * \param 83 Show Interval Button

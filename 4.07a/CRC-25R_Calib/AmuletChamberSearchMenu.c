@@ -81,7 +81,7 @@ void praccuracysection_db(short prtype, char *header_name, bool print_chamber_se
 /**
  * \details Handles the Amulet Screen ChamberSearch.htm. ChamberSearch.htm searches the database for reports based on a date range.
  * \param Amulet_Byte_ID Description
- * \param 80 Language	(STATE) English = 0, Spanish = 1
+ * \param 80 Language	(STATE) English = 0, French = 1
  * \param 91 PageUp
  * \param 92 PageDown
  * \param 93 Print

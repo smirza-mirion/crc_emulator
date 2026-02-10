@@ -192,7 +192,7 @@ void DB_WritePassword(char *password);
 void DB_CreateChamberZero(CHAMBERZERO *chamberzero, long long int *ChamberDailyTestID, bool bookEnd);
 void DB_CreateChamberBackground(CHAMBERBACKGROUND *chamberbackground, long long int ChamberDailyTestID, bool bookEnd);
 void DB_CreateChamberVoltage(CHAMBERVOLTAGE *chambervoltage, long long int ChamberDailyTestID, bool bookEnd);
-void DB_UpdateDailyTestDataCheck(long long int ChamberDailyTestID, char *DataCheckTextEnglish, char *DataCheckTextSpanish, bool DataCheckFailed, char *DataCheckCRC, bool bookEnd);
+void DB_UpdateDailyTestDataCheck(long long int ChamberDailyTestID, char *DataCheckTextEnglish, char *DataCheckTextFrench, bool DataCheckFailed, char *DataCheckCRC, bool bookEnd);
 void DB_CreateChamberAccuracyTest(CHAMBERACCURACYTEST *chamberaccuracytest, long long int ChamberDailyTestID, bool bookEnd);
 void DB_CreateChamberAccuracyMeasurement(CHAMBERACCURACYMEASUREMENT *chamberaccuracymeasurement, bool bookEnd);
 void DB_StartBookEnd(void);

@@ -34,7 +34,7 @@ void prdaily_db(void);
  * \details Handles the Amulet Screen ChamberDailyTestView.htm. ChamberDailyTestView.htm shows a daily test from the database.
  * \param Amulet_Byte_ID Description
  * \param 20 Show Chamber Label (TOGGLE)
- * \param 80 Language (STATE) English = 0, Spanish = 1
+ * \param 80 Language (STATE) English = 0, French = 1
  * \param 100 Accuracy Button (STATE)
  * \param 101 Print Button (STATE)
  * \param 102 Inactivate Button (STATE) FF = Inactivate Button, FE = Inactivate Reason
@@ -89,7 +89,7 @@ void AmuletChamberDailyTestView_menu(void){
 				SetAmuletByte(104, 0xFF);
 			}else{
 				if(current.language == ENGLISH) send_to_amulet_string(106, AmuletChamberSearchMenu_Zero.ZeroTextEnglish);
-				else if(current.language == SPANISH) send_to_amulet_string(106, AmuletChamberSearchMenu_Zero.ZeroTextSpanish);
+				else if(current.language == FRENCH) send_to_amulet_string(106, AmuletChamberSearchMenu_Zero.ZeroTextFrench);
 				if(AmuletChamberSearchMenu_Zero.ZeroStatus == ZERO_OUT_OF_RANGE || AmuletChamberSearchMenu_Zero.ZeroStatus == ZERO_DRIFT) SetAmuletByte(104, 0xFF);
 			}
 			delayloop(2);
@@ -100,7 +100,7 @@ void AmuletChamberDailyTestView_menu(void){
 				SetAmuletByte(105, 0xFF);
 			}else{
 				if(current.language == ENGLISH) send_to_amulet_string(109, AmuletChamberSearchMenu_Background.BackgroundTextEnglish);
-				else if(current.language == SPANISH) send_to_amulet_string(109, AmuletChamberSearchMenu_Background.BackgroundTextSpanish);
+				else if(current.language == FRENCH) send_to_amulet_string(109, AmuletChamberSearchMenu_Background.BackgroundTextFrench);
 				if(AmuletChamberSearchMenu_Background.BackgroundStatus == BKG_HIGH || AmuletChamberSearchMenu_Background.BackgroundStatus == BKG_TOO_HIGH) SetAmuletByte(105, 0xFF);
 			}
 			delayloop(2);
@@ -111,7 +111,7 @@ void AmuletChamberDailyTestView_menu(void){
 				SetAmuletByte(106, 0xFF);
 			}else{
 				if(current.language == ENGLISH) send_to_amulet_string(112, AmuletChamberSearchMenu_Voltage.VoltageTextEnglish);
-				else if(current.language == SPANISH) send_to_amulet_string(112, AmuletChamberSearchMenu_Voltage.VoltageTextSpanish);
+				else if(current.language == FRENCH) send_to_amulet_string(112, AmuletChamberSearchMenu_Voltage.VoltageTextFrench);
 				if(AmuletChamberSearchMenu_Voltage.VoltageStatus == BIAS_TEST_FAIL) SetAmuletByte(106, 0xFF);
 			}
 			delayloop(2);
@@ -122,7 +122,7 @@ void AmuletChamberDailyTestView_menu(void){
 				SetAmuletByte(107, 0xFF);
 			}else{
 				if(current.language == ENGLISH) send_to_amulet_string(116, AmuletChamberSearchMenu_DailyTest.DataCheckTextEnglish);
-				else if(current.language == SPANISH) send_to_amulet_string(116, AmuletChamberSearchMenu_DailyTest.DataCheckTextSpanish);
+				else if(current.language == FRENCH) send_to_amulet_string(116, AmuletChamberSearchMenu_DailyTest.DataCheckTextFrench);
 				if(AmuletChamberSearchMenu_DailyTest.DataCheckFailed) SetAmuletByte(107, 0xFF);
 			}
 			delayloop(2);

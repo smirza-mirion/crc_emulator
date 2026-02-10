@@ -40,7 +40,7 @@ void Sysset_updateMirror(void);
  * \details Handles the Amulet Screen Background.htm. Background.htm runs the background test.
  * \param Amulet_Byte_ID Description
  * \param 20 Show Chamber Label (TOGGLE)
- * \param 80 Language (STATE) English = 0, Spanish = 1
+ * \param 80 Language (STATE) English = 0, French = 1
  * \param 108 Show Red Color
  * \param 189 State Change (TOGGLE)
  * \param 189 FF = Display Remove All Sources message
@@ -139,7 +139,7 @@ void AmuletBackground_menu(void) {
 				chamberbackground->TwoStageChamber = chamber_one_gain_relay(ch_num);
 				chamberbackground->BackgroundStatus = bkgdata[ch_num].status;
 				chamberbackground->BackgroundTextEnglish[0] = 0;
-				chamberbackground->BackgroundTextSpanish[0] = 0;
+				chamberbackground->BackgroundTextFrench[0] = 0;
 				chamberbackground->BackgroundValue = 0;
 				chamberbackground->MeasuredOn = clock_time;
 				chamberbackground->InactiveReason[0] = 0;
@@ -149,8 +149,8 @@ void AmuletBackground_menu(void) {
 					//SetAmuletString(190, "BACKGROUND TOO HIGH");
 					get_amulet_message_with_language(L_BACKGROUND_TOO_HIGH, String190, ENGLISH);    // "BACKGROUND TOO HIGH"
 					strcpy(chamberbackground->BackgroundTextEnglish, String190);
-					get_amulet_message_with_language(L_BACKGROUND_TOO_HIGH, String190, SPANISH);    // "BACKGROUND TOO HIGH"
-					strcpy(chamberbackground->BackgroundTextSpanish, String190);
+					get_amulet_message_with_language(L_BACKGROUND_TOO_HIGH, String190, FRENCH);    // "BACKGROUND TOO HIGH"
+					strcpy(chamberbackground->BackgroundTextFrench, String190);
 
 					get_amulet_message(L_BACKGROUND_TOO_HIGH, String190);    // "BACKGROUND TOO HIGH"
 					send_to_amulet_string(190, String190);
@@ -164,7 +164,7 @@ void AmuletBackground_menu(void) {
 					strcpy(String190, acMsg);
 					strcpy(chamberbackground->BackgroundTextEnglish, String190);
 					replace(chamberbackground->BackgroundTextEnglish, '$', 'u');
-					strcpy(chamberbackground->BackgroundTextSpanish, chamberbackground->BackgroundTextEnglish);
+					strcpy(chamberbackground->BackgroundTextFrench, chamberbackground->BackgroundTextEnglish);
 					if(bkgdata[ch_num].status == BKG_HIGH){
 						acMsg2 = malloc(100);
 
@@ -172,9 +172,9 @@ void AmuletBackground_menu(void) {
 						get_amulet_message_with_language(L_HIGH, acMsg2, ENGLISH);    // "HIGH"
 						strcat(chamberbackground->BackgroundTextEnglish, acMsg2);
 
-						strcat(chamberbackground->BackgroundTextSpanish, " ");
-						get_amulet_message_with_language(L_HIGH, acMsg2, SPANISH);    // "HIGH"
-						strcat(chamberbackground->BackgroundTextSpanish, acMsg2);
+						strcat(chamberbackground->BackgroundTextFrench, " ");
+						get_amulet_message_with_language(L_HIGH, acMsg2, FRENCH);    // "HIGH"
+						strcat(chamberbackground->BackgroundTextFrench, acMsg2);
 
 						free(acMsg2);
 					}

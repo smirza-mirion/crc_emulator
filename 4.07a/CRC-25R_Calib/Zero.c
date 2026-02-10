@@ -184,7 +184,7 @@
 						chamberzero->TwoStageChamber = chamber_one_gain_relay(ch_num);
 						chamberzero->ZeroStatus = zerodata[ch_num].status;
 						get_amulet_message_with_language(L_ZERO_OUT_OF_RANGE, chamberzero->ZeroTextEnglish, ENGLISH);    // "Zero out of Range"
-						get_amulet_message_with_language(L_ZERO_OUT_OF_RANGE, chamberzero->ZeroTextSpanish, SPANISH);    // "Zero out of Range"
+						get_amulet_message_with_language(L_ZERO_OUT_OF_RANGE, chamberzero->ZeroTextFrench, FRENCH);    // "Zero out of Range"
 						chamberzero->ZeroValue = zerodata[ch_num].znew;
 						chamberzero->MeasuredOn = clock_time;
 						chamberzero->CreatedOn = 0;
@@ -224,7 +224,7 @@
 			chamberzero->TwoStageChamber = chamber_one_gain_relay(ch_num);
 			chamberzero->ZeroStatus = zerodata[ch_num].status;
 			chamberzero->ZeroTextEnglish[0] = 0;
-			chamberzero->ZeroTextSpanish[0] = 0;
+			chamberzero->ZeroTextFrench[0] = 0;
 			chamberzero->ZeroValue = zerodata[ch_num].znew;
 			chamberzero->MeasuredOn = clock_time;
 			chamberzero->CreatedOn = 0;
@@ -234,7 +234,7 @@
 			if(zerodata[ch_num].status == TEST_GOOD){
 				strcpy(chamberzero->ZeroTextEnglish, measurement[ch_num].actstr);
 				trim(chamberzero->ZeroTextEnglish);
-				strcpy(chamberzero->ZeroTextSpanish, chamberzero->ZeroTextEnglish);
+				strcpy(chamberzero->ZeroTextFrench, chamberzero->ZeroTextEnglish);
 			}else if (zerodata[ch_num].status == ZERO_DRIFT){
 				acMsg = malloc(100);
 
@@ -243,16 +243,16 @@
 				get_amulet_message_with_language(L_ZERO_DRIFT, acMsg, ENGLISH);    // "Zero Drift"
 				strcat(chamberzero->ZeroTextEnglish, acMsg);
 
-				strcpy(chamberzero->ZeroTextSpanish, measurement[ch_num].actstr);
-				trim(chamberzero->ZeroTextSpanish);
-				strcat(chamberzero->ZeroTextSpanish, " ");
-				get_amulet_message_with_language(L_ZERO_DRIFT, acMsg, SPANISH);    // "Zero Drift"
-				strcat(chamberzero->ZeroTextSpanish, acMsg);
+				strcpy(chamberzero->ZeroTextFrench, measurement[ch_num].actstr);
+				trim(chamberzero->ZeroTextFrench);
+				strcat(chamberzero->ZeroTextFrench, " ");
+				get_amulet_message_with_language(L_ZERO_DRIFT, acMsg, FRENCH);    // "Zero Drift"
+				strcat(chamberzero->ZeroTextFrench, acMsg);
 
 				free(acMsg);
 			}else if (zerodata[ch_num].status == ZERO_OUT_OF_RANGE){
 				get_amulet_message_with_language(L_ZERO_OUT_OF_RANGE, chamberzero->ZeroTextEnglish, ENGLISH);    // "Zero out of Range"
-				get_amulet_message_with_language(L_ZERO_OUT_OF_RANGE, chamberzero->ZeroTextSpanish, SPANISH);    // "Zero out of Range"
+				get_amulet_message_with_language(L_ZERO_OUT_OF_RANGE, chamberzero->ZeroTextFrench, FRENCH);    // "Zero out of Range"
 			}
 
 			if(chamber[ch_num].control == CONTROL_PC) DB_CreateChamberZero(chamberzero, &AmuletDailyMenu_ChamberDailyTestID, TRUE);

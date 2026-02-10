@@ -843,7 +843,7 @@ void praccuracysection_db(short prtype, char *header_name, bool print_chamber_se
 				kp = 12 * k + 30;
 				strng1[0] = 0;
 				if(current.language == ENGLISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[i].CalculatedActivityTextEnglish);
-				else if(current.language == SPANISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[i].CalculatedActivityTextSpanish);
+				else if(current.language == FRENCH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[i].CalculatedActivityTextFrench);
 				length = strlen(strng1);
 				strncpy(&strng[kp-length], strng1, length);
 			}
@@ -859,7 +859,7 @@ void praccuracysection_db(short prtype, char *header_name, bool print_chamber_se
 				kp = 12 * k + 30;
 				strng1[0] = 0;
 				if(current.language == ENGLISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[i].MeasuredActivityTextEnglish);
-				else if(current.language == SPANISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[i].MeasuredActivityTextSpanish);
+				else if(current.language == FRENCH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[i].MeasuredActivityTextFrench);
 				length = strlen(strng1);
 				strncpy(&strng[kp-length], strng1, length);
 			}
@@ -875,7 +875,7 @@ void praccuracysection_db(short prtype, char *header_name, bool print_chamber_se
 				kp = 12 * k + 28;
 				strng1[0] = 0;
 				if(current.language == ENGLISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[i].DeviationTextEnglish);
-				else if(current.language == SPANISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[i].DeviationTextSpanish);
+				else if(current.language == FRENCH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[i].DeviationTextFrench);
 				length = strlen(strng1);
 				strncpy(&strng[kp - length], strng1, length);
 			}
@@ -909,7 +909,7 @@ void praccuracysection_db(short prtype, char *header_name, bool print_chamber_se
 			kp = 12 * k + 30;
 			strng1[0] = 0;
 			if(current.language == ENGLISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[5].CalculatedActivityTextEnglish);
-			else if(current.language == SPANISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[5].CalculatedActivityTextSpanish);
+			else if(current.language == FRENCH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[5].CalculatedActivityTextFrench);
 			length = strlen(strng1);
 			strncpy(&strng[kp-length], strng1, length);
 			pr_write2_language_dbsec(strng, header_name);
@@ -921,7 +921,7 @@ void praccuracysection_db(short prtype, char *header_name, bool print_chamber_se
 			kp = 12 * k + 30;
 			strng1[0] = 0;
 			if(current.language == ENGLISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[5].MeasuredActivityTextEnglish);
-			else if(current.language == SPANISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[5].MeasuredActivityTextSpanish);
+			else if(current.language == FRENCH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[5].MeasuredActivityTextFrench);
 			length = strlen(strng1);
 			strncpy(&strng[kp-length], strng1, length);
 			pr_write2_language_dbsec(strng, header_name);
@@ -933,7 +933,7 @@ void praccuracysection_db(short prtype, char *header_name, bool print_chamber_se
 			kp = 12 * k + 28;
 			strng1[0] = 0;
 			if(current.language == ENGLISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[5].DeviationTextEnglish);
-			else if(current.language == SPANISH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[5].DeviationTextSpanish);
+			else if(current.language == FRENCH) strcpy(strng1, AmuletChamberSearchMenu_AccuracyMeasurement[5].DeviationTextFrench);
 			length = strlen(strng1);
 			strncpy(&strng[kp - length], strng1, length);
 			pr_write2_language_dbsec(strng, header_name);
@@ -958,7 +958,7 @@ void praccuracysection_db(short prtype, char *header_name, bool print_chamber_se
 				// predicted activity
 				strncpy(&strng[0], &head[2][0], 19);
 				if(current.language == ENGLISH) strcpy(tempSECTION, AmuletChamberSearchMenu_AccuracyMeasurement[i].CalculatedActivityTextEnglish);
-				else if(current.language == SPANISH) strcpy(tempSECTION, AmuletChamberSearchMenu_AccuracyMeasurement[i].CalculatedActivityTextSpanish);
+				else if(current.language == FRENCH) strcpy(tempSECTION, AmuletChamberSearchMenu_AccuracyMeasurement[i].CalculatedActivityTextFrench);
 				length = strlen(tempSECTION);
 				strncpy(&strng[31 - length], tempSECTION, length);
 				pr_write2_language_dbsec(strng, header_name);
@@ -966,7 +966,7 @@ void praccuracysection_db(short prtype, char *header_name, bool print_chamber_se
 				// measured activity
 				strncpy(&strng[0], &head[3][0], 17);
 				if(current.language == ENGLISH) strcpy(tempSECTION, AmuletChamberSearchMenu_AccuracyMeasurement[i].MeasuredActivityTextEnglish);
-				else if(current.language == SPANISH) strcpy(tempSECTION, AmuletChamberSearchMenu_AccuracyMeasurement[i].MeasuredActivityTextSpanish);
+				else if(current.language == FRENCH) strcpy(tempSECTION, AmuletChamberSearchMenu_AccuracyMeasurement[i].MeasuredActivityTextFrench);
 				length = strlen(tempSECTION);
 				strncpy(&strng[31 - length], tempSECTION, length);
 				pr_write2_language_dbsec(strng, header_name);
@@ -974,7 +974,7 @@ void praccuracysection_db(short prtype, char *header_name, bool print_chamber_se
 				// variation
 				strncpy(&strng[0], &head[4][0], 17);
 				if(current.language == ENGLISH) strcpy(tempSECTION, AmuletChamberSearchMenu_AccuracyMeasurement[i].DeviationTextEnglish);
-				else if(current.language == SPANISH) strcpy(tempSECTION, AmuletChamberSearchMenu_AccuracyMeasurement[i].DeviationTextSpanish);
+				else if(current.language == FRENCH) strcpy(tempSECTION, AmuletChamberSearchMenu_AccuracyMeasurement[i].DeviationTextFrench);
 				length = strlen(tempSECTION);
 				strncpy(&strng[31 - length], tempSECTION, length);
 				pr_write2_language_dbsec(strng, header_name);
@@ -1381,7 +1381,7 @@ void prconstancysection_db(short printer, char *header_name){
 			strncpy(&strng[kp], AmuletChamberSearchMenu_AutoConstancy[i].ConstancyNuclide, strlen(AmuletChamberSearchMenu_AutoConstancy[i].ConstancyNuclide));
 
 			if(current.language == ENGLISH) strcpy(tempSECTION, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyActivityTextEnglish);
-			else if(current.language == SPANISH) strcpy(tempSECTION, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyActivityTextSpanish);
+			else if(current.language == FRENCH) strcpy(tempSECTION, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyActivityTextFrench);
 
 			kp = (27 * (i%3)) + 18 - strlen(tempSECTION);
 			strncpy(&strng[kp], tempSECTION, strlen(tempSECTION));
@@ -1396,7 +1396,7 @@ void prconstancysection_db(short printer, char *header_name){
 			strncpy(&strng[kp], AmuletChamberSearchMenu_AutoConstancy[i].ConstancyNuclide, strlen(AmuletChamberSearchMenu_AutoConstancy[i].ConstancyNuclide));
 
 			if(current.language == ENGLISH) strcpy(tempSECTION, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyActivityTextEnglish);
-			else if(current.language == SPANISH) strcpy(tempSECTION, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyActivityTextSpanish);
+			else if(current.language == FRENCH) strcpy(tempSECTION, AmuletChamberSearchMenu_AutoConstancy[i].ConstancyActivityTextFrench);
 
 			kp = 18 - strlen(tempSECTION);
 			strncpy(&strng[kp], tempSECTION, strlen(tempSECTION));

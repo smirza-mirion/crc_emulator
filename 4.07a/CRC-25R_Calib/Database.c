@@ -1517,7 +1517,7 @@ void initDB(bool recreate){
 			strcat(sCommand, "ChamberType INTEGER,");
 			strcat(sCommand, "TwoStageChamber INTEGER,");
 			strcat(sCommand, "DataCheckTextEnglish TEXT,");
-			strcat(sCommand, "DataCheckTextSpanish TEXT,");
+			strcat(sCommand, "DataCheckTextFrench TEXT,");
 			strcat(sCommand, "DataCheckFailed INTEGER,");
 			strcat(sCommand, "DataCheckCRC TEXT,");
 			strcat(sCommand, "ChamberZeroID INTEGER,");
@@ -1547,7 +1547,7 @@ void initDB(bool recreate){
 			strcat(sCommand, "TwoStageChamber INTEGER,");
 			strcat(sCommand, "ZeroStatus INTEGER,");
 			strcat(sCommand, "ZeroTextEnglish TEXT,");
-			strcat(sCommand, "ZeroTextSpanish TEXT,");
+			strcat(sCommand, "ZeroTextFrench TEXT,");
 			strcat(sCommand, "ZeroValue FLOAT,");
 			strcat(sCommand, "MeasuredOn FLOAT,");
 			strcat(sCommand, "CreatedOn FLOAT DEFAULT(julianday(CURRENT_TIMESTAMP)),");
@@ -1573,7 +1573,7 @@ void initDB(bool recreate){
 			strcat(sCommand, "TwoStageChamber INTEGER,");
 			strcat(sCommand, "BackgroundStatus INTEGER,");
 			strcat(sCommand, "BackgroundTextEnglish TEXT,");
-			strcat(sCommand, "BackgroundTextSpanish TEXT,");
+			strcat(sCommand, "BackgroundTextFrench TEXT,");
 			strcat(sCommand, "BackgroundValue FLOAT,");
 			strcat(sCommand, "MeasuredOn FLOAT,");
 			strcat(sCommand, "CreatedOn FLOAT DEFAULT(julianday(CURRENT_TIMESTAMP)),");
@@ -1602,7 +1602,7 @@ void initDB(bool recreate){
 			strcat(sCommand, "MaxVoltage FLOAT,");
 			strcat(sCommand, "VoltageStatus INTEGER,");
 			strcat(sCommand, "VoltageTextEnglish TEXT,");
-			strcat(sCommand, "VoltageTextSpanish TEXT,");
+			strcat(sCommand, "VoltageTextFrench TEXT,");
 			strcat(sCommand, "VoltageValue FLOAT,");
 			strcat(sCommand, "MeasuredOn FLOAT,");
 			strcat(sCommand, "CreatedOn FLOAT DEFAULT(julianday(CURRENT_TIMESTAMP)),");
@@ -1655,17 +1655,17 @@ void initDB(bool recreate){
 			strcat(sCommand, "SourceCalDate FLOAT,");
 			strcat(sCommand, "MeasuredOn FLOAT,");
 			strcat(sCommand, "CalculatedActivityTextEnglish TEXT,");
-			strcat(sCommand, "CalculatedActivityTextSpanish TEXT,");
+			strcat(sCommand, "CalculatedActivityTextFrench TEXT,");
 			strcat(sCommand, "CalculatedActivity FLOAT,");
 			strcat(sCommand, "Response FLOAT,");
 			strcat(sCommand, "HalfLife FLOAT,");
 			strcat(sCommand, "HalfLifeUnit INTEGER,");
 			strcat(sCommand, "MeasuredActivityTextEnglish TEXT,");
-			strcat(sCommand, "MeasuredActivityTextSpanish TEXT,");
+			strcat(sCommand, "MeasuredActivityTextFrench TEXT,");
 			strcat(sCommand, "MeasuredActivity FLOAT,");
 			strcat(sCommand, "DeviationStatus INTEGER,");
 			strcat(sCommand, "DeviationTextEnglish TEXT,");
-			strcat(sCommand, "DeviationTextSpanish TEXT,");
+			strcat(sCommand, "DeviationTextFrench TEXT,");
 			strcat(sCommand, "Deviation FLOAT");
 			strcat(sCommand, ");");
 			d_command(sCommand);
@@ -1689,7 +1689,7 @@ void initDB(bool recreate){
 			strcat(sCommand, "HalfLife FLOAT,");
 			strcat(sCommand, "HalfLifeUnit INTEGER,");
 			strcat(sCommand, "ConstancyActivityTextEnglish TEXT,");
-			strcat(sCommand, "ConstancyActivityTextSpanish TEXT,");
+			strcat(sCommand, "ConstancyActivityTextFrench TEXT,");
 			strcat(sCommand, "ConstancyActivity FLOAT");
 			strcat(sCommand, ");");
 			d_command(sCommand);
@@ -3179,7 +3179,7 @@ ChAccuracyMeasurement
 						strcat(sCommand, "ChamberType INTEGER,");
 						strcat(sCommand, "TwoStageChamber INTEGER,");
 						strcat(sCommand, "DataCheckTextEnglish TEXT,");
-						strcat(sCommand, "DataCheckTextSpanish TEXT,");
+						strcat(sCommand, "DataCheckTextFrench TEXT,");
 						strcat(sCommand, "DataCheckFailed INTEGER,");
 						strcat(sCommand, "DataCheckCRC TEXT,");
 						strcat(sCommand, "ChamberZeroID INTEGER,");
@@ -3205,7 +3205,7 @@ ChAccuracyMeasurement
 						strcat(sCommand, "TwoStageChamber INTEGER,");
 						strcat(sCommand, "ZeroStatus INTEGER,");
 						strcat(sCommand, "ZeroTextEnglish TEXT,");
-						strcat(sCommand, "ZeroTextSpanish TEXT,");
+						strcat(sCommand, "ZeroTextFrench TEXT,");
 						strcat(sCommand, "ZeroValue FLOAT,");
 						strcat(sCommand, "MeasuredOn FLOAT,");
 						strcat(sCommand, "CreatedOn FLOAT DEFAULT(julianday(CURRENT_TIMESTAMP)),");
@@ -3227,7 +3227,7 @@ ChAccuracyMeasurement
 						strcat(sCommand, "TwoStageChamber INTEGER,");
 						strcat(sCommand, "BackgroundStatus INTEGER,");
 						strcat(sCommand, "BackgroundTextEnglish TEXT,");
-						strcat(sCommand, "BackgroundTextSpanish TEXT,");
+						strcat(sCommand, "BackgroundTextFrench TEXT,");
 						strcat(sCommand, "BackgroundValue FLOAT,");
 						strcat(sCommand, "MeasuredOn FLOAT,");
 						strcat(sCommand, "CreatedOn FLOAT DEFAULT(julianday(CURRENT_TIMESTAMP)),");
@@ -3252,7 +3252,7 @@ ChAccuracyMeasurement
 						strcat(sCommand, "MaxVoltage FLOAT,");
 						strcat(sCommand, "VoltageStatus INTEGER,");
 						strcat(sCommand, "VoltageTextEnglish TEXT,");
-						strcat(sCommand, "VoltageTextSpanish TEXT,");
+						strcat(sCommand, "VoltageTextFrench TEXT,");
 						strcat(sCommand, "VoltageValue FLOAT,");
 						strcat(sCommand, "MeasuredOn FLOAT,");
 						strcat(sCommand, "CreatedOn FLOAT DEFAULT(julianday(CURRENT_TIMESTAMP)),");
@@ -3297,17 +3297,17 @@ ChAccuracyMeasurement
 						strcat(sCommand, "SourceCalDate FLOAT,");
 						strcat(sCommand, "MeasuredOn FLOAT,");
 						strcat(sCommand, "CalculatedActivityTextEnglish TEXT,");
-						strcat(sCommand, "CalculatedActivityTextSpanish TEXT,");
+						strcat(sCommand, "CalculatedActivityTextFrench TEXT,");
 						strcat(sCommand, "CalculatedActivity FLOAT,");
 						strcat(sCommand, "Response FLOAT,");
 						strcat(sCommand, "HalfLife FLOAT,");
 						strcat(sCommand, "HalfLifeUnit INTEGER,");
 						strcat(sCommand, "MeasuredActivityTextEnglish TEXT,");
-						strcat(sCommand, "MeasuredActivityTextSpanish TEXT,");
+						strcat(sCommand, "MeasuredActivityTextFrench TEXT,");
 						strcat(sCommand, "MeasuredActivity FLOAT,");
 						strcat(sCommand, "DeviationStatus INTEGER,");
 						strcat(sCommand, "DeviationTextEnglish TEXT,");
-						strcat(sCommand, "DeviationTextSpanish TEXT,");
+						strcat(sCommand, "DeviationTextFrench TEXT,");
 						strcat(sCommand, "Deviation FLOAT");
 						strcat(sCommand, ");");
 						d_command(sCommand);
@@ -3327,7 +3327,7 @@ ChAccuracyMeasurement
 						strcat(sCommand, "HalfLife FLOAT,");
 						strcat(sCommand, "HalfLifeUnit INTEGER,");
 						strcat(sCommand, "ConstancyActivityTextEnglish TEXT,");
-						strcat(sCommand, "ConstancyActivityTextSpanish TEXT,");
+						strcat(sCommand, "ConstancyActivityTextFrench TEXT,");
 						strcat(sCommand, "ConstancyActivity FLOAT");
 						strcat(sCommand, ");");
 						d_command(sCommand);
@@ -12599,7 +12599,7 @@ void DB_WriteFutureDateInput(int FutureDateInput){
 }
 /**
  * \details Read Language ID from the Config table
- * \returns 0 = English, 1 = Spanish
+ * \returns 0 = English, 1 = French
  */
 int DB_ReadLanguage(void){
 	int returnvalue;
@@ -12624,7 +12624,7 @@ int DB_ReadLanguage(void){
 }
 /**
  * \details Write Language ID to the Config table
- * \param Language Language ID, 0 = English, 1 = Spanish
+ * \param Language Language ID, 0 = English, 1 = French
  * \returns None
  */
 void DB_WriteLanguage(int Language){
@@ -12892,12 +12892,12 @@ static void DB_CreateChamberDailyTest(CHAMBERDAILYTEST *chamberdailytest, bool b
 		d_command("BEGIN;");
 	}
 
-	d_prepare_v2("INSERT INTO ChamberDailyTest(ChamberSerialNumber, ChamberType, TwoStageChamber, DataCheckTextEnglish, DataCheckTextSpanish, DataCheckFailed, DataCheckCRC, ChamberZeroID, ChamberBackgroundID, ChamberVoltageID, ChamberAccuracyTestID, InactiveReason, Inactive) VALUES(:ChamberSerialNumber, :ChamberType, :TwoStageChamber, :DataCheckTextEnglish, :DataCheckTextSpanish, :DataCheckFailed, :DataCheckCRC, :ChamberZeroID, :ChamberBackgroundID, :ChamberVoltageID, :ChamberAccuracyTestID, :InactiveReason, :Inactive);");
+	d_prepare_v2("INSERT INTO ChamberDailyTest(ChamberSerialNumber, ChamberType, TwoStageChamber, DataCheckTextEnglish, DataCheckTextFrench, DataCheckFailed, DataCheckCRC, ChamberZeroID, ChamberBackgroundID, ChamberVoltageID, ChamberAccuracyTestID, InactiveReason, Inactive) VALUES(:ChamberSerialNumber, :ChamberType, :TwoStageChamber, :DataCheckTextEnglish, :DataCheckTextFrench, :DataCheckFailed, :DataCheckCRC, :ChamberZeroID, :ChamberBackgroundID, :ChamberVoltageID, :ChamberAccuracyTestID, :InactiveReason, :Inactive);");
 	d_bind_text(":ChamberSerialNumber", chamberdailytest->ChamberSerialNumber);
 	d_bind_int(":ChamberType", chamberdailytest->ChamberType);
 	d_bind_int(":TwoStageChamber", chamberdailytest->TwoStageChamber);
 	d_bind_text(":DataCheckTextEnglish", chamberdailytest->DataCheckTextEnglish);
-	d_bind_text(":DataCheckTextSpanish", chamberdailytest->DataCheckTextSpanish);
+	d_bind_text(":DataCheckTextFrench", chamberdailytest->DataCheckTextFrench);
 	d_bind_int(":DataCheckFailed", chamberdailytest->DataCheckFailed);
 	d_bind_text(":DataCheckCRC", chamberdailytest->DataCheckCRC);
 	d_bind_int64(":ChamberZeroID", chamberdailytest->ChamberZeroID);
@@ -12978,13 +12978,13 @@ void DB_CreateChamberZero(CHAMBERZERO *chamberzero, long long int *ChamberDailyT
 		d_command("BEGIN;");
 	}
 
-	d_prepare_v2("INSERT INTO ChamberZero(ChamberSerialNumber, ChamberType, TwoStageChamber, ZeroStatus, ZeroTextEnglish, ZeroTextSpanish, ZeroValue, MeasuredOn, InactiveReason, Inactive) VALUES(:ChamberSerialNumber, :ChamberType, :TwoStageChamber, :ZeroStatus, :ZeroTextEnglish, :ZeroTextSpanish, :ZeroValue, julianday(:MeasuredOn), :InactiveReason, :Inactive);");
+	d_prepare_v2("INSERT INTO ChamberZero(ChamberSerialNumber, ChamberType, TwoStageChamber, ZeroStatus, ZeroTextEnglish, ZeroTextFrench, ZeroValue, MeasuredOn, InactiveReason, Inactive) VALUES(:ChamberSerialNumber, :ChamberType, :TwoStageChamber, :ZeroStatus, :ZeroTextEnglish, :ZeroTextFrench, :ZeroValue, julianday(:MeasuredOn), :InactiveReason, :Inactive);");
 	d_bind_text(":ChamberSerialNumber", chamberzero->ChamberSerialNumber);
 	d_bind_int(":ChamberType", chamberzero->ChamberType);
 	d_bind_int(":TwoStageChamber", chamberzero->TwoStageChamber);
 	d_bind_int(":ZeroStatus", chamberzero->ZeroStatus);
 	d_bind_text(":ZeroTextEnglish", chamberzero->ZeroTextEnglish);
-	d_bind_text(":ZeroTextSpanish", chamberzero->ZeroTextSpanish);
+	d_bind_text(":ZeroTextFrench", chamberzero->ZeroTextFrench);
 	d_bind_double(":ZeroValue", chamberzero->ZeroValue);
 	stringout(MeasuredOn, &(chamberzero->MeasuredOn));
 	d_bind_text(":MeasuredOn", MeasuredOn);
@@ -13004,7 +13004,7 @@ void DB_CreateChamberZero(CHAMBERZERO *chamberzero, long long int *ChamberDailyT
 			chamberdailytest->ChamberType = chamberzero->ChamberType;
 			chamberdailytest->TwoStageChamber = chamberzero->TwoStageChamber;
 			chamberdailytest->DataCheckTextEnglish[0] = 0;
-			chamberdailytest->DataCheckTextSpanish[0] = 0;
+			chamberdailytest->DataCheckTextFrench[0] = 0;
 			chamberdailytest->DataCheckFailed = FALSE;
 			chamberdailytest->DataCheckCRC[0] = 0;
 			chamberdailytest->ChamberZeroID = chamberzero->ChamberZeroID;
@@ -13043,13 +13043,13 @@ void DB_CreateChamberBackground(CHAMBERBACKGROUND *chamberbackground, long long 
 		d_command("BEGIN;");
 	}
 
-	d_prepare_v2("INSERT INTO ChamberBackground(ChamberSerialNumber, ChamberType, TwoStageChamber, BackgroundStatus, BackgroundTextEnglish, BackgroundTextSpanish, BackgroundValue, MeasuredOn, InactiveReason, Inactive) VALUES(:ChamberSerialNumber, :ChamberType, :TwoStageChamber, :BackgroundStatus, :BackgroundTextEnglish, :BackgroundTextSpanish, :BackgroundValue, julianday(:MeasuredOn), :InactiveReason, :Inactive);");
+	d_prepare_v2("INSERT INTO ChamberBackground(ChamberSerialNumber, ChamberType, TwoStageChamber, BackgroundStatus, BackgroundTextEnglish, BackgroundTextFrench, BackgroundValue, MeasuredOn, InactiveReason, Inactive) VALUES(:ChamberSerialNumber, :ChamberType, :TwoStageChamber, :BackgroundStatus, :BackgroundTextEnglish, :BackgroundTextFrench, :BackgroundValue, julianday(:MeasuredOn), :InactiveReason, :Inactive);");
 	d_bind_text(":ChamberSerialNumber", chamberbackground->ChamberSerialNumber);
 	d_bind_int(":ChamberType", chamberbackground->ChamberType);
 	d_bind_int(":TwoStageChamber", chamberbackground->TwoStageChamber);
 	d_bind_int(":BackgroundStatus", chamberbackground->BackgroundStatus);
 	d_bind_text(":BackgroundTextEnglish", chamberbackground->BackgroundTextEnglish);
-	d_bind_text(":BackgroundTextSpanish", chamberbackground->BackgroundTextSpanish);
+	d_bind_text(":BackgroundTextFrench", chamberbackground->BackgroundTextFrench);
 	d_bind_double(":BackgroundValue", chamberbackground->BackgroundValue);
 	stringout(MeasuredOn, &(chamberbackground->MeasuredOn));
 	d_bind_text(":MeasuredOn", MeasuredOn);
@@ -13089,7 +13089,7 @@ void DB_CreateChamberVoltage(CHAMBERVOLTAGE *chambervoltage, long long int Chamb
 		d_command("BEGIN;");
 	}
 
-	d_prepare_v2("INSERT INTO ChamberVoltage(ChamberSerialNumber, ChamberType, TwoStageChamber, NominalVoltage, MinVoltage, MaxVoltage, VoltageStatus, VoltageTextEnglish, VoltageTextSpanish, VoltageValue, MeasuredOn, InactiveReason, Inactive) VALUES(:ChamberSerialNumber, :ChamberType, :TwoStageChamber, :NominalVoltage, :MinVoltage, :MaxVoltage, :VoltageStatus, :VoltageTextEnglish, :VoltageTextSpanish, :VoltageValue, julianday(:MeasuredOn), :InactiveReason, :Inactive);");
+	d_prepare_v2("INSERT INTO ChamberVoltage(ChamberSerialNumber, ChamberType, TwoStageChamber, NominalVoltage, MinVoltage, MaxVoltage, VoltageStatus, VoltageTextEnglish, VoltageTextFrench, VoltageValue, MeasuredOn, InactiveReason, Inactive) VALUES(:ChamberSerialNumber, :ChamberType, :TwoStageChamber, :NominalVoltage, :MinVoltage, :MaxVoltage, :VoltageStatus, :VoltageTextEnglish, :VoltageTextFrench, :VoltageValue, julianday(:MeasuredOn), :InactiveReason, :Inactive);");
 	d_bind_text(":ChamberSerialNumber", chambervoltage->ChamberSerialNumber);
 	d_bind_int(":ChamberType", chambervoltage->ChamberType);
 	d_bind_int(":TwoStageChamber", chambervoltage->TwoStageChamber);
@@ -13098,7 +13098,7 @@ void DB_CreateChamberVoltage(CHAMBERVOLTAGE *chambervoltage, long long int Chamb
 	d_bind_double(":MaxVoltage", chambervoltage->MaxVoltage);
 	d_bind_int(":VoltageStatus", chambervoltage->VoltageStatus);
 	d_bind_text(":VoltageTextEnglish", chambervoltage->VoltageTextEnglish);
-	d_bind_text(":VoltageTextSpanish", chambervoltage->VoltageTextSpanish);
+	d_bind_text(":VoltageTextFrench", chambervoltage->VoltageTextFrench);
 	d_bind_double(":VoltageValue", chambervoltage->VoltageValue);
 	stringout(MeasuredOn, &(chambervoltage->MeasuredOn));
 	d_bind_text(":MeasuredOn", MeasuredOn);
@@ -13128,23 +13128,23 @@ void DB_CreateChamberVoltage(CHAMBERVOLTAGE *chambervoltage, long long int Chamb
  * \details Update Daily Test Record in the ChamberDailyTest table with the results of the Data Check Test
  * \param ChamberDailyTestID Primary Key to the record in the ChambeDailyTest table
  * \param DataCheckTextEnglish Pointer to Null terminated text string to be updated in the DataCheckTextEnglish field
- * \param DataCheckTextSpanish Pointer to Null terminated text string to be updated in the DataCheckTextSpanish field
+ * \param DataCheckTextFrench Pointer to Null terminated text string to be updated in the DataCheckTextFrench field
  * \param DataCheckFailed Value to be updated in the DataCheckFailed field
  * \param DataCheckCRC Pointer to Null terminated text string to be updated in the DataCheckCRC field
  * \param bookEnd True = Execute with rollback, False = Execute without rollback
  * \returns None
  */
-void DB_UpdateDailyTestDataCheck(long long int ChamberDailyTestID, char *DataCheckTextEnglish, char *DataCheckTextSpanish, bool DataCheckFailed, char *DataCheckCRC, bool bookEnd){
+void DB_UpdateDailyTestDataCheck(long long int ChamberDailyTestID, char *DataCheckTextEnglish, char *DataCheckTextFrench, bool DataCheckFailed, char *DataCheckCRC, bool bookEnd){
 	if(bookEnd){
 		*capStatus = SQLITE_OK;
 		d_command("BEGIN;");
 	}
 
 	*capStatus = SQLITE_OK;
-	d_prepare_v2("UPDATE ChamberDailyTest SET DataCheckTextEnglish = :DataCheckTextEnglish, DataCheckTextSpanish = :DataCheckTextSpanish, DataCheckFailed = :DataCheckFailed, DataCheckCRC = :DataCheckCRC WHERE ChamberDailyTestID = :ChamberDailyTestID;");
+	d_prepare_v2("UPDATE ChamberDailyTest SET DataCheckTextEnglish = :DataCheckTextEnglish, DataCheckTextFrench = :DataCheckTextFrench, DataCheckFailed = :DataCheckFailed, DataCheckCRC = :DataCheckCRC WHERE ChamberDailyTestID = :ChamberDailyTestID;");
 	d_bind_int64(":ChamberDailyTestID", ChamberDailyTestID);
 	d_bind_text(":DataCheckTextEnglish", DataCheckTextEnglish);
-	d_bind_text(":DataCheckTextSpanish", DataCheckTextSpanish);
+	d_bind_text(":DataCheckTextFrench", DataCheckTextFrench);
 	d_bind_int(":DataCheckFailed", DataCheckFailed);
 	d_bind_text(":DataCheckCRC", DataCheckCRC);
 	d_step();
@@ -13214,7 +13214,7 @@ void DB_CreateChamberAccuracyMeasurement(CHAMBERACCURACYMEASUREMENT *chamberaccu
 		d_command("BEGIN;");
 	}
 
-	d_prepare_v2("INSERT INTO ChamberAccuracyMeasurement(ChamberAccuracyTestID, SourceNuclide, SourceNuclideIndex, SourceSerialNumber, SourceCalActivity, SourceCalDate, MeasuredOn, CalculatedActivityTextEnglish, CalculatedActivityTextSpanish, CalculatedActivity, Response, HalfLife, HalfLifeUnit, MeasuredActivityTextEnglish, MeasuredActivityTextSpanish, MeasuredActivity, DeviationStatus, DeviationTextEnglish, DeviationTextSpanish, Deviation) VALUES(:ChamberAccuracyTestID, :SourceNuclide, :SourceNuclideIndex, :SourceSerialNumber, :SourceCalActivity,  julianday(:SourceCalDate),  julianday(:MeasuredOn), :CalculatedActivityTextEnglish, :CalculatedActivityTextSpanish, :CalculatedActivity, :Response, :HalfLife, :HalfLifeUnit, :MeasuredActivityTextEnglish, :MeasuredActivityTextSpanish, :MeasuredActivity, :DeviationStatus, :DeviationTextEnglish, :DeviationTextSpanish, :Deviation);");
+	d_prepare_v2("INSERT INTO ChamberAccuracyMeasurement(ChamberAccuracyTestID, SourceNuclide, SourceNuclideIndex, SourceSerialNumber, SourceCalActivity, SourceCalDate, MeasuredOn, CalculatedActivityTextEnglish, CalculatedActivityTextFrench, CalculatedActivity, Response, HalfLife, HalfLifeUnit, MeasuredActivityTextEnglish, MeasuredActivityTextFrench, MeasuredActivity, DeviationStatus, DeviationTextEnglish, DeviationTextFrench, Deviation) VALUES(:ChamberAccuracyTestID, :SourceNuclide, :SourceNuclideIndex, :SourceSerialNumber, :SourceCalActivity,  julianday(:SourceCalDate),  julianday(:MeasuredOn), :CalculatedActivityTextEnglish, :CalculatedActivityTextFrench, :CalculatedActivity, :Response, :HalfLife, :HalfLifeUnit, :MeasuredActivityTextEnglish, :MeasuredActivityTextFrench, :MeasuredActivity, :DeviationStatus, :DeviationTextEnglish, :DeviationTextFrench, :Deviation);");
 	d_bind_int64(":ChamberAccuracyTestID", chamberaccuracymeasurement->ChamberAccuracyTestID);
 	d_bind_text(":SourceNuclide", chamberaccuracymeasurement->SourceNuclide);
     d_bind_int(":SourceNuclideIndex", chamberaccuracymeasurement->SourceNuclideIndex);
@@ -13225,17 +13225,17 @@ void DB_CreateChamberAccuracyMeasurement(CHAMBERACCURACYMEASUREMENT *chamberaccu
 	stringout(DateString, &(chamberaccuracymeasurement->MeasuredOn));
 	d_bind_text(":MeasuredOn", DateString);
 	d_bind_text(":CalculatedActivityTextEnglish", chamberaccuracymeasurement->CalculatedActivityTextEnglish);
-	d_bind_text(":CalculatedActivityTextSpanish", chamberaccuracymeasurement->CalculatedActivityTextSpanish);
+	d_bind_text(":CalculatedActivityTextFrench", chamberaccuracymeasurement->CalculatedActivityTextFrench);
 	d_bind_double(":CalculatedActivity", chamberaccuracymeasurement->CalculatedActivity);
 	d_bind_double(":Response", chamberaccuracymeasurement->Response);
 	d_bind_double(":HalfLife", chamberaccuracymeasurement->HalfLife);
 	d_bind_int(":HalfLifeUnit", chamberaccuracymeasurement->HalfLifeUnit);
 	d_bind_text(":MeasuredActivityTextEnglish", chamberaccuracymeasurement->MeasuredActivityTextEnglish);
-	d_bind_text(":MeasuredActivityTextSpanish", chamberaccuracymeasurement->MeasuredActivityTextSpanish);
+	d_bind_text(":MeasuredActivityTextFrench", chamberaccuracymeasurement->MeasuredActivityTextFrench);
 	d_bind_double(":MeasuredActivity", chamberaccuracymeasurement->MeasuredActivity);
 	d_bind_int(":DeviationStatus", chamberaccuracymeasurement->DeviationStatus);
 	d_bind_text(":DeviationTextEnglish", chamberaccuracymeasurement->DeviationTextEnglish);
-	d_bind_text(":DeviationTextSpanish", chamberaccuracymeasurement->DeviationTextSpanish);
+	d_bind_text(":DeviationTextFrench", chamberaccuracymeasurement->DeviationTextFrench);
 	d_bind_double(":Deviation", chamberaccuracymeasurement->Deviation);
 	d_step();
 	if(*capStatus == SQLITE_DONE) *capStatus = SQLITE_OK;
@@ -13270,7 +13270,7 @@ void DB_CreateChamberAutoConstancy(CHAMBERAUTOCONSTANCY *chamberautoconstancy, b
 		d_command("BEGIN;");
 	}
 
-	d_prepare_v2("INSERT INTO ChamberAutoConstancy(ChamberAccuracyTestID, ConstancyNuclide, ConstancyNuclideIndex, Response, HalfLife, HalfLifeUnit, ConstancyActivityTextEnglish, ConstancyActivityTextSpanish, ConstancyActivity) VALUES(:ChamberAccuracyTestID, :ConstancyNuclide, :ConstancyNuclideIndex, :Response, :HalfLife, :HalfLifeUnit, :ConstancyActivityTextEnglish, :ConstancyActivityTextSpanish, :ConstancyActivity);");
+	d_prepare_v2("INSERT INTO ChamberAutoConstancy(ChamberAccuracyTestID, ConstancyNuclide, ConstancyNuclideIndex, Response, HalfLife, HalfLifeUnit, ConstancyActivityTextEnglish, ConstancyActivityTextFrench, ConstancyActivity) VALUES(:ChamberAccuracyTestID, :ConstancyNuclide, :ConstancyNuclideIndex, :Response, :HalfLife, :HalfLifeUnit, :ConstancyActivityTextEnglish, :ConstancyActivityTextFrench, :ConstancyActivity);");
 	d_bind_int64(":ChamberAccuracyTestID", chamberautoconstancy->ChamberAccuracyTestID);
 	d_bind_text(":ConstancyNuclide", chamberautoconstancy->ConstancyNuclide);
 	d_bind_int(":ConstancyNuclideIndex", chamberautoconstancy->ConstancyNuclideIndex);
@@ -13278,7 +13278,7 @@ void DB_CreateChamberAutoConstancy(CHAMBERAUTOCONSTANCY *chamberautoconstancy, b
 	d_bind_double(":HalfLife", chamberautoconstancy->HalfLife);
 	d_bind_int(":HalfLifeUnit", chamberautoconstancy->HalfLifeUnit);
 	d_bind_text(":ConstancyActivityTextEnglish", chamberautoconstancy->ConstancyActivityTextEnglish);
-	d_bind_text(":ConstancyActivityTextSpanish", chamberautoconstancy->ConstancyActivityTextSpanish);
+	d_bind_text(":ConstancyActivityTextFrench", chamberautoconstancy->ConstancyActivityTextFrench);
 	d_bind_double(":ConstancyActivity", chamberautoconstancy->ConstancyActivity);
 	d_step();
 	if(*capStatus == SQLITE_DONE) *capStatus = SQLITE_OK;
@@ -13409,7 +13409,7 @@ static int DB_SearchZeroMeasurements(CHAMBERSEARCH *tests, time_t startDate, tim
 	}
 	endDate += 86400;
 
-	d_prepare_v2("SELECT ChamberZeroID, ChamberSerialNumber, ZeroTextEnglish, ZeroTextSpanish, datetime(MeasuredOn), Inactive FROM ChamberZero WHERE MeasuredOn >= julianday(:startDate) AND MeasuredOn < julianday(:endDate) ORDER BY MeasuredOn DESC;");
+	d_prepare_v2("SELECT ChamberZeroID, ChamberSerialNumber, ZeroTextEnglish, ZeroTextFrench, datetime(MeasuredOn), Inactive FROM ChamberZero WHERE MeasuredOn >= julianday(:startDate) AND MeasuredOn < julianday(:endDate) ORDER BY MeasuredOn DESC;");
 	stringout(datestring, &startDate);
 	d_bind_text(":startDate", datestring);
 	stringout(datestring, &endDate);
@@ -13423,7 +13423,7 @@ static int DB_SearchZeroMeasurements(CHAMBERSEARCH *tests, time_t startDate, tim
 				strcpy(testPtr->SerialNumber, (const char *) d_column_text(1));
 
 				if(current.language == ENGLISH) strcpy(testPtr->Results, (const char *) d_column_text(2));
-				else if(current.language == SPANISH) strcpy(testPtr->Results, (const char *) d_column_text(3));
+				else if(current.language == FRENCH) strcpy(testPtr->Results, (const char *) d_column_text(3));
 
 				testPtr->StartedOn = strtotime_t((const char *) d_column_text(4));
 
@@ -13479,7 +13479,7 @@ static int DB_SearchBackgroundMeasurements(CHAMBERSEARCH *tests, time_t startDat
 	}
 	endDate += 86400;
 
-	d_prepare_v2("SELECT ChamberBackgroundID, ChamberSerialNumber, BackgroundTextEnglish, BackgroundTextSpanish, datetime(MeasuredOn), Inactive FROM ChamberBackground WHERE MeasuredOn >= julianday(:startDate) AND MeasuredOn < julianday(:endDate) ORDER BY MeasuredOn DESC;");
+	d_prepare_v2("SELECT ChamberBackgroundID, ChamberSerialNumber, BackgroundTextEnglish, BackgroundTextFrench, datetime(MeasuredOn), Inactive FROM ChamberBackground WHERE MeasuredOn >= julianday(:startDate) AND MeasuredOn < julianday(:endDate) ORDER BY MeasuredOn DESC;");
 	stringout(datestring, &startDate);
 	d_bind_text(":startDate", datestring);
 	stringout(datestring, &endDate);
@@ -13493,7 +13493,7 @@ static int DB_SearchBackgroundMeasurements(CHAMBERSEARCH *tests, time_t startDat
 				strcpy(testPtr->SerialNumber, (const char *) d_column_text(1));
 
 				if(current.language == ENGLISH) strcpy(testPtr->Results, (const char *) d_column_text(2));
-				else if(current.language == SPANISH) strcpy(testPtr->Results, (const char *) d_column_text(3));
+				else if(current.language == FRENCH) strcpy(testPtr->Results, (const char *) d_column_text(3));
 
 				testPtr->StartedOn = strtotime_t((const char *) d_column_text(4));
 
@@ -13549,7 +13549,7 @@ static int DB_SearchChamberVoltage(CHAMBERSEARCH *tests, time_t startDate, time_
 	}
 	endDate += 86400;
 
-	d_prepare_v2("SELECT ChamberVoltageID, ChamberSerialNumber, VoltageTextEnglish, VoltageTextSpanish, datetime(MeasuredOn), Inactive FROM ChamberVoltage WHERE MeasuredOn >= julianday(:startDate) AND MeasuredOn < julianday(:endDate) ORDER BY MeasuredOn DESC;");
+	d_prepare_v2("SELECT ChamberVoltageID, ChamberSerialNumber, VoltageTextEnglish, VoltageTextFrench, datetime(MeasuredOn), Inactive FROM ChamberVoltage WHERE MeasuredOn >= julianday(:startDate) AND MeasuredOn < julianday(:endDate) ORDER BY MeasuredOn DESC;");
 	stringout(datestring, &startDate);
 	d_bind_text(":startDate", datestring);
 	stringout(datestring, &endDate);
@@ -13563,7 +13563,7 @@ static int DB_SearchChamberVoltage(CHAMBERSEARCH *tests, time_t startDate, time_
 				strcpy(testPtr->SerialNumber, (const char *) d_column_text(1));
 
 				if(current.language == ENGLISH) strcpy(testPtr->Results, (const char *) d_column_text(2));
-				else if(current.language == SPANISH) strcpy(testPtr->Results, (const char *) d_column_text(3));
+				else if(current.language == FRENCH) strcpy(testPtr->Results, (const char *) d_column_text(3));
 
 				testPtr->StartedOn = strtotime_t((const char *) d_column_text(4));
 
@@ -13695,7 +13695,7 @@ void DB_RetrieveDailyTest(CHAMBERDAILYTEST *test){
 	if(test->ChamberDailyTestID > 0){
 		*capStatus = SQLITE_OK;
 
-		d_prepare_v2("SELECT ChamberSerialNumber, ChamberType, TwoStageChamber, DataCheckTextEnglish, DataCheckTextSpanish, DataCheckFailed, DataCheckCRC, ChamberZeroID, ChamberBackgroundID, ChamberVoltageID, ChamberAccuracyTestID, datetime(CreatedOn), InactiveReason, Inactive FROM ChamberDailyTest WHERE ChamberDailyTestID = :ChamberDailyTestID;");
+		d_prepare_v2("SELECT ChamberSerialNumber, ChamberType, TwoStageChamber, DataCheckTextEnglish, DataCheckTextFrench, DataCheckFailed, DataCheckCRC, ChamberZeroID, ChamberBackgroundID, ChamberVoltageID, ChamberAccuracyTestID, datetime(CreatedOn), InactiveReason, Inactive FROM ChamberDailyTest WHERE ChamberDailyTestID = :ChamberDailyTestID;");
 		d_bind_int64(":ChamberDailyTestID", test->ChamberDailyTestID);
 		d_step();
 		if(*capStatus == SQLITE_ROW){
@@ -13706,7 +13706,7 @@ void DB_RetrieveDailyTest(CHAMBERDAILYTEST *test){
 			else test->TwoStageChamber = TRUE;
 
 			strcpy(test->DataCheckTextEnglish, (const char *) d_column_text(3));
-			strcpy(test->DataCheckTextSpanish, (const char *) d_column_text(4));
+			strcpy(test->DataCheckTextFrench, (const char *) d_column_text(4));
 
 			if(d_column_int(5) == 0) test->DataCheckFailed = FALSE;
 			else test->DataCheckFailed = TRUE;
@@ -13736,7 +13736,7 @@ void DB_RetrieveZeroMeasurement(CHAMBERZERO *test){
 
 	if(test->ChamberZeroID > 0){
 		*capStatus = SQLITE_OK;
-		d_prepare_v2("SELECT ChamberSerialNumber, ChamberType, TwoStageChamber, ZeroStatus, ZeroTextEnglish, ZeroTextSpanish, ZeroValue, datetime(MeasuredOn), datetime(CreatedOn), InactiveReason, Inactive FROM ChamberZero WHERE ChamberZeroID = :ChamberZeroID;");
+		d_prepare_v2("SELECT ChamberSerialNumber, ChamberType, TwoStageChamber, ZeroStatus, ZeroTextEnglish, ZeroTextFrench, ZeroValue, datetime(MeasuredOn), datetime(CreatedOn), InactiveReason, Inactive FROM ChamberZero WHERE ChamberZeroID = :ChamberZeroID;");
 		d_bind_int64(":ChamberZeroID", test->ChamberZeroID);
 		d_step();
 		if(*capStatus == SQLITE_ROW){
@@ -13748,7 +13748,7 @@ void DB_RetrieveZeroMeasurement(CHAMBERZERO *test){
 
 			test->ZeroStatus = d_column_int(3);
 			strcpy(test->ZeroTextEnglish, (const char *) d_column_text(4));
-			strcpy(test->ZeroTextSpanish, (const char *) d_column_text(5));
+			strcpy(test->ZeroTextFrench, (const char *) d_column_text(5));
 			test->ZeroValue = d_column_double(6);
 			test->MeasuredOn = strtotime_t((const char *) d_column_text(7));
 			test->CreatedOn = strtotime_t((const char *) d_column_text(8));
@@ -13770,7 +13770,7 @@ void DB_RetrieveBackgroundMeasurement(CHAMBERBACKGROUND *test){
 
 	if(test->ChamberBackgroundID > 0){
 		*capStatus = SQLITE_OK;
-		d_prepare_v2("SELECT ChamberSerialNumber, ChamberType, TwoStageChamber, BackgroundStatus, BackgroundTextEnglish, BackgroundTextSpanish, BackgroundValue, datetime(MeasuredOn), datetime(CreatedOn), InactiveReason, Inactive FROM ChamberBackground WHERE ChamberBackgroundID = :ChamberBackgroundID;");
+		d_prepare_v2("SELECT ChamberSerialNumber, ChamberType, TwoStageChamber, BackgroundStatus, BackgroundTextEnglish, BackgroundTextFrench, BackgroundValue, datetime(MeasuredOn), datetime(CreatedOn), InactiveReason, Inactive FROM ChamberBackground WHERE ChamberBackgroundID = :ChamberBackgroundID;");
 		d_bind_int64(":ChamberBackgroundID", test->ChamberBackgroundID);
 		d_step();
 		if(*capStatus == SQLITE_ROW){
@@ -13782,7 +13782,7 @@ void DB_RetrieveBackgroundMeasurement(CHAMBERBACKGROUND *test){
 
 			test->BackgroundStatus = d_column_int(3);
 			strcpy(test->BackgroundTextEnglish, (const char *) d_column_text(4));
-			strcpy(test->BackgroundTextSpanish, (const char *) d_column_text(5));
+			strcpy(test->BackgroundTextFrench, (const char *) d_column_text(5));
 			test->BackgroundValue = d_column_double(6);
 			test->MeasuredOn = strtotime_t((const char *) d_column_text(7));
 			test->CreatedOn = strtotime_t((const char *) d_column_text(8));
@@ -13804,7 +13804,7 @@ void DB_RetrieveChamberVoltage(CHAMBERVOLTAGE *test){
 
 	if(test->ChamberVoltageID > 0){
 		*capStatus = SQLITE_OK;
-		d_prepare_v2("SELECT ChamberSerialNumber, ChamberType, TwoStageChamber, NominalVoltage, MinVoltage, MaxVoltage, VoltageStatus, VoltageTextEnglish, VoltageTextSpanish, VoltageValue, datetime(MeasuredOn), datetime(CreatedOn), InactiveReason, Inactive FROM ChamberVoltage WHERE ChamberVoltageID = :ChamberVoltageID;");
+		d_prepare_v2("SELECT ChamberSerialNumber, ChamberType, TwoStageChamber, NominalVoltage, MinVoltage, MaxVoltage, VoltageStatus, VoltageTextEnglish, VoltageTextFrench, VoltageValue, datetime(MeasuredOn), datetime(CreatedOn), InactiveReason, Inactive FROM ChamberVoltage WHERE ChamberVoltageID = :ChamberVoltageID;");
 		d_bind_int64(":ChamberVoltageID", test->ChamberVoltageID);
 		d_step();
 		if(*capStatus == SQLITE_ROW){
@@ -13819,7 +13819,7 @@ void DB_RetrieveChamberVoltage(CHAMBERVOLTAGE *test){
 			test->MaxVoltage = d_column_double(5);
 			test->VoltageStatus = d_column_int(6);
 			strcpy(test->VoltageTextEnglish, (const char *) d_column_text(7));
-			strcpy(test->VoltageTextSpanish, (const char *) d_column_text(8));
+			strcpy(test->VoltageTextFrench, (const char *) d_column_text(8));
 			test->VoltageValue = d_column_double(9);
 			test->MeasuredOn = strtotime_t((const char *) d_column_text(10));
 			test->CreatedOn = strtotime_t((const char *) d_column_text(11));
@@ -13873,7 +13873,7 @@ void DB_RetrieveAccuracyTest(CHAMBERACCURACYTEST *test, CHAMBERACCURACYMEASUREME
 			i = 0;
 			*capStatus = SQLITE_OK;
 
-			d_prepare_v2("SELECT ChamberAccuracyMeasurementID, SourceNuclide, SourceNuclideIndex, SourceSerialNumber, SourceCalActivity, datetime(SourceCalDate), datetime(MeasuredOn), CalculatedActivityTextEnglish, CalculatedActivityTextSpanish, CalculatedActivity, Response, HalfLife, HalfLifeUnit, MeasuredActivityTextEnglish, MeasuredActivityTextSpanish, MeasuredActivity, DeviationStatus, DeviationTextEnglish, DeviationTextSpanish, Deviation FROM ChamberAccuracyMeasurement WHERE ChamberAccuracyTestID = :ChamberAccuracyTestID;");
+			d_prepare_v2("SELECT ChamberAccuracyMeasurementID, SourceNuclide, SourceNuclideIndex, SourceSerialNumber, SourceCalActivity, datetime(SourceCalDate), datetime(MeasuredOn), CalculatedActivityTextEnglish, CalculatedActivityTextFrench, CalculatedActivity, Response, HalfLife, HalfLifeUnit, MeasuredActivityTextEnglish, MeasuredActivityTextFrench, MeasuredActivity, DeviationStatus, DeviationTextEnglish, DeviationTextFrench, Deviation FROM ChamberAccuracyMeasurement WHERE ChamberAccuracyTestID = :ChamberAccuracyTestID;");
 			d_bind_int64(":ChamberAccuracyTestID", test->ChamberAccuracyTestID);
 			d_step();
 
@@ -13888,17 +13888,17 @@ void DB_RetrieveAccuracyTest(CHAMBERACCURACYTEST *test, CHAMBERACCURACYMEASUREME
 					measurement[i].SourceCalDate = strtotime_t((const char *) d_column_text(5));
 					measurement[i].MeasuredOn = strtotime_t((const char *) d_column_text(6));
 					strcpy(measurement[i].CalculatedActivityTextEnglish, (const char *) d_column_text(7));
-					strcpy(measurement[i].CalculatedActivityTextSpanish, (const char *) d_column_text(8));
+					strcpy(measurement[i].CalculatedActivityTextFrench, (const char *) d_column_text(8));
 					measurement[i].CalculatedActivity = d_column_double(9);
 					measurement[i].Response = d_column_double(10);
 					measurement[i].HalfLife = d_column_double(11);
 					measurement[i].HalfLifeUnit = d_column_int(12);
 					strcpy(measurement[i].MeasuredActivityTextEnglish, (const char *) d_column_text(13));
-					strcpy(measurement[i].MeasuredActivityTextSpanish, (const char *) d_column_text(14));
+					strcpy(measurement[i].MeasuredActivityTextFrench, (const char *) d_column_text(14));
 					measurement[i].MeasuredActivity = d_column_double(15);
 					measurement[i].DeviationStatus = d_column_int(16);
 					strcpy(measurement[i].DeviationTextEnglish, (const char *) d_column_text(17));
-					strcpy(measurement[i].DeviationTextSpanish, (const char *) d_column_text(18));
+					strcpy(measurement[i].DeviationTextFrench, (const char *) d_column_text(18));
 					measurement[i].Deviation = d_column_double(19);
 
 					i++;
@@ -13909,7 +13909,7 @@ void DB_RetrieveAccuracyTest(CHAMBERACCURACYTEST *test, CHAMBERACCURACYMEASUREME
 
 			i = 0;
 			*capStatus = SQLITE_OK;
-			d_prepare_v2("SELECT ChamberAutoConstancyID, ConstancyNuclide, ConstancyNuclideIndex, Response, HalfLife, HalfLifeUnit, ConstancyActivityTextEnglish, ConstancyActivityTextSpanish, ConstancyActivity FROM ChamberAutoConstancy WHERE ChamberAccuracyTestID = :ChamberAccuracyTestID;");
+			d_prepare_v2("SELECT ChamberAutoConstancyID, ConstancyNuclide, ConstancyNuclideIndex, Response, HalfLife, HalfLifeUnit, ConstancyActivityTextEnglish, ConstancyActivityTextFrench, ConstancyActivity FROM ChamberAutoConstancy WHERE ChamberAccuracyTestID = :ChamberAccuracyTestID;");
 			d_bind_int64(":ChamberAccuracyTestID", test->ChamberAccuracyTestID);
 			d_step();
 
@@ -13923,7 +13923,7 @@ void DB_RetrieveAccuracyTest(CHAMBERACCURACYTEST *test, CHAMBERACCURACYMEASUREME
 					autoconstancy[i].HalfLife = d_column_double(4);
 					autoconstancy[i].HalfLifeUnit = d_column_int(5);
 					strcpy(autoconstancy[i].ConstancyActivityTextEnglish, (const char *) d_column_text(6));
-					strcpy(autoconstancy[i].ConstancyActivityTextSpanish, (const char *) d_column_text(7));
+					strcpy(autoconstancy[i].ConstancyActivityTextFrench, (const char *) d_column_text(7));
 					autoconstancy[i].ConstancyActivity = d_column_double(8);
 
 					i++;

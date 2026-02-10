@@ -22,7 +22,7 @@ void send_to_amulet_string(uchar ucIndex, char message0[]);
  * \param Amulet_Byte_ID Description
  * \param 20 Show Chamber Label (TOGGLE)
  * \param 21 Show Chamber Button (TOGGLE)
- * \param 80 Language (STATE) English = 0, Spanish = 1
+ * \param 80 Language (STATE) English = 0, French = 1
  * \param 100 Show QC Button (TOGGLE)
  * \param Amulet_String_ID Description
  * \param 100_101 Title

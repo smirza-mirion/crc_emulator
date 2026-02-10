@@ -203,8 +203,8 @@ extern const LANG_MAP lang_map[];
 		"English",
 		"Inglés",
 
-		L_SPANISH,
-		"Spanish",
+		L_FRENCH,
+		"French",
 		"Español",
 		
 		L_LANGUAGE,

@@ -2081,7 +2081,7 @@ void service_amulet(void){
 								trim_and_shrink(nucshrink);
 								if(nucshrink[0]!=0 && (!measurement[ch_num].over_flag)){
 									if(current.language == ENGLISH) strcat((char *) m_acTitle, " hhmm[ss]/DD/MM/YY");
-									else if(current.language == SPANISH) strcat((char *) m_acTitle, " hhmm[ss]/DD/MM/AA");
+									else if(current.language == FRENCH) strcat((char *) m_acTitle, " hhmm[ss]/DD/MM/AA");
 									else strcat((char *) m_acTitle, " hhmm[ss]/DD/MM/YY");
 									m_ucLenLimit = 30;
 									m_ucLenFractionLimit = 0;

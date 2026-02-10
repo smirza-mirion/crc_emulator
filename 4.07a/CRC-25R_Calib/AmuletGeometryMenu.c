@@ -60,7 +60,7 @@ void Amulet_DisplayError(char *title, char *errorstring, bool showOK);
  * \details Handles the Amulet Screen Geometry.htm. Geometry.htm runs the geometry test.
  * \param Amulet_Byte_ID Description
  * \param 20 Show Chamber Label (TOGGLE)
- * \param 80 Language (STATE) English = 0, Spanish = 1
+ * \param 80 Language (STATE) English = 0, French = 1
  * \param 189 0xFF = Displays "No Cal Number" error
  * \param 190 0xFF = Displays the Container Label, radio button Syringe and radio button Vial
  * \param 191 0xFF = Displays Volume Range Error

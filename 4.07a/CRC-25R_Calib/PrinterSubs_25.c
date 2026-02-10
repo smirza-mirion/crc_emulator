@@ -1063,7 +1063,7 @@ extern char pr_crcname_large[];
     }
 
 /**
- * \details Print report header with either english or spanish
+ * \details Print report header with either english or french
  * \param printer Printer type
  * \returns None
  */
@@ -1604,7 +1604,7 @@ void prhead_testtime(char printer, time_t testtime){
         }
     }
 /**
- * \details Print report header with test time in either English or Spanish
+ * \details Print report header with test time in either English or French
  * \param printer Printer type
  * \param testtime Test time
  * \returns None
@@ -1829,7 +1829,7 @@ void prhead_testtime_language(char printer, time_t testtime){
 
     }
 /**
- * \details Print current date and time in either English or Spanish
+ * \details Print current date and time in either English or French
  * \param printer Printer Type
  * \returns None
  */
@@ -1882,7 +1882,7 @@ void prhead_testtime_language(char printer, time_t testtime){
 
     }
 /**
- * \details Print measurement time in either English or Spanish
+ * \details Print measurement time in either English or French
  * \param printer Printer type
  * \param measuredon Pointer to time_t with the measurement time
  * \returns None
@@ -2007,7 +2007,7 @@ void prhead_testtime_language(char printer, time_t testtime){
         }
     }
 /**
- * \details Print text with header in either English or Spanish
+ * \details Print text with header in either English or French
  * \param strng Pointer to Null terminated text string
  * \param header Pointer to Null terminated header string
  * \returns None
@@ -2862,7 +2862,7 @@ void inserttime_t_language(char *line, int columnstart, int justify, int lengthl
 	insertconst(line, columnstart, justify, lengthlimit, input);
 }
 /**
- * \details Insert a date string into a print line in either English or Spanish
+ * \details Insert a date string into a print line in either English or French
  * \param line Pointer to Null terminated print line
  * \param columnstart Zero based column number for inserting the string
  * \param justify 0 = Left justify, 1 = Right justify
@@ -4558,7 +4558,7 @@ void prheadsec(char printer)
     }
 
 /**
- * \details Print report header with either english or spanish
+ * \details Print report header with either english or french
  * \param printer Printer type
  * \returns None
  */
@@ -4941,7 +4941,7 @@ void prhead_testtimesec(char printer, time_t testtime){
     }
 
 /**
- * \details Print report header with test time in either English or Spanish
+ * \details Print report header with test time in either English or French
  * \param printer Printer type
  * \param testtime Test time
  * \returns None
@@ -5147,7 +5147,7 @@ void prhead_testtime_languagesec(char printer, time_t testtime){
     }
 
 /**
- * \details Print current date and time in either English or Spanish
+ * \details Print current date and time in either English or French
  * \param printer Printer Type
  * \returns None
  */
@@ -5202,7 +5202,7 @@ void prhead_testtime_languagesec(char printer, time_t testtime){
     }
 
 /**
- * \details Print measurement time in either English or Spanish
+ * \details Print measurement time in either English or French
  * \param printer Printer type
  * \param measuredon Pointer to time_t with the measurement time
  * \returns None
@@ -5294,7 +5294,7 @@ void prhead_testtime_languagesec(char printer, time_t testtime){
     }
 
 /**
- * \details Print text with header in either English or Spanish
+ * \details Print text with header in either English or French
  * \param strng Pointer to Null terminated text string
  * \param header Pointer to Null terminated header string
  * \returns None

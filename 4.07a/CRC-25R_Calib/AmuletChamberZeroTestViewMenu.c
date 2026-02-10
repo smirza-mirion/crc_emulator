@@ -31,7 +31,7 @@ void przero_db(void);
  * \details Handles the Amulet Screen ChamberZeroTestView.htm  ChamberZeroTestView.htm shows a zero test from the database.
  * \param Amulet_Byte_ID Description
  * \param 20 Show Chamber Label (TOGGLE)
- * \param 80 Language (STATE) English = 0, Spanish = 1
+ * \param 80 Language (STATE) English = 0, French = 1
  * \param 100 Print Button (STATE)
  * \param 101 Inactivate Button (STATE) FF = Inactivate Button, FE = Inactivate Reason
  * \param 102 Redisplay Buttons (TOGGLE)
@@ -75,7 +75,7 @@ void AmuletChamberZeroTestView_menu(void){
 				SetAmuletByte(103, 0xFF);
 			}else{
 				if(current.language == ENGLISH) send_to_amulet_string(106, AmuletChamberSearchMenu_Zero.ZeroTextEnglish);
-				else if(current.language == SPANISH) send_to_amulet_string(106, AmuletChamberSearchMenu_Zero.ZeroTextSpanish);
+				else if(current.language == FRENCH) send_to_amulet_string(106, AmuletChamberSearchMenu_Zero.ZeroTextFrench);
 				if(AmuletChamberSearchMenu_Zero.ZeroStatus == ZERO_OUT_OF_RANGE || AmuletChamberSearchMenu_Zero.ZeroStatus == ZERO_DRIFT) SetAmuletByte(103, 0xFF);
 			}
 			delayloop(2);

@@ -80,7 +80,7 @@ void send_to_amulet_string(uchar ucIndex, char message0[]);
 void DB_CreateChamberZero(CHAMBERZERO *chamberzero, long long int *ChamberDailyTestID, bool bookEnd);
 void DB_CreateChamberBackground(CHAMBERBACKGROUND *chamberbackground, long long int ChamberDailyTestID, bool bookEnd);
 void DB_CreateChamberVoltage(CHAMBERVOLTAGE *chambervoltage, long long int ChamberDailyTestID, bool bookEnd);
-void DB_UpdateDailyTestDataCheck(long long int ChamberDailyTestID, char *DataCheckTextEnglish, char *DataCheckTextSpanish, bool DataCheckFailed, char *DataCheckCRC, bool bookEnd);
+void DB_UpdateDailyTestDataCheck(long long int ChamberDailyTestID, char *DataCheckTextEnglish, char *DataCheckTextFrench, bool DataCheckFailed, char *DataCheckCRC, bool bookEnd);
 void AmuletGenericYesNo_saveInDatabase(bool autoconstancy);
 
 /**
@@ -88,7 +88,7 @@ void AmuletGenericYesNo_saveInDatabase(bool autoconstancy);
  * \param Amulet_Byte_ID Description
  * \param 20 Show Chamber Label	(TOGGLE)
  * \param 91 Show Accuracy Button	(TOGGLE)
- * \param 92 Language		(STATE) English = 0, Spanish = 1
+ * \param 92 Language		(STATE) English = 0, French = 1
  * \param 189 State Change		(TOGGLE)
  * \param 189 FF = Display Remove All Sources Message
  * \param 189 FE = Display Zero Test
@@ -268,7 +268,7 @@ void AmuletDaily_menu(void) {
 				chamberzero->TwoStageChamber = chamber_one_gain_relay(ch_num);
 				chamberzero->ZeroStatus = zerodata[ch_num].status;
 				chamberzero->ZeroTextEnglish[0] = 0;
-				chamberzero->ZeroTextSpanish[0] = 0;
+				chamberzero->ZeroTextFrench[0] = 0;
 				chamberzero->ZeroValue = zerodata[ch_num].znew;
 				chamberzero->MeasuredOn = clock_time;
 				chamberzero->CreatedOn = 0;
@@ -280,7 +280,7 @@ void AmuletDaily_menu(void) {
 					trim(acMsg);
 					strcpy(String190, acMsg);
 					strcpy(chamberzero->ZeroTextEnglish, String190);
-					strcpy(chamberzero->ZeroTextSpanish, chamberzero->ZeroTextEnglish);
+					strcpy(chamberzero->ZeroTextFrench, chamberzero->ZeroTextEnglish);
 					send_to_amulet_string(190, acMsg);
 					chamber_checksum[ch_num] = calc_chamber_checksum(ch_num);
 					beep_amulet();
@@ -296,9 +296,9 @@ void AmuletDaily_menu(void) {
 					strcpy(acMsg, measurement[ch_num].actstr);
 					trim(acMsg);
 					strcat(acMsg, " ");
-					get_amulet_message_with_language(L_ZERO_DRIFT, String190, SPANISH);    // "Zero Drift"
+					get_amulet_message_with_language(L_ZERO_DRIFT, String190, FRENCH);    // "Zero Drift"
 					strcat(acMsg, String190);
-					strcpy(chamberzero->ZeroTextSpanish, acMsg);
+					strcpy(chamberzero->ZeroTextFrench, acMsg);
 
 					get_amulet_message(L_ZERO_DRIFT, String190);    // "Zero Drift"
 					send_to_amulet_string(190, String190);
@@ -314,8 +314,8 @@ void AmuletDaily_menu(void) {
 					get_amulet_message_with_language(L_ZERO_OUT_OF_RANGE, String190, ENGLISH);    // "Zero out of Range"
 					strcpy(chamberzero->ZeroTextEnglish, String190);
 
-					get_amulet_message_with_language(L_ZERO_OUT_OF_RANGE, String190, SPANISH);    // "Zero out of Range"
-					strcpy(chamberzero->ZeroTextSpanish, String190);
+					get_amulet_message_with_language(L_ZERO_OUT_OF_RANGE, String190, FRENCH);    // "Zero out of Range"
+					strcpy(chamberzero->ZeroTextFrench, String190);
 
 					get_amulet_message(L_ZERO_OUT_OF_RANGE, String190);    // "Zero out of Range"
 					send_to_amulet_string(190, String190);
@@ -370,7 +370,7 @@ void AmuletDaily_menu(void) {
 				chamberbackground->TwoStageChamber = chamber_one_gain_relay(ch_num);
 				chamberbackground->BackgroundStatus = bkgdata[ch_num].latched_status;
 				chamberbackground->BackgroundTextEnglish[0] = 0;
-				chamberbackground->BackgroundTextSpanish[0] = 0;
+				chamberbackground->BackgroundTextFrench[0] = 0;
 				chamberbackground->BackgroundValue = 0;
 				chamberbackground->MeasuredOn = clock_time;
 				chamberbackground->InactiveReason[0] = 0;
@@ -378,8 +378,8 @@ void AmuletDaily_menu(void) {
 				if(bkgdata[ch_num].status == BKG_TOO_HIGH){
 					get_amulet_message_with_language(L_BACKGROUND_TOO_HIGH, String100, ENGLISH);    // "BACKGROUND TOO HIGH"
 					strcpy(chamberbackground->BackgroundTextEnglish, String100);
-					get_amulet_message_with_language(L_BACKGROUND_TOO_HIGH, String100, SPANISH);    // "BACKGROUND TOO HIGH"
-					strcpy(chamberbackground->BackgroundTextSpanish, String100);
+					get_amulet_message_with_language(L_BACKGROUND_TOO_HIGH, String100, FRENCH);    // "BACKGROUND TOO HIGH"
+					strcpy(chamberbackground->BackgroundTextFrench, String100);
 
 					get_amulet_message(L_BACKGROUND_TOO_HIGH, String100);    // "BACKGROUND TOO HIGH"
 					send_to_amulet_string(100, String100);
@@ -393,15 +393,15 @@ void AmuletDaily_menu(void) {
 					strcpy(String100, acMsg);
 					strcpy(chamberbackground->BackgroundTextEnglish, String100);
 					replace(chamberbackground->BackgroundTextEnglish, '$', 'u');
-					strcpy(chamberbackground->BackgroundTextSpanish, chamberbackground->BackgroundTextEnglish);
+					strcpy(chamberbackground->BackgroundTextFrench, chamberbackground->BackgroundTextEnglish);
 					if(bkgdata[ch_num].status == BKG_HIGH){
 						strcat(chamberbackground->BackgroundTextEnglish, " ");
 						get_amulet_message_with_language(L_HIGH, acMsg2, ENGLISH);    // "HIGH"
 						strcat(chamberbackground->BackgroundTextEnglish, acMsg2);
 
-						strcat(chamberbackground->BackgroundTextSpanish, " ");
-						get_amulet_message_with_language(L_HIGH, acMsg2, SPANISH);    // "HIGH"
-						strcat(chamberbackground->BackgroundTextSpanish, acMsg2);
+						strcat(chamberbackground->BackgroundTextFrench, " ");
+						get_amulet_message_with_language(L_HIGH, acMsg2, FRENCH);    // "HIGH"
+						strcat(chamberbackground->BackgroundTextFrench, acMsg2);
 					}
 					send_to_amulet_string(100, String100);
 					chamber_checksum[ch_num] = calc_chamber_checksum(ch_num);
@@ -464,7 +464,7 @@ void AmuletDaily_menu(void) {
 				strcpy(acMsg, &(measurement[ch_num].actstr[0]));
 				strcpy(chambervoltage->VoltageTextEnglish, acMsg);
 				trim(chambervoltage->VoltageTextEnglish);
-				strcpy(chambervoltage->VoltageTextSpanish, chambervoltage->VoltageTextEnglish);
+				strcpy(chambervoltage->VoltageTextFrench, chambervoltage->VoltageTextEnglish);
 
 				if(biasdata[ch_num].status == TEST_GOOD){
 					get_amulet_message(L_CAPS_OK, acMsg2);    // "OK"
@@ -474,9 +474,9 @@ void AmuletDaily_menu(void) {
 					strcat(chambervoltage->VoltageTextEnglish, " ");
 					strcat(chambervoltage->VoltageTextEnglish, acMsg2);
 
-					get_amulet_message_with_language(L_ERROR, acMsg2, SPANISH);    // "ERROR"
-					strcat(chambervoltage->VoltageTextSpanish, " ");
-					strcat(chambervoltage->VoltageTextSpanish, acMsg2);
+					get_amulet_message_with_language(L_ERROR, acMsg2, FRENCH);    // "ERROR"
+					strcat(chambervoltage->VoltageTextFrench, " ");
+					strcat(chambervoltage->VoltageTextFrench, acMsg2);
 
 					get_amulet_message(L_FAIL2, acMsg2);    // "FAIL"
 					strcat(acMsg, acMsg2);
@@ -526,7 +526,7 @@ void AmuletDaily_menu(void) {
 				if(okdata){
 					acMsg3 = malloc(100);
 					get_amulet_message_with_language(L_CAPS_OK, String192, ENGLISH);    // "OK"
-					get_amulet_message_with_language(L_CAPS_OK, acMsg3, SPANISH);    // "OK"
+					get_amulet_message_with_language(L_CAPS_OK, acMsg3, FRENCH);    // "OK"
 					DB_UpdateDailyTestDataCheck(AmuletDailyMenu_ChamberDailyTestID, String192, acMsg3, FALSE, hex_str, TRUE);
 					free(acMsg3);
 
@@ -537,7 +537,7 @@ void AmuletDaily_menu(void) {
 					strcat(String192, ", ");
 					strcat(String192, hex_str);
 					acMsg3 = malloc(100);
-					get_amulet_message_with_language(L_ERROR, acMsg3, SPANISH);    // "ERROR"
+					get_amulet_message_with_language(L_ERROR, acMsg3, FRENCH);    // "ERROR"
 					strcat(acMsg3, ", ");
 					strcat(acMsg3, hex_str);
 					DB_UpdateDailyTestDataCheck(AmuletDailyMenu_ChamberDailyTestID, String192, acMsg3, TRUE, hex_str, TRUE);

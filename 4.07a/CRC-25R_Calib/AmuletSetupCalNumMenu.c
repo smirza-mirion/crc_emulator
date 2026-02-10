@@ -26,7 +26,7 @@ void send_to_amulet_string(uchar ucIndex, char message0[]);
 /**
  * \details Handles Amulet Screen SetupCalNum.htm. SetupCalNum.htm allows the user to change the cal num for a built-in nuclide.
  * \param Amulet_Byte_ID Description
- * \param 92 Language (STATE) English = 0, Spanish = 1
+ * \param 92 Language (STATE) English = 0, French = 1
  * \param 93 CRC-77t (STATE) Not CRC-77t = 0, CRC-77t = 1
  * \param 100 Display Data (0xFF)
  * \param Amulet_String_ID Description

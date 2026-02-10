@@ -160,7 +160,7 @@ void trim(char *acByte);
 			chambervoltage->Inactive = FALSE;
 			strcpy(chambervoltage->VoltageTextEnglish, measurement[ch_num].actstr);
 			trim(chambervoltage->VoltageTextEnglish);
-			strcpy(chambervoltage->VoltageTextSpanish, chambervoltage->VoltageTextEnglish);
+			strcpy(chambervoltage->VoltageTextFrench, chambervoltage->VoltageTextEnglish);
 			*acMsg = 0;
 			if(biasdata[ch_num].status == TEST_GOOD){
 				get_amulet_message(L_CAPS_OK, acMsg);    // "OK"
@@ -169,9 +169,9 @@ void trim(char *acByte);
 				strcat(chambervoltage->VoltageTextEnglish, " ");
 				strcat(chambervoltage->VoltageTextEnglish, acMsg);
 
-				get_amulet_message_with_language(L_ERROR, acMsg, SPANISH);    // "ERROR"
-				strcat(chambervoltage->VoltageTextSpanish, " ");
-				strcat(chambervoltage->VoltageTextSpanish, acMsg);
+				get_amulet_message_with_language(L_ERROR, acMsg, FRENCH);    // "ERROR"
+				strcat(chambervoltage->VoltageTextFrench, " ");
+				strcat(chambervoltage->VoltageTextFrench, acMsg);
 			}
 			if(chamber[ch_num].control == CONTROL_PC) DB_CreateChamberVoltage(chambervoltage, AmuletDailyMenu_ChamberDailyTestID, TRUE);
 			else DB_CreateChamberVoltage(chambervoltage, 0, TRUE);

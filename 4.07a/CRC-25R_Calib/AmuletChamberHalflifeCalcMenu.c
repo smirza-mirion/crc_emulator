@@ -98,7 +98,7 @@ void prsetprinter_db(void);
 /**
  * \details Handles the Amulet Screen HalflifeCalculator.htm. HalflifeCalculator.htm runs the half-life calculator test.
  * \param Amulet_Byte_ID Drescription
- * \param 80 Language		(STATE) English = 0, Spanish = 1
+ * \param 80 Language		(STATE) English = 0, French = 1
  * \param 81 Show Interval Button
  * \param 82 Show Interval Text
  * \param 83 Show Total Label and Button

@@ -107,7 +107,7 @@ bool CompareArray(char *string1, char *string2, int size){
  * \param 90 Login
  * \param 91 Update
  * \param 92 UpdateProgress
- * \param 93 Language (STATE) English = 0, Spanish = 1
+ * \param 93 Language (STATE) English = 0, French = 1
  * \param 99 DoseTable Active
  * \param 100 Display
  * \param 101 ToTime_Normal

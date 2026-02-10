@@ -35,7 +35,7 @@ typedef struct amulet_message AMULET_MESSAGE;
 struct amulet_message
 {
     short id;
-    char  str[2][100];          //English, spanish
+    char  str[2][100];          //English, French
 };    
 
 enum amulet_strings_id
@@ -85,7 +85,7 @@ enum amulet_strings_id
 	L_SETUP_NUCLIDE_ELEMENT,
 	L_SETUP_NUCLIDE_HALFLIFE,
 	L_ENGLISH,
-	L_SPANISH,
+	L_FRENCH,
 	L_LANGUAGE,
 	L_DEFAULT,
 	L_USER,

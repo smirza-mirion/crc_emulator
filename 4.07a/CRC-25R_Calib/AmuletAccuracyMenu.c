@@ -40,7 +40,7 @@ void PushPageStack(unsigned char ucPage);
 /**
  * \details Handles the Amulet Screen Accuracy.htm. Accuracy.htm runs the accuracy test.
  * \param Amulet_Byte_ID Description
- * \param 80 Language		(STATE) English = 0, Spanish = 1
+ * \param 80 Language		(STATE) English = 0, French = 1
  * \param 91  btnSourceMeasureText1 Show
  * \param 92  btnSourceMeasureText2 Show
  * \param 93  btnSourceMeasureText3 Show

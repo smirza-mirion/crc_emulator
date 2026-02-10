@@ -15,7 +15,7 @@ static char *nextLine(char *ptr){
 }
 
 int main(int argc, char *argv[]){
-	int index, length, headerHandle, sourceHandle, outputHandle, returnError, headerLength, sourceLength, bin[10], englishAllocation, spanishAllocation, stringCounter;
+	int index, length, headerHandle, sourceHandle, outputHandle, returnError, headerLength, sourceLength, bin[10], englishAllocation, frenchAllocation, stringCounter;
 	char workingFolder[200], headerPath[300], sourcePath[300], outputPath[300], onechar[3], mapString[20], enumString[200], singleLine[500];
 	char *headerBuffer, *sourceBuffer, *enumBuffer, *ptr, *ptrPrevious, *ptrSearch, *outputBuffer, *mapBuffer, ok, *checkBuffer;
 	long charCount;
@@ -187,30 +187,30 @@ int main(int argc, char *argv[]){
 				//strcat(outputBuffer, "0,");
 				//index++;
 
-				spanishAllocation = 9;
-				while((bin[spanishAllocation] > charCount) && (spanishAllocation != 0)) spanishAllocation--;
+				frenchAllocation = 9;
+				while((bin[frenchAllocation] > charCount) && (frenchAllocation != 0)) frenchAllocation--;
 
 				strcat(outputBuffer, "		// ");
 				strcat(outputBuffer, enumBuffer);
-				sprintf(singleLine," (spanish)  %ld(%d)\n", charCount, spanishAllocation);
+				sprintf(singleLine," (french)  %ld(%d)\n", charCount, frenchAllocation);
 				strcat(outputBuffer, singleLine);
 
-				/*if(spanishAllocation > englishAllocation){
+				/*if(frenchAllocation > englishAllocation){
 					englishAllocation = 26 * (englishAllocation + 1) - 1;
-					spanishAllocation = 26 * (spanishAllocation + 1) - 1;
+					frenchAllocation = 26 * (frenchAllocation + 1) - 1;
 					strcat(checkBuffer, "//");
 					strcat(checkBuffer, enumBuffer);
-					sprintf(singleLine, " %d, %d\n", englishAllocation, spanishAllocation);
+					sprintf(singleLine, " %d, %d\n", englishAllocation, frenchAllocation);
 					strcat(checkBuffer, singleLine);
 				}*/
 
-				/*if(spanishAllocation == englishAllocation){
-					if(spanishAllocation > 0){
+				/*if(frenchAllocation == englishAllocation){
+					if(frenchAllocation > 0){
 						englishAllocation = 26 * (englishAllocation + 1) - 1;
-						spanishAllocation = 26 * (spanishAllocation + 1) - 1;
+						frenchAllocation = 26 * (frenchAllocation + 1) - 1;
 						strcat(checkBuffer, "//");
 						strcat(checkBuffer, enumBuffer);
-						sprintf(singleLine, " %d, %d\n", englishAllocation, spanishAllocation);
+						sprintf(singleLine, " %d, %d\n", englishAllocation, frenchAllocation);
 						strcat(checkBuffer, singleLine);
 					}
 				}*/

@@ -38,7 +38,7 @@ void trim(char *acByte);
  * \details Handles the Amulet Screen ChamberVolts.htm ChamberVolts.htm runs the bias voltage test.
  * \param Amulet_Byte_ID Description
  * \param 20 Show Chamber Label (TOGGLE)
- * \param 80 Language (STATE) English = 0, Spanish = 1
+ * \param 80 Language (STATE) English = 0, French = 1
  * \param 100 Hide Buttons
  * \param 101 Show Buttons
  * \param 109 Show Red Color
@@ -142,7 +142,7 @@ void AmuletChamberVolts_menu(void) {
 				strcpy(acMsg, &(measurement[ch_num].actstr[0]));
 				strcpy(chambervoltage->VoltageTextEnglish, acMsg);
 				trim(chambervoltage->VoltageTextEnglish);
-				strcpy(chambervoltage->VoltageTextSpanish, chambervoltage->VoltageTextEnglish);
+				strcpy(chambervoltage->VoltageTextFrench, chambervoltage->VoltageTextEnglish);
 
 				if (biasdata[ch_num].status == TEST_GOOD){
 					get_amulet_message(L_CAPS_OK, acMsg2);    // "OK"
@@ -152,9 +152,9 @@ void AmuletChamberVolts_menu(void) {
 					strcat(chambervoltage->VoltageTextEnglish, " ");
 					strcat(chambervoltage->VoltageTextEnglish, acMsg2);
 
-					get_amulet_message_with_language(L_ERROR, acMsg2, SPANISH);    // "ERROR"
-					strcat(chambervoltage->VoltageTextSpanish, " ");
-					strcat(chambervoltage->VoltageTextSpanish, acMsg2);
+					get_amulet_message_with_language(L_ERROR, acMsg2, FRENCH);    // "ERROR"
+					strcat(chambervoltage->VoltageTextFrench, " ");
+					strcat(chambervoltage->VoltageTextFrench, acMsg2);
 
 					get_amulet_message(L_FAIL2, acMsg2);    // "FAIL"
 					strcat(acMsg, acMsg2);

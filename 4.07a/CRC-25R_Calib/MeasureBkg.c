@@ -149,7 +149,7 @@ void trim(char *acByte);
 						chamberbackground->TwoStageChamber = chamber_one_gain_relay(ch_num);
 						chamberbackground->BackgroundStatus = BKG_TOO_HIGH;
 						get_amulet_message_with_language(L_BACKGROUND_TOO_HIGH, chamberbackground->BackgroundTextEnglish, ENGLISH);    // "BACKGROUND TOO HIGH"
-						get_amulet_message_with_language(L_BACKGROUND_TOO_HIGH, chamberbackground->BackgroundTextSpanish, SPANISH);    // "BACKGROUND TOO HIGH"
+						get_amulet_message_with_language(L_BACKGROUND_TOO_HIGH, chamberbackground->BackgroundTextFrench, FRENCH);    // "BACKGROUND TOO HIGH"
 						chamberbackground->BackgroundValue = measurement[ch_num].meas + chamber[ch_num].bkg;
 						chamberbackground->MeasuredOn = clock_time;
 						chamberbackground->InactiveReason[0] = 0;
@@ -185,16 +185,16 @@ void trim(char *acByte);
 			strcpy(chamberbackground->BackgroundTextEnglish, measurement[ch_num].actstr);
 			trim(chamberbackground->BackgroundTextEnglish);
 			replace(chamberbackground->BackgroundTextEnglish, '$', 'u');
-			strcpy(chamberbackground->BackgroundTextSpanish, chamberbackground->BackgroundTextEnglish);
+			strcpy(chamberbackground->BackgroundTextFrench, chamberbackground->BackgroundTextEnglish);
 			if(chamberbackground->BackgroundStatus == BKG_HIGH){
 				acMsg = malloc(40);
 				strcat(chamberbackground->BackgroundTextEnglish, " ");
 				get_amulet_message_with_language(L_HIGH, acMsg, ENGLISH);    // "HIGH"
 				strcat(chamberbackground->BackgroundTextEnglish, acMsg);
 
-				strcat(chamberbackground->BackgroundTextSpanish, " ");
-				get_amulet_message_with_language(L_HIGH, acMsg, SPANISH);    // "HIGH"
-				strcat(chamberbackground->BackgroundTextSpanish, acMsg);
+				strcat(chamberbackground->BackgroundTextFrench, " ");
+				get_amulet_message_with_language(L_HIGH, acMsg, FRENCH);    // "HIGH"
+				strcat(chamberbackground->BackgroundTextFrench, acMsg);
 				free(acMsg);
 			}
 			chamberbackground->BackgroundValue = chamber[ch_num].bkg;

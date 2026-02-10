@@ -21,8 +21,8 @@
 
 extern CURRENT current;
 
-typedef struct spanish_elements SPANELEMENTS;
-struct spanish_elements
+typedef struct french_elements SPANELEMENTS;
+struct french_elements
 {
     char	fullname[15];  // full name of nuclide
 };	

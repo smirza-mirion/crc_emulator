@@ -34,7 +34,7 @@ void Amulet_printGeometry(short num_meas, short ref_num, short sorv);
 /**
  * \details Handles the Amulet Scree GeometryReport.htm. GeometryReport.htm displays the results of the geometry test.
  * \param Amulet_Byte_ID Description
- * \param 80 Language		(STATE) English = 0, Spanish = 1
+ * \param 80 Language		(STATE) English = 0, French = 1
  * \param 168 0xFF = Display Report
  * \param 169 0xFF = Display Line 1
  * \param 170 0xFF = Display Line 2

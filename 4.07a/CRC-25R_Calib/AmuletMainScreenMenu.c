@@ -46,7 +46,7 @@ void GetExtendedNuclideString(unsigned char ucNuclideID, char *acMsg);
  * \param 21 Show Chamber Button(TOGGLE)
  * \param 22 Show Well Button(TOGGLE)
  * \param 23 Show Beta Button(TOGGLE)
- * \param 100 Language (STATE) English = 0, Spanish = 1
+ * \param 100 Language (STATE) English = 0, French = 1
  * \param 101 Show Screen (TOGGLE)
  * \param 102 Show Print Button (TOGGLE)
  * \param 103 Show Activty Unit (TOGGLE)

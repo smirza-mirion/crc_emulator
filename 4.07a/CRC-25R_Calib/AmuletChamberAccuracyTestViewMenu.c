@@ -34,7 +34,7 @@ void praccuracy_db(void);
  * \details Handles the Amulet Screen ChamberAccuracyTestView.htm. ChamberAccuracyTestView.htm shows an accuracy test from the database.
  * \param Amulet_Byte_ID
  * \param 20 Show Chamber Label (TOGGLE)
- * \param 80 Language (STATE) English = 0, Spanish = 1
+ * \param 80 Language (STATE) English = 0, French = 1
  * \param 101 Show Test1 (TOGGLE)
  * \param 102 Show Test2 (TOGGLE)
  * \param 103 Show Test3 (TOGGLE)
@@ -180,12 +180,12 @@ void AmuletChamberAccuracyTestView_menu(void){
 						delayloop(2);
 						send_to_amulet_string((5*j) + 113, AmuletChamberSearchMenu_AccuracyMeasurement[i].DeviationTextEnglish);
 						delayloop(2);
-					}else if(current.language == SPANISH){
-						send_to_amulet_string((5*j) + 111, AmuletChamberSearchMenu_AccuracyMeasurement[i].CalculatedActivityTextSpanish);
+					}else if(current.language == FRENCH){
+						send_to_amulet_string((5*j) + 111, AmuletChamberSearchMenu_AccuracyMeasurement[i].CalculatedActivityTextFrench);
 						delayloop(2);
-						send_to_amulet_string((5*j) + 112, AmuletChamberSearchMenu_AccuracyMeasurement[i].MeasuredActivityTextSpanish);
+						send_to_amulet_string((5*j) + 112, AmuletChamberSearchMenu_AccuracyMeasurement[i].MeasuredActivityTextFrench);
 						delayloop(2);
-						send_to_amulet_string((5*j) + 113, AmuletChamberSearchMenu_AccuracyMeasurement[i].DeviationTextSpanish);
+						send_to_amulet_string((5*j) + 113, AmuletChamberSearchMenu_AccuracyMeasurement[i].DeviationTextFrench);
 						delayloop(2);
 					}
 					if(AmuletChamberSearchMenu_AccuracyMeasurement[i].DeviationStatus) SetAmuletByte(111 + j, 0xFF);

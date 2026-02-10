@@ -56,7 +56,7 @@ char m_acSetup_Passwd[4];
 /**
  * \details Handles the Amulet Screen Setup.htm. Setup.htm shows calibrator settings.
  * \param Amulet_Byte_ID Description
- * \param 92 Language (STATE) English = 0, Spanish = 1
+ * \param 92 Language (STATE) English = 0, French = 1
  * \param 93 Display Language Label and TextBox (STATE)
  * \param 100 Internal number for Activity group used for initHref
  * \param 101 Internal number for Printers group used for initHref
@@ -276,7 +276,7 @@ void AmuletSetup_menu(void){
 						strcpy(message, "mm/dd/yyyy");
 						break;
 				}
-			}else if(current.language == SPANISH){
+			}else if(current.language == FRENCH){
 				switch(current.time_format){
 					case 0:
 						strcpy(message, "mm/dd/aaaa");
@@ -325,7 +325,7 @@ void AmuletSetup_menu(void){
 			send_amulet_message(L_LANGUAGE, 127);    // "Language:"
 
 			if(current.language == 0) get_amulet_message(L_ENGLISH, message);    // "English"
-			else if(current.language == 1) get_amulet_message(L_SPANISH, message);    // "Spanish"
+			else if(current.language == 1) get_amulet_message(L_FRENCH, message);    // "French"
 			send_to_amulet_string(128, message);
 
 			send_amulet_message(L_USB_PC_DRIVER,129);    // "USB PC Driver:"

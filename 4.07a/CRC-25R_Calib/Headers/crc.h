@@ -195,7 +195,7 @@ enum detector_types
 enum language
 {
 	ENGLISH,
-	SPANISH,
+	FRENCH,
 };	
 
 /* current data structure  -- these pertain to whole system */
@@ -220,7 +220,7 @@ enum language
      int time_format;		// 0 = mm/dd/yyyy, 1 = dd/mm/yyyy, 2 = yyyy/mm/dd
      int usb_device_protocol;	// 0 = HID, 1 = CDC
      int future_date_input;	// 0 = Quick, 1 = Full
-	 int language;			//  0 = English, 1 = Spanish
+	 int language;			//  0 = English, 1 = French
 	 char feed_label;		// 0 = Off, 1 = On
 	 char moly_streamlined;	// 0 = Off, 1 = On
 	 long long int key;		// 0 = empty
@@ -1434,7 +1434,7 @@ struct chamberdailytest{
 	int ChamberType;
 	bool TwoStageChamber;
 	char DataCheckTextEnglish[40];
-	char DataCheckTextSpanish[40];
+	char DataCheckTextFrench[40];
 	bool DataCheckFailed;
 	char DataCheckCRC[10];
 	long long int ChamberZeroID;
@@ -1454,7 +1454,7 @@ struct chamberzero{
 	bool TwoStageChamber;
 	int ZeroStatus;
 	char ZeroTextEnglish[40];
-	char ZeroTextSpanish[40];
+	char ZeroTextFrench[40];
 	float ZeroValue;
 	time_t MeasuredOn;
 	time_t CreatedOn;
@@ -1470,7 +1470,7 @@ struct chamberbackground{
 	bool TwoStageChamber;
 	int BackgroundStatus;
 	char BackgroundTextEnglish[40];
-	char BackgroundTextSpanish[40];
+	char BackgroundTextFrench[40];
 	float BackgroundValue;
 	time_t MeasuredOn;
 	time_t CreatedOn;
@@ -1489,7 +1489,7 @@ struct chambervoltage{
 	float MaxVoltage;
 	int VoltageStatus;
 	char VoltageTextEnglish[40];
-	char VoltageTextSpanish[40];
+	char VoltageTextFrench[40];
 	float VoltageValue;
 	time_t MeasuredOn;
 	time_t CreatedOn;
@@ -1522,17 +1522,17 @@ struct chamberaccuracymeasurement{
 	time_t SourceCalDate;
 	time_t MeasuredOn;
 	char CalculatedActivityTextEnglish[40];
-	char CalculatedActivityTextSpanish[40];
+	char CalculatedActivityTextFrench[40];
 	float CalculatedActivity;
 	float Response;
 	float HalfLife;
 	int HalfLifeUnit;
 	char MeasuredActivityTextEnglish[40];
-	char MeasuredActivityTextSpanish[40];
+	char MeasuredActivityTextFrench[40];
 	float MeasuredActivity;
 	int DeviationStatus;
 	char DeviationTextEnglish[40];
-	char DeviationTextSpanish[40];
+	char DeviationTextFrench[40];
 	float Deviation;
 };
 
@@ -1546,7 +1546,7 @@ struct chamberautoconstancy{
 	float HalfLife;
 	int HalfLifeUnit;
 	char ConstancyActivityTextEnglish[40];
-	char ConstancyActivityTextSpanish[40];
+	char ConstancyActivityTextFrench[40];
 	float ConstancyActivity;
 };
 

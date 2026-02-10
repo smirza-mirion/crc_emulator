@@ -316,7 +316,7 @@ void AmuletGenericItems_menu(void){
 						send_to_amulet_string(101, "mm/dd/yyyy");
 						send_to_amulet_string(102, "dd/mm/yyyy");
 						send_to_amulet_string(103, "yyyy/mm/dd");
-					}else if(current.language == SPANISH){
+					}else if(current.language == FRENCH){
 						send_to_amulet_string(101, "mm/dd/aaaa");
 						send_to_amulet_string(102, "dd/mm/aaaa");
 						send_to_amulet_string(103, "aaaa/mm/dd");
@@ -352,7 +352,7 @@ void AmuletGenericItems_menu(void){
 				case CONFIG_LANGUAGE:
 					send_amulet_message(L_SELECT_LANGUAGE, 98);    // "Please Select Language"
 					send_amulet_message(L_ENGLISH, 102);    // "English"
-					send_amulet_message(L_SPANISH, 106);    // "Spanish"
+					send_amulet_message(L_FRENCH, 106);    // "French"
 					SetAmuletByte(100, 0xFF);
 					SetAmuletByte(102, 0xFF);
 					SetAmuletByte(106, 0xFF);

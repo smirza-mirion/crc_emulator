@@ -31,7 +31,7 @@ void prbackground_db(void);
  * \details Handles the Amulet Screen ChamberBackgroundTestView.htm ChamberBackgroundTestView.htm  shows a background test from the database.
  * \param Amulet_Byte_ID Description
  * \param 20 Show Chamber Label (TOGGLE)
- * \param 80 Language (STATE) English = 0, Spanish = 1
+ * \param 80 Language (STATE) English = 0, French = 1
  * \param 100 Print Button (STATE)
  * \param 101 Inactivate Button (STATE) FF = Inactivate Button, FE = Inactivate Reason
  * \param 102 Redisplay Buttons (TOGGLE)
@@ -75,7 +75,7 @@ void AmuletChamberBackgroundTestView_menu(void){
 				SetAmuletByte(103, 0xFF);
 			}else{
 				if(current.language == ENGLISH) send_to_amulet_string(106, AmuletChamberSearchMenu_Background.BackgroundTextEnglish);
-				else if(current.language == SPANISH) send_to_amulet_string(106, AmuletChamberSearchMenu_Background.BackgroundTextSpanish);
+				else if(current.language == FRENCH) send_to_amulet_string(106, AmuletChamberSearchMenu_Background.BackgroundTextFrench);
 				if(AmuletChamberSearchMenu_Background.BackgroundStatus == BKG_HIGH || AmuletChamberSearchMenu_Background.BackgroundStatus == BKG_TOO_HIGH) SetAmuletByte(103, 0xFF);
 			}
 			delayloop(2);
