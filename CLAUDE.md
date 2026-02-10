@@ -15,7 +15,7 @@ Embedded C firmware for the **CRC-25R Radio Nuclide Calibrator** (Capintec) with
 | File System | FatFS on SD/MMC cards |
 | UI Framework | Amulet (HTML-based touchscreen UI via UART) |
 | USB | SL811S host controller |
-| VCS | Mercurial (HG) |
+| VCS | Git (GitHub) |
 
 ## Key Directories
 
@@ -68,15 +68,17 @@ Build variants: `CRC_CAL` (calibrator mode), `CRC_WELL` (well detector mode) - s
 
 ## Version Control
 
-This project uses **Mercurial (HG)**. After every code change:
+This project uses **Git** with a private GitHub remote at `Mirion-DataPlatform/crc_french`. Branch: `master`.
+
+**Push after every update.** Each logical change (bug fix, feature addition, config tweak) should be its own commit pushed immediately. Do not accumulate uncommitted changes.
 
 ```
-hg add <new-files>          # Stage new files
-hg commit -m "description"  # Commit locally
-hg push                     # Push to remote
+git add <files>             # Stage changed/new files
+git commit -m "description" # Commit locally
+git push                    # Push to origin/master
 ```
 
-**Push after every update.** Do not accumulate uncommitted changes. Each logical change (bug fix, feature addition, config tweak) should be its own commit pushed immediately. If unsure whether to push, push.
+Repo-level git identity is already configured (Shahmeer Mirza / smirza@mirion.com). Legacy `.hg/` directories inside `4.07a/` subdirectories are Mercurial history from the original repo and are excluded via `.gitignore`.
 
 ## Naming Conventions
 
