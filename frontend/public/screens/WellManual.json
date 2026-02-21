@@ -1,0 +1,458 @@
+{
+  "name": "WellManual",
+  "filename": "WellManual.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Display",
+      "101": "HV State",
+      "102": "Live State"
+    },
+    "strings": {
+      "100": "Gain1",
+      "101": "Gain2",
+      "102": "Offset",
+      "103": "Threshold",
+      "104": "HV",
+      "105": "Time"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Well Manual Setting",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHome",
+      "x": 8,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/home_big.png",
+        "downImage": "Images/home_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "home"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "StringField",
+      "name": "sfGain1",
+      "x": 355,
+      "y": 145,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%s",
+        "invisible": "TRUE",
+        "updateRate": "0.00"
+      },
+      "position_from": "gain1text",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnGain1",
+      "x": 355,
+      "y": 145,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle('Please Enter Gain 1:'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('1023.0'), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('0.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_MCA_GAIN1)",
+        "invisible": "FALSE"
+      },
+      "position_from": "gain1text"
+    },
+    {
+      "type": "StringField",
+      "name": "sfGain2",
+      "x": 355,
+      "y": 195,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(101).value()",
+        "printf": "%s",
+        "invisible": "TRUE",
+        "updateRate": "0.00"
+      },
+      "position_from": "gain2text",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 101,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnGain2",
+      "x": 355,
+      "y": 195,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle('Please Enter Gain 2:'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('1023.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_MCA_GAIN2)",
+        "invisible": "FALSE"
+      },
+      "position_from": "gain2text"
+    },
+    {
+      "type": "StringField",
+      "name": "sfOffset",
+      "x": 355,
+      "y": 245,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "printf": "%s",
+        "invisible": "TRUE",
+        "updateRate": "0.00"
+      },
+      "position_from": "offsettext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnOffset",
+      "x": 355,
+      "y": 245,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle('Please Enter Offset:'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(0), %ConfigMinValue('-2047.0'), %ConfigMaxValue('2047.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_ON, %SetKeypad(%%SET_KEYPAD_MCA_ZERO_OFFSET)",
+        "invisible": "FALSE"
+      },
+      "position_from": "offsettext"
+    },
+    {
+      "type": "StringField",
+      "name": "sfThreshold",
+      "x": 355,
+      "y": 295,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(103).value()",
+        "printf": "%s",
+        "invisible": "TRUE",
+        "updateRate": "0.00"
+      },
+      "position_from": "thresholdtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 103,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnThreshold",
+      "x": 355,
+      "y": 295,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle('Please Enter Threshold:'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('4095.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_MCA_THRESHOLD)",
+        "invisible": "FALSE"
+      },
+      "position_from": "thresholdtext"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHV",
+      "x": 355,
+      "y": 345,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(104).value()",
+        "printf": "%s",
+        "invisible": "TRUE",
+        "updateRate": "0.00"
+      },
+      "position_from": "hvtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnHV",
+      "x": 355,
+      "y": 345,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle('Please Enter Voltage:'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(0), %ConfigMinValue('595.0'), %ConfigMaxValue('1246.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_MCA_HV)",
+        "invisible": "FALSE"
+      },
+      "position_from": "hvtext"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnClearLinearity",
+      "x": 355,
+      "y": 395,
+      "width": 400,
+      "height": 40,
+      "params": {
+        "label": "Clear Eu152 Linearity Correction",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "TRUE"
+      },
+      "position_from": "timetext",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshDisplay",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfGain1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfGain1"
+        },
+        {
+          "type": "reappear",
+          "target": "sfGain2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfGain2"
+        },
+        {
+          "type": "reappear",
+          "target": "sfOffset"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfOffset"
+        },
+        {
+          "type": "reappear",
+          "target": "sfThreshold"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfThreshold"
+        },
+        {
+          "type": "reappear",
+          "target": "sfHV"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfHV"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowClearLinearity",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnClearLinearity"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_MANUAL"
+    }
+  ],
+  "referencedImages": [
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/home_big.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        101,
+        102,
+        103,
+        104
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

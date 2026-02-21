@@ -1,0 +1,195 @@
+{
+  "name": "WellSetupTriggerLevel",
+  "filename": "WellSetupTriggerLevel.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Display Values"
+    },
+    "strings": {
+      "100": "Background Threshold",
+      "101": "Wipe Threshold",
+      "102": "Unrestricted Threshold",
+      "103": "Sealed Threshold"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Background Trigger Level Setup",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "StringField",
+      "name": "sfBackgroundThreshold",
+      "x": 350,
+      "y": 100,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "backgroundtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnBackgroundThreshold",
+      "x": 350,
+      "y": 100,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%SetSpecialFunction(%%SET_SPECIALFUNCTION_BACKGROUND_THRESHOLD_KEYPAD)",
+        "invisible": "FALSE"
+      },
+      "position_from": "backgroundtext"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "FALSE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(), %Back",
+        "invisible": "FALSE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShow",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfBackgroundThreshold"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_SETUP_TRIGGER_LEVEL"
+    }
+  ],
+  "referencedImages": [
+    "Images/bottom_bar.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

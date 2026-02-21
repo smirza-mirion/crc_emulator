@@ -1,0 +1,856 @@
+{
+  "name": "AddEditUser",
+  "filename": "AddEditUser.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "80": "Display UserName Button",
+      "81": "Display UserName Field",
+      "82": "Display Password Button",
+      "83": "Display Password Echo",
+      "84": "Display FirstName Button",
+      "85": "Display FirstName Field",
+      "86": "Display LastName Button",
+      "87": "Display LastName Field",
+      "88": "Display Role Label",
+      "89": "Display Role User Button",
+      "90": "Display Role Admin Button",
+      "91": "Display Inactive Checkbox",
+      "100": "Display Screen"
+    },
+    "strings": {
+      "100": "Title",
+      "101": "Title",
+      "102": "UserName",
+      "103": "Password",
+      "104": "Password Echo",
+      "105": "First Name",
+      "106": "Last Name"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnUserName",
+      "x": 305,
+      "y": 90,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(102).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Username:'), %ConfigMaxStrLen(13), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_LOWER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_ADDEDIT_USERNAME)",
+        "invisible": "TRUE"
+      },
+      "position_from": "usernametext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 102,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfUserName",
+      "x": 305,
+      "y": 90,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "fontStyle": "PLAIN",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "usernametext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPassword",
+      "x": 305,
+      "y": 135,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Password:'), %ConfigMaxStrLen(13), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_LOWER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_ADDEDIT_PASSWORD)",
+        "invisible": "TRUE"
+      },
+      "position_from": "passwordtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPasswordEcho",
+      "x": 305,
+      "y": 180,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Password:'), %ConfigMaxStrLen(13), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_LOWER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_ADDEDIT_PASSWORD_ECHO)",
+        "invisible": "TRUE"
+      },
+      "position_from": "passwordechotext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnFirstName",
+      "x": 305,
+      "y": 225,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter First Name:'), %ConfigMaxStrLen(13), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_ADDEDIT_FIRSTNAME)",
+        "invisible": "TRUE"
+      },
+      "position_from": "firstnametext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfFirstName",
+      "x": 305,
+      "y": 225,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "fontStyle": "PLAIN",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(105).value()",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "firstnametext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 105,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnLastName",
+      "x": 305,
+      "y": 270,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Last Name:'), %ConfigMaxStrLen(13), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_ADDEDIT_LASTNAME)",
+        "invisible": "TRUE"
+      },
+      "position_from": "lastnametext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfLastName",
+      "x": 305,
+      "y": 270,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "fontStyle": "PLAIN",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(106).value()",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "lastnametext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 106,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRoleLabel",
+      "x": 5,
+      "y": 315,
+      "width": 300,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "MIDDLE",
+        "initialCondition": "Role:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "rolelabel"
+    },
+    {
+      "type": "RadioButton",
+      "name": "radioUser",
+      "x": 335,
+      "y": 315,
+      "width": 120,
+      "height": 50,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "verticalAlign": "MIDDLE",
+        "groupName": "UserRole",
+        "href": "Amulet:UART.word(0).setValue(0x0103)",
+        "initialCondition": "FromInitHref",
+        "hrefOnHitOnly": "TRUE",
+        "initHref": "Amulet:internalRAM.byte(70).value()",
+        "internalNumber": "1",
+        "label": "User",
+        "invisible": "TRUE"
+      },
+      "position_from": "roleuser",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 70,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "RadioButton",
+      "name": "radioAdmin",
+      "x": 455,
+      "y": 315,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "verticalAlign": "MIDDLE",
+        "groupName": "UserRole",
+        "href": "Amulet:UART.word(0).setValue(0x0104)",
+        "initialCondition": "FromInitHref",
+        "hrefOnHitOnly": "TRUE",
+        "initHref": "Amulet:internalRAM.byte(70).value()",
+        "internalNumber": "2",
+        "label": "Admin",
+        "invisible": "TRUE"
+      },
+      "position_from": "roleadmin",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 70,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CheckBox",
+      "name": "chkInactive",
+      "x": 305,
+      "y": 370,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "boxAlign": "LEFT",
+        "unCheckedValue": "1",
+        "checkedValue": "2",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "href": "%SendCheckboxValue,Amulet:UART.word(0).setValue(0x0105)",
+        "hrefOnHitOnly": "TRUE",
+        "initialCondition": "FromInitHref",
+        "initHref": "Amulet:internalRAM.byte(71).value()",
+        "label": "Inactive",
+        "invisible": "TRUE"
+      },
+      "position_from": "inactive",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 71,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "TRUE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(), %Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowUserNameButton",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnUserName"
+        },
+        {
+          "type": "reappear",
+          "target": "btnUserName"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowUserNameField",
+      "onVar": "internalRAM.byte(81)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfUserName"
+        },
+        {
+          "type": "reappear",
+          "target": "sfUserName"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPasswordButton",
+      "onVar": "internalRAM.byte(82)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnPassword"
+        },
+        {
+          "type": "reappear",
+          "target": "btnPassword"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPasswordEchoButton",
+      "onVar": "internalRAM.byte(83)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnPasswordEcho"
+        },
+        {
+          "type": "reappear",
+          "target": "btnPasswordEcho"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowFirstNameButton",
+      "onVar": "internalRAM.byte(84)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnFirstName"
+        },
+        {
+          "type": "reappear",
+          "target": "btnFirstName"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowFirstNameField",
+      "onVar": "internalRAM.byte(85)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfFirstName"
+        },
+        {
+          "type": "reappear",
+          "target": "sfFirstName"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowLastNameButton",
+      "onVar": "internalRAM.byte(86)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnLastName"
+        },
+        {
+          "type": "reappear",
+          "target": "btnLastName"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowLastNameField",
+      "onVar": "internalRAM.byte(87)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfLastName"
+        },
+        {
+          "type": "reappear",
+          "target": "sfLastName"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowRoleLabel",
+      "onVar": "internalRAM.byte(88)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "UserRole"
+        },
+        {
+          "type": "reappear",
+          "target": "sfRoleLabel"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowUserRole",
+      "onVar": "internalRAM.byte(89)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "radioUser"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowAdminRole",
+      "onVar": "internalRAM.byte(90)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "radioAdmin"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowInactive",
+      "onVar": "internalRAM.byte(91)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "chkInactive"
+        },
+        {
+          "type": "reappear",
+          "target": "chkInactive"
+        }
+      ]
+    },
+    {
+      "name": "refreshDisplay",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowUserNameButton"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowUserNameField"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowPasswordButton"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowPasswordEchoButton"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowFirstNameButton"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowFirstNameField"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowLastNameButton"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowLastNameField"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowRoleLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowUserRole"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowAdminRole"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowInactive"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCancel"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_ADDEDIT_USER"
+    }
+  ],
+  "referencedImages": [
+    "Images/320x40.png",
+    "Images/bottom_bar.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "bytes": [
+        70,
+        71
+      ],
+      "strings": [
+        100,
+        102,
+        105,
+        106
+      ],
+      "labels": [
+        102,
+        103,
+        104,
+        105,
+        106
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

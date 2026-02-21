@@ -1,0 +1,280 @@
+{
+  "name": "WellSetupTestSource",
+  "filename": "WellSetupTestSource.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Display"
+    },
+    "strings": {
+      "100": "SN",
+      "101": "Calibration Date",
+      "102": "Calibration Activity"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Test Source Setup",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHome",
+      "x": 8,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/home_big.png",
+        "downImage": "Images/home_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "home"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "StringField",
+      "name": "sfSN",
+      "x": 350,
+      "y": 160,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "verticalAlign": "MIDDLE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "sntext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSN",
+      "x": 350,
+      "y": 160,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle('Please enter Cs137 S/N:'), %ConfigMaxStrLen(10), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_SETUP_WELL_TEST_SOURCE_SN)",
+        "invisible": "FALSE"
+      },
+      "position_from": "sntext"
+    },
+    {
+      "type": "StringField",
+      "name": "sfCalibratedOn",
+      "x": 350,
+      "y": 260,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "verticalAlign": "MIDDLE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(101).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "calibratedontext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 101,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCalibratedOn",
+      "x": 350,
+      "y": 260,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle('Please Enter Calibration Time:'),%ConfigDateAndTime,%SetTime(%%SET_TIME_WELL_STANDARD_SOURCE)",
+        "invisible": "FALSE"
+      },
+      "position_from": "calibratedontext"
+    },
+    {
+      "type": "StringField",
+      "name": "sfCalibratedActivity",
+      "x": 350,
+      "y": 360,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "verticalAlign": "MIDDLE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "calibratedactivitytext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCalibratedActivity",
+      "x": 350,
+      "y": 360,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle('Enter Calib Activity'), %ConfigX(410), %ConfigY(91), %ConfigMaxStrLen(4), %ConfigActivity(%%CONFIG_ACTIVITY_SYSTEM), %SetActivity(%%SET_ACTIVITY_WELL_TEST_SOURCE)",
+        "invisible": "FALSE"
+      },
+      "position_from": "calibratedactivitytext"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShow",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfSN"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfCalibratedOn"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfCalibratedActivity"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_SETUP_TEST_SOURCE"
+    }
+  ],
+  "referencedImages": [
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/home_big.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        101,
+        102
+      ]
+    }
+  }
+}

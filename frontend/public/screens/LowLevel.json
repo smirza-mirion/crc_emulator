@@ -1,0 +1,502 @@
+{
+  "name": "LowLevel",
+  "filename": "LowLevel.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Low Level Debug",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "StringField",
+      "name": "sfMode",
+      "x": 200,
+      "y": 80,
+      "width": 600,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "22pt",
+        "fontColor": "#000000",
+        "verticalAlign": "MIDDLE",
+        "hoizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "Low Level Debug Mode: %.51s",
+        "invisible": "FALSE"
+      },
+      "position_from": "mode",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnOff",
+      "x": 67,
+      "y": 155,
+      "width": 300,
+      "height": 70,
+      "params": {
+        "label": "Off",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "FALSE"
+      },
+      "position_from": "off",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnChamber",
+      "x": 67,
+      "y": 255,
+      "width": 300,
+      "height": 70,
+      "params": {
+        "label": "Low Level Chamber",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0103)",
+        "invisible": "FALSE"
+      },
+      "position_from": "chamber",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnWell",
+      "x": 67,
+      "y": 355,
+      "width": 300,
+      "height": 70,
+      "params": {
+        "label": "Low Level Well",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0104)",
+        "invisible": "TRUE"
+      },
+      "position_from": "well",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMemStatus",
+      "x": 434,
+      "y": 155,
+      "width": 300,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "5",
+        "fontColor": "#000000",
+        "verticalAlign": "MIDDLE",
+        "hoizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(110).value()",
+        "printf": "%.51s",
+        "invisible": "FALSE"
+      },
+      "position_from": "mem_text",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 110,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMemTestOn",
+      "x": 434,
+      "y": 255,
+      "width": 300,
+      "height": 70,
+      "params": {
+        "label": "Memory Test On",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0107)",
+        "invisible": "TRUE"
+      },
+      "position_from": "mem_test_on",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMemTestOff",
+      "x": 434,
+      "y": 355,
+      "width": 300,
+      "height": 70,
+      "params": {
+        "label": "Memory Test Off",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "red",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0a0b)",
+        "invisible": "TRUE"
+      },
+      "position_from": "mem_test_off",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnClear",
+      "x": 67,
+      "y": 455,
+      "width": 300,
+      "height": 70,
+      "params": {
+        "label": "Manual Settings",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "%SetHTML(%%SET_HTML_WELL_MANUAL)",
+        "invisible": "FALSE"
+      },
+      "position_from": "clear"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0105)",
+        "invisible": "TRUE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(), %Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowMode",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfMode"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMode"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowClearButton",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnClear"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowMemStatus",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMemStatus"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowMemOff",
+      "onVar": "internalRAM.byte(103)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(103)",
+          "value": 0
+        },
+        {
+          "type": "disappear",
+          "target": "btnMemTestOn"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOff"
+        },
+        {
+          "type": "disappear",
+          "target": "btnChamber"
+        },
+        {
+          "type": "disappear",
+          "target": "btnWell"
+        },
+        {
+          "type": "disappear",
+          "target": "btnClear"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "disappear",
+          "target": "btnCancel"
+        },
+        {
+          "type": "disappear",
+          "target": "sfMode"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMemTestOff"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowMemOn",
+      "onVar": "internalRAM.byte(104)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(104)",
+          "value": 0
+        },
+        {
+          "type": "disappear",
+          "target": "btnMemTestOff"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMemTestOn"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOff"
+        },
+        {
+          "type": "reappear",
+          "target": "btnChamber"
+        },
+        {
+          "type": "reappear",
+          "target": "btnWell"
+        },
+        {
+          "type": "reappear",
+          "target": "btnClear"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCancel"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMode"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_LOW_LEVEL"
+    }
+  ],
+  "referencedImages": [
+    "Images/bottom_bar.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        110
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

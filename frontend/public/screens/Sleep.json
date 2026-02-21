@@ -1,0 +1,127 @@
+{
+  "name": "Sleep",
+  "filename": "Sleep.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page",
+    "NoClearLCD.NotThisPage"
+  ],
+  "widgets": [
+    {
+      "type": "FunctionButton",
+      "name": "btnActivate",
+      "x": 10,
+      "y": 10,
+      "width": 780,
+      "height": 580,
+      "params": {
+        "borderColor": "#00000000",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:UART.word(0).setValue(0x46AD)",
+        "label": "",
+        "invisible": "FALSE"
+      },
+      "position_from": "backgnd",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "Pwm",
+      "name": "pwmSleep",
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0,
+      "params": {
+        "channel": "0",
+        "initialCondition": "ON",
+        "periodIn_ms": ".99",
+        "pulseWidthIn_ms": "1"
+      },
+      "position_from": "pwm"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshSleep",
+      "onVar": "internalRAM.byte(76)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(76)",
+          "value": 0
+        },
+        {
+          "type": "setPeriod",
+          "target": "pwmSleep",
+          "value": 1
+        },
+        {
+          "type": "raw",
+          "expression": "document.pwmSleep.setPulseWidth(InternalRAM.word(76))"
+        },
+        {
+          "type": "start",
+          "target": "pwmSleep"
+        }
+      ]
+    },
+    {
+      "name": "refreshWake",
+      "onVar": "internalRAM.byte(77)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(77)",
+          "value": 0
+        },
+        {
+          "type": "setPeriod",
+          "target": "pwmSleep",
+          "value": 1
+        },
+        {
+          "type": "raw",
+          "expression": "document.pwmSleep.setPulseWidth(InternalRAM.word(76))"
+        },
+        {
+          "type": "start",
+          "target": "pwmSleep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0xAEAF"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_SLEEP"
+    }
+  ],
+  "ramUsage": {
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

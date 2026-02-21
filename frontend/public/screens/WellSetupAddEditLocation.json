@@ -1,0 +1,1090 @@
+{
+  "name": "WellSetupAddEditLocation",
+  "filename": "WellSetupAddEditLocation.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "show AddEditLocation"
+    },
+    "strings": {
+      "98": "Title String",
+      "99": "Title String",
+      "100": "Location",
+      "101": "Location",
+      "102": "Threshold",
+      "103": "Count Time",
+      "104": "Nuclide 1",
+      "105": "Nuclide 2",
+      "106": "Nuclide 3",
+      "107": "Nuclide 4",
+      "108": "Nuclide 5",
+      "109": "Nuclide 6",
+      "110": "Nuclide 7",
+      "111": "Nuclide 8",
+      "112": "Nuclide 9",
+      "113": "Nuclide 10"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(98).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 98,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "RadioButton",
+      "name": "radioWorkArea",
+      "x": 600,
+      "y": 110,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "14",
+        "groupName": "TypeRadio",
+        "href": "Amulet:UART.word(0).setValue(0x0102)",
+        "hrefOnHitOnly": "TRUE",
+        "noSdram": "FALSE",
+        "initialCondition": "FromInitHref",
+        "initHref": "Amulet:internalRAM.byte(99).value()",
+        "internalNumber": "1",
+        "label": "Work Area",
+        "invisible": "TRUE"
+      },
+      "position_from": "workarea",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 99,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "RadioButton",
+      "name": "radioUnrestricted",
+      "x": 600,
+      "y": 160,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "14",
+        "groupName": "TypeRadio",
+        "href": "Amulet:UART.word(0).setValue(0x0103)",
+        "hrefOnHitOnly": "TRUE",
+        "noSdram": "FALSE",
+        "initialCondition": "FromInitHref",
+        "initHref": "Amulet:internalRAM.byte(99).value()",
+        "internalNumber": "2",
+        "label": "Unrestricted Area",
+        "invisible": "TRUE"
+      },
+      "position_from": "unrestricted",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 99,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "RadioButton",
+      "name": "radioSealed",
+      "x": 600,
+      "y": 210,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "14",
+        "groupName": "TypeRadio",
+        "href": "Amulet:UART.word(0).setValue(0x0104)",
+        "hrefOnHitOnly": "TRUE",
+        "noSdram": "FALSE",
+        "initialCondition": "FromInitHref",
+        "initHref": "Amulet:internalRAM.byte(99).value()",
+        "internalNumber": "3",
+        "label": "Sealed Source",
+        "invisible": "TRUE"
+      },
+      "position_from": "sealed",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 99,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "RadioButton",
+      "name": "radioPackage",
+      "x": 600,
+      "y": 260,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "14",
+        "groupName": "TypeRadio",
+        "href": "Amulet:UART.word(0).setValue(0x0105)",
+        "hrefOnHitOnly": "TRUE",
+        "noSdram": "FALSE",
+        "initialCondition": "FromInitHref",
+        "initHref": "Amulet:internalRAM.byte(99).value()",
+        "internalNumber": "4",
+        "label": "Package",
+        "invisible": "TRUE"
+      },
+      "position_from": "package",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 99,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfLocationLabel",
+      "x": 0,
+      "y": 100,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "#000000",
+        "fontStyle": "BOLD|ITALIC",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "MIDDLE",
+        "initialCondition": "Location:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "locationlabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnLocation",
+      "x": 200,
+      "y": 100,
+      "width": 380,
+      "height": 40,
+      "params": {
+        "upImage": "Images/380x40.png",
+        "downImage": "Images/380x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref(51)",
+        "initHref": "Amulet:internalRAM.label(100).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Location:'), %ConfigMaxStrLen(23), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_SETUP_LOCATION)",
+        "invisible": "TRUE"
+      },
+      "position_from": "location",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 100,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfThresholdLabel",
+      "x": 0,
+      "y": 170,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "#000000",
+        "fontStyle": "BOLD|ITALIC",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "MIDDLE",
+        "initialCondition": "Trigger Level:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "thresholdlabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnThreshold",
+      "x": 200,
+      "y": 170,
+      "width": 380,
+      "height": 40,
+      "params": {
+        "upImage": "Images/380x40.png",
+        "downImage": "Images/380x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(102).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%SetSpecialFunction(%%SET_SPECIALFUNCTION_LOCATION_THRESHOLD_KEYPAD)",
+        "invisible": "TRUE"
+      },
+      "position_from": "threshold",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 102,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfCountTimeLabel",
+      "x": 0,
+      "y": 240,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "#000000",
+        "fontStyle": "BOLD|ITALIC",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "MIDDLE",
+        "initialCondition": "Count Time:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "counttimelabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnCountTime",
+      "x": 200,
+      "y": 240,
+      "width": 380,
+      "height": 40,
+      "params": {
+        "upImage": "Images/380x40.png",
+        "downImage": "Images/380x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Counting Time (sec):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(0), %ConfigMinValue('30.0'), %ConfigMaxValue('9999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WIPE_LOCATION_COUNT_TIME)",
+        "invisible": "TRUE"
+      },
+      "position_from": "counttime",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfNucLabel",
+      "x": 20,
+      "y": 335,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "#000000",
+        "fontStyle": "BOLD|UNDERLINE|ITALIC",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "TOP",
+        "initialCondition": "Nuclides",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuclabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuc1",
+      "x": 5,
+      "y": 380,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_ENERGY1_AND_ACTIVEDETECTEFF_ONLY_SKEW_WELL),%ClearNuclide(%%CLEAR_NUCLIDE_SHOW),%SetNuclide(%%SET_NUCLIDE_UNRESTRICTED1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuc1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuc2",
+      "x": 165,
+      "y": 380,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_ENERGY1_AND_ACTIVEDETECTEFF_ONLY_SKEW_WELL),%ClearNuclide(%%CLEAR_NUCLIDE_SHOW),%SetNuclide(%%SET_NUCLIDE_UNRESTRICTED2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuc2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuc3",
+      "x": 325,
+      "y": 380,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_ENERGY1_AND_ACTIVEDETECTEFF_ONLY_SKEW_WELL),%ClearNuclide(%%CLEAR_NUCLIDE_SHOW),%SetNuclide(%%SET_NUCLIDE_UNRESTRICTED3)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuc3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuc4",
+      "x": 485,
+      "y": 380,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(107).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_ENERGY1_AND_ACTIVEDETECTEFF_ONLY_SKEW_WELL),%ClearNuclide(%%CLEAR_NUCLIDE_SHOW),%SetNuclide(%%SET_NUCLIDE_UNRESTRICTED4)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuc4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 107,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuc5",
+      "x": 645,
+      "y": 380,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(108).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_ENERGY1_AND_ACTIVEDETECTEFF_ONLY_SKEW_WELL),%ClearNuclide(%%CLEAR_NUCLIDE_SHOW),%SetNuclide(%%SET_NUCLIDE_UNRESTRICTED5)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuc5",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 108,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuc6",
+      "x": 5,
+      "y": 450,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(109).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_ENERGY1_AND_ACTIVEDETECTEFF_ONLY_SKEW_WELL),%ClearNuclide(%%CLEAR_NUCLIDE_SHOW),%SetNuclide(%%SET_NUCLIDE_UNRESTRICTED6)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuc6",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 109,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuc7",
+      "x": 165,
+      "y": 450,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(110).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_ENERGY1_AND_ACTIVEDETECTEFF_ONLY_SKEW_WELL),%ClearNuclide(%%CLEAR_NUCLIDE_SHOW),%SetNuclide(%%SET_NUCLIDE_UNRESTRICTED7)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuc7",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 110,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuc8",
+      "x": 325,
+      "y": 450,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(111).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_ENERGY1_AND_ACTIVEDETECTEFF_ONLY_SKEW_WELL),%ClearNuclide(%%CLEAR_NUCLIDE_SHOW),%SetNuclide(%%SET_NUCLIDE_UNRESTRICTED8)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuc8",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 111,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuc9",
+      "x": 485,
+      "y": 450,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(112).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_ENERGY1_AND_ACTIVEDETECTEFF_ONLY_SKEW_WELL),%ClearNuclide(%%CLEAR_NUCLIDE_SHOW),%SetNuclide(%%SET_NUCLIDE_UNRESTRICTED9)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuc9",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 112,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuc10",
+      "x": 645,
+      "y": 450,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(113).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_ENERGY1_AND_ACTIVEDETECTEFF_ONLY_SKEW_WELL),%ClearNuclide(%%CLEAR_NUCLIDE_SHOW),%SetNuclide(%%SET_NUCLIDE_UNRESTRICTED10)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuc10",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 113,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0106)",
+        "invisible": "TRUE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(), %Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowRest",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfLocationLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnLocation"
+        },
+        {
+          "type": "reappear",
+          "target": "btnLocation"
+        },
+        {
+          "type": "reappear",
+          "target": "sfThresholdLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnThreshold"
+        },
+        {
+          "type": "reappear",
+          "target": "btnThreshold"
+        },
+        {
+          "type": "reappear",
+          "target": "sfCountTimeLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnCountTime"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCountTime"
+        },
+        {
+          "type": "reappear",
+          "target": "sfNucLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuc1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNuc1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuc2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNuc2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuc3"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNuc3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuc4"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNuc4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuc5"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNuc5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuc6"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNuc6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuc7"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNuc7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuc8"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNuc8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuc9"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNuc9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuc10"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNuc10"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowThreshold",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnThreshold"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_SETUP_ADDEDIT_LOC"
+    },
+    {
+      "type": "setValue",
+      "target": "internalRAM.byte(100)",
+      "value": 0
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfTitle"
+    },
+    {
+      "type": "reappear",
+      "target": "sfTitle"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "TypeRadio"
+    },
+    {
+      "type": "reappear",
+      "target": "radioWorkArea"
+    },
+    {
+      "type": "reappear",
+      "target": "radioUnrestricted"
+    },
+    {
+      "type": "reappear",
+      "target": "radioSealed"
+    },
+    {
+      "type": "reappear",
+      "target": "radioPackage"
+    },
+    {
+      "type": "reappear",
+      "target": "btnCancel"
+    }
+  ],
+  "referencedImages": [
+    "Images/150x40.png",
+    "Images/380x40.png",
+    "Images/bottom_bar.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "bytes": [
+        99
+      ],
+      "strings": [
+        98
+      ],
+      "labels": [
+        100,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

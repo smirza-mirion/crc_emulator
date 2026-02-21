@@ -1,0 +1,889 @@
+{
+  "name": "Keypad2",
+  "filename": "Keypad2.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Show keypad (0xFF)",
+      "101": "Show Div button (0xFF)",
+      "102": "Show Mult button (0xFF)",
+      "103": "Show Sub button (0xFF)",
+      "104": "Show Add button (0xFF)",
+      "105": "Show Backspace (0xFF)",
+      "106": "Show Backspace small (0xFF)",
+      "107": "Refresh Display (0xFF)",
+      "108": "Show Period button (0xFF)",
+      "109": "Show Backspace medium (0xFF)"
+    },
+    "words": {
+      "101": "Title X",
+      "102": "Title Y",
+      "103": "Display X",
+      "104": "Display Y",
+      "105": "Div X",
+      "106": "Div Y",
+      "107": "Mult X",
+      "108": "Mult Y",
+      "109": "Sub X",
+      "110": "Sub Y",
+      "111": "Add X",
+      "112": "Add Y",
+      "113": "7 X",
+      "114": "7 Y",
+      "115": "8 X",
+      "116": "8 Y",
+      "117": "9 X",
+      "118": "9 Y",
+      "119": "Enter X",
+      "120": "Enter Y",
+      "121": "4 X",
+      "122": "4 Y",
+      "123": "5 X",
+      "124": "5 Y",
+      "125": "6 X",
+      "126": "6 Y",
+      "127": "1 X",
+      "128": "1 Y",
+      "129": "2 X",
+      "130": "2 Y",
+      "131": "3 X",
+      "132": "3 Y",
+      "133": "0 X",
+      "134": "0 Y",
+      "135": "Backspace X",
+      "136": "Backspace Y",
+      "137": "Backspace small X",
+      "138": "Backspace small Y",
+      "139": "Background X",
+      "140": "Background Y",
+      "141": "Period X",
+      "142": "Period Y",
+      "143": "Backspace medium X",
+      "144": "Backspace medium Y"
+    },
+    "strings": {
+      "100": "Title",
+      "101": "Title",
+      "102": "Number String",
+      "103": "Number String",
+      "104": "Backspace",
+      "105": "Accept",
+      "106": "Cancel"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 790,
+      "height": 60,
+      "params": {
+        "border": "0",
+        "fillColor": "#000030",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BOTTOM",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontColor": "#FFFF30",
+        "fontStyle": "BOLD",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnPlusMinus",
+      "x": 162,
+      "y": 138,
+      "width": 72,
+      "height": 50,
+      "params": {
+        "label": "-",
+        "font": "Arial Black Bold",
+        "fontSize": "24pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "href": "Amulet:UART.word(0).setValue(0x0114)",
+        "invisible": "TRUE"
+      },
+      "position_from": "plusminus",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDisplay",
+      "x": 238,
+      "y": 138,
+      "width": 274,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "initialCondition": "",
+        "printf": "%.51s   ",
+        "font": "Franklin Gothic Book",
+        "fontSize": "22",
+        "fontColor": "#000000",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "display",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnBackSP",
+      "x": 516,
+      "y": 138,
+      "width": 148,
+      "height": 50,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "href": "Amulet:UART.word(0).setValue(0x0110)",
+        "invisible": "FALSE"
+      },
+      "position_from": "backsp",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn7",
+      "x": 288,
+      "y": 192,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "7",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "FALSE"
+      },
+      "position_from": "7",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn8",
+      "x": 364,
+      "y": 192,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "8",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0103)",
+        "invisible": "FALSE"
+      },
+      "position_from": "8",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn9",
+      "x": 440,
+      "y": 192,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "9",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0104)",
+        "invisible": "FALSE"
+      },
+      "position_from": "9",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn4",
+      "x": 288,
+      "y": 268,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "4",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0105)",
+        "invisible": "FALSE"
+      },
+      "position_from": "4",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn5",
+      "x": 364,
+      "y": 268,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "5",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0106)",
+        "invisible": "FALSE"
+      },
+      "position_from": "5",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn6",
+      "x": 440,
+      "y": 268,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "6",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0107)",
+        "invisible": "FALSE"
+      },
+      "position_from": "6",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn1",
+      "x": 288,
+      "y": 344,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0108)",
+        "invisible": "FALSE"
+      },
+      "position_from": "1",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn2",
+      "x": 364,
+      "y": 344,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "2",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0109)",
+        "invisible": "FALSE"
+      },
+      "position_from": "2",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn3",
+      "x": 440,
+      "y": 344,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "3",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x010A)",
+        "invisible": "FALSE"
+      },
+      "position_from": "3",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn0",
+      "x": 288,
+      "y": 420,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x010B)",
+        "invisible": "FALSE"
+      },
+      "position_from": "0",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDiv",
+      "x": 0,
+      "y": 0,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "/",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x010C)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMult",
+      "x": 0,
+      "y": 0,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "*",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x010D)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSub",
+      "x": 0,
+      "y": 0,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "-",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x010E)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAdd",
+      "x": 0,
+      "y": 0,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": "+",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x010F)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnPeriod",
+      "x": 0,
+      "y": 0,
+      "width": 72,
+      "height": 72,
+      "params": {
+        "label": ".",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0113)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 483,
+      "y": 533,
+      "width": 154,
+      "height": 62,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontColor": "green",
+        "fontStyle": "BOLD",
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(105).value()",
+        "href": "Amulet:document.btnAccept.disappear(),Amulet:UART.word(0).setValue(0x0111)",
+        "invisible": "FALSE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 641,
+      "y": 533,
+      "width": 154,
+      "height": 62,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontColor": "red",
+        "fontStyle": "BOLD",
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(106).value()",
+        "href": "Amulet:document.btnCancel.disappear(),%Back",
+        "invisible": "FALSE"
+      },
+      "position_from": "cancel",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowKeypad",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDisplay"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnBackSP"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnAccept"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnCancel"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDiv",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "raw",
+          "expression": "document.btnDiv.setX(Amulet:internalRAM.word(101).value())"
+        },
+        {
+          "type": "raw",
+          "expression": "document.btnDiv.setY(Amulet:internalRAM.word(102).value())"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDiv"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowMult",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 0
+        },
+        {
+          "type": "raw",
+          "expression": "document.btnMult.setX(Amulet:internalRAM.word(103).value())"
+        },
+        {
+          "type": "raw",
+          "expression": "document.btnMult.setY(Amulet:internalRAM.word(104).value())"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMult"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowSub",
+      "onVar": "internalRAM.byte(103)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(103)",
+          "value": 0
+        },
+        {
+          "type": "raw",
+          "expression": "document.btnSub.setX(Amulet:internalRAM.word(105).value())"
+        },
+        {
+          "type": "raw",
+          "expression": "document.btnSub.setY(Amulet:internalRAM.word(106).value())"
+        },
+        {
+          "type": "reappear",
+          "target": "btnSub"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowAdd",
+      "onVar": "internalRAM.byte(104)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(104)",
+          "value": 0
+        },
+        {
+          "type": "raw",
+          "expression": "document.btnAdd.setX(Amulet:internalRAM.word(107).value())"
+        },
+        {
+          "type": "raw",
+          "expression": "document.btnAdd.setY(Amulet:internalRAM.word(108).value())"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAdd"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPeriod",
+      "onVar": "internalRAM.byte(105)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(105)",
+          "value": 0
+        },
+        {
+          "type": "raw",
+          "expression": "document.btnPeriod.setX(Amulet:internalRAM.word(109).value())"
+        },
+        {
+          "type": "raw",
+          "expression": "document.btnPeriod.setY(Amulet:internalRAM.word(110).value())"
+        },
+        {
+          "type": "reappear",
+          "target": "btnPeriod"
+        }
+      ]
+    },
+    {
+      "name": "refreshUpdateDisplay",
+      "onVar": "internalRAM.byte(106)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(106)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDisplay"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPlusMinus",
+      "onVar": "internalRAM.byte(107)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(107)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnPlusMinus"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_KEYPAD"
+    }
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "words": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110
+      ],
+      "strings": [
+        100,
+        102
+      ],
+      "labels": [
+        104,
+        105,
+        106
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

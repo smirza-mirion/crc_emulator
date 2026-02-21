@@ -1,0 +1,529 @@
+{
+  "name": "Keypad",
+  "filename": "Keypad.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "GrayLCD.Page"
+  ],
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfDisplay",
+      "x": 150,
+      "y": 0,
+      "width": 179,
+      "height": 48,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFFA0",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "TOP",
+        "href": "Amulet:InternalRAM.string(5).value()",
+        "initialCondition": " ",
+        "options": " =0",
+        "printf": "%s",
+        "font": "Arial",
+        "fontSize": "24",
+        "fontColor": "black"
+      },
+      "position_from": "Display",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDivision",
+      "x": 150,
+      "y": 48,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "/",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('/'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "Division",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMultiplication",
+      "x": 195,
+      "y": 48,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "*",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('*'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "Multiplication",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSubtraction",
+      "x": 240,
+      "y": 48,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "-",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('-'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "Subtraction",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAddition",
+      "x": 285,
+      "y": 48,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "+",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('+'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "Addition",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn7",
+      "x": 150,
+      "y": 93,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "7",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('7'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "7Num",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn8",
+      "x": 195,
+      "y": 93,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "8",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('8'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "8Num",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn9",
+      "x": 240,
+      "y": 93,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "9",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('9'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "9Num",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn4",
+      "x": 150,
+      "y": 138,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "4",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('4'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "4Num",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn5",
+      "x": 195,
+      "y": 138,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "5",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('5'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "5Num",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn6",
+      "x": 240,
+      "y": 138,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "6",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('6'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "6Num",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn1",
+      "x": 150,
+      "y": 183,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "1",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('1'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "1Num",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn2",
+      "x": 195,
+      "y": 183,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "2",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('2'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "2Num",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn3",
+      "x": 240,
+      "y": 183,
+      "width": 44,
+      "height": 44,
+      "params": {
+        "label": "3",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('3'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "3Num",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn0",
+      "x": 150,
+      "y": 228,
+      "width": 89,
+      "height": 44,
+      "params": {
+        "label": "0",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).appendChar('0'),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "0Num",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnBackspace",
+      "x": 240,
+      "y": 228,
+      "width": 89,
+      "height": 44,
+      "params": {
+        "label": "BackSP",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(5).backspace(),Amulet:document.sfDisplay.forceUpdate()"
+      },
+      "position_from": "Backspace",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 5,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnEnter",
+      "x": 285,
+      "y": 93,
+      "width": 44,
+      "height": 134,
+      "params": {
+        "label": "<--",
+        "font": "Arial",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.byte(0).setValue(0),Amulet:internalRAM.string(internalRAM.byte(0)).setValue(internalRAM.string(5)),Amulet:internalRAM.byte(internalRAM.byte(0)).setValue(0xFF),Amulet:back()"
+      },
+      "position_from": "Enter",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    }
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        5
+      ]
+    },
+    "UART": {
+      "bytes": [
+        0
+      ]
+    }
+  }
+}

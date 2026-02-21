@@ -1,0 +1,625 @@
+{
+  "name": "WellPlasma",
+  "filename": "WellPlasma.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Display",
+      "101": "Display Calculate Button"
+    },
+    "strings": {
+      "100": "Background Label",
+      "101": "Background Label",
+      "102": "Background Activity",
+      "103": "Dilution Factor",
+      "104": "Sample Volume",
+      "105": "Hematocrit",
+      "106": "Patient Weight",
+      "107": "Measured Standard Activity",
+      "108": "Measured Whole Blood Activity",
+      "109": "Measured Plasma Activity"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Plasma Test",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "StringField",
+      "name": "sfDetector",
+      "x": 0,
+      "y": 543,
+      "width": 170,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "22pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(9).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "currentdetector",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 9,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHome",
+      "x": 8,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/home_big.png",
+        "downImage": "Images/home_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "home"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "StringField",
+      "name": "sfBackgroundLabel",
+      "x": 0,
+      "y": 70,
+      "width": 570,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "#000000",
+        "fontStyle": "BOLD|ITALIC",
+        "verticalAlign": "MIDDLE",
+        "fillColor": "#FFFFFF00",
+        "initialCondition": "",
+        "horizontalAlign": "RIGHT",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%.51s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "backgroundlabel",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBackground",
+      "x": 570,
+      "y": 70,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(102).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Background Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_BACKGROUND)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgroundtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 102,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDil",
+      "x": 570,
+      "y": 120,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Dilution Factor:'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(1), %ConfigMinValue('.1'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_PLASMA_DIL_FACTOR)",
+        "invisible": "TRUE"
+      },
+      "position_from": "diltext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnSampleVol",
+      "x": 570,
+      "y": 170,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Sample Volume (ml):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('.1'), %ConfigMaxValue('9999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_PLASMA_SAMPLE_VOL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "samplevoltext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHCT",
+      "x": 570,
+      "y": 220,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Hematocrit (%):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(1), %ConfigMinValue('.1'), %ConfigMaxValue('100.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_PLASMA_HEMATOCRIT)",
+        "invisible": "TRUE"
+      },
+      "position_from": "hcttext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPatWeight",
+      "x": 570,
+      "y": 270,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Patient Weight (kg):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('1.0'), %ConfigMaxValue('9999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_PLASMA_WEIGHT)",
+        "invisible": "TRUE"
+      },
+      "position_from": "patweighttext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnStandardMeasurement",
+      "x": 570,
+      "y": 320,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(107).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Standard'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_PLASMA_STD)",
+        "invisible": "TRUE"
+      },
+      "position_from": "standardmeasurementtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 107,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnWholeMeasurement",
+      "x": 570,
+      "y": 370,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(108).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Whole Blood Sample'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_PLASMA_WHOLE)",
+        "invisible": "TRUE"
+      },
+      "position_from": "wholemeasurementtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 108,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPlasmaMeasurement",
+      "x": 570,
+      "y": 420,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(109).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Plasma Sample'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_PLASMA_PLASMA)",
+        "invisible": "TRUE"
+      },
+      "position_from": "plasmameasurementtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 109,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCalculate",
+      "x": 570,
+      "y": 470,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "label": "Calculate",
+        "href": "Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "TRUE"
+      },
+      "position_from": "calculate",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShow",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDetector"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfBackgroundLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnBackground"
+        },
+        {
+          "type": "reappear",
+          "target": "btnBackground"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDil"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDil"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnSampleVol"
+        },
+        {
+          "type": "reappear",
+          "target": "btnSampleVol"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnHCT"
+        },
+        {
+          "type": "reappear",
+          "target": "btnHCT"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnPatWeight"
+        },
+        {
+          "type": "reappear",
+          "target": "btnPatWeight"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnStandardMeasurement"
+        },
+        {
+          "type": "reappear",
+          "target": "btnStandardMeasurement"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnWholeMeasurement"
+        },
+        {
+          "type": "reappear",
+          "target": "btnWholeMeasurement"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnPlasmaMeasurement"
+        },
+        {
+          "type": "reappear",
+          "target": "btnPlasmaMeasurement"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowCalculate",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnCalculate"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_PLASMA"
+    }
+  ],
+  "referencedImages": [
+    "Images/200x40.png",
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/home_big.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        9,
+        100
+      ],
+      "labels": [
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

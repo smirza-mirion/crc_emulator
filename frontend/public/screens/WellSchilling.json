@@ -1,0 +1,532 @@
+{
+  "name": "WellSchilling",
+  "filename": "WellSchilling.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Display",
+      "101": "Display Calculate Button",
+      "102": "Display Result"
+    },
+    "strings": {
+      "100": "Background Label",
+      "101": "Background Label",
+      "102": "Background Activity",
+      "103": "Urine Volume",
+      "104": "Aliqot Volume",
+      "105": "Dilution Factor",
+      "106": "Standard Activity",
+      "107": "Aliqot Activity"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Schilling Test",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "StringField",
+      "name": "sfDetector",
+      "x": 0,
+      "y": 543,
+      "width": 170,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "22pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(9).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "currentdetector",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 9,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHome",
+      "x": 8,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/home_big.png",
+        "downImage": "Images/home_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "home"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "StringField",
+      "name": "sfBackgroundLabel",
+      "x": 0,
+      "y": 70,
+      "width": 570,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "#000000",
+        "fontStyle": "BOLD|ITALIC",
+        "verticalAlign": "MIDDLE",
+        "fillColor": "#FFFFFF00",
+        "initialCondition": "",
+        "horizontalAlign": "RIGHT",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%.51s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "backgroundlabel",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBackground",
+      "x": 570,
+      "y": 70,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(102).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Background Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_BACKGROUND)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgroundtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 102,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnUrine",
+      "x": 570,
+      "y": 120,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Total Urine Volume (ml):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(1), %ConfigMinValue('.1'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_SHILLING_URINE_VOL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "urinevoltext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnAliqotVol",
+      "x": 570,
+      "y": 170,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Urine Aliquot Volume (ml):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('.1'), %ConfigMaxValue('9999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_SHILLING_ALIQOT_VOL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "aliqotvoltext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDilution",
+      "x": 570,
+      "y": 220,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Dilution Factor:'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(1), %ConfigMinValue('.1'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_SHILLING_DIL_FACTOR)",
+        "invisible": "TRUE"
+      },
+      "position_from": "diltext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnStandard",
+      "x": 570,
+      "y": 270,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Schilling Standard'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_SCHILLING_STD)",
+        "invisible": "TRUE"
+      },
+      "position_from": "standardmeasurementtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnAliqot",
+      "x": 570,
+      "y": 320,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(107).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Schilling Urine Aliquot'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_SCHILLING_ALIQOT)",
+        "invisible": "TRUE"
+      },
+      "position_from": "aliqotmeasurementtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 107,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCalculate",
+      "x": 570,
+      "y": 370,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "Calculate",
+        "href": "Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "TRUE"
+      },
+      "position_from": "calculate",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShow",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDetector"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfBackgroundLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnBackground"
+        },
+        {
+          "type": "reappear",
+          "target": "btnBackground"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnUrine"
+        },
+        {
+          "type": "reappear",
+          "target": "btnUrine"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnAliqotVol"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAliqotVol"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDilution"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDilution"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnStandard"
+        },
+        {
+          "type": "reappear",
+          "target": "btnStandard"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnAliqot"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAliqot"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowCalculate",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnCalculate"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_SCHILLING"
+    }
+  ],
+  "referencedImages": [
+    "Images/200x40.png",
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/home_big.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        9,
+        100
+      ],
+      "labels": [
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

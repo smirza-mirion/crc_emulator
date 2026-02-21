@@ -1,0 +1,5379 @@
+{
+  "name": "WellSetupEfficiencies",
+  "filename": "WellSetupEfficiencies.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Line 1 Active (0xFF is Active)",
+      "101": "Line 2 Active (0xFF is Active)",
+      "102": "Line 3 Active (0xFF is Active)",
+      "103": "Line 4 Active (0xFF is Active)",
+      "104": "Line 5 Active (0xFF is Active)",
+      "105": "Line 6 Active (0xFF is Active)",
+      "106": "Line 7 Active (0xFF is Active)",
+      "107": "Line 8 Active (0xFF is Active)",
+      "108": "Line 9 Active (0xFF is Active)",
+      "109": "Line 10 Active (0xFF is Active)",
+      "200": "Refresh Grid",
+      "201": "Make Page Up Visible",
+      "202": "Make Page Up Not Visible",
+      "203": "Make Page Down Visible",
+      "204": "Make Page Down Not Visible",
+      "205": "Make Change Button Visible",
+      "206": "Make Change Button Not Visible",
+      "254": "Next Line",
+      "255": "Current Line"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "22pt",
+        "initialCondition": "Efficiencies Setup",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHome",
+      "x": 8,
+      "y": 2,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/home_small.png",
+        "downImage": "Images/home_small.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "home"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 2,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_small.png",
+        "downImage": "Images/back_small.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "StringField",
+      "name": "sfTableTitle",
+      "x": 5,
+      "y": 41,
+      "width": 160,
+      "height": 25,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "ITALIC",
+        "fillColor": "#FFFFFF00",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "TOP",
+        "initialCondition": "Nuclide List",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "table_title"
+    },
+    {
+      "type": "StringField",
+      "name": "sfPageCount",
+      "x": 635,
+      "y": 41,
+      "width": 160,
+      "height": 25,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "ITALIC",
+        "fillColor": "#FFFFFF00",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "TOP",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(170).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "page_count",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 170,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPageUp",
+      "x": 700,
+      "y": 96,
+      "width": 90,
+      "height": 90,
+      "params": {
+        "label": "",
+        "href": "Amulet:document.btnPageUp.disappear(), Amulet:document.btnPageDown.disappear(), Amulet:UART.word(0).setValue(0x0103)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/uppage.png",
+        "downImage": "Images/uppage.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "page_up",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPageDown",
+      "x": 700,
+      "y": 196,
+      "width": 90,
+      "height": 90,
+      "params": {
+        "label": "",
+        "href": "Amulet:document.btnPageDown.disappear(), Amulet:document.btnPageUp.disappear(), Amulet:UART.word(0).setValue(0x0104)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/downpage.png",
+        "downImage": "Images/downpage.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "page_down",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfHeader_Nuclide",
+      "x": 20,
+      "y": 66,
+      "width": 96,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "Nuclide",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHeader_Halflife",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "Halflife",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHeader_Energy1",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "E1 (keV)",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHeader_Energy2",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "E2 (keV)",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHeader_Energy3",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "E3 (keV)",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHeader_WellEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "Well Eff",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHeader_ProbeEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "Probe Eff",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow1_Nuclide",
+      "x": 20,
+      "y": 66,
+      "width": 96,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow1_Halflife",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(101).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 101,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow1_Energy1",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow1_Energy2",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(103).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 103,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow1_Energy3",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(104).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow1_WellEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(105).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 105,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow1_BetaEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(106).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 106,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow2_Nuclide",
+      "x": 20,
+      "y": 66,
+      "width": 96,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(107).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 107,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow2_Halflife",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(108).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 108,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow2_Energy1",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(109).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 109,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow2_Energy2",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(110).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 110,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow2_Energy3",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(111).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 111,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow2_WellEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(112).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 112,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow2_BetaEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(113).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 113,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow3_Nuclide",
+      "x": 20,
+      "y": 66,
+      "width": 96,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(114).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 114,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow3_Halflife",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(115).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 115,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow3_Energy1",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(116).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 116,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow3_Energy2",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(117).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 117,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow3_Energy3",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(118).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 118,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow3_WellEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(119).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 119,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow3_BetaEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(120).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 120,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow4_Nuclide",
+      "x": 20,
+      "y": 66,
+      "width": 96,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(121).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 121,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow4_Halflife",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(122).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 122,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow4_Energy1",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(123).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 123,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow4_Energy2",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(124).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 124,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow4_Energy3",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(125).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 125,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow4_WellEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(126).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 126,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow4_BetaEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(127).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 127,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow5_Nuclide",
+      "x": 20,
+      "y": 66,
+      "width": 96,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(128).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 128,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow5_Halflife",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(129).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 129,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow5_Energy1",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(130).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 130,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow5_Energy2",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(131).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 131,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow5_Energy3",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(132).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 132,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow5_WellEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(133).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 133,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow5_BetaEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(134).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 134,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow6_Nuclide",
+      "x": 20,
+      "y": 66,
+      "width": 96,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(135).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 135,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow6_Halflife",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(136).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 136,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow6_Energy1",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(137).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 137,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow6_Energy2",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(138).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 138,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow6_Energy3",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(139).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 139,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow6_WellEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(140).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 140,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow6_BetaEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(141).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 141,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow7_Nuclide",
+      "x": 20,
+      "y": 66,
+      "width": 96,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(142).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 142,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow7_Halflife",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(143).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 143,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow7_Energy1",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(144).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 144,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow7_Energy2",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(145).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 145,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow7_Energy3",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(146).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 146,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow7_WellEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(147).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 147,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow7_BetaEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(148).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 148,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow8_Nuclide",
+      "x": 20,
+      "y": 66,
+      "width": 96,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(149).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 149,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow8_Halflife",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(150).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 150,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow8_Energy1",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(151).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 151,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow8_Energy2",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(152).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 152,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow8_Energy3",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(153).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 153,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow8_WellEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(154).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 154,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow8_BetaEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(155).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 155,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow9_Nuclide",
+      "x": 20,
+      "y": 66,
+      "width": 96,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(156).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 156,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow9_Halflife",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(157).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 157,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow9_Energy1",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(158).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 158,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow9_Energy2",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(159).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 159,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow9_Energy3",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(160).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 160,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow9_WellEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(161).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 161,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow9_BetaEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(162).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 162,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow10_Nuclide",
+      "x": 20,
+      "y": 66,
+      "width": 96,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(163).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 163,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow10_Halflife",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(164).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 164,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow10_Energy1",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(165).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 165,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow10_Energy2",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(166).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 166,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow10_Energy3",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(167).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 167,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow10_WellEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(168).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 168,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow10_BetaEfficiency",
+      "x": 20,
+      "y": 66,
+      "width": 94,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(169).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 169,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnHeader",
+      "x": 20,
+      "y": 66,
+      "width": 660,
+      "height": 30,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:NOP()",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow1",
+      "x": 20,
+      "y": 66,
+      "width": 660,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow1.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow2",
+      "x": 20,
+      "y": 66,
+      "width": 660,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow2.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow3",
+      "x": 20,
+      "y": 66,
+      "width": 660,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow3.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow4",
+      "x": 20,
+      "y": 66,
+      "width": 660,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow4.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow5",
+      "x": 20,
+      "y": 66,
+      "width": 660,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow5.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow6",
+      "x": 20,
+      "y": 66,
+      "width": 660,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow6.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow7",
+      "x": 20,
+      "y": 66,
+      "width": 660,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow7.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow8",
+      "x": 20,
+      "y": 66,
+      "width": 660,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow8.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow9",
+      "x": 20,
+      "y": 66,
+      "width": 660,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow9.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow10",
+      "x": 20,
+      "y": 66,
+      "width": 660,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow10.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnChange",
+      "x": 5,
+      "y": 563,
+      "width": 150,
+      "height": 34,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "Edit",
+        "href": "%SetClear(%%SET_CLEAR_WELLEDITEFFICIENCIES)",
+        "invisible": "TRUE"
+      },
+      "position_from": "change"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnFull",
+      "x": 295,
+      "y": 563,
+      "width": 500,
+      "height": 34,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "Edit Wipe Full Spectrum Efficiency",
+        "href": "%SetClear(%%SET_CLEAR_WELLEDITFULLEFFICIENCY)",
+        "invisible": "TRUE"
+      },
+      "position_from": "full"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top.png",
+      "width": 800,
+      "height": 44,
+      "div_id": "top"
+    },
+    {
+      "src": "Images/bottom.png",
+      "width": 800,
+      "height": 44,
+      "div_id": "bottom"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshCopyNextLineIntoCurrentLine",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "raw",
+          "expression": "internalRAM.byte(255).setValue(internalRAM.byte(254))"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow1",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow1_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow1_Halflife"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow1_Energy1"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow1_Energy2"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow1_Energy3"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow1_WellEfficiency"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow1_BetaEfficiency"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 1
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x0105"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow1",
+      "onVar": "internalRAM.byte(100)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow2",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow2_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow2_Halflife"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow2_Energy1"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow2_Energy2"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow2_Energy3"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow2_WellEfficiency"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow2_BetaEfficiency"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 2
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x0106"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow2",
+      "onVar": "internalRAM.byte(101)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow3",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow3_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow3_Halflife"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow3_Energy1"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow3_Energy2"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow3_Energy3"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow3_WellEfficiency"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow3_BetaEfficiency"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 3
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x0107"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow3",
+      "onVar": "internalRAM.byte(102)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow4",
+      "onVar": "internalRAM.byte(103)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow4_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow4_Halflife"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow4_Energy1"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow4_Energy2"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow4_Energy3"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow4_WellEfficiency"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow4_BetaEfficiency"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 4
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x0108"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow4",
+      "onVar": "internalRAM.byte(103)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow5",
+      "onVar": "internalRAM.byte(104)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow5_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow5_Halflife"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow5_Energy1"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow5_Energy2"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow5_Energy3"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow5_WellEfficiency"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow5_BetaEfficiency"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 5
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x0109"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow5",
+      "onVar": "internalRAM.byte(104)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow6",
+      "onVar": "internalRAM.byte(105)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow6_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow6_Halflife"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow6_Energy1"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow6_Energy2"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow6_Energy3"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow6_WellEfficiency"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow6_BetaEfficiency"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 6
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x010A"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow6",
+      "onVar": "internalRAM.byte(105)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow7",
+      "onVar": "internalRAM.byte(106)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow7_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow7_Halflife"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow7_Energy1"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow7_Energy2"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow7_Energy3"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow7_WellEfficiency"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow7_BetaEfficiency"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 7
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x010B"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow7",
+      "onVar": "internalRAM.byte(106)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow8",
+      "onVar": "internalRAM.byte(107)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow8_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow8_Halflife"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow8_Energy1"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow8_Energy2"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow8_Energy3"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow8_WellEfficiency"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow8_BetaEfficiency"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 8
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x010C"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow8",
+      "onVar": "internalRAM.byte(107)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow9",
+      "onVar": "internalRAM.byte(108)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow9_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow9_Halflife"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow9_Energy1"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow9_Energy2"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow9_Energy3"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow9_WellEfficiency"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow9_BetaEfficiency"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 9
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x010D"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow9",
+      "onVar": "internalRAM.byte(108)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow10",
+      "onVar": "internalRAM.byte(109)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow10_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow10_Halflife"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow10_Energy1"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow10_Energy2"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow10_Energy3"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow10_WellEfficiency"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow10_BetaEfficiency"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 10
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x010E"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow10",
+      "onVar": "internalRAM.byte(109)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow0",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow1",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "1",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow2",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "2",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow3",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "3",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow4",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "4",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow5",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "5",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow6",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "6",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow7",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "7",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow8",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "8",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow9",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "9",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow10",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "10",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_BetaEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshGrid",
+      "onVar": "internalRAM.byte(200)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(200)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow1_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow1_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Halflife"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow1_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Energy1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow1_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Energy2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow1_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Energy3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow1_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_WellEfficiency"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow1_BetaEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_BetaEfficiency"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow2_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow2_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Halflife"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow2_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Energy1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow2_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Energy2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow2_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Energy3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow2_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_WellEfficiency"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow2_BetaEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_BetaEfficiency"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow3_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow3_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Halflife"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow3_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Energy1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow3_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Energy2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow3_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Energy3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow3_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_WellEfficiency"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow3_BetaEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_BetaEfficiency"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow4_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow4_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Halflife"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow4_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Energy1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow4_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Energy2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow4_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Energy3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow4_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_WellEfficiency"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow4_BetaEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_BetaEfficiency"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow5_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow5_Halflife"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Halflife"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow5_Energy1"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Energy1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow5_Energy2"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Energy2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow5_Energy3"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Energy3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow5_WellEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_WellEfficiency"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow5_BetaEfficiency"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_BetaEfficiency"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfPageCount"
+        },
+        {
+          "type": "forceHit",
+          "target": "refreshRow6"
+        },
+        {
+          "type": "forceHit",
+          "target": "refreshRow7"
+        },
+        {
+          "type": "forceHit",
+          "target": "refreshRow8"
+        },
+        {
+          "type": "forceHit",
+          "target": "refreshRow9"
+        },
+        {
+          "type": "forceHit",
+          "target": "refreshRow10"
+        }
+      ]
+    },
+    {
+      "name": "refreshPageUpVisible",
+      "onVar": "internalRAM.byte(201)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(201)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnPageUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshPageUpNotVisible",
+      "onVar": "internalRAM.byte(202)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(202)",
+          "value": 0
+        },
+        {
+          "type": "disappear",
+          "target": "btnPageUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshPageDownVisible",
+      "onVar": "internalRAM.byte(203)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(203)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnPageDown"
+        }
+      ]
+    },
+    {
+      "name": "refreshPageDownNotVisible",
+      "onVar": "internalRAM.byte(204)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(204)",
+          "value": 0
+        },
+        {
+          "type": "disappear",
+          "target": "btnPageDown"
+        }
+      ]
+    },
+    {
+      "name": "refreshChangeVisible",
+      "onVar": "internalRAM.byte(205)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(205)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnChange"
+        }
+      ]
+    },
+    {
+      "name": "refreshChangeNotVisible",
+      "onVar": "internalRAM.byte(206)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(206)",
+          "value": 0
+        },
+        {
+          "type": "disappear",
+          "target": "btnChange"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowWellEff",
+      "onVar": "internalRAM.byte(90)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(90)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfHeader_WellEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowWellAndProbeEff",
+      "onVar": "internalRAM.byte(91)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(91)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfHeader_WellEfficiency"
+        },
+        {
+          "type": "reappear",
+          "target": "sfHeader_ProbeEfficiency"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowFullEfficiency",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(92)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnFull"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_SETUP_EFFICIENCIES"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow2"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow2"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow3"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow3"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow4"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow4"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow5"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow5"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow6"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow6"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow7"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow7"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow8"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow8"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow9"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow9"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow10"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow10"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow6_Nuclide"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow6_Nuclide"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow6_Halflife"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow6_Halflife"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow6_Energy1"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow6_Energy1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow6_Energy2"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow6_Energy2"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow6_Energy3"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow6_Energy3"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow6_WellEfficiency"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow6_WellEfficiency"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow6_BetaEfficiency"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow6_BetaEfficiency"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow7_Nuclide"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow7_Nuclide"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow7_Halflife"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow7_Halflife"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow7_Energy1"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow7_Energy1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow7_Energy2"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow7_Energy2"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow7_Energy3"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow7_Energy3"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow7_WellEfficiency"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow7_WellEfficiency"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow7_BetaEfficiency"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow7_BetaEfficiency"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow8_Nuclide"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow8_Nuclide"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow8_Halflife"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow8_Halflife"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow8_Energy1"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow8_Energy1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow8_Energy2"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow8_Energy2"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow8_Energy3"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow8_Energy3"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow8_WellEfficiency"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow8_WellEfficiency"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow8_BetaEfficiency"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow8_BetaEfficiency"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow9_Nuclide"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow9_Nuclide"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow9_Halflife"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow9_Halflife"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow9_Energy1"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow9_Energy1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow9_Energy2"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow9_Energy2"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow9_Energy3"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow9_Energy3"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow9_WellEfficiency"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow9_WellEfficiency"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow9_BetaEfficiency"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow9_BetaEfficiency"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow10_Nuclide"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow10_Nuclide"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow10_Halflife"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow10_Halflife"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow10_Energy1"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow10_Energy1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow10_Energy2"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow10_Energy2"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow10_Energy3"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow10_Energy3"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow10_WellEfficiency"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow10_WellEfficiency"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfRow10_BetaEfficiency"
+    },
+    {
+      "type": "normalRegionColor",
+      "target": "sfRow10_BetaEfficiency"
+    }
+  ],
+  "referencedImages": [
+    "Images/back_small.png",
+    "Images/bottom.png",
+    "Images/downpage.png",
+    "Images/home_small.png",
+    "Images/top.png",
+    "Images/uppage.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

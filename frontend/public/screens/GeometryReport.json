@@ -1,0 +1,2240 @@
+{
+  "name": "GeometryReport",
+  "filename": "GeometryReport.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "80": "Language\t\t(STATE) English = 0, French = 1",
+      "168": "0xFF - Display Report",
+      "169": "0xFF - Display Line 1",
+      "170": "0xFF - Display Line 2",
+      "171": "0xFF - Display Line 3",
+      "172": "0xFF - Display Line 4",
+      "173": "0xFF - Display Line 5",
+      "174": "0xFF - Display Line 6",
+      "175": "0xFF - Display Line 7",
+      "176": "0xFF - Display Line 8",
+      "177": "0xFF - Display Line 9",
+      "178": "0xFF - Display Line 10",
+      "179": "0xFF - Display Line 11"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHome",
+      "x": 8,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/home_big.png",
+        "downImage": "Images/home_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "home"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHomeFrench",
+      "x": 8,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/french_home_big.png",
+        "downImage": "Images/french_home_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "home",
+      "language": "french"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBackFrench",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/french_back_big.png",
+        "downImage": "Images/french_back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "back",
+      "language": "french"
+    },
+    {
+      "type": "StringField",
+      "name": "sfChamb",
+      "x": 119,
+      "y": 543,
+      "width": 200,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(9).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "currentchamber",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 9,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPrint",
+      "x": 692,
+      "y": 543,
+      "width": 101,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "Amulet:document.btnPrint.disappear(),Amulet:document.refreshHideHome.forceUpdate(),Amulet:document.refreshHideBack.forceUpdate(),Amulet:UART.word(0).setValue(0x0102)",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/print_33.png",
+        "downImage": "Images/print_33.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "print",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPrintFrench",
+      "x": 692,
+      "y": 543,
+      "width": 101,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "Amulet:document.btnPrintFrench.disappear(),Amulet:document.refreshHideHome.forceUpdate(),Amulet:document.refreshHideBack.forceUpdate(),Amulet:UART.word(0).setValue(0x0102)",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/french_print_33.png",
+        "downImage": "Images/french_print_33.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "print",
+      "language": "french",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfTitleVol",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD|UNDERLINE",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfTitleAssay",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD|UNDERLINE",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(103).value()",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 103,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfTitleVar",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD|UNDERLINE",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(104).value()",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVol1",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(169).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 169,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfAssay1",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(170).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 170,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVar1",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(171).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 171,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVol2",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(172).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 172,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfAssay2",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(173).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 173,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVar2",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(174).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 174,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVol3",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(175).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 175,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfAssay3",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(176).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 176,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVar3",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(177).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 177,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVol4",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(178).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 178,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfAssay4",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(179).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 179,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVar4",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(180).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 180,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVol5",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(181).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 181,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfAssay5",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(182).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 182,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVar5",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(183).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 183,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVol6",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(184).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 184,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfAssay6",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(185).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 185,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVar6",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(186).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 186,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVol7",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(187).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 187,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfAssay7",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(188).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 188,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVar7",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(189).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 189,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVol8",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(190).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 190,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfAssay8",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(191).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 191,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVar8",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(192).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 192,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVol9",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(193).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 193,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfAssay9",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(194).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 194,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVar9",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(195).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 195,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVol10",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(196).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 196,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfAssay10",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(197).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 197,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfVar10",
+      "x": 0,
+      "y": 66,
+      "width": 266,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontStyle": "BOLD",
+        "fontSize": "5",
+        "fillColor": "#00000000",
+        "href": "Amulet:internalRAM.string(198).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 198,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "Image",
+      "name": "line1",
+      "x": 0,
+      "y": 106,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "1_line"
+    },
+    {
+      "type": "Image",
+      "name": "line2",
+      "x": 0,
+      "y": 148,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "2_line"
+    },
+    {
+      "type": "Image",
+      "name": "line3",
+      "x": 0,
+      "y": 190,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "3_line"
+    },
+    {
+      "type": "Image",
+      "name": "line4",
+      "x": 0,
+      "y": 232,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "4_line"
+    },
+    {
+      "type": "Image",
+      "name": "line5",
+      "x": 0,
+      "y": 274,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "5_line"
+    },
+    {
+      "type": "Image",
+      "name": "line6",
+      "x": 0,
+      "y": 316,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "6_line"
+    },
+    {
+      "type": "Image",
+      "name": "line7",
+      "x": 0,
+      "y": 358,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "7_line"
+    },
+    {
+      "type": "Image",
+      "name": "line8",
+      "x": 0,
+      "y": 400,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "8_line"
+    },
+    {
+      "type": "Image",
+      "name": "line9",
+      "x": 0,
+      "y": 442,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "9_line"
+    },
+    {
+      "type": "Image",
+      "name": "line10",
+      "x": 0,
+      "y": 484,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "10_line"
+    },
+    {
+      "type": "Image",
+      "name": "line11",
+      "x": 0,
+      "y": 526,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "11_line"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowHomeEnglish",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnHome"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowHomeFrench",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnHomeFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideHomeEnglish",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnHome"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideHomeFrench",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnHomeFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowBackEnglish",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnBack"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowBackFrench",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnBackFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideBackEnglish",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnBack"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideBackFrench",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnBackFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPrintEnglish",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnPrint"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPrintFrench",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnPrintFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshHidePrintEnglish",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnPrint"
+        }
+      ]
+    },
+    {
+      "name": "refreshHidePrintFrench",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnPrintFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshChambString",
+      "onVar": "internalRAM.byte(20)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(20)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowHome"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowBack"
+        },
+        {
+          "type": "reappear",
+          "target": "sfChamb"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfChamb"
+        }
+      ]
+    },
+    {
+      "onVar": "internalRAM.byte(168)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(168)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitleVol"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitleVol"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitleAssay"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitleAssay"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitleVar"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitleVar"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVol1"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVol1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfAssay1"
+        },
+        {
+          "type": "reappear",
+          "target": "sfAssay1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVar1"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVar1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVol2"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVol2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfAssay2"
+        },
+        {
+          "type": "reappear",
+          "target": "sfAssay2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVar2"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVar2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVol3"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVol3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfAssay3"
+        },
+        {
+          "type": "reappear",
+          "target": "sfAssay3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVar3"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVar3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVol4"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVol4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfAssay4"
+        },
+        {
+          "type": "reappear",
+          "target": "sfAssay4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVar4"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVar4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVol5"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVol5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfAssay5"
+        },
+        {
+          "type": "reappear",
+          "target": "sfAssay5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVar5"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVar5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVol6"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVol6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfAssay6"
+        },
+        {
+          "type": "reappear",
+          "target": "sfAssay6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVar6"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVar6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVol7"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVol7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfAssay7"
+        },
+        {
+          "type": "reappear",
+          "target": "sfAssay7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVar7"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVar7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVol8"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVol8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfAssay8"
+        },
+        {
+          "type": "reappear",
+          "target": "sfAssay8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVar8"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVar8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVol9"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVol9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfAssay9"
+        },
+        {
+          "type": "reappear",
+          "target": "sfAssay9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVar9"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVar9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVol10"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVol10"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfAssay10"
+        },
+        {
+          "type": "reappear",
+          "target": "sfAssay10"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfVar10"
+        },
+        {
+          "type": "reappear",
+          "target": "sfVar10"
+        }
+      ]
+    },
+    {
+      "name": "refreshLine1",
+      "onVar": "internalRAM.byte(169)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(169)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "line1"
+        },
+        {
+          "type": "disappear",
+          "target": "refreshLine1"
+        }
+      ]
+    },
+    {
+      "name": "refreshLine2",
+      "onVar": "internalRAM.byte(170)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(170)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "line2"
+        },
+        {
+          "type": "disappear",
+          "target": "refreshLine2"
+        }
+      ]
+    },
+    {
+      "name": "refreshLine3",
+      "onVar": "internalRAM.byte(171)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(171)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "line3"
+        },
+        {
+          "type": "disappear",
+          "target": "refreshLine3"
+        }
+      ]
+    },
+    {
+      "name": "refreshLine4",
+      "onVar": "internalRAM.byte(172)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(172)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "line4"
+        },
+        {
+          "type": "disappear",
+          "target": "refreshLine4"
+        }
+      ]
+    },
+    {
+      "name": "refreshLine5",
+      "onVar": "internalRAM.byte(173)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(173)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "line5"
+        },
+        {
+          "type": "disappear",
+          "target": "refreshLine5"
+        }
+      ]
+    },
+    {
+      "name": "refreshLine6",
+      "onVar": "internalRAM.byte(174)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(174)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "line6"
+        },
+        {
+          "type": "disappear",
+          "target": "refreshLine6"
+        }
+      ]
+    },
+    {
+      "name": "refreshLine7",
+      "onVar": "internalRAM.byte(175)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(175)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "line7"
+        },
+        {
+          "type": "disappear",
+          "target": "refreshLine7"
+        }
+      ]
+    },
+    {
+      "name": "refreshLine8",
+      "onVar": "internalRAM.byte(176)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(176)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "line8"
+        },
+        {
+          "type": "disappear",
+          "target": "refreshLine8"
+        }
+      ]
+    },
+    {
+      "name": "refreshLine9",
+      "onVar": "internalRAM.byte(177)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(177)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "line9"
+        },
+        {
+          "type": "disappear",
+          "target": "refreshLine9"
+        }
+      ]
+    },
+    {
+      "name": "refreshLine10",
+      "onVar": "internalRAM.byte(178)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(178)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "line10"
+        },
+        {
+          "type": "disappear",
+          "target": "refreshLine10"
+        }
+      ]
+    },
+    {
+      "name": "refreshLine11",
+      "onVar": "internalRAM.byte(179)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(179)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "line11"
+        },
+        {
+          "type": "disappear",
+          "target": "refreshLine11"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPrintOld",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowPrint"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPrintAndHidden",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowHome"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowBack"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowPrint"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_GEOMETRY_REPORT"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowHomeEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowHomeFrench"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideHomeEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideHomeFrench"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowBackEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowBackFrench"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideBackEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideBackFrench"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowPrintEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowPrintFrench"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHidePrintEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHidePrintFrench"
+    }
+  ],
+  "referencedImages": [
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/french_back_big.png",
+    "Images/french_home_big.png",
+    "Images/french_print_33.png",
+    "Images/hline2.jpg",
+    "Images/home_big.png",
+    "Images/print_33.png",
+    "Images/top_bar.png"
+  ],
+  "hasFrenchVariants": true,
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        9,
+        100,
+        102,
+        103,
+        104,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

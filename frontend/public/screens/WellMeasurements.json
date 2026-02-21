@@ -1,0 +1,372 @@
+{
+  "name": "WellMeasurements",
+  "filename": "WellMeasurements.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Measurements",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "StringField",
+      "name": "sfDetector",
+      "x": 0,
+      "y": 543,
+      "width": 170,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "22pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(9).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "currentdetector",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 9,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDetector",
+      "x": 170,
+      "y": 543,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Detector",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "%ConfigGenericItems(%%SET_GENERICITEMS_DETECTOR700),%SetHTML(%%SET_HTML_GENERIC_ITEMS)",
+        "invisible": "TRUE"
+      },
+      "position_from": "detector"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHome",
+      "x": 8,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/home_big.png",
+        "downImage": "Images/home_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "home"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnSetup",
+      "x": 692,
+      "y": 543,
+      "width": 101,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%ConfigTitle('Please Enter Password:'), %ConfigMaxStrLen(8), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('0.0'), %ConfigKeypad(%%CONFIG_KEYPAD_PASSWORD), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_WIPE_PASSWD)",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/setup_33.png",
+        "downImage": "Images/setup_33.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "setup"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnBackground",
+      "x": 0,
+      "y": 41,
+      "width": 400,
+      "height": 70,
+      "params": {
+        "label": "Measure Background",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "%UnLockDetector, %ConfigTitle('Background Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_BACKGROUND)",
+        "invisible": "FALSE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnWipe",
+      "x": 0,
+      "y": 41,
+      "width": 400,
+      "height": 70,
+      "params": {
+        "label": "Measure Wipes",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "%SetClear(%%SET_CLEAR_WELLWIPELIST)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnGeneral",
+      "x": 0,
+      "y": 41,
+      "width": 400,
+      "height": 70,
+      "params": {
+        "label": "General Measurement",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "%UnLockDetector, %GeneralMeasFromInstalledDetector, %ConfigTitle('General Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_GENERAL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnGeneralWell",
+      "x": 90,
+      "y": 393,
+      "width": 300,
+      "height": 70,
+      "params": {
+        "label": "General Measurement As Well",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "%LockDetector, %GeneralMeasFromDrilledProbeAsWell, %ConfigTitle('General Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_GENERAL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "general_well"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnGeneralProbe",
+      "x": 410,
+      "y": 393,
+      "width": 300,
+      "height": 70,
+      "params": {
+        "label": "General Measurement As Probe",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "%LockDetector, %GeneralMeasFromDrilledProbeAsProbe, %ConfigTitle('General Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_GENERAL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "general_probe"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowDetector",
+      "onVar": "internalRAM.byte(75)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(75)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDetector"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDetectorButton",
+      "onVar": "internalRAM.byte(76)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(76)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnDetector"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowWipeButton",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnWipe"
+        },
+        {
+          "type": "reappear",
+          "target": "btnSetup"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowGeneral",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnGeneral"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowGeneralDrilledProbe",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnGeneralWell"
+        },
+        {
+          "type": "reappear",
+          "target": "btnGeneralProbe"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_MEASUREMENTS"
+    }
+  ],
+  "referencedImages": [
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/home_big.png",
+    "Images/setup_33.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        9
+      ]
+    }
+  }
+}

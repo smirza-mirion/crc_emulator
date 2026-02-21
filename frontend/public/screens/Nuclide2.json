@@ -1,0 +1,4157 @@
+{
+  "name": "Nuclide2",
+  "filename": "Nuclide2.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "99": "Display Title",
+      "100": "Display Submit Blank Button",
+      "101": "Display Hot Keys",
+      "239": "Go Back",
+      "240": "Select Visible",
+      "241": "Page Down Visible",
+      "242": "Page Up Visible",
+      "243": "Refresh Grid",
+      "244": "Line 1 Active (0xFF is Active)",
+      "245": "Line 2 Active (0xFF is Active)",
+      "246": "Line 3 Active (0xFF is Active)",
+      "247": "Line 4 Active (0xFF is Active)",
+      "248": "Line 5 Active (0xFF is Active)",
+      "249": "Line 6 Active (0xFF is Active)",
+      "250": "Line 7 Active (0xFF is Active)",
+      "251": "Line 8 Active (0xFF is Active)",
+      "252": "Line 9 Active (0xFF is Active)",
+      "253": "Line 10 Active (0xFF is Active)",
+      "254": "Next Row",
+      "255": "Current Row"
+    },
+    "strings": {
+      "70": "Button 1,1",
+      "71": "Button 1,2",
+      "72": "Button 1,3",
+      "73": "Button 1,4",
+      "74": "Button 2,1",
+      "75": "Button 2,2",
+      "76": "Button 2,3",
+      "77": "Button 2,4",
+      "78": "Button 3,1",
+      "79": "Button 3,2",
+      "80": "Button 3,3",
+      "81": "Button 3,4",
+      "82": "Button 4,1",
+      "83": "Button 4,2",
+      "84": "Button 4,3",
+      "85": "Button 4,4",
+      "86": "Button 5,1",
+      "87": "Button 5,2",
+      "88": "Button 5,3",
+      "89": "Button 5,4",
+      "90": "Accept",
+      "91": "Cancel",
+      "93": "Nuclide",
+      "94": "Halflife",
+      "95": "Clear Selected Nuclide",
+      "96": "Clear Selected Nuclide",
+      "98": "Title",
+      "99": "Title",
+      "100": "Nuclide 1",
+      "101": "Name 1",
+      "102": "Halflife 1",
+      "103": "Nuclide 2",
+      "104": "Name 2",
+      "105": "Halflife 2",
+      "106": "Nuclide 3",
+      "107": "Name 3",
+      "108": "Halflife 3",
+      "109": "Nuclide 4",
+      "110": "Name 4",
+      "111": "Halflife 4",
+      "112": "Nuclide 5",
+      "113": "Name 5",
+      "114": "Halflife 5",
+      "115": "Nuclide 6",
+      "116": "Name 6",
+      "117": "Halflife 6",
+      "118": "Nuclide 7",
+      "119": "Name 7",
+      "120": "Halflife 7",
+      "121": "Nuclide 8",
+      "122": "Name 8",
+      "123": "Halflife 8",
+      "124": "Nuclide 9",
+      "125": "Name 9",
+      "126": "Halflife 9",
+      "127": "Nuclide 10",
+      "128": "Name 10",
+      "129": "Halflife 10",
+      "130": "Page Count"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 790,
+      "height": 60,
+      "params": {
+        "border": "0",
+        "fillColor": "#000030",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BOTTOM",
+        "href": "Amulet:internalRAM.string(98).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontColor": "#FFFF30",
+        "fontStyle": "BOLD",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 98,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPageUp",
+      "x": 700,
+      "y": 96,
+      "width": 90,
+      "height": 90,
+      "params": {
+        "label": "",
+        "href": "%Beep,Amulet:document.refreshHideButtons.forceHit(),Amulet:UART.word(0).setValue(0x0204)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/uppage_black.png",
+        "downImage": "Images/uppage_black.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "page_up",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPageDown",
+      "x": 700,
+      "y": 196,
+      "width": 90,
+      "height": 90,
+      "params": {
+        "label": "",
+        "href": "%Beep,Amulet:document.refreshHideButtons.forceHit(),Amulet:UART.word(0).setValue(0x0203)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/downpage_black.png",
+        "downImage": "Images/downpage_black.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "page_down",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSelect",
+      "x": 700,
+      "y": 386,
+      "width": 90,
+      "height": 90,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(90).value()",
+        "font": "Franklin Gothic Book",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "fontSize": "14pt",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "fontStyle": "BOLD",
+        "href": "Amulet:UART.word(0).setValue(0x0223)",
+        "invisible": "TRUE"
+      },
+      "position_from": "select",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 90,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnBack",
+      "x": 700,
+      "y": 486,
+      "width": 90,
+      "height": 90,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(91).value()",
+        "font": "Franklin Gothic Book",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "fontSize": "14pt",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "fontStyle": "BOLD",
+        "href": "%Back"
+      },
+      "position_from": "back",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 91,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSubmitBlank",
+      "x": 5,
+      "y": 519,
+      "width": 190,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref(51)",
+        "initHref": "Amulet:internalRAM.label(95).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0224)",
+        "invisible": "TRUE"
+      },
+      "position_from": "submitblank",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 95,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfPageCount",
+      "x": 635,
+      "y": 60,
+      "width": 160,
+      "height": 25,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "fontColor": "#FFFFFF",
+        "fontSize": "14pt",
+        "fontStyle": "ITALIC",
+        "fillColor": "#000000",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "TOP",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(130).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "page_count",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 130,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn11",
+      "x": 5,
+      "y": 70,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(70).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x020f)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b1_1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 70,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn12",
+      "x": 105,
+      "y": 70,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(71).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0210)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b1_2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 71,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn13",
+      "x": 205,
+      "y": 70,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(72).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0211)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b1_3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 72,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn14",
+      "x": 305,
+      "y": 70,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(73).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0212)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b1_4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 73,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn21",
+      "x": 5,
+      "y": 160,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(74).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0213)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b2_1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 74,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn22",
+      "x": 105,
+      "y": 160,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(75).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0214)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b2_2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 75,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn23",
+      "x": 205,
+      "y": 160,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(76).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0215)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b2_3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 76,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn24",
+      "x": 305,
+      "y": 160,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(77).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0216)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b2_4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 77,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn31",
+      "x": 5,
+      "y": 250,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(78).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0217)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b3_1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 78,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn32",
+      "x": 105,
+      "y": 250,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(79).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0218)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b3_2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 79,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn33",
+      "x": 205,
+      "y": 250,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(80).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0219)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b3_3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 80,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn34",
+      "x": 305,
+      "y": 250,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(81).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x021A)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b3_4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 81,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn41",
+      "x": 5,
+      "y": 340,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(82).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x021B)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b4_1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 82,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn42",
+      "x": 105,
+      "y": 340,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(83).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x021C)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b4_2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 83,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn43",
+      "x": 205,
+      "y": 340,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(84).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x021D)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b4_3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 84,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn44",
+      "x": 305,
+      "y": 340,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(85).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x021E)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b4_4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 85,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn51",
+      "x": 5,
+      "y": 430,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(86).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x021F)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b5_1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 86,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn52",
+      "x": 105,
+      "y": 430,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(87).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0220)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b5_2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 87,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn53",
+      "x": 205,
+      "y": 430,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(88).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0221)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b5_3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 88,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn54",
+      "x": 305,
+      "y": 430,
+      "width": 90,
+      "height": 80,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(89).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:UART.word(0).setValue(0x0222)",
+        "invisible": "TRUE"
+      },
+      "position_from": "b5_4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 89,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfHeader_Nuclide",
+      "x": 410,
+      "y": 85,
+      "width": 80,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(93).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 93,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfHeader_Name",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHeader_Half",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(94).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 94,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow1_Nuclide",
+      "x": 410,
+      "y": 85,
+      "width": 80,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow1_Name",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(101).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 101,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow1_Half",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow2_Nuclide",
+      "x": 410,
+      "y": 85,
+      "width": 80,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(103).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 103,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow2_Name",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(104).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow2_Half",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(105).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 105,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow3_Nuclide",
+      "x": 410,
+      "y": 85,
+      "width": 80,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(106).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 106,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow3_Name",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(107).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 107,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow3_Half",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(108).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 108,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow4_Nuclide",
+      "x": 410,
+      "y": 85,
+      "width": 80,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(109).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 109,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow4_Name",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(110).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 110,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow4_Half",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(111).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 111,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow5_Nuclide",
+      "x": 410,
+      "y": 85,
+      "width": 80,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(112).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 112,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow5_Name",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(113).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 113,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow5_Half",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(114).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 114,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow6_Nuclide",
+      "x": 410,
+      "y": 85,
+      "width": 80,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(115).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 115,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow6_Name",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(116).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 116,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow6_Half",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(117).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 117,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow7_Nuclide",
+      "x": 410,
+      "y": 85,
+      "width": 80,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(118).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 118,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow7_Name",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(119).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 119,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow7_Half",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(120).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 120,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow8_Nuclide",
+      "x": 410,
+      "y": 85,
+      "width": 80,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(121).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 121,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow8_Name",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(122).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 122,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow8_Half",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(123).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 123,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow9_Nuclide",
+      "x": 410,
+      "y": 85,
+      "width": 80,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(124).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 124,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow9_Name",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(125).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 125,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow9_Half",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#DFDFDF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(126).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 126,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow10_Nuclide",
+      "x": 410,
+      "y": 85,
+      "width": 80,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(127).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 127,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow10_Name",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(128).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 128,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRow10_Half",
+      "x": 410,
+      "y": 85,
+      "width": 100,
+      "height": 46,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12pt",
+        "fontColor": "#000000",
+        "fontColorAlt": "#FFFF90",
+        "fillColor": "#EFEFEF",
+        "fillColorAlt": "#000070",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(129).value()",
+        "printf": "%s",
+        "invisible": "FALSE",
+        "updateRate": "0.00"
+      },
+      "position_from": "table",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 129,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnHeader",
+      "x": 410,
+      "y": 85,
+      "width": 280,
+      "height": 30,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:NOP()",
+        "invisible": "TRUE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow1",
+      "x": 410,
+      "y": 85,
+      "width": 280,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow1.forceHit()",
+        "executeOn": "BOTH",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow2",
+      "x": 410,
+      "y": 85,
+      "width": 280,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow2.forceHit()",
+        "executeOn": "BOTH",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow3",
+      "x": 410,
+      "y": 85,
+      "width": 280,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow3.forceHit()",
+        "executeOn": "BOTH",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow4",
+      "x": 410,
+      "y": 85,
+      "width": 280,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow4.forceHit()",
+        "executeOn": "BOTH",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow5",
+      "x": 410,
+      "y": 85,
+      "width": 280,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow5.forceHit()",
+        "executeOn": "BOTH",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow6",
+      "x": 410,
+      "y": 85,
+      "width": 280,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow6.forceHit()",
+        "executeOn": "BOTH",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow7",
+      "x": 410,
+      "y": 85,
+      "width": 280,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow7.forceHit()",
+        "executeOn": "BOTH",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow8",
+      "x": 410,
+      "y": 85,
+      "width": 280,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow8.forceHit()",
+        "executeOn": "BOTH",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow9",
+      "x": 410,
+      "y": 85,
+      "width": 280,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow9.forceHit()",
+        "executeOn": "BOTH",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRow10",
+      "x": 410,
+      "y": 85,
+      "width": 280,
+      "height": 46,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.refreshPaintRow10.forceHit()",
+        "executeOn": "BOTH",
+        "invisible": "FALSE"
+      },
+      "position_from": "table"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowTitle",
+      "onVar": "internalRAM.byte(99)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(99)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnSelect"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnBack"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnSubmitBlank"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfHeader_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfHeader_Half"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowSubmitBlank",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnSubmitBlank"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowHotkeys",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btn11"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn11"
+        },
+        {
+          "type": "reappear",
+          "target": "btn12"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn12"
+        },
+        {
+          "type": "reappear",
+          "target": "btn13"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn13"
+        },
+        {
+          "type": "reappear",
+          "target": "btn14"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn14"
+        },
+        {
+          "type": "reappear",
+          "target": "btn21"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn21"
+        },
+        {
+          "type": "reappear",
+          "target": "btn22"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn22"
+        },
+        {
+          "type": "reappear",
+          "target": "btn23"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn23"
+        },
+        {
+          "type": "reappear",
+          "target": "btn24"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn24"
+        },
+        {
+          "type": "reappear",
+          "target": "btn31"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn31"
+        },
+        {
+          "type": "reappear",
+          "target": "btn32"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn32"
+        },
+        {
+          "type": "reappear",
+          "target": "btn33"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn33"
+        },
+        {
+          "type": "reappear",
+          "target": "btn34"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn34"
+        },
+        {
+          "type": "reappear",
+          "target": "btn41"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn41"
+        },
+        {
+          "type": "reappear",
+          "target": "btn42"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn42"
+        },
+        {
+          "type": "reappear",
+          "target": "btn43"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn43"
+        },
+        {
+          "type": "reappear",
+          "target": "btn44"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn44"
+        },
+        {
+          "type": "reappear",
+          "target": "btn51"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn51"
+        },
+        {
+          "type": "reappear",
+          "target": "btn52"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn52"
+        },
+        {
+          "type": "reappear",
+          "target": "btn53"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn53"
+        },
+        {
+          "type": "reappear",
+          "target": "btn54"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btn54"
+        }
+      ]
+    },
+    {
+      "name": "refreshCopyNextLineIntoCurrentLine",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "raw",
+          "expression": "internalRAM.byte(255).setValue(internalRAM.byte(254))"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow0",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow1",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "1",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow2",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "2",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow3",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "3",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow4",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "4",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow5",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "5",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow6",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "6",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow7",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "7",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow8",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "8",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow9",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "9",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshNormalRow10",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "10",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": "0xFF"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow1",
+      "onVar": "internalRAM.byte(244)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow1_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow1_Name"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow1_Half"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 1
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x0205"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow1",
+      "onVar": "internalRAM.byte(244)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow2",
+      "onVar": "internalRAM.byte(245)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow2_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow2_Name"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow2_Half"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 2
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x0206"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow2",
+      "onVar": "internalRAM.byte(245)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow3",
+      "onVar": "internalRAM.byte(246)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow3_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow3_Name"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow3_Half"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 3
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x0207"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow3",
+      "onVar": "internalRAM.byte(246)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow4",
+      "onVar": "internalRAM.byte(247)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow4_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow4_Name"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow4_Half"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 4
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x0208"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow4",
+      "onVar": "internalRAM.byte(247)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow5",
+      "onVar": "internalRAM.byte(248)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow5_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow5_Name"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow5_Half"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 5
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x0209"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow5",
+      "onVar": "internalRAM.byte(248)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow6",
+      "onVar": "internalRAM.byte(249)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow6_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow6_Name"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow6_Half"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 6
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x020a"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow6",
+      "onVar": "internalRAM.byte(249)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow7",
+      "onVar": "internalRAM.byte(250)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow7_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow7_Name"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow7_Half"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 7
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x020b"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow7",
+      "onVar": "internalRAM.byte(250)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow8",
+      "onVar": "internalRAM.byte(251)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow8_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow8_Name"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow8_Half"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 8
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x020c"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow8",
+      "onVar": "internalRAM.byte(251)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow9",
+      "onVar": "internalRAM.byte(252)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow10"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow9_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow9_Name"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow9_Half"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 9
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x020d"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow9",
+      "onVar": "internalRAM.byte(252)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseRow10",
+      "onVar": "internalRAM.byte(253)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow8"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshNormalRow9"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow10_Nuclide"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow10_Name"
+        },
+        {
+          "type": "inverseRegionColor",
+          "target": "sfRow10_Half"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 10
+        },
+        {
+          "type": "macro",
+          "macro": "Beep"
+        },
+        {
+          "type": "setValue",
+          "target": "UART.word(0)",
+          "value": "0x020e"
+        }
+      ]
+    },
+    {
+      "name": "refreshInverseBarRow10",
+      "onVar": "internalRAM.byte(253)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshButtons",
+      "onVar": "internalRAM.byte(243)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(243)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfPageCount"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow1_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow1_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Name"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow1_Half"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow1_Half"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow2_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow2_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Name"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow2_Half"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow2_Half"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow3_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow3_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Name"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow3_Half"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow3_Half"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow4_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow4_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Name"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow4_Half"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow4_Half"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow5_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow5_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Name"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow5_Half"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow5_Half"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow6_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow6_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Name"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow6_Half"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow6_Half"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow7_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow7_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Name"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow7_Half"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow7_Half"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow8_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow8_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Name"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow8_Half"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow8_Half"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow9_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow9_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Name"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow9_Half"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow9_Half"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow10_Nuclide"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Nuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow10_Name"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Name"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfRow10_Half"
+        },
+        {
+          "type": "normalRegionColor",
+          "target": "sfRow10_Half"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPageUp",
+      "onVar": "internalRAM.byte(242)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(242)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnPageUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPageDown",
+      "onVar": "internalRAM.byte(241)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(241)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnPageDown"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowSelect",
+      "onVar": "internalRAM.byte(240)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(240)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnSelect"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_NUCLIDE"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow2"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow2"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow3"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow3"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow4"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow4"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow5"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow5"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow6"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow6"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow7"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow7"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow8"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow8"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow9"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow9"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseRow10"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshInverseBarRow10"
+    },
+    {
+      "type": "disappear",
+      "target": "btnPageUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnPageDown"
+    },
+    {
+      "type": "disappear",
+      "target": "btnSelect"
+    }
+  ],
+  "referencedImages": [
+    "Images/downpage_black.png",
+    "Images/uppage_black.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        93,
+        94,
+        98,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130
+      ],
+      "labels": [
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        95
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

@@ -1,0 +1,1994 @@
+{
+  "name": "AddEditThyroidUptakeProtocol",
+  "filename": "AddEditThyroidUptakeProtocol.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Display Edit",
+      "101": "Display View",
+      "102": "Display Delete",
+      "103": "Restore ROI Refresh"
+    },
+    "strings": {
+      "100": "Title",
+      "101": "Title",
+      "102": "Protocol Name",
+      "103": "Counting Method",
+      "104": "Counting Method",
+      "105": "Counting Method",
+      "106": "Dose Measurement",
+      "107": "Dose Measurement",
+      "108": "Dose Measurement",
+      "109": "Isotope",
+      "110": "Dose Form",
+      "111": "Pre-Dose",
+      "112": "Residual",
+      "113": "Counting Time",
+      "114": "Probe Distance",
+      "115": "I123Start",
+      "116": "I123End",
+      "117": "I131Start",
+      "118": "I131End",
+      "119": "Tc99mStart",
+      "120": "Tc99mEnd"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 150,
+      "y": 0,
+      "width": 500,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnName",
+      "x": 200,
+      "y": 80,
+      "width": 590,
+      "height": 40,
+      "params": {
+        "upImage": "Images/590x40.png",
+        "downImage": "Images/590x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(102).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter Protocol Name:'), %ConfigMaxStrLen(23), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_TU_PROTOCOL_NAME)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nametext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 102,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfName",
+      "x": 200,
+      "y": 80,
+      "width": 590,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "nametext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMethod",
+      "x": 200,
+      "y": 140,
+      "width": 590,
+      "height": 40,
+      "params": {
+        "upImage": "Images/590x40.png",
+        "downImage": "Images/590x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref(75)",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_COUNTING_METHOD),%SetHTML(%%SET_HTML_GENERIC_ITEMS)",
+        "invisible": "TRUE"
+      },
+      "position_from": "methodtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMethod",
+      "x": 200,
+      "y": 140,
+      "width": 590,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(103).value()",
+        "printf": "%.75s",
+        "invisible": "TRUE"
+      },
+      "position_from": "methodtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 103,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMeasurement",
+      "x": 200,
+      "y": 200,
+      "width": 590,
+      "height": 40,
+      "params": {
+        "upImage": "Images/590x40.png",
+        "downImage": "Images/590x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref(75)",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_DOSE_MEASUREMENT),%SetHTML(%%SET_HTML_GENERIC_ITEMS)",
+        "invisible": "TRUE"
+      },
+      "position_from": "measurementtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMeasurement",
+      "x": 200,
+      "y": 200,
+      "width": 590,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(106).value()",
+        "printf": "%.75s",
+        "invisible": "TRUE"
+      },
+      "position_from": "measurementtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 106,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnIsotope",
+      "x": 95,
+      "y": 270,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(109).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_ISOTOPE),%SetHTML(%%SET_HTML_GENERIC_ITEMS)",
+        "invisible": "TRUE"
+      },
+      "position_from": "isotopetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 109,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfIsotope",
+      "x": 95,
+      "y": 270,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(109).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "isotopetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 109,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnForm",
+      "x": 270,
+      "y": 270,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(110).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_DOSE_FORM),%SetHTML(%%SET_HTML_GENERIC_ITEMS)",
+        "invisible": "TRUE"
+      },
+      "position_from": "formtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 110,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfForm",
+      "x": 270,
+      "y": 270,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(110).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "formtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 110,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPreDose",
+      "x": 445,
+      "y": 270,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(111).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_PRE_DOSE),%SetHTML(%%SET_HTML_GENERIC_ITEMS)",
+        "invisible": "TRUE"
+      },
+      "position_from": "pretext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 111,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfPreDose",
+      "x": 445,
+      "y": 270,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(111).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "pretext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 111,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnResidual",
+      "x": 665,
+      "y": 270,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(112).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigGenericItems(%%SET_GENERICITEMS_SET_TU_RESIDUAL),%SetHTML(%%SET_HTML_GENERIC_ITEMS)",
+        "invisible": "TRUE"
+      },
+      "position_from": "residualtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 112,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfResidual",
+      "x": 665,
+      "y": 270,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(112).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "residualtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 112,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnCountingTime",
+      "x": 205,
+      "y": 330,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(113).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Count Time (sec):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(0), %ConfigMinValue('10.0'), %ConfigMaxValue('9999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_DEFAULT_COUNTTIME)",
+        "invisible": "TRUE"
+      },
+      "position_from": "countingtimetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 113,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfCountingTime",
+      "x": 205,
+      "y": 330,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(113).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "countingtimetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 113,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDistance",
+      "x": 665,
+      "y": 330,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(114).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Distance (cm):'), %ConfigMaxStrLen(2), %ConfigMaxFractionLen(0), %ConfigMinValue('10.0'), %ConfigMaxValue('50.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_DEFAULT_DISTANCE)",
+        "invisible": "TRUE"
+      },
+      "position_from": "distancetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 114,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDistance",
+      "x": 665,
+      "y": 330,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(114).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "distancetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 114,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfI123",
+      "x": 0,
+      "y": 380,
+      "width": 210,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD|ITALIC",
+        "initialCondition": "I123 ROI (keV):",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "I123label"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnI123Start",
+      "x": 205,
+      "y": 380,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(115).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter I123 Start ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_I123_STARTROI)",
+        "invisible": "TRUE"
+      },
+      "position_from": "I123start",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 115,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfI123Start",
+      "x": 205,
+      "y": 380,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(115).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "I123start",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 115,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfI123To",
+      "x": 305,
+      "y": 380,
+      "width": 60,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD|ITALIC",
+        "initialCondition": "to",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "I123to"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnI123End",
+      "x": 365,
+      "y": 380,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(116).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter I123 End ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_I123_ENDROI)",
+        "invisible": "TRUE"
+      },
+      "position_from": "I123end",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 116,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfI123End",
+      "x": 365,
+      "y": 380,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(116).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "I123end",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 116,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfI131",
+      "x": 0,
+      "y": 430,
+      "width": 210,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD|ITALIC",
+        "initialCondition": "I131 ROI (keV):",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "I131label"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnI131Start",
+      "x": 205,
+      "y": 430,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(117).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter I131 Start ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_I131_STARTROI)",
+        "invisible": "TRUE"
+      },
+      "position_from": "I131start",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 117,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfI131Start",
+      "x": 205,
+      "y": 430,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(117).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "I131start",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 117,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfI131To",
+      "x": 305,
+      "y": 430,
+      "width": 60,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD|ITALIC",
+        "initialCondition": "to",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "I131to"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnI131End",
+      "x": 365,
+      "y": 430,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(118).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter I131 End ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_I131_ENDROI)",
+        "invisible": "TRUE"
+      },
+      "position_from": "I131end",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 118,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfI131End",
+      "x": 365,
+      "y": 430,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(118).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "I131end",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 118,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfTc99m",
+      "x": 0,
+      "y": 480,
+      "width": 210,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD|ITALIC",
+        "initialCondition": "Tc99m ROI (keV):",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "Tc99mlabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnTc99mStart",
+      "x": 205,
+      "y": 480,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(119).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter Tc99m Start ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_TC99M_STARTROI)",
+        "invisible": "TRUE"
+      },
+      "position_from": "Tc99mstart",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 119,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfTc99mStart",
+      "x": 205,
+      "y": 480,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(119).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "Tc99mstart",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 119,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfTc99mTo",
+      "x": 305,
+      "y": 480,
+      "width": 60,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD|ITALIC",
+        "initialCondition": "to",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "Tc99mto"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnTc99mEnd",
+      "x": 365,
+      "y": 480,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(120).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter Tc99m End ROI (keV):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(1), %ConfigMinValue('0.1'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_TC99M_ENDROI)",
+        "invisible": "TRUE"
+      },
+      "position_from": "Tc99mend",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 120,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfTc99mEnd",
+      "x": 365,
+      "y": 480,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(120).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "Tc99mend",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 120,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDefaultROI",
+      "x": 10,
+      "y": 542,
+      "width": 300,
+      "height": 50,
+      "params": {
+        "label": "Restore Original ROI",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnDefaultROI.disappear(),Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "TRUE"
+      },
+      "position_from": "defaultROI",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDelete",
+      "x": 10,
+      "y": 542,
+      "width": 450,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "22pt",
+        "initialCondition": "Delete this Protocol?",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "defaultROI"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnNormalValues",
+      "x": 10,
+      "y": 542,
+      "width": 300,
+      "height": 50,
+      "params": {
+        "label": "Normal Values",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnNormalValues.disappear(),%ViewTUNormal,%SetClear(%%SET_CLEAR_WELLTHYROIDUPTAKEENTERNORMAL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "defaultROI"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0103)",
+        "invisible": "TRUE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnYes",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Yes",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnYes.disappear(), Amulet:UART.word(0).setValue(0x0104)",
+        "invisible": "TRUE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(), %Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "cancel"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnNo",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "No",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnNo.disappear(), %Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshDisplay",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnName"
+        },
+        {
+          "type": "reappear",
+          "target": "btnName"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMethod"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMethod"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMeasurement"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMeasurement"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnIsotope"
+        },
+        {
+          "type": "reappear",
+          "target": "btnIsotope"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnForm"
+        },
+        {
+          "type": "reappear",
+          "target": "btnForm"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnPreDose"
+        },
+        {
+          "type": "reappear",
+          "target": "btnPreDose"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnResidual"
+        },
+        {
+          "type": "reappear",
+          "target": "btnResidual"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnCountingTime"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCountingTime"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDistance"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDistance"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnI123Start"
+        },
+        {
+          "type": "reappear",
+          "target": "btnI123Start"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnI123End"
+        },
+        {
+          "type": "reappear",
+          "target": "btnI123End"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnI131Start"
+        },
+        {
+          "type": "reappear",
+          "target": "btnI131Start"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnI131End"
+        },
+        {
+          "type": "reappear",
+          "target": "btnI131End"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnTc99mStart"
+        },
+        {
+          "type": "reappear",
+          "target": "btnTc99mStart"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnTc99mEnd"
+        },
+        {
+          "type": "reappear",
+          "target": "btnTc99mEnd"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDefaultROI"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCancel"
+        }
+      ]
+    },
+    {
+      "name": "refreshView",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfName"
+        },
+        {
+          "type": "reappear",
+          "target": "sfName"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMethod"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMethod"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMeasurement"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMeasurement"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfIsotope"
+        },
+        {
+          "type": "reappear",
+          "target": "sfIsotope"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfForm"
+        },
+        {
+          "type": "reappear",
+          "target": "sfForm"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfPreDose"
+        },
+        {
+          "type": "reappear",
+          "target": "sfPreDose"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfResidual"
+        },
+        {
+          "type": "reappear",
+          "target": "sfResidual"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfCountingTime"
+        },
+        {
+          "type": "reappear",
+          "target": "sfCountingTime"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDistance"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDistance"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfI123Start"
+        },
+        {
+          "type": "reappear",
+          "target": "sfI123Start"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfI123End"
+        },
+        {
+          "type": "reappear",
+          "target": "sfI123End"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfI131Start"
+        },
+        {
+          "type": "reappear",
+          "target": "sfI131Start"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfI131End"
+        },
+        {
+          "type": "reappear",
+          "target": "sfI131End"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTc99mStart"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTc99mStart"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTc99mEnd"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTc99mEnd"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNormalValues"
+        },
+        {
+          "type": "reappear",
+          "target": "btnBack"
+        }
+      ]
+    },
+    {
+      "name": "refreshDelete",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfName"
+        },
+        {
+          "type": "reappear",
+          "target": "sfName"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMethod"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMethod"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMeasurement"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMeasurement"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfIsotope"
+        },
+        {
+          "type": "reappear",
+          "target": "sfIsotope"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfForm"
+        },
+        {
+          "type": "reappear",
+          "target": "sfForm"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfPreDose"
+        },
+        {
+          "type": "reappear",
+          "target": "sfPreDose"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfResidual"
+        },
+        {
+          "type": "reappear",
+          "target": "sfResidual"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfCountingTime"
+        },
+        {
+          "type": "reappear",
+          "target": "sfCountingTime"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDistance"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDistance"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfI123Start"
+        },
+        {
+          "type": "reappear",
+          "target": "sfI123Start"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfI123End"
+        },
+        {
+          "type": "reappear",
+          "target": "sfI123End"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfI131Start"
+        },
+        {
+          "type": "reappear",
+          "target": "sfI131Start"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfI131End"
+        },
+        {
+          "type": "reappear",
+          "target": "sfI131End"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTc99mStart"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTc99mStart"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTc99mEnd"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTc99mEnd"
+        },
+        {
+          "type": "reappear",
+          "target": "btnBack"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDelete"
+        },
+        {
+          "type": "reappear",
+          "target": "btnYes"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNo"
+        }
+      ]
+    },
+    {
+      "name": "refreshUpdateROI",
+      "onVar": "internalRAM.byte(103)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(103)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnI123Start"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnI123End"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnI131Start"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnI131End"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnTc99mStart"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnTc99mEnd"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDefaultROI"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_ADDEDIT_THYROID_UPTAKE_PROTOCOL"
+    }
+  ],
+  "referencedImages": [
+    "Images/100x40.png",
+    "Images/590x40.png",
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        102,
+        103,
+        106,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120
+      ],
+      "labels": [
+        102,
+        103,
+        106,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

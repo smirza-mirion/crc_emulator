@@ -1,0 +1,759 @@
+{
+  "name": "SetupMoly",
+  "filename": "SetupMoly.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Display",
+      "101": "CAPMAC for Mallinckrodt Checkbox State",
+      "102": "CAPMAC for Bristol Myers Checkbox State",
+      "103": "Capintec Canister Checkbox State",
+      "104": "Moly Streamlined State"
+    },
+    "strings": {
+      "100": "Mo/Tc Limit",
+      "101": "Title",
+      "102": "Method",
+      "103": "Limit Title",
+      "104": "Enter Mo/Tc Limit:"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 130,
+      "y": 0,
+      "width": 560,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(101).value()",
+        "printf": "%s"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 101,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHome",
+      "x": 8,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/home_big.png",
+        "downImage": "Images/home_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "home"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHomeFrench",
+      "x": 8,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/french_home_big.png",
+        "downImage": "Images/french_home_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "home",
+      "language": "french"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBackFrench",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/french_back_big.png",
+        "downImage": "Images/french_back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "back",
+      "language": "french"
+    },
+    {
+      "type": "StringField",
+      "name": "sfMethodTitle",
+      "x": 20,
+      "y": 75,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC",
+        "fillColor": "#FFFFFF",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "initialConditions": "",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "moly_method_title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CheckBox",
+      "name": "chkMallinc",
+      "x": 230,
+      "y": 75,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "boxAlign": "LEFT",
+        "unCheckedValue": "1",
+        "checkedValue": "2",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "href": "%SendCheckboxValue, Amulet:UART.word(0).setValue(0x0102)",
+        "hrefOnHitOnly": "TRUE",
+        "initialCondition": "FromInitHref",
+        "initHref": "Amulet:internalRAM.byte(101).value()",
+        "label": "CAPMAC: Mallinckrodt"
+      },
+      "position_from": "moly_mallinc",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 101,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CheckBox",
+      "name": "chkBristol",
+      "x": 230,
+      "y": 125,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "boxAlign": "LEFT",
+        "unCheckedValue": "3",
+        "checkedValue": "4",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "href": "%SendCheckboxValue, Amulet:UART.word(0).setValue(0x0103)",
+        "hrefOnHitOnly": "TRUE",
+        "initialCondition": "FromInitHref",
+        "initHref": "Amulet:internalRAM.byte(102).value()",
+        "label": "CAPMAC: Bristol Myers"
+      },
+      "position_from": "moly_bristol",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 102,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CheckBox",
+      "name": "chkCapintec",
+      "x": 230,
+      "y": 175,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "boxAlign": "LEFT",
+        "unCheckedValue": "5",
+        "checkedValue": "6",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "href": "%SendCheckboxValue, Amulet:UART.word(0).setValue(0x0104)",
+        "hrefOnHitOnly": "TRUE",
+        "initialCondition": "FromInitHref",
+        "initHref": "Amulet:internalRAM.byte(103).value()",
+        "label": "Capintec Canister",
+        "invisible": "TRUE"
+      },
+      "position_from": "moly_canister",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CheckBox",
+      "name": "chkCapintecFrench",
+      "x": 230,
+      "y": 175,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "boxAlign": "LEFT",
+        "unCheckedValue": "5",
+        "checkedValue": "6",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "href": "%SendCheckboxValue, Amulet:UART.word(0).setValue(0x0104)",
+        "hrefOnHitOnly": "TRUE",
+        "initialCondition": "FromInitHref",
+        "initHref": "Amulet:internalRAM.byte(103).value()",
+        "label": "Capintec Frasco",
+        "invisible": "TRUE"
+      },
+      "position_from": "moly_canister",
+      "language": "french",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "Image",
+      "name": "line1",
+      "x": 0,
+      "y": 225,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "FALSE"
+      },
+      "position_from": "line1"
+    },
+    {
+      "type": "StringField",
+      "name": "sfLimitTitle",
+      "x": 20,
+      "y": 275,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC",
+        "fillColor": "#FFFFFF",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "initialConditions": "",
+        "href": "Amulet:internalRAM.string(103).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "moly_mo_tc_limit_title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 103,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMoTcLimit",
+      "x": 230,
+      "y": 275,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14pt",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "initialCondition": "",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "moly_mo_tc_limit_text",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMoTcLimit",
+      "x": 230,
+      "y": 275,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "borderColor": "#00000000",
+        "font": "Franklin Gothic Book",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle(Amulet:internalRAM.string(104)), %ConfigMaxStrLen(2), %ConfigMaxFractionLen(3), %ConfigMinValue('.001'), %ConfigMaxValue('9.99'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_SETUP_MOLY_MO_TC_LIMIT)",
+        "invisible": "FALSE"
+      },
+      "position_from": "moly_mo_tc_limit_text",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "Image",
+      "name": "line2",
+      "x": 0,
+      "y": 335,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "FALSE"
+      },
+      "position_from": "line2"
+    },
+    {
+      "type": "CheckBox",
+      "name": "chkStreamlinedTest",
+      "x": 20,
+      "y": 385,
+      "width": 230,
+      "height": 40,
+      "params": {
+        "boxAlign": "RIGHT",
+        "unCheckedValue": "7",
+        "checkedValue": "8",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC",
+        "href": "%SendCheckboxValue, Amulet:UART.word(0).setValue(0x0105)",
+        "hrefOnHitOnly": "TRUE",
+        "initialCondition": "FromInitHref",
+        "initHref": "Amulet:internalRAM.byte(104).value()",
+        "label": "Streamlined Test:  ",
+        "invisible": "TRUE"
+      },
+      "position_from": "streamlined_test",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowHomeEnglish",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnHome"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowHomeFrench",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnHomeFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideHomeEnglish",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnHome"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideHomeFrench",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnHomeFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowBackEnglish",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnBack"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowBackFrench",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnBackFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideBackEnglish",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnBack"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideBackFrench",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnBackFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowCapintecEnglish",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "chkCapintec"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "chkCapintec"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowCapintecFrench",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "chkCapintecFrench"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "chkCapintecFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshDisplaySetupMoly",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowHome"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowBack"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowCapintec"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMethodTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMethodTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfLimitTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfLimitTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "chkMallinc"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "chkBristol"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "chkCapintec"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMoTcLimit"
+        },
+        {
+          "type": "reappear",
+          "target": "chkStreamlinedTest"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "chkStreamlinedTest"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_SETUP_MOLY"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowHomeEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowHomeFrench"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideHomeEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideHomeFrench"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowBackEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowBackFrench"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideBackEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideBackFrench"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowCapintecEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowCapintecFrench"
+    }
+  ],
+  "referencedImages": [
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/french_back_big.png",
+    "Images/french_home_big.png",
+    "Images/hline2.jpg",
+    "Images/home_big.png",
+    "Images/top_bar.png"
+  ],
+  "hasFrenchVariants": true,
+  "ramUsage": {
+    "internalRAM": {
+      "bytes": [
+        101,
+        102,
+        103,
+        104
+      ],
+      "strings": [
+        100,
+        101,
+        102,
+        103,
+        104
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

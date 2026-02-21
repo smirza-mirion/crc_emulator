@@ -1,0 +1,638 @@
+{
+  "name": "WellFactoryDetectors",
+  "filename": "WellFactoryDetectors.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "96": "Probe Channels",
+      "97": "Probe Installed",
+      "98": "Well Channels",
+      "99": "Well Installed",
+      "100": "Show Screen"
+    },
+    "strings": {
+      "101": "Probe Serial",
+      "102": "Probe Voltage",
+      "103": "Probe Threshold",
+      "104": "Well Serial",
+      "105": "Well Voltage",
+      "106": "Well Threshold"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Detector Settings",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnProbeSerial",
+      "x": 130,
+      "y": 125,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(101).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter Probe Serial#'),%ConfigMaxStrLen(6),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('0.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_PROBE700_SERIAL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "probeserialtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 101,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnProbeVoltage",
+      "x": 130,
+      "y": 175,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(102).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter Probe Voltage:'),%ConfigMaxStrLen(4),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('1077.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_PROBE700_VOLTAGE)",
+        "invisible": "TRUE"
+      },
+      "position_from": "probehvtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 102,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnProbeThreshold",
+      "x": 130,
+      "y": 225,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter Probe Threshold'),%ConfigMaxStrLen(4),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('4095.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_PROBE700_THRESHOLD)",
+        "invisible": "TRUE"
+      },
+      "position_from": "probethresholdtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "RadioButton",
+      "name": "radioprobeinstalled",
+      "x": 10,
+      "y": 425,
+      "width": 98,
+      "height": 40,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "14",
+        "fontStyle": "BOLD",
+        "groupName": "ProbeInstalled",
+        "href": "Amulet:UART.word(0).setValue(0x0107)",
+        "initialCondition": "FromInitHref",
+        "hrefOnHitOnly": "TRUE",
+        "initHref": "Amulet:internalRAM.byte(97).value()",
+        "internalNumber": "1",
+        "label": "Probe",
+        "invisible": "FALSE"
+      },
+      "position_from": "probeinstalled",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 97,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "RadioButton",
+      "name": "radiodrilledprobeinstalled",
+      "x": 108,
+      "y": 425,
+      "width": 133,
+      "height": 40,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "14",
+        "fontStyle": "BOLD",
+        "groupName": "ProbeInstalled",
+        "href": "Amulet:UART.word(0).setValue(0x0108)",
+        "initialCondition": "FromInitHref",
+        "hrefOnHitOnly": "TRUE",
+        "initHref": "Amulet:internalRAM.byte(97).value()",
+        "internalNumber": "2",
+        "label": "Drilled Probe",
+        "invisible": "FALSE"
+      },
+      "position_from": "drilledprobeinstalled",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 97,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "RadioButton",
+      "name": "radioprobenone",
+      "x": 266,
+      "y": 425,
+      "width": 133,
+      "height": 40,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "14",
+        "fontStyle": "BOLD",
+        "groupName": "ProbeInstalled",
+        "href": "Amulet:UART.word(0).setValue(0x0109)",
+        "initialCondition": "FromInitHref",
+        "hrefOnHitOnly": "TRUE",
+        "initHref": "Amulet:internalRAM.byte(97).value()",
+        "internalNumber": "3",
+        "label": "None",
+        "invisible": "FALSE"
+      },
+      "position_from": "probenone",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 97,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnWellSerial",
+      "x": 530,
+      "y": 125,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter Well Serial#'),%ConfigMaxStrLen(6),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('0.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_WELL700_SERIAL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "wellserialtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnWellVoltage",
+      "x": 530,
+      "y": 175,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter Well Voltage:'),%ConfigMaxStrLen(4),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('1077.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_WELL700_VOLTAGE)",
+        "invisible": "TRUE"
+      },
+      "position_from": "wellhvtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnWellThreshold",
+      "x": 530,
+      "y": 225,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter Well Threshold'),%ConfigMaxStrLen(4),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('4095.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_WELL700_THRESHOLD)",
+        "invisible": "TRUE"
+      },
+      "position_from": "wellthresholdtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "RadioButton",
+      "name": "radiowellinstalled",
+      "x": 467,
+      "y": 425,
+      "width": 133,
+      "height": 40,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "14",
+        "fontStyle": "BOLD",
+        "groupName": "WellInstalled",
+        "href": "Amulet:UART.word(0).setValue(0x010F)",
+        "initialCondition": "FromInitHref",
+        "hrefOnHitOnly": "TRUE",
+        "initHref": "Amulet:internalRAM.byte(99).value()",
+        "internalNumber": "1",
+        "label": "Well",
+        "invisible": "FALSE"
+      },
+      "position_from": "wellinstalled",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 99,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "RadioButton",
+      "name": "radiowellnone",
+      "x": 600,
+      "y": 425,
+      "width": 133,
+      "height": 40,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "14",
+        "fontStyle": "BOLD",
+        "groupName": "WellInstalled",
+        "href": "Amulet:UART.word(0).setValue(0x0110)",
+        "initialCondition": "FromInitHref",
+        "hrefOnHitOnly": "TRUE",
+        "initHref": "Amulet:internalRAM.byte(99).value()",
+        "internalNumber": "2",
+        "label": "None",
+        "invisible": "FALSE"
+      },
+      "position_from": "wellnone",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 99,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(),Amulet:UART.word(0).setValue(0x0111)",
+        "invisible": "TRUE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(), %Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshDisplay",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnProbeSerial"
+        },
+        {
+          "type": "reappear",
+          "target": "btnProbeSerial"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnProbeVoltage"
+        },
+        {
+          "type": "reappear",
+          "target": "btnProbeVoltage"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnProbeThreshold"
+        },
+        {
+          "type": "reappear",
+          "target": "btnProbeThreshold"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "ProbeInstalled"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnWellSerial"
+        },
+        {
+          "type": "reappear",
+          "target": "btnWellSerial"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnWellVoltage"
+        },
+        {
+          "type": "reappear",
+          "target": "btnWellVoltage"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnWellThreshold"
+        },
+        {
+          "type": "reappear",
+          "target": "btnWellThreshold"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "WellInstalled"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCancel"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_FACTORY_DETECTORS"
+    }
+  ],
+  "referencedImages": [
+    "Images/200x40.png",
+    "Images/bottom_bar.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "bytes": [
+        97,
+        99
+      ],
+      "labels": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

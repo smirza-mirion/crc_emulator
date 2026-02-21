@@ -1,0 +1,1655 @@
+{
+  "name": "WellThyroidUptakeEnterNormal",
+  "filename": "WellThyroidUptakeEnterNormal.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Show Grid",
+      "101": "Refresh Row 1",
+      "102": "Refresh Row 2",
+      "103": "Refresh Row 3",
+      "104": "Refresh Row 4"
+    },
+    "strings": {
+      "101": "Hour 1",
+      "102": "Min 1",
+      "103": "Max 1",
+      "104": "Hour 2",
+      "105": "Min 2",
+      "106": "Max 2",
+      "107": "Hour 3",
+      "108": "Min 3",
+      "109": "Max 3",
+      "110": "Hour 4",
+      "111": "Min 4",
+      "112": "Min 4"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 150,
+      "y": 0,
+      "width": 500,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Setup Thyroid Uptake Normal Range",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "StringField",
+      "name": "sfTitleView",
+      "x": 150,
+      "y": 0,
+      "width": 500,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Thyroid Uptake Normal Range",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHour",
+      "x": 20,
+      "y": 100,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD|ITALIC|UNDERLINE",
+        "initialCondition": "Hour",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour_label"
+    },
+    {
+      "type": "StringField",
+      "name": "sfMin",
+      "x": 230,
+      "y": 100,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD|ITALIC|UNDERLINE",
+        "initialCondition": "Minimum",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "min_label"
+    },
+    {
+      "type": "StringField",
+      "name": "sfMax",
+      "x": 440,
+      "y": 100,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD|ITALIC|UNDERLINE",
+        "initialCondition": "Maximum",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "max_label"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHour1",
+      "x": 20,
+      "y": 150,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(101).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Elapsed Time(hr):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_HOUR1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 101,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfHour1",
+      "x": 20,
+      "y": 150,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(101).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 101,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMin1",
+      "x": 230,
+      "y": 150,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(102).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Min Uptake(%):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('100.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_MIN1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "min1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 102,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMin1",
+      "x": 230,
+      "y": 150,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(102).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "min1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMax1",
+      "x": 440,
+      "y": 150,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Max Uptake(%):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('100.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_MAX1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "max1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMax1",
+      "x": 440,
+      "y": 150,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(103).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "max1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 103,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnClear1",
+      "x": 650,
+      "y": 150,
+      "width": 140,
+      "height": 40,
+      "params": {
+        "label": "Clear",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnClear1.disappear(),Amulet:UART.word(0).setValue(0x0103)",
+        "invisible": "TRUE"
+      },
+      "position_from": "clear1",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHour2",
+      "x": 20,
+      "y": 200,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Elapsed Time(hr):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_HOUR2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfHour2",
+      "x": 20,
+      "y": 200,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(104).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMin2",
+      "x": 230,
+      "y": 200,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Min Uptake(%):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('100.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_MIN2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "min2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMin2",
+      "x": 230,
+      "y": 200,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(105).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "min2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 105,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMax2",
+      "x": 440,
+      "y": 200,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Max Uptake(%):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('100.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_MAX2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "max2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMax2",
+      "x": 440,
+      "y": 200,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(106).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "max2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 106,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnClear2",
+      "x": 650,
+      "y": 200,
+      "width": 140,
+      "height": 40,
+      "params": {
+        "label": "Clear",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnClear2.disappear(),Amulet:UART.word(0).setValue(0x0104)",
+        "invisible": "TRUE"
+      },
+      "position_from": "clear2",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHour3",
+      "x": 20,
+      "y": 250,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(107).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Elapsed Time(hr):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_HOUR3)",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 107,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfHour3",
+      "x": 20,
+      "y": 250,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(107).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 107,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMin3",
+      "x": 230,
+      "y": 250,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(108).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Min Uptake(%):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('100.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_MIN3)",
+        "invisible": "TRUE"
+      },
+      "position_from": "min3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 108,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMin3",
+      "x": 230,
+      "y": 250,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(108).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "min3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 108,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMax3",
+      "x": 440,
+      "y": 250,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(109).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Max Uptake(%):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('100.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_MAX3)",
+        "invisible": "TRUE"
+      },
+      "position_from": "max3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 109,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMax3",
+      "x": 440,
+      "y": 250,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(109).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "max3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 109,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnClear3",
+      "x": 650,
+      "y": 250,
+      "width": 140,
+      "height": 40,
+      "params": {
+        "label": "Clear",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnClear3.disappear(),Amulet:UART.word(0).setValue(0x0105)",
+        "invisible": "TRUE"
+      },
+      "position_from": "clear3",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHour4",
+      "x": 20,
+      "y": 300,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(110).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Elapsed Time(hr):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_HOUR4)",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 110,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfHour4",
+      "x": 20,
+      "y": 300,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(110).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 110,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMin4",
+      "x": 230,
+      "y": 300,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(111).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Min Uptake(%):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('100.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_MIN4)",
+        "invisible": "TRUE"
+      },
+      "position_from": "min4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 111,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMin4",
+      "x": 230,
+      "y": 300,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(111).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "min4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 111,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMax4",
+      "x": 440,
+      "y": 300,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(112).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Max Uptake(%):'), %ConfigMaxStrLen(3), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('100.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_TU_ENTER_NORM_MAX4)",
+        "invisible": "TRUE"
+      },
+      "position_from": "max4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 112,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMax4",
+      "x": 440,
+      "y": 300,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "blue",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(112).value",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "max4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 112,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnClear4",
+      "x": 650,
+      "y": 300,
+      "width": 140,
+      "height": 40,
+      "params": {
+        "label": "Clear",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnClear4.disappear(),Amulet:UART.word(0).setValue(0x0106)",
+        "invisible": "TRUE"
+      },
+      "position_from": "clear4",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(),Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "TRUE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(),%Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowAll",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfHour"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMin"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMax"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnHour1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnHour1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMin1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMin1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMax1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMax1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnClear1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnHour2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnHour2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMin2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMin2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMax2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMax2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnClear2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnHour3"
+        },
+        {
+          "type": "reappear",
+          "target": "btnHour3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMin3"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMin3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMax3"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMax3"
+        },
+        {
+          "type": "reappear",
+          "target": "btnClear3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnHour4"
+        },
+        {
+          "type": "reappear",
+          "target": "btnHour4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMin4"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMin4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMax4"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMax4"
+        },
+        {
+          "type": "reappear",
+          "target": "btnClear4"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCancel"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowRow1",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnHour1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnHour1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMin1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMin1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMax1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMax1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnClear1"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowRow2",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnHour2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnHour2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMin2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMin2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMax2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMax2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnClear2"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowRow3",
+      "onVar": "internalRAM.byte(103)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(103)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnHour3"
+        },
+        {
+          "type": "reappear",
+          "target": "btnHour3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMin3"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMin3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMax3"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMax3"
+        },
+        {
+          "type": "reappear",
+          "target": "btnClear3"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowRow4",
+      "onVar": "internalRAM.byte(104)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(104)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnHour4"
+        },
+        {
+          "type": "reappear",
+          "target": "btnHour4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMin4"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMin4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnMax4"
+        },
+        {
+          "type": "reappear",
+          "target": "btnMax4"
+        },
+        {
+          "type": "reappear",
+          "target": "btnClear4"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowView",
+      "onVar": "internalRAM.byte(105)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(105)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitleView"
+        },
+        {
+          "type": "reappear",
+          "target": "btnBack"
+        },
+        {
+          "type": "reappear",
+          "target": "sfHour"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMin"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMax"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfHour1"
+        },
+        {
+          "type": "reappear",
+          "target": "sfHour1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMin1"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMin1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMax1"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMax1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfHour2"
+        },
+        {
+          "type": "reappear",
+          "target": "sfHour2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMin2"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMin2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMax2"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMax2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfHour3"
+        },
+        {
+          "type": "reappear",
+          "target": "sfHour3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMin3"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMin3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMax3"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMax3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfHour4"
+        },
+        {
+          "type": "reappear",
+          "target": "sfHour4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMin4"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMin4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMax4"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMax4"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_THYROID_UPTAKE_ENTER_NORMAL"
+    }
+  ],
+  "referencedImages": [
+    "Images/200x40.png",
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112
+      ],
+      "labels": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { AmuletStateManager } from '../lib/amulet-state'
 import { WebSocketManager } from '../lib/websocket'
+import { loadScreenByPage, loadScreenMap, ScreenDef, WidgetDef } from '../lib/screen-loader'
+import { AmuletStringField } from './widgets/AmuletStringField'
+import { AmuletButton } from './widgets/AmuletButton'
+import { AmuletFunctionButton } from './widgets/AmuletFunctionButton'
+import { AmuletBarGraph } from './widgets/AmuletBarGraph'
+import { AmuletImage } from './widgets/AmuletImage'
 
 interface Props {
   stateManager: AmuletStateManager
@@ -12,179 +18,365 @@ interface DrawCommand {
   [key: string]: any
 }
 
+/**
+ * ScreenRenderer dynamically loads and renders Amulet screen definitions
+ * based on the current page index from the firmware.
+ */
 export function ScreenRenderer({ stateManager, wsManager }: Props) {
+  const [screenDef, setScreenDef] = useState<ScreenDef | null>(null)
+  const [pageIndex, setPageIndex] = useState(stateManager.getPage())
+  const [hiddenWidgets, setHiddenWidgets] = useState<Set<string>>(new Set())
+  const [shownWidgets, setShownWidgets] = useState<Set<string>>(new Set())
   const [drawCommands, setDrawCommands] = useState<DrawCommand[]>([])
-  const [strings, setStrings] = useState<Record<number, string>>({})
 
+  // Preload screen map on mount
   useEffect(() => {
-    // Listen for draw commands from firmware
-    const handleDraw = (data: any) => {
-      if (data.type === 'drawLine' || data.type === 'fillRect' || data.type === 'drawImage') {
-        setDrawCommands(prev => [...prev, data])
+    loadScreenMap()
+  }, [])
+
+  // Load screen definition when page changes
+  useEffect(() => {
+    let cancelled = false
+
+    const loadPage = async (page: number) => {
+      const def = await loadScreenByPage(page)
+      if (!cancelled) {
+        setScreenDef(def)
+        setHiddenWidgets(new Set())
+        setShownWidgets(new Set())
+        setDrawCommands([])
       }
     }
 
-    const handleString = (index: number, value: string) => {
-      setStrings(prev => ({ ...prev, [index]: value }))
-    }
+    loadPage(pageIndex)
 
-    const handlePage = (data: any) => {
-      // Clear draw commands on page change
+    return () => { cancelled = true }
+  }, [pageIndex])
+
+  // Listen for page changes from firmware
+  useEffect(() => {
+    const handler = (page: number) => {
+      setPageIndex(page)
+    }
+    stateManager.onPageChangeAdd(handler)
+    return () => {
+      stateManager.offPageChange(handler)
+    }
+  }, [stateManager])
+
+  // Listen for draw commands (lines, rectangles, fill rects)
+  useEffect(() => {
+    const handleDraw = (data: any) => {
+      setDrawCommands(prev => [...prev, data])
+    }
+    const handlePage = () => {
       setDrawCommands([])
     }
 
     wsManager.on('drawLine', handleDraw)
     wsManager.on('fillRect', handleDraw)
     wsManager.on('setPage', handlePage)
-    stateManager.onStringChange(handleString)
 
     return () => {
       wsManager.off('drawLine', handleDraw)
       wsManager.off('fillRect', handleDraw)
       wsManager.off('setPage', handlePage)
-      stateManager.offStringChange(handleString)
     }
-  }, [wsManager, stateManager])
+  }, [wsManager])
 
-  // Render string fields at their positions
-  // The firmware sends strings with index numbers that map to screen positions
-  // For now, render all non-empty strings
-  const stringEntries = Object.entries(strings).filter(([, v]) => v.length > 0)
+  // Process refresh triggers when byte values change
+  useEffect(() => {
+    if (!screenDef?.refreshTriggers) return
+
+    const handler = (byteIndex: number, byteValue: number) => {
+      for (const trigger of screenDef.refreshTriggers!) {
+        if (!trigger.onVar || !trigger.trigger || !trigger.actions) continue
+
+        // Parse onVar: "internalRAM.byte(N)"
+        const varMatch = trigger.onVar.match(/byte\((\d+)\)/)
+        if (!varMatch) continue
+        const triggerByteIndex = parseInt(varMatch[1])
+        if (triggerByteIndex !== byteIndex) continue
+
+        // Parse trigger value
+        const triggerValue = parseTriggerValue(trigger.trigger)
+        if (triggerValue === null || triggerValue !== byteValue) continue
+
+        // Execute display-side actions
+        for (const action of trigger.actions) {
+          if (action.type === 'reappear' && action.target) {
+            setShownWidgets(prev => new Set([...prev, action.target!]))
+            setHiddenWidgets(prev => {
+              const next = new Set(prev)
+              next.delete(action.target!)
+              return next
+            })
+          } else if (action.type === 'disappear' && action.target) {
+            setHiddenWidgets(prev => new Set([...prev, action.target!]))
+            setShownWidgets(prev => {
+              const next = new Set(prev)
+              next.delete(action.target!)
+              return next
+            })
+          }
+        }
+      }
+    }
+
+    stateManager.onByteChange(handler)
+    return () => stateManager.offByteChange(handler)
+  }, [screenDef, stateManager])
+
+  if (!screenDef) {
+    return (
+      <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+        {/* Fallback: show basic hardcoded layout while loading */}
+        <FallbackDisplay stateManager={stateManager} drawCommands={drawCommands} />
+      </div>
+    )
+  }
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      {/* Background */}
-      <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-        background: 'linear-gradient(180deg, #3333AA 0%, #3333AA 69px, #DDEEFF 70px)',
-      }} />
+      {/* Static background images from the HTM file */}
+      {screenDef.staticImages?.map((img, i) => {
+        const src = normalizeImagePath(img.src)
+        // Get position from CSS positions (mapped by div_id)
+        const positions = getStaticImagePosition(img.div_id, screenDef)
+        return (
+          <img
+            key={`static-${i}`}
+            src={src}
+            width={img.width}
+            height={img.height}
+            style={{
+              position: 'absolute',
+              left: positions.x,
+              top: positions.y,
+            }}
+            draggable={false}
+          />
+        )
+      })}
 
-      {/* Draw commands (lines, rectangles) */}
-      <svg style={{ position: 'absolute', top: 0, left: 0, width: '800px', height: '600px', pointerEvents: 'none' }}>
+      {/* Draw commands (lines, fill rects) from firmware */}
+      <svg style={{
+        position: 'absolute', top: 0, left: 0, width: 800, height: 600,
+        pointerEvents: 'none', zIndex: 1,
+      }}>
         {drawCommands.map((cmd, i) => {
           if (cmd.type === 'drawLine') {
-            return <line key={i} x1={cmd.x1} y1={cmd.y1} x2={cmd.x2} y2={cmd.y2} stroke={cmd.color || '#000'} strokeWidth="1" />
+            const color = `rgb(${cmd.r || 0},${cmd.g || 0},${cmd.b || 0})`
+            return (
+              <line key={i}
+                x1={cmd.x1} y1={cmd.y1} x2={cmd.x2} y2={cmd.y2}
+                stroke={color} strokeWidth={cmd.weight || 1}
+              />
+            )
           }
           if (cmd.type === 'fillRect') {
-            return <rect key={i} x={cmd.x} y={cmd.y} width={cmd.w} height={cmd.h} fill={cmd.color || '#000'} />
+            const color = `rgb(${cmd.r || 0},${cmd.g || 0},${cmd.b || 0})`
+            return (
+              <rect key={i}
+                x={cmd.x} y={cmd.y} width={cmd.dx} height={cmd.dy}
+                fill={color}
+              />
+            )
           }
           return null
         })}
       </svg>
 
-      {/* Title bar text */}
-      <div style={{
-        position: 'absolute', top: '5px', left: '0', right: '0',
-        textAlign: 'center', color: 'white', fontSize: '24px', fontWeight: 'bold',
-        fontFamily: '"Arial Black", "Franklin Gothic Book", sans-serif',
-      }}>
-        {strings[80] || 'CRC-25R Calibrator'}
-      </div>
-
-      {/* Activity display (large number) */}
-      <div style={{
-        position: 'absolute', top: '200px', left: '180px', width: '428px', height: '114px',
-        display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
-        fontSize: '72px', fontWeight: 'bold',
-        fontFamily: '"Franklin Gothic Book", "Arial", sans-serif',
-        color: '#000', paddingRight: '10px',
-      }}>
-        {strings[10] || '---'}
-      </div>
-
-      {/* Unit display */}
-      <div style={{
-        position: 'absolute', top: '240px', left: '620px',
-        fontSize: '24px', fontFamily: '"Franklin Gothic Book", sans-serif',
-      }}>
-        {strings[11] || ''}
-      </div>
-
-      {/* Nuclide display */}
-      <div style={{
-        position: 'absolute', top: '75px', left: '10px',
-        fontSize: '18px', fontFamily: '"Franklin Gothic Book", sans-serif',
-      }}>
-        {strings[101] || ''}
-      </div>
-
-      {/* Chamber indicator */}
-      <div style={{
-        position: 'absolute', top: '545px', left: '120px',
-        fontSize: '16px', fontFamily: 'sans-serif',
-        color: '#000',
-      }}>
-        {strings[9] || ''}
-      </div>
-
-      {/* Time display */}
-      <div style={{
-        position: 'absolute', top: '5px', right: '10px',
-        fontSize: '14px', color: 'white',
-        fontFamily: 'monospace',
-      }}>
-        {strings[2] || ''}
-      </div>
-
-      {/* Navigation buttons bar */}
-      <NavigationBar stateManager={stateManager} />
-
-      {/* Status text lines */}
-      {[170, 171, 172, 173, 174, 175].map(idx => (
-        strings[idx] ? (
-          <div key={idx} style={{
-            position: 'absolute',
-            top: `${350 + (idx - 170) * 25}px`,
-            left: '20px',
-            fontSize: '14px',
-            fontFamily: '"Franklin Gothic Book", sans-serif',
-          }}>
-            {strings[idx]}
-          </div>
-        ) : null
+      {/* Dynamic widgets from screen definition */}
+      {screenDef.widgets.map((widget, i) => (
+        <WidgetRenderer
+          key={`${widget.name || `w${i}`}`}
+          widget={widget}
+          stateManager={stateManager}
+          ws={wsManager}
+          hiddenWidgets={hiddenWidgets}
+          shownWidgets={shownWidgets}
+        />
       ))}
     </div>
   )
 }
 
-function NavigationBar({ stateManager }: { stateManager: AmuletStateManager }) {
-  const language = stateManager.getByte(92) // 0=English, 1=French
+interface WidgetRendererProps {
+  widget: WidgetDef
+  stateManager: AmuletStateManager
+  ws: WebSocketManager
+  hiddenWidgets: Set<string>
+  shownWidgets: Set<string>
+}
 
-  const buttons = [
-    { label: language ? 'Quotidien' : 'Daily', byteIdx: 189, value: 1, color: '#4a90d9' },
-    { label: language ? 'Fond' : 'Bkg', byteIdx: 189, value: 2, color: '#4a90d9' },
-    { label: language ? 'Tension' : 'Ch Volts', byteIdx: 189, value: 3, color: '#4a90d9' },
-    { label: language ? 'Exactitude' : 'Accuracy', byteIdx: 189, value: 4, color: '#4a90d9' },
-    { label: language ? 'Tests avanc.' : 'Enhanced', byteIdx: 189, value: 5, color: '#4a90d9' },
-    { label: 'Moly', byteIdx: 189, value: 6, color: '#4a90d9' },
-    { label: language ? 'Inventaire' : 'Inventory', byteIdx: 189, value: 7, color: '#4a90d9' },
-    { label: language ? 'Config' : 'Setup', byteIdx: 189, value: 22, color: '#d9534f' },
-  ]
+function WidgetRenderer({
+  widget, stateManager, ws, hiddenWidgets, shownWidgets,
+}: WidgetRendererProps) {
+  // Determine visibility from refresh trigger state
+  const isHidden = hiddenWidgets.has(widget.name)
+  const isForceShown = shownWidgets.has(widget.name)
+  const visible = isForceShown || !isHidden
+
+  switch (widget.type) {
+    case 'StringField':
+    case 'NumericField':
+      return <AmuletStringField widget={widget} stateManager={stateManager} visible={visible} />
+
+    case 'CustomButton':
+      return <AmuletButton widget={widget} stateManager={stateManager} ws={ws} visible={visible} />
+
+    case 'FunctionButton':
+      return <AmuletFunctionButton widget={widget} stateManager={stateManager} ws={ws} visible={visible} />
+
+    case 'BarGraph':
+      return <AmuletBarGraph widget={widget} stateManager={stateManager} visible={visible} />
+
+    case 'Image':
+      return <AmuletImage widget={widget} visible={visible} />
+
+    default:
+      return null
+  }
+}
+
+/**
+ * Fallback display used when no screen definition is loaded yet.
+ * Shows a basic hardcoded layout with the data available from the state manager.
+ */
+function FallbackDisplay({
+  stateManager,
+  drawCommands,
+}: {
+  stateManager: AmuletStateManager
+  drawCommands: DrawCommand[]
+}) {
+  const [strings, setStrings] = useState<Record<number, string>>({})
+
+  useEffect(() => {
+    const handler = (index: number, value: string) => {
+      setStrings(prev => ({ ...prev, [index]: value }))
+    }
+    stateManager.onStringChange(handler)
+    return () => stateManager.offStringChange(handler)
+  }, [stateManager])
 
   return (
-    <div style={{
-      position: 'absolute', bottom: '0', left: '0', right: '0', height: '63px',
-      display: 'flex', flexDirection: 'row', background: '#e8e8e8',
-      borderTop: '1px solid #999',
-    }}>
-      {buttons.map((btn, i) => (
-        <button
-          key={i}
-          onClick={() => stateManager.pressButton(btn.byteIdx, btn.value)}
-          style={{
-            flex: 1, border: 'none', cursor: 'pointer',
-            background: btn.color, color: 'white',
-            fontSize: '11px', fontWeight: 'bold', fontFamily: 'sans-serif',
-            margin: '2px', borderRadius: '4px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}
-          onMouseDown={(e) => (e.currentTarget.style.opacity = '0.7')}
-          onMouseUp={(e) => (e.currentTarget.style.opacity = '1')}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-        >
-          {btn.label}
-        </button>
-      ))}
-    </div>
+    <>
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+        background: 'linear-gradient(180deg, #3333AA 0%, #3333AA 69px, #DDEEFF 70px)',
+      }} />
+
+      <svg style={{
+        position: 'absolute', top: 0, left: 0, width: 800, height: 600,
+        pointerEvents: 'none',
+      }}>
+        {drawCommands.map((cmd, i) => {
+          if (cmd.type === 'drawLine') {
+            const color = `rgb(${cmd.r || 0},${cmd.g || 0},${cmd.b || 0})`
+            return <line key={i} x1={cmd.x1} y1={cmd.y1} x2={cmd.x2} y2={cmd.y2} stroke={color} strokeWidth={cmd.weight || 1} />
+          }
+          if (cmd.type === 'fillRect') {
+            const color = `rgb(${cmd.r || 0},${cmd.g || 0},${cmd.b || 0})`
+            return <rect key={i} x={cmd.x} y={cmd.y} width={cmd.dx} height={cmd.dy} fill={color} />
+          }
+          return null
+        })}
+      </svg>
+
+      {/* Title */}
+      <div style={{
+        position: 'absolute', top: 5, left: 0, right: 0,
+        textAlign: 'center', color: 'white', fontSize: 24, fontWeight: 'bold',
+        fontFamily: '"Arial Black", sans-serif',
+      }}>
+        {strings[80] || strings[100] || 'CRC-25R Calibrator'}
+      </div>
+
+      {/* Activity */}
+      <div style={{
+        position: 'absolute', top: 200, left: 180, width: 428, height: 114,
+        display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
+        fontSize: 72, fontWeight: 'bold',
+        fontFamily: '"Franklin Gothic Medium", Arial, sans-serif',
+        paddingRight: 10,
+      }}>
+        {strings[10] || '---'}
+      </div>
+
+      {/* Unit */}
+      <div style={{
+        position: 'absolute', top: 240, left: 620,
+        fontSize: 24, fontFamily: '"Franklin Gothic Medium", sans-serif',
+      }}>
+        {strings[11] || ''}
+      </div>
+
+      {/* Nuclide */}
+      <div style={{
+        position: 'absolute', top: 75, left: 10,
+        fontSize: 18, fontFamily: '"Franklin Gothic Medium", sans-serif',
+      }}>
+        {strings[101] || ''}
+      </div>
+
+      {/* Chamber */}
+      <div style={{
+        position: 'absolute', top: 545, left: 120,
+        fontSize: 16, fontFamily: 'sans-serif', color: '#000',
+      }}>
+        {strings[9] || ''}
+      </div>
+
+      {/* Time */}
+      <div style={{
+        position: 'absolute', top: 5, right: 10,
+        fontSize: 14, color: 'white', fontFamily: 'monospace',
+      }}>
+        {strings[2] || ''}
+      </div>
+
+      {/* Loading indicator */}
+      <div style={{
+        position: 'absolute', bottom: 70, left: 0, right: 0,
+        textAlign: 'center', color: '#999', fontSize: 12,
+      }}>
+        Loading screen definition...
+      </div>
+    </>
   )
+}
+
+function parseTriggerValue(trigger: string): number | null {
+  if (trigger.startsWith('0x') || trigger.startsWith('0X')) {
+    return parseInt(trigger, 16)
+  }
+  const n = parseInt(trigger, 10)
+  return isNaN(n) ? null : n
+}
+
+function normalizeImagePath(src: string): string {
+  if (src.startsWith('Images/')) {
+    return `/assets/images/${src.substring(7)}`
+  }
+  return `/assets/images/${src}`
+}
+
+/**
+ * Get position for a static image based on its parent DIV ID.
+ * The CSS positions are parsed from the HTM file and stored in the screen definition.
+ */
+function getStaticImagePosition(divId: string | undefined, _screenDef: ScreenDef): { x: number; y: number } {
+  if (!divId) return { x: 0, y: 0 }
+
+  // Common DIV positions from the HTM CSS (hardcoded for known layouts)
+  const knownPositions: Record<string, { x: number; y: number }> = {
+    topbar: { x: 0, y: 0 },
+    bottombar: { x: 0, y: 537 },
+    backgnd1: { x: 0, y: 70 },
+    gradient: { x: 0, y: 0 },
+  }
+
+  return knownPositions[divId] || { x: 0, y: 0 }
 }

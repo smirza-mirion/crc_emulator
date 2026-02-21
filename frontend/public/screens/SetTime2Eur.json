@@ -1,0 +1,2387 @@
+{
+  "name": "SetTime2Eur",
+  "filename": "SetTime2Eur.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "80": "Language\t\t(STATE) English = 0, French = 1",
+      "98": "Show Year, Month, Day, Hour, Minute, Second",
+      "99": "Show Year, Month, Day",
+      "100": "Month",
+      "101": "Day Tens Digit",
+      "102": "Day Ones Digit",
+      "103": "Hour Tens Digit",
+      "104": "Hour Ones Digit",
+      "105": "Minute Tens Digit",
+      "106": "Minute Ones Digit",
+      "107": "Show Year, Month, Day, Hour, Minute",
+      "108": "Show Hour Error",
+      "109": "Show Month Error",
+      "110": "Exit",
+      "111": "Second Tens Digit",
+      "112": "Second Ones Digit"
+    },
+    "words": {
+      "96": "Year 10 lower limit",
+      "97": "Year 10 upper limit",
+      "98": "Year lower limit",
+      "99": "Year upper limit",
+      "100": "Year"
+    },
+    "strings": {
+      "100": "Title",
+      "101": "Title",
+      "102": "Accept",
+      "103": "Cancel",
+      "104": "Invalid Date",
+      "105": "Invalid Hour"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 790,
+      "height": 60,
+      "params": {
+        "border": "0",
+        "fillColor": "#000030",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BOTTOM",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontColor": "#FFFF30",
+        "fontStyle": "BOLD",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMonthLabel",
+      "x": 210,
+      "y": 165,
+      "width": 70,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": "mm"
+      },
+      "position_from": "month_label"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMonthPlus",
+      "x": 210,
+      "y": 205,
+      "width": 70,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "+",
+        "href": "%Beep,Amulet:document.refreshIncMonth.forceUpdate(),Amulet:document.refreshIncBarMonth.forceUpdate()"
+      },
+      "position_from": "month_plus"
+    },
+    {
+      "type": "NumericField",
+      "name": "nfMonth",
+      "x": 210,
+      "y": 275,
+      "width": 70,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "max": "12",
+        "maxFld": "12",
+        "min": "1",
+        "minFld": "1",
+        "printf": "%2i",
+        "href": "Amulet:internalRAM.byte(100).value()",
+        "invisible": "TRUE"
+      },
+      "position_from": "month",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMonthMinus",
+      "x": 210,
+      "y": 325,
+      "width": 70,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "-",
+        "href": "%Beep,Amulet:document.refreshDecMonth.forceUpdate(),Amulet:document.refreshDecBarMonth.forceUpdate()"
+      },
+      "position_from": "month_minus"
+    },
+    {
+      "type": "StringField",
+      "name": "sfMonthError",
+      "x": 55,
+      "y": 400,
+      "width": 350,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FF0000",
+        "font": "Franklin Gothic Book",
+        "fontSize": "26pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "printf": "%s",
+        "href": "Amulet:internalRAM.string(104).value()",
+        "initialCondition": "",
+        "invisible": "TRUE"
+      },
+      "position_from": "month_error",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfSlash1",
+      "x": 195,
+      "y": 275,
+      "width": 15,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": "/"
+      },
+      "position_from": "slash1"
+    },
+    {
+      "type": "StringField",
+      "name": "sfDayTenLabel",
+      "x": 55,
+      "y": 165,
+      "width": 70,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": "d"
+      },
+      "position_from": "day_ten_label"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDayTenPlus",
+      "x": 55,
+      "y": 205,
+      "width": 70,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "+",
+        "href": "%Beep,Amulet:document.refreshIncDayTen.forceUpdate(),Amulet:document.refreshIncBarDayTen.forceUpdate()"
+      },
+      "position_from": "day_ten_plus"
+    },
+    {
+      "type": "NumericField",
+      "name": "nfDayTen",
+      "x": 55,
+      "y": 275,
+      "width": 70,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "max": "3",
+        "maxFld": "3",
+        "min": "0",
+        "minFld": "0",
+        "printf": "%1i",
+        "href": "Amulet:internalRAM.byte(101).value()",
+        "invisible": "TRUE"
+      },
+      "position_from": "day_ten",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 101,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDayTenMinus",
+      "x": 55,
+      "y": 325,
+      "width": 70,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "-",
+        "href": "%Beep,Amulet:document.refreshDecDayTen.forceUpdate(),Amulet:document.refreshDecBarDayTen.forceUpdate()"
+      },
+      "position_from": "day_ten_minus"
+    },
+    {
+      "type": "StringField",
+      "name": "sfDayOneLabel",
+      "x": 125,
+      "y": 165,
+      "width": 70,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": "d"
+      },
+      "position_from": "day_one_label"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDayOnePlus",
+      "x": 125,
+      "y": 205,
+      "width": 70,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "+",
+        "href": "%Beep,Amulet:document.refreshIncDayOne.forceUpdate(),Amulet:document.refreshIncBarDayOne.forceUpdate()"
+      },
+      "position_from": "day_one_plus"
+    },
+    {
+      "type": "NumericField",
+      "name": "nfDayOne",
+      "x": 125,
+      "y": 275,
+      "width": 70,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "max": "9",
+        "maxFld": "9",
+        "min": "0",
+        "minFld": "0",
+        "printf": "%1i",
+        "href": "Amulet:internalRAM.byte(102).value()",
+        "invisible": "TRUE"
+      },
+      "position_from": "day_one",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDayOneMinus",
+      "x": 125,
+      "y": 325,
+      "width": 70,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "-",
+        "href": "%Beep,Amulet:document.refreshDecDayOne.forceUpdate(),Amulet:document.refreshDecBarDayOne.forceUpdate()"
+      },
+      "position_from": "day_one_minus"
+    },
+    {
+      "type": "StringField",
+      "name": "sfSlash2",
+      "x": 280,
+      "y": 275,
+      "width": 15,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": "/"
+      },
+      "position_from": "slash2"
+    },
+    {
+      "type": "StringField",
+      "name": "sfYearLabel",
+      "x": 295,
+      "y": 165,
+      "width": 105,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": "yyyy",
+        "invisible": "TRUE"
+      },
+      "position_from": "year_label"
+    },
+    {
+      "type": "StringField",
+      "name": "sfYearLabelFrench",
+      "x": 295,
+      "y": 165,
+      "width": 105,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": "aaaa",
+        "invisible": "TRUE"
+      },
+      "position_from": "year_label",
+      "language": "french"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnYearPlus10",
+      "x": 295,
+      "y": 205,
+      "width": 55,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontStyle": "PLAIN",
+        "fontColor": "blue",
+        "label": "+10",
+        "href": "%Beep,Amulet:document.refreshIncYear10.forceUpdate()"
+      },
+      "position_from": "year_plus10"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnYearPlus",
+      "x": 350,
+      "y": 205,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "+",
+        "href": "%Beep,Amulet:document.refreshIncYear.forceUpdate()"
+      },
+      "position_from": "year_plus"
+    },
+    {
+      "type": "NumericField",
+      "name": "nfYear",
+      "x": 295,
+      "y": 275,
+      "width": 105,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "max": "2100",
+        "maxFld": "2100",
+        "min": "1900",
+        "minFld": "1900",
+        "printf": "%4i",
+        "href": "Amulet:internalRAM.word(100).value()",
+        "invisible": "TRUE"
+      },
+      "position_from": "year",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "word",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnYearMinus",
+      "x": 350,
+      "y": 325,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "-",
+        "href": "%Beep,Amulet:document.refreshDecYear.forceUpdate()"
+      },
+      "position_from": "year_minus"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnYearMinus10",
+      "x": 295,
+      "y": 325,
+      "width": 55,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontStyle": "PLAIN",
+        "fontColor": "blue",
+        "label": "-10",
+        "href": "%Beep,Amulet:document.refreshDecYear10.forceUpdate()"
+      },
+      "position_from": "year_minus10"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHourTenLabel",
+      "x": 450,
+      "y": 165,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": "h"
+      },
+      "position_from": "hour_ten_label"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnHourTenPlus",
+      "x": 450,
+      "y": 205,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "+",
+        "href": "%Beep,Amulet:document.refreshIncHourTen.forceUpdate(),Amulet:document.refreshIncBarHourTen.forceUpdate()"
+      },
+      "position_from": "hour_ten_plus"
+    },
+    {
+      "type": "NumericField",
+      "name": "nfHourTen",
+      "x": 450,
+      "y": 275,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "max": "2",
+        "maxFld": "2",
+        "min": "0",
+        "minFld": "0",
+        "printf": "%1i",
+        "href": "Amulet:internalRAM.byte(103).value()",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour_ten",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 103,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnHourTenMinus",
+      "x": 450,
+      "y": 325,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "-",
+        "href": "%Beep,Amulet:document.refreshDecHourTen.forceUpdate(),Amulet:document.refreshDecBarHourTen.forceUpdate()"
+      },
+      "position_from": "hour_ten_minus"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHourOneLabel",
+      "x": 500,
+      "y": 165,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": "h"
+      },
+      "position_from": "hour_one_label"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnHourOnePlus",
+      "x": 500,
+      "y": 205,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "+",
+        "href": "%Beep,Amulet:document.refreshIncHourOne.forceUpdate(),Amulet:document.refreshIncBarHourOne.forceUpdate()"
+      },
+      "position_from": "hour_one_plus"
+    },
+    {
+      "type": "NumericField",
+      "name": "nfHourOne",
+      "x": 500,
+      "y": 275,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "max": "9",
+        "maxFld": "9",
+        "min": "0",
+        "minFld": "0",
+        "printf": "%1i",
+        "href": "Amulet:internalRAM.byte(104).value()",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour_one",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnHourOneMinus",
+      "x": 500,
+      "y": 325,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "-",
+        "href": "%Beep,Amulet:document.refreshDecHourOne.forceUpdate(),Amulet:document.refreshDecBarHourOne.forceUpdate()"
+      },
+      "position_from": "hour_one_minus"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHourError",
+      "x": 450,
+      "y": 400,
+      "width": 350,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FF0000",
+        "font": "Franklin Gothic Book",
+        "fontSize": "26pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "printf": "%s",
+        "href": "Amulet:internalRAM.string(105).value()",
+        "initialCondition": "",
+        "invisible": "TRUE"
+      },
+      "position_from": "hour_error",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 105,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfColon1",
+      "x": 550,
+      "y": 275,
+      "width": 15,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "26pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": ":"
+      },
+      "position_from": "colon1"
+    },
+    {
+      "type": "StringField",
+      "name": "sfMinuteTenLabel",
+      "x": 565,
+      "y": 165,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "updateRate": "0.0,0.00",
+        "href": "Amulet:NOP()",
+        "initialCondition": "m"
+      },
+      "position_from": "minute_ten_label"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMinuteTenPlus",
+      "x": 565,
+      "y": 205,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "+",
+        "href": "%Beep,Amulet:document.refreshIncMinuteTen.forceUpdate(),Amulet:document.refreshIncBarMinuteTen.forceUpdate()"
+      },
+      "position_from": "minute_ten_plus"
+    },
+    {
+      "type": "NumericField",
+      "name": "nfMinuteTen",
+      "x": 565,
+      "y": 275,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "max": "5",
+        "maxFld": "5",
+        "min": "0",
+        "minFld": "0",
+        "printf": "%1i",
+        "href": "Amulet:internalRAM.byte(105).value()",
+        "invisible": "TRUE"
+      },
+      "position_from": "minute_ten",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 105,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMinuteTenMinus",
+      "x": 565,
+      "y": 325,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "-",
+        "href": "%Beep,Amulet:document.refreshDecMinuteTen.forceUpdate(),Amulet:document.refreshDecBarMinuteTen.forceUpdate()"
+      },
+      "position_from": "minute_ten_minus"
+    },
+    {
+      "type": "StringField",
+      "name": "sfMinuteOneLabel",
+      "x": 615,
+      "y": 165,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": "m"
+      },
+      "position_from": "minute_one_label"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMinuteOnePlus",
+      "x": 615,
+      "y": 205,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "+",
+        "href": "%Beep,Amulet:document.refreshIncMinuteOne.forceUpdate(),Amulet:document.refreshIncBarMinuteOne.forceUpdate()"
+      },
+      "position_from": "minute_one_plus"
+    },
+    {
+      "type": "NumericField",
+      "name": "nfMinuteOne",
+      "x": 615,
+      "y": 275,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "max": "9",
+        "maxFld": "9",
+        "min": "0",
+        "minFld": "0",
+        "printf": "%1i",
+        "href": "Amulet:internalRAM.byte(106).value()",
+        "invisible": "TRUE"
+      },
+      "position_from": "minute_one",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 106,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMinuteOneMinus",
+      "x": 615,
+      "y": 325,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "-",
+        "href": "%Beep,Amulet:document.refreshDecMinuteOne.forceUpdate(),Amulet:document.refreshDecBarMinuteOne.forceUpdate()"
+      },
+      "position_from": "minute_one_minus"
+    },
+    {
+      "type": "StringField",
+      "name": "sfColon2",
+      "x": 665,
+      "y": 275,
+      "width": 15,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "26pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": ":"
+      },
+      "position_from": "colon2"
+    },
+    {
+      "type": "StringField",
+      "name": "sfSecondTenLabel",
+      "x": 680,
+      "y": 165,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "updateRate": "0.0,0.00",
+        "href": "Amulet:NOP()",
+        "initialCondition": "s"
+      },
+      "position_from": "second_ten_label"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSecondTenPlus",
+      "x": 680,
+      "y": 205,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "+",
+        "href": "%Beep,Amulet:document.refreshIncSecondTen.forceUpdate(),Amulet:document.refreshIncBarSecondTen.forceUpdate()"
+      },
+      "position_from": "second_ten_plus"
+    },
+    {
+      "type": "NumericField",
+      "name": "nfSecondTen",
+      "x": 680,
+      "y": 275,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "max": "5",
+        "maxFld": "5",
+        "min": "0",
+        "minFld": "0",
+        "printf": "%1i",
+        "href": "Amulet:internalRAM.byte(111).value()",
+        "invisible": "TRUE"
+      },
+      "position_from": "second_ten",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 111,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSecondTenMinus",
+      "x": 680,
+      "y": 325,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "-",
+        "href": "%Beep,Amulet:document.refreshDecSecondTen.forceUpdate(),Amulet:document.refreshDecBarSecondTen.forceUpdate()"
+      },
+      "position_from": "second_ten_minus"
+    },
+    {
+      "type": "StringField",
+      "name": "sfSecondOneLabel",
+      "x": 730,
+      "y": 165,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontStyle": "ITALIC|UNDERLINE",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "printf": "%s",
+        "href": "Amulet:NOP()",
+        "initialCondition": "s"
+      },
+      "position_from": "second_one_label"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSecondOnePlus",
+      "x": 730,
+      "y": 205,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "+",
+        "href": "%Beep,Amulet:document.refreshIncSecondOne.forceUpdate(),Amulet:document.refreshIncBarSecondOne.forceUpdate()"
+      },
+      "position_from": "second_one_plus"
+    },
+    {
+      "type": "NumericField",
+      "name": "nfSecondOne",
+      "x": 730,
+      "y": 275,
+      "width": 50,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "24pt",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "max": "9",
+        "maxFld": "9",
+        "min": "0",
+        "minFld": "0",
+        "printf": "%1i",
+        "href": "Amulet:internalRAM.byte(112).value()",
+        "invisible": "TRUE"
+      },
+      "position_from": "second_one",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 112,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSecondOneMinus",
+      "x": 730,
+      "y": 325,
+      "width": 50,
+      "height": 70,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "26pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "label": "-",
+        "href": "%Beep,Amulet:document.refreshDecSecondOne.forceUpdate(),Amulet:document.refreshDecBarSecondOne.forceUpdate()"
+      },
+      "position_from": "second_one_minus"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 483,
+      "y": 533,
+      "width": 154,
+      "height": 62,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontColor": "green",
+        "fontStyle": "BOLD",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(102).value()",
+        "href": "Amulet:document.btnAccept.disappear(),\n\t\t\t\t\t\t\t  Amulet:document.sfMonthError.disappear(),\n\t\t\t\t\t\t\t  Amulet:document.sfHourError.disappear(),\n\t\t\t\t\t\t\t  Amulet:UART.word(0x01).setValue(Amulet:internalRAM.word(100).value()),\n\t\t\t\t\t\t\t  Amulet:UART.byte(0x07).setValue(Amulet:internalRAM.byte(100).value()),\n\t\t\t\t\t\t\t  Amulet:UART.byte(0x08).setValue(Amulet:internalRAM.byte(102).value()),\n\t\t\t\t\t\t\t  Amulet:UART.byte(0x09).setValue(Amulet:internalRAM.byte(101).value()),\n\t\t\t\t\t\t\t  Amulet:UART.byte(0x0A).setValue(Amulet:internalRAM.byte(104).value()),\n\t\t\t\t\t\t\t  Amulet:UART.byte(0x0B).setValue(Amulet:internalRAM.byte(103).value()),\n\t\t\t\t\t\t\t  Amulet:UART.byte(0x0C).setValue(Amulet:internalRAM.byte(106).value()),\n\t\t\t\t\t\t\t  Amulet:UART.byte(0x0D).setValue(Amulet:internalRAM.byte(105).value()),\n\t\t\t\t\t\t\t  Amulet:UART.byte(0x28).setValue(Amulet:internalRAM.byte(112).value()),\n\t\t\t\t\t\t\t  Amulet:UART.byte(0x29).setValue(Amulet:internalRAM.byte(111).value()),\n\t\t\t\t\t\t\t  Amulet:UART.word(0).setValue(0x0102)"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 102,
+          "param": "initHref"
+        },
+        {
+          "source": "internalRAM",
+          "type": "word",
+          "index": 100,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 100,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 102,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 101,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 104,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 103,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 106,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 105,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 112,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 111,
+          "param": "href"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 641,
+      "y": 533,
+      "width": 154,
+      "height": 62,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontColor": "red",
+        "fontStyle": "BOLD",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "href": "Amulet:document.btnCancel.disappear(),%Back"
+      },
+      "position_from": "cancel",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowYearLabelEnglish",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "sfYearLabel"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowYearLabelFrench",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "sfYearLabelFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDateTime",
+      "onVar": "internalRAM.byte(107)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(107)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowYearLabel"
+        },
+        {
+          "type": "copyToRamWord",
+          "target": "internalRAM.word(98)",
+          "value": 96
+        },
+        {
+          "type": "add",
+          "target": "internalRAM.word(96)",
+          "value": 9
+        },
+        {
+          "type": "copyToRamWord",
+          "target": "internalRAM.word(99)",
+          "value": 97
+        },
+        {
+          "type": "sub",
+          "target": "internalRAM.word(97)",
+          "value": 9
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfMonth",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfMonth"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfDayTen",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfDayTen"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfDayOne",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfDayOne"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfYear",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfYear"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfHourTen",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfHourTen"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfHourOne",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfHourOne"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfMinuteTen",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfMinuteTen"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfMinuteOne",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfMinuteOne"
+        },
+        {
+          "type": "disappear",
+          "target": "sfColon2"
+        },
+        {
+          "type": "disappear",
+          "target": "btnSecondTenMinus"
+        },
+        {
+          "type": "disappear",
+          "target": "btnSecondTenPlus"
+        },
+        {
+          "type": "disappear",
+          "target": "sfSecondTenLabel"
+        },
+        {
+          "type": "disappear",
+          "target": "btnSecondOneMinus"
+        },
+        {
+          "type": "disappear",
+          "target": "btnSecondOnePlus"
+        },
+        {
+          "type": "disappear",
+          "target": "sfSecondOneLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMonthError"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfHourError"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnAccept"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnCancel"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowHourError",
+      "onVar": "internalRAM.byte(108)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(108)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "reappear",
+          "target": "sfHourError"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowMonthError",
+      "onVar": "internalRAM.byte(109)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(109)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "reappear",
+          "target": "sfMonthError"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDate",
+      "onVar": "internalRAM.byte(99)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(99)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowYearLabel"
+        },
+        {
+          "type": "copyToRamWord",
+          "target": "internalRAM.word(98)",
+          "value": 96
+        },
+        {
+          "type": "add",
+          "target": "internalRAM.word(96)",
+          "value": 9
+        },
+        {
+          "type": "copyToRamWord",
+          "target": "internalRAM.word(99)",
+          "value": 97
+        },
+        {
+          "type": "sub",
+          "target": "internalRAM.word(97)",
+          "value": 9
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfMonth",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfMonth"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfDayTen",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfDayTen"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfDayOne",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfDayOne"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfYear",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfYear"
+        },
+        {
+          "type": "disappear",
+          "target": "btnHourTenMinus"
+        },
+        {
+          "type": "disappear",
+          "target": "btnHourTenPlus"
+        },
+        {
+          "type": "disappear",
+          "target": "sfHourTenLabel"
+        },
+        {
+          "type": "disappear",
+          "target": "btnHourOneMinus"
+        },
+        {
+          "type": "disappear",
+          "target": "btnHourOnePlus"
+        },
+        {
+          "type": "disappear",
+          "target": "sfHourOneLabel"
+        },
+        {
+          "type": "disappear",
+          "target": "sfColon1"
+        },
+        {
+          "type": "disappear",
+          "target": "btnMinuteTenMinus"
+        },
+        {
+          "type": "disappear",
+          "target": "btnMinuteTenPlus"
+        },
+        {
+          "type": "disappear",
+          "target": "sfMinuteTenLabel"
+        },
+        {
+          "type": "disappear",
+          "target": "btnMinuteOneMinus"
+        },
+        {
+          "type": "disappear",
+          "target": "btnMinuteOnePlus"
+        },
+        {
+          "type": "disappear",
+          "target": "sfMinuteOneLabel"
+        },
+        {
+          "type": "disappear",
+          "target": "sfColon2"
+        },
+        {
+          "type": "disappear",
+          "target": "btnSecondTenMinus"
+        },
+        {
+          "type": "disappear",
+          "target": "btnSecondTenPlus"
+        },
+        {
+          "type": "disappear",
+          "target": "sfSecondTenLabel"
+        },
+        {
+          "type": "disappear",
+          "target": "btnSecondOneMinus"
+        },
+        {
+          "type": "disappear",
+          "target": "btnSecondOnePlus"
+        },
+        {
+          "type": "disappear",
+          "target": "sfSecondOneLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMonthError"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfHourError"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnAccept"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnCancel"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDateTimeSec",
+      "onVar": "internalRAM.byte(98)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(98)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowYearLabel"
+        },
+        {
+          "type": "copyToRamWord",
+          "target": "internalRAM.word(98)",
+          "value": 96
+        },
+        {
+          "type": "add",
+          "target": "internalRAM.word(96)",
+          "value": 9
+        },
+        {
+          "type": "copyToRamWord",
+          "target": "internalRAM.word(99)",
+          "value": 97
+        },
+        {
+          "type": "sub",
+          "target": "internalRAM.word(97)",
+          "value": 9
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfMonth",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfMonth"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfDayTen",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfDayTen"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfDayOne",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfDayOne"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfYear",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfYear"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfHourTen",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfHourTen"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfHourOne",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfHourOne"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfMinuteTen",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfMinuteTen"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfMinuteOne",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfMinuteOne"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfSecondTen",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfSecondTen"
+        },
+        {
+          "type": "setUpdateRate",
+          "target": "nfSecondOne",
+          "value": 0.01
+        },
+        {
+          "type": "reappear",
+          "target": "nfSecondOne"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMonthError"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfHourError"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnAccept"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnCancel"
+        }
+      ]
+    },
+    {
+      "name": "refreshIncYear",
+      "onVar": "internalRAM.word(100)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "inc",
+          "target": "internalRAM.word(100)"
+        }
+      ]
+    },
+    {
+      "name": "refreshIncYear10",
+      "onVar": "internalRAM.word(100)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "add",
+          "target": "internalRAM.word(100)",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "name": "refreshDecYear",
+      "onVar": "internalRAM.word(100)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "dec",
+          "target": "internalRAM.word(100)"
+        }
+      ]
+    },
+    {
+      "name": "refreshDecYear10",
+      "onVar": "internalRAM.word(100)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "sub",
+          "target": "internalRAM.word(100)",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "name": "refreshIncMonth",
+      "onVar": "internalRAM.byte(100)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "inc",
+          "target": "internalRAM.byte(100)"
+        }
+      ]
+    },
+    {
+      "name": "refreshIncBarMonth",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "12",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "refreshDecMonth",
+      "onVar": "internalRAM.byte(100)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "dec",
+          "target": "internalRAM.byte(100)"
+        }
+      ]
+    },
+    {
+      "name": "refreshDecBarMonth",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "1",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 12
+        }
+      ]
+    },
+    {
+      "name": "refreshIncDayTen",
+      "onVar": "internalRAM.byte(101)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "inc",
+          "target": "internalRAM.byte(101)"
+        }
+      ]
+    },
+    {
+      "name": "refreshIncBarDayTen",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "3",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "refreshDecDayTen",
+      "onVar": "internalRAM.byte(101)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "dec",
+          "target": "internalRAM.byte(101)"
+        }
+      ]
+    },
+    {
+      "name": "refreshDecBarDayTen",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "name": "refreshIncDayOne",
+      "onVar": "internalRAM.byte(102)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "inc",
+          "target": "internalRAM.byte(102)"
+        }
+      ]
+    },
+    {
+      "name": "refreshIncBarDayOne",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "9",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "refreshDecDayOne",
+      "onVar": "internalRAM.byte(102)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "dec",
+          "target": "internalRAM.byte(102)"
+        }
+      ]
+    },
+    {
+      "name": "refreshDecBarDayOne",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 9
+        }
+      ]
+    },
+    {
+      "name": "refreshIncHourTen",
+      "onVar": "internalRAM.byte(103)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "inc",
+          "target": "internalRAM.byte(103)"
+        }
+      ]
+    },
+    {
+      "name": "refreshIncBarHourTen",
+      "onVar": "internalRAM.byte(103)",
+      "trigger": "2",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(103)",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "refreshDecHourTen",
+      "onVar": "internalRAM.byte(103)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "dec",
+          "target": "internalRAM.byte(103)"
+        }
+      ]
+    },
+    {
+      "name": "refreshDecBarHourTen",
+      "onVar": "internalRAM.byte(103)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(103)",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "refreshIncHourOne",
+      "onVar": "internalRAM.byte(104)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "inc",
+          "target": "internalRAM.byte(104)"
+        }
+      ]
+    },
+    {
+      "name": "refreshIncBarHourOne",
+      "onVar": "internalRAM.byte(104)",
+      "trigger": "9",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(104)",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "refreshDecHourOne",
+      "onVar": "internalRAM.byte(104)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "dec",
+          "target": "internalRAM.byte(104)"
+        }
+      ]
+    },
+    {
+      "name": "refreshDecBarHourOne",
+      "onVar": "internalRAM.byte(104)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(104)",
+          "value": 9
+        }
+      ]
+    },
+    {
+      "name": "refreshIncMinuteTen",
+      "onVar": "internalRAM.byte(105)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "inc",
+          "target": "internalRAM.byte(105)"
+        }
+      ]
+    },
+    {
+      "name": "refreshIncBarMinuteTen",
+      "onVar": "internalRAM.byte(105)",
+      "trigger": "5",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(105)",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "refreshDecMinuteTen",
+      "onVar": "internalRAM.byte(105)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "dec",
+          "target": "internalRAM.byte(105)"
+        }
+      ]
+    },
+    {
+      "name": "refreshDecBarMinuteTen",
+      "onVar": "internalRAM.byte(105)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(105)",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "name": "refreshIncMinuteOne",
+      "onVar": "internalRAM.byte(106)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "inc",
+          "target": "internalRAM.byte(106)"
+        }
+      ]
+    },
+    {
+      "name": "refreshIncBarMinuteOne",
+      "onVar": "internalRAM.byte(106)",
+      "trigger": "9",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(106)",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "refreshDecMinuteOne",
+      "onVar": "internalRAM.byte(106)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "dec",
+          "target": "internalRAM.byte(106)"
+        }
+      ]
+    },
+    {
+      "name": "refreshDecBarMinuteOne",
+      "onVar": "internalRAM.byte(106)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(106)",
+          "value": 9
+        }
+      ]
+    },
+    {
+      "name": "refreshIncSecondTen",
+      "onVar": "internalRAM.byte(111)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "inc",
+          "target": "internalRAM.byte(111)"
+        }
+      ]
+    },
+    {
+      "name": "refreshIncBarSecondTen",
+      "onVar": "internalRAM.byte(111)",
+      "trigger": "5",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(111)",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "refreshDecSecondTen",
+      "onVar": "internalRAM.byte(111)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "dec",
+          "target": "internalRAM.byte(111)"
+        }
+      ]
+    },
+    {
+      "name": "refreshDecBarSecondTen",
+      "onVar": "internalRAM.byte(111)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(111)",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "name": "refreshIncSecondOne",
+      "onVar": "internalRAM.byte(112)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "inc",
+          "target": "internalRAM.byte(112)"
+        }
+      ]
+    },
+    {
+      "name": "refreshIncBarSecondOne",
+      "onVar": "internalRAM.byte(112)",
+      "trigger": "9",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(112)",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "refreshDecSecondOne",
+      "onVar": "internalRAM.byte(112)",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "dec",
+          "target": "internalRAM.byte(112)"
+        }
+      ]
+    },
+    {
+      "name": "refreshDecBarSecondOne",
+      "onVar": "internalRAM.byte(112)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(112)",
+          "value": 9
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_TIME"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowYearLabelEnglish"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowYearLabelFrench"
+    }
+  ],
+  "hasFrenchVariants": true,
+  "ramUsage": {
+    "internalRAM": {
+      "bytes": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        111,
+        112
+      ],
+      "words": [
+        100
+      ],
+      "strings": [
+        100,
+        104,
+        105
+      ],
+      "labels": [
+        102,
+        103
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

@@ -1,0 +1,354 @@
+{
+  "name": "WellThyroidUptakeEnterAdministrationDate",
+  "filename": "WellThyroidUptakeEnterAdministrationDate.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Display All"
+    },
+    "strings": {
+      "100": "Patient ID",
+      "101": "Patient Name",
+      "102": "Patient Name",
+      "103": "Administered On"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Thyroid Uptake Administration Date",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "StringField",
+      "name": "sfPatientIDLabel",
+      "x": 0,
+      "y": 70,
+      "width": 100,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "initialCondition": "Patient ID:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "patientIDlabel"
+    },
+    {
+      "type": "StringField",
+      "name": "sfPatientIDText",
+      "x": 100,
+      "y": 70,
+      "width": 700,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000090",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "patientIDtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfPatientNameLabel",
+      "x": 0,
+      "y": 100,
+      "width": 100,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "initialCondition": "Name:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "patientlabel"
+    },
+    {
+      "type": "StringField",
+      "name": "sfPatientNameText",
+      "x": 100,
+      "y": 100,
+      "width": 700,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000090",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(101).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "patienttext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 101,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfTime",
+      "x": 0,
+      "y": 260,
+      "width": 400,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "Dose Administered On:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "timelabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnTime",
+      "x": 400,
+      "y": 260,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Administered Dose On:'),%ConfigDateAndTime,%SetTime(%%SET_TIME_TU_ENTER_ADMINDATE)",
+        "invisible": "TRUE"
+      },
+      "position_from": "timetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "TRUE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(), %Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowAll",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfPatientIDLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfPatientIDText"
+        },
+        {
+          "type": "reappear",
+          "target": "sfPatientIDText"
+        },
+        {
+          "type": "reappear",
+          "target": "sfPatientNameLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfPatientNameText"
+        },
+        {
+          "type": "reappear",
+          "target": "sfPatientNameText"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTime"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnTime"
+        },
+        {
+          "type": "reappear",
+          "target": "btnTime"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCancel"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_THYROID_UPTAKE_ENTER_ADMIN"
+    }
+  ],
+  "referencedImages": [
+    "Images/200x40.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        101
+      ],
+      "labels": [
+        103
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

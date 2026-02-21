@@ -1,0 +1,231 @@
+{
+  "name": "Remote",
+  "filename": "Remote.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Display Title"
+    },
+    "strings": {
+      "100": "Title",
+      "101": "Title",
+      "102": "Activity",
+      "104": "Error",
+      "105": "Error",
+      "106": "Notification"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 790,
+      "height": 60,
+      "params": {
+        "border": "0",
+        "fillColor": "#000030",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BOTTOM",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontColor": "#FFFF30",
+        "fontStyle": "BOLD",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfError",
+      "x": 0,
+      "y": 125,
+      "width": 800,
+      "height": 100,
+      "params": {
+        "border": "0",
+        "fillColor": "#000000",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:internalRAM.string(104).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Arial Black Bold",
+        "fontSize": "24pt",
+        "fontColor": "#FF3030",
+        "fontStyle": "BOLD",
+        "updateRate": ".5",
+        "invisible": "FALSE"
+      },
+      "position_from": "error",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMessage",
+      "x": 0,
+      "y": 225,
+      "width": 800,
+      "height": 150,
+      "params": {
+        "border": "0",
+        "fillColor": "#000000",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Arial Black Bold",
+        "fontSize": "72pt",
+        "fontColor": "#FFFFFF",
+        "fontStyle": "BOLD",
+        "updateRate": ".5",
+        "invisible": "FALSE"
+      },
+      "position_from": "message",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfNotification",
+      "x": 0,
+      "y": 375,
+      "width": 800,
+      "height": 100,
+      "params": {
+        "border": "0",
+        "fillColor": "#000000",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:internalRAM.string(106).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Arial Black Bold",
+        "fontSize": "24pt",
+        "fontColor": "#FFFFFF",
+        "fontStyle": "BOLD",
+        "updateRate": ".5",
+        "invisible": "FALSE"
+      },
+      "position_from": "notification",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 106,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "Pwm",
+      "name": "pwm1",
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0,
+      "params": {
+        "channel": "0",
+        "initialCondition": "ON",
+        "periodIn_ms": ".99",
+        "pulseWidthIn_ms": "1"
+      },
+      "position_from": "pwm"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowRemoteInProgress",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        }
+      ]
+    },
+    {
+      "name": "refreshSetBacklight",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "setPeriod",
+          "target": "pwm1",
+          "value": 1
+        },
+        {
+          "type": "raw",
+          "expression": "document.pwm1.setPulseWidth(InternalRAM.word(100))"
+        },
+        {
+          "type": "start",
+          "target": "pwm1"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_REMOTE"
+    }
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        102,
+        104,
+        106
+      ]
+    }
+  }
+}

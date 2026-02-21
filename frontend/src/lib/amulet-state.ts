@@ -12,6 +12,9 @@ export class AmuletStateManager {
   private wordHandlers: StateChangeHandler[] = []
   private stringHandlers: StateChangeHandler[] = []
 
+  private pageHandlers: ((page: number) => void)[] = []
+
+  // Legacy callback (kept for backward compat)
   onPageChange: ((page: number) => void) | null = null
 
   constructor(private ws: WebSocketManager) {
@@ -33,6 +36,7 @@ export class AmuletStateManager {
     ws.on('setPage', (data) => {
       this.currentPage = data.page
       this.onPageChange?.(data.page)
+      this.pageHandlers.forEach(h => h(data.page))
     })
 
     ws.on('fullState', (data) => {
@@ -54,6 +58,7 @@ export class AmuletStateManager {
       if (data.page !== undefined) {
         this.currentPage = data.page
         this.onPageChange?.(data.page)
+        this.pageHandlers.forEach(h => h(data.page))
       }
     })
   }
@@ -78,6 +83,14 @@ export class AmuletStateManager {
   offStringChange(handler: StateChangeHandler) {
     const idx = this.stringHandlers.indexOf(handler)
     if (idx >= 0) this.stringHandlers.splice(idx, 1)
+  }
+
+  onPageChangeAdd(handler: (page: number) => void) {
+    this.pageHandlers.push(handler)
+  }
+  offPageChange(handler: (page: number) => void) {
+    const idx = this.pageHandlers.indexOf(handler)
+    if (idx >= 0) this.pageHandlers.splice(idx, 1)
   }
 
   // Send user interaction to firmware

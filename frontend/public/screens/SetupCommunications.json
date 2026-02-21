@@ -1,0 +1,223 @@
+{
+  "name": "SetupCommunications",
+  "filename": "SetupCommunications.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 4,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Setup Communications",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "RadioButton",
+      "name": "radioRHotKey",
+      "x": 300,
+      "y": 200,
+      "width": 200,
+      "height": 50,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "groupName": "HotKey",
+        "href": "Amulet:UART.word(0).setValue(0x0102)",
+        "initialCondition": "FromInitHref",
+        "hrefOnHitOnly": "TRUE",
+        "initHref": "Amulet:internalRAM.byte(100).value()",
+        "internalNumber": "1",
+        "label": "Use R Hotkeys",
+        "invisible": "TRUE"
+      },
+      "position_from": "r_hotkey",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 100,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "RadioButton",
+      "name": "radioPHotKey",
+      "x": 300,
+      "y": 300,
+      "width": 200,
+      "height": 50,
+      "params": {
+        "buttonAlign": "LEFT",
+        "font": "Franklin Gothic Book",
+        "fontColor": "BLACK",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "groupName": "HotKey",
+        "href": "Amulet:UART.word(0).setValue(0x0103)",
+        "initialCondition": "FromInitHref",
+        "hrefOnHitOnly": "TRUE",
+        "initHref": "Amulet:internalRAM.byte(100).value()",
+        "internalNumber": "2",
+        "label": "Use PET Hotkeys",
+        "invisible": "TRUE"
+      },
+      "position_from": "p_hotkey",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        },
+        {
+          "source": "internalRAM",
+          "type": "byte",
+          "index": 100,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0104)",
+        "invisible": "FALSE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(), %Back",
+        "invisible": "FALSE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowRadio",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "HotKey"
+        },
+        {
+          "type": "reappear",
+          "target": "radioRHotKey"
+        },
+        {
+          "type": "reappear",
+          "target": "radioPHotKey"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_SETUP_COMMUNICATIONS"
+    }
+  ],
+  "referencedImages": [
+    "Images/bottom_bar.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "bytes": [
+        100
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

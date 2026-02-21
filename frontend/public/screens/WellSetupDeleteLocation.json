@@ -1,0 +1,300 @@
+{
+  "name": "WellSetupDeleteLocation",
+  "filename": "WellSetupDeleteLocation.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Delete Wipe Location",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "StringField",
+      "name": "sfLocation",
+      "x": 200,
+      "y": 100,
+      "width": 600,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "16pt",
+        "fontStyle": "NORNAL",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "location_name",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfType",
+      "x": 200,
+      "y": 150,
+      "width": 600,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "16pt",
+        "fontStyle": "NORNAL",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "wipe_name",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfThreshold",
+      "x": 200,
+      "y": 200,
+      "width": 600,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "16pt",
+        "fontStyle": "NORNAL",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(104).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "threshold",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfCountTime",
+      "x": 200,
+      "y": 250,
+      "width": 600,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "16pt",
+        "fontStyle": "NORNAL",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(106).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "count_time",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 106,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnYes",
+      "x": 50,
+      "y": 400,
+      "width": 140,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontColor": "green",
+        "fontStyle": "BOLD",
+        "label": "YES",
+        "href": "Amulet:document.btnYes.disappear(), Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "TRUE"
+      },
+      "position_from": "yes",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnNo",
+      "x": 250,
+      "y": 400,
+      "width": 140,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontColor": "red",
+        "fontStyle": "BOLD",
+        "label": "NO",
+        "href": "Amulet:document.btnNo.disappear(), %Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "no"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShow",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfLocation"
+        },
+        {
+          "type": "reappear",
+          "target": "sfLocation"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfType"
+        },
+        {
+          "type": "reappear",
+          "target": "sfType"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfThreshold"
+        },
+        {
+          "type": "reappear",
+          "target": "sfThreshold"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfCountTime"
+        },
+        {
+          "type": "reappear",
+          "target": "sfCountTime"
+        },
+        {
+          "type": "reappear",
+          "target": "btnYes"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNo"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_SETUP_DELETE_LOC"
+    }
+  ],
+  "referencedImages": [
+    "Images/bottom_bar.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        102,
+        104,
+        106
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

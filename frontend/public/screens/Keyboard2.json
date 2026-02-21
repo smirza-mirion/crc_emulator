@@ -1,0 +1,4530 @@
+{
+  "name": "Keyboard2",
+  "filename": "Keyboard2.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "0": "No Accent",
+      "1": "Accent",
+      "2": "Upper",
+      "99": "French Active",
+      "100": "Refresh Display (0xFF)",
+      "101": "Refresh Title (0xFF)",
+      "102": "Set to Cap Lock State (0xFF)",
+      "103": "Set to Cap Temp State (0xFF)",
+      "104": "Show Accept",
+      "105": "Show Percent",
+      "106": "Show Accent",
+      "107": "Show lower case NTILDE and UUM",
+      "254": "Shift state,",
+      "255": "Accent state"
+    },
+    "strings": {
+      "100": "Title",
+      "101": "Title",
+      "102": "Output String",
+      "103": "Output String",
+      "104": "Indicator",
+      "105": "L_Backspace",
+      "106": "L_Shift",
+      "107": "L_Wildcard",
+      "108": "L_Accept",
+      "109": "L_Cancel",
+      "200": "Accent",
+      "201": "Ñ",
+      "202": "ñ",
+      "203": "Ü",
+      "204": "ü",
+      "205": "Á",
+      "206": "É",
+      "207": "Í",
+      "208": "Ó",
+      "209": "Ú",
+      "210": "á",
+      "211": "é",
+      "212": "í",
+      "213": "ó",
+      "214": "ú"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 790,
+      "height": 60,
+      "params": {
+        "border": "0",
+        "fillColor": "#000030",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BOTTOM",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontColor": "#FFFF30",
+        "fontStyle": "BOLD",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDisplay",
+      "x": 50,
+      "y": 128,
+      "width": 700,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "initialCondition": "",
+        "printf": "%.51s     ",
+        "font": "Franklin Gothic Book",
+        "fontSize": "22",
+        "fontColor": "#000000",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "display",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn1",
+      "x": 5,
+      "y": 183,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "1",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0102),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "1",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn2",
+      "x": 70,
+      "y": 183,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "2",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0103),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "2",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn3",
+      "x": 135,
+      "y": 183,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "3",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0104),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "3",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn4",
+      "x": 200,
+      "y": 183,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "4",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0105),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "4",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn5",
+      "x": 265,
+      "y": 183,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "5",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0106),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "5",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn6",
+      "x": 330,
+      "y": 183,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "6",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0107),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "6",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn7",
+      "x": 395,
+      "y": 183,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "7",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0108),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "7",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn8",
+      "x": 460,
+      "y": 183,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "8",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0109),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "8",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn9",
+      "x": 525,
+      "y": 183,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "9",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x010A),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "9",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btn0",
+      "x": 590,
+      "y": 183,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x010B),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "0",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnBackspace",
+      "x": 655,
+      "y": 183,
+      "width": 140,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(105).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "href": "Amulet:UART.word(0).setValue(0x010C),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "backspace",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnQUp",
+      "x": 36,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "Q",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x010D),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "Q",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnQLo",
+      "x": 36,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "q",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x010E),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "Q",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnWUp",
+      "x": 101,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "W",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x010F),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "W",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnWLo",
+      "x": 101,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "w",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0110),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "W",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnEUp",
+      "x": 166,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "E",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0111),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "E",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnELo",
+      "x": 166,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "e",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0112),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "E",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnEAccentUp",
+      "x": 166,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(206).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0153),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "E",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 206,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnEAccentLo",
+      "x": 166,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(211).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0154),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "E",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 211,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRUp",
+      "x": 231,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "R",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0113),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "R",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRLo",
+      "x": 231,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "r",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0114),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "R",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnTUp",
+      "x": 296,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "T",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0115),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "T",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnTLo",
+      "x": 296,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "t",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0116),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "T",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnYUp",
+      "x": 361,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "Y",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0117),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "Y",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnYLo",
+      "x": 361,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "y",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0118),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "Y",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnUUp",
+      "x": 426,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "U",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0119),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "U",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnULo",
+      "x": 426,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "u",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x011A),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "U",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnUAccentUp",
+      "x": 426,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(209).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0159),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "U",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 209,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnUAccentLo",
+      "x": 426,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(214).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x015A),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "U",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 214,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnIUp",
+      "x": 491,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "I",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x011B),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "I",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnILo",
+      "x": 491,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "i",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x011C),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "I",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnIAccentUp",
+      "x": 491,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(207).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0155),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "I",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 207,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnIAccentLo",
+      "x": 491,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(212).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0156),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "I",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 212,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnOUp",
+      "x": 556,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "O",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x011D),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "O",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnOLo",
+      "x": 556,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "o",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x011E),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "O",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnOAccentUp",
+      "x": 556,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(208).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0157),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "O",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 208,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnOAccentLo",
+      "x": 556,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(213).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0158),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "O",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 213,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnPUp",
+      "x": 621,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "P",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x011F),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "P",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnPLo",
+      "x": 621,
+      "y": 248,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "p",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0120),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "P",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnBackslash",
+      "x": 686,
+      "y": 248,
+      "width": 109,
+      "height": 62,
+      "params": {
+        "label": "\\\\",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0121),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "backslash",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfIndicator",
+      "x": 5,
+      "y": 313,
+      "width": 49,
+      "height": 62,
+      "params": {
+        "border": "0",
+        "fillColor": "#000000",
+        "font": "Franklin Gothic Book",
+        "fontSize": "12",
+        "fontColor": "#FFFFFF",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:internalRAM.string(104).value()",
+        "printf": "%s",
+        "updateRate": ".01"
+      },
+      "position_from": "indicator",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAUp",
+      "x": 56,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "A",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0122),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "A",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnALo",
+      "x": 56,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "a",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0123),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "A",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAAccentUp",
+      "x": 56,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(205).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0151),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "A",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 205,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAAccentLo",
+      "x": 56,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(210).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0152),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "A",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 210,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSUp",
+      "x": 121,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "S",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0124),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "S",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSLo",
+      "x": 121,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "s",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0125),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "S",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDUp",
+      "x": 186,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "D",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0126),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "D",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDLo",
+      "x": 186,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "d",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0127),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "D",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnFUp",
+      "x": 251,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "F",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0128),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "F",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnFLo",
+      "x": 251,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "f",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0129),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "F",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnGUp",
+      "x": 316,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "G",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x012A),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "G",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnGLo",
+      "x": 316,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "g",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x012B),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "G",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnHUp",
+      "x": 381,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "H",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x012C),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "H",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnHLo",
+      "x": 381,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "h",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x012D),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "H",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnJUp",
+      "x": 446,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "J",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x012E),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "J",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnJLo",
+      "x": 446,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "j",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x012F),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "J",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnKUp",
+      "x": 511,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "K",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0130),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "K",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnKLo",
+      "x": 511,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "k",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0131),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "K",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnLUp",
+      "x": 576,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "L",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0132),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "L",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnLLo",
+      "x": 576,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "l",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0133),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "L",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnNTILDEUp",
+      "x": 641,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(201).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x014D),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "NTILDE",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 201,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnNTILDELo",
+      "x": 641,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(202).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x014E),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "NTILDE",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 202,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnUUMUp",
+      "x": 706,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(203).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "NORMAL",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x014F),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "UUM",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 203,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnUUMLo",
+      "x": 706,
+      "y": 313,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(204).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "NORMAL",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0150),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "UUM",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 204,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnShift",
+      "x": 5,
+      "y": 378,
+      "width": 81,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(106).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "href": "%Beep,Amulet:document.btnShift.disappear(),Amulet:document.refreshState.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "shift",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnZUp",
+      "x": 88,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "Z",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0134),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "Z",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnZLo",
+      "x": 88,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "z",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0135),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "Z",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnXUp",
+      "x": 153,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "X",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0136),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "X",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnXLo",
+      "x": 153,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "x",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0137),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "X",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCUp",
+      "x": 218,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "C",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0138),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "C",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCLo",
+      "x": 218,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "c",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0139),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "C",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnVUp",
+      "x": 283,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "V",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x013A),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "V",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnVLo",
+      "x": 283,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "v",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x013B),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "V",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnBUp",
+      "x": 348,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "B",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x013C),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "B",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnBLo",
+      "x": 348,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "b",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x013D),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "B",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnNUp",
+      "x": 413,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "N",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x013E),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "N",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnNLo",
+      "x": 413,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "n",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x013F),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "N",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMUp",
+      "x": 478,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "M",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0140),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "M",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMLo",
+      "x": 478,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "m",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0141),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "M",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMinus",
+      "x": 543,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "-",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0142),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "minus",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnPlus",
+      "x": 608,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "+",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0143),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "plus",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDiv",
+      "x": 673,
+      "y": 378,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "/",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0144),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "div",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnMult",
+      "x": 738,
+      "y": 378,
+      "width": 57,
+      "height": 62,
+      "params": {
+        "label": "*",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0145),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "mult",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSpace",
+      "x": 36,
+      "y": 443,
+      "width": 471,
+      "height": 62,
+      "params": {
+        "label": "",
+        "font": "Franklin Gothic Book",
+        "fontSize": "14",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0146),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "space",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnPeriod",
+      "x": 509,
+      "y": 443,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": ".",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0147),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "period",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnComma",
+      "x": 574,
+      "y": 443,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": ",",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0148),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "comma",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnColon",
+      "x": 639,
+      "y": 443,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": ":",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x0149),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "FALSE"
+      },
+      "position_from": "colon",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccent",
+      "x": 704,
+      "y": 443,
+      "width": 96,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "font": "Franklin Gothic Book",
+        "initHref": "Amulet:InternalRAM.label(200).value()",
+        "fontSize": "22",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "href": "%Beep,Amulet:document.btnAccent.disappear(),Amulet:document.refreshAccent.forceUpdate()",
+        "invisible": "TRUE"
+      },
+      "position_from": "accent",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 200,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnPercent",
+      "x": 5,
+      "y": 533,
+      "width": 62,
+      "height": 62,
+      "params": {
+        "label": "%",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "href": "Amulet:UART.word(0).setValue(0x014C),Amulet:document.refreshSwitchTemp.forceHit()",
+        "invisible": "TRUE"
+      },
+      "position_from": "percent",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfWildcard",
+      "x": 67,
+      "y": 533,
+      "width": 300,
+      "height": 62,
+      "params": {
+        "border": "0",
+        "fillColor": "#000000",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20",
+        "fontColor": "#FFFFFF",
+        "fontStyle": "BOLD",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:internalRAM.string(107).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "wildcardlabel",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 107,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 483,
+      "y": 533,
+      "width": 154,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(108).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "green",
+        "fontStyle": "BOLD",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x014A)",
+        "invisible": "FALSE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 108,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 641,
+      "y": 533,
+      "width": 154,
+      "height": 62,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(109).value()",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "red",
+        "fontStyle": "BOLD",
+        "href": "Amulet:document.btnCancel.disappear(),%Back",
+        "invisible": "FALSE"
+      },
+      "position_from": "cancel",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 109,
+          "param": "initHref"
+        }
+      ]
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowNTILDEUp",
+      "onVar": "internalRAM.byte(99)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnNTILDEUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideNTILDEUp",
+      "onVar": "internalRAM.byte(99)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnNTILDEUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowNTILDELo",
+      "onVar": "internalRAM.byte(99)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnNTILDELo"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideNTILDELo",
+      "onVar": "internalRAM.byte(99)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnNTILDELo"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowUUMUp",
+      "onVar": "internalRAM.byte(99)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnUUMUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideUUMUp",
+      "onVar": "internalRAM.byte(99)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnUUMUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowUUMLo",
+      "onVar": "internalRAM.byte(99)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnUUMLo"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideUUMLo",
+      "onVar": "internalRAM.byte(99)",
+      "trigger": "0xFF",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnUUMLo"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowVowelsLoAccent0",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnAAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnALo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnELo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnILo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnULo"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowVowelsLoAccent1",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "1",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnAUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnALo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAAccentUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnELo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnILo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnIAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnULo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnUAccentLo"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowVowelsUpAccent0",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnAAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnALo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnELo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnILo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnIUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnULo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnUUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowVowelsUpAccent1",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "1",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnAUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnALo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnELo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnILo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnIAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnULo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnUAccentUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowAccentShift0",
+      "onVar": "internalRAM.byte(254)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnAUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnALo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAAccentUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnELo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnILo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnIAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnULo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnUAccentLo"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideAccentShift0",
+      "onVar": "internalRAM.byte(254)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnAAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnALo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnELo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnILo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUUp"
+        },
+        {
+          "type": "reappear",
+          "target": "btnULo"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowAccentShift1",
+      "onVar": "internalRAM.byte(254)",
+      "trigger": "1",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnAUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnALo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnELo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnILo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnIAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnULo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnUAccentUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideAccentShift1",
+      "onVar": "internalRAM.byte(254)",
+      "trigger": "1",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnAAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnALo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnELo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnILo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnIUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnULo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnUUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowAccentShift2",
+      "onVar": "internalRAM.byte(254)",
+      "trigger": "2",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnAUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnALo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnELo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnILo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnIAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnULo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnUAccentUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshHideAccentShift2",
+      "onVar": "internalRAM.byte(254)",
+      "trigger": "2",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "disappear",
+          "target": "btnAAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnAAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnALo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnEAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnELo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnIAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnILo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnIUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnOLo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentUp"
+        },
+        {
+          "type": "disappear",
+          "target": "btnUAccentLo"
+        },
+        {
+          "type": "disappear",
+          "target": "btnULo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnUUp"
+        }
+      ]
+    },
+    {
+      "name": "refreshTest0",
+      "onVar": "internalRAM.byte(254)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 1
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.string(104)",
+          "value": "1Chr"
+        },
+        {
+          "type": "forceHit",
+          "target": "refreshUpper"
+        }
+      ]
+    },
+    {
+      "name": "refreshTest1",
+      "onVar": "internalRAM.byte(254)",
+      "trigger": "1",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 2
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.string(104)",
+          "value": "Lock"
+        }
+      ]
+    },
+    {
+      "name": "refreshTest2",
+      "onVar": "internalRAM.byte(254)",
+      "trigger": "2",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 0
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.string(104)",
+          "value": "Lock"
+        },
+        {
+          "type": "forceHit",
+          "target": "refreshLower"
+        }
+      ]
+    },
+    {
+      "name": "refreshTestAccent0",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "0",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": 1
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowAccent"
+        }
+      ]
+    },
+    {
+      "name": "refreshTestAccent1",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "1",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshHideAccent"
+        }
+      ]
+    },
+    {
+      "name": "refreshUpperTemp",
+      "onVar": "internalRAM.byte(254)",
+      "trigger": "1",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 0
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.string(104)",
+          "value": "Lock"
+        },
+        {
+          "type": "forceHit",
+          "target": "refreshLower"
+        }
+      ]
+    },
+    {
+      "name": "refreshAccentTemp",
+      "onVar": "internalRAM.byte(255)",
+      "trigger": "1",
+      "interval": "0.0",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(255)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshHideAccentShift0"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshHideAccentShift1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshHideAccentShift2"
+        }
+      ]
+    },
+    {
+      "name": "refreshUpdateDisplay",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDisplay"
+        }
+      ]
+    },
+    {
+      "name": "refreshUpdateTitle",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnBackspace"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnShift"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfWildcard"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnAccept"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnCancel"
+        }
+      ]
+    },
+    {
+      "name": "refreshSetCapLock",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 0
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.string(104)",
+          "value": "Lock"
+        },
+        {
+          "type": "forceHit",
+          "target": "refreshUpper"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "refreshSetCapTemp",
+      "onVar": "internalRAM.byte(103)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(103)",
+          "value": 0
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.string(104)",
+          "value": "1Chr"
+        },
+        {
+          "type": "forceHit",
+          "target": "refreshUpper"
+        },
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(254)",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "refreshShowAccept",
+      "onVar": "internalRAM.byte(104)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(104)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPercent",
+      "onVar": "internalRAM.byte(105)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(105)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnPercent"
+        },
+        {
+          "type": "reappear",
+          "target": "sfWildcard"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowAccent",
+      "onVar": "internalRAM.byte(106)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(106)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNTILDEUp"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNTILDELo"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnUUMUp"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnUUMLo"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnAAccentUp"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnAAccentLo"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnEAccentUp"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnEAccentLo"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnIAccentUp"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnIAccentLo"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnOAccentUp"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnOAccentLo"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnUAccentUp"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnUAccentLo"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnAccent"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccent"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowFrenchLo",
+      "onVar": "internalRAM.byte(107)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(107)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnNTILDELo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnUUMLo"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "setValue",
+      "target": "internalRAM.string(104)",
+      "value": "Lock"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "sfTitle"
+    },
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_KEYBOARD"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowVowelsLoAccent0"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowVowelsLoAccent1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowVowelsUpAccent0"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowVowelsUpAccent1"
+    },
+    {
+      "type": "disappear",
+      "target": "btnQUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnQLo"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowVowelsLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnWUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnWLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnRUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnRLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnTUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnTLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnYUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnYLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnPUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnPLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnSUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnSLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnDUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnDLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnFUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnFLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnGUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnGLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnHUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnHLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnJUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnJLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnKUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnKLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnLUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnLLo"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideNTILDEUp"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowNTILDELo"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideUUMUp"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowUUMLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnZUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnZLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnXUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnXLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnCUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnCLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnVUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnVLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnBUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnBLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnNUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnNLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnMUp"
+    },
+    {
+      "type": "reappear",
+      "target": "btnMLo"
+    },
+    {
+      "type": "disappear",
+      "target": "btnQLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnQUp"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowVowelsUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnWLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnWUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnRLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnRUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnTLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnTUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnYLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnYUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnPLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnPUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnSLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnSUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnDLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnDUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnFLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnFUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnGLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnGUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnHLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnHUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnJLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnJUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnKLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnKUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnLLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnLUp"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideNTILDELo"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowNTILDEUp"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideUUMLo"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowUUMUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnZLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnZUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnXLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnXUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnCLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnCUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnVLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnVUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnBLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnBUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnNLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnNUp"
+    },
+    {
+      "type": "disappear",
+      "target": "btnMLo"
+    },
+    {
+      "type": "reappear",
+      "target": "btnMUp"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowAccentShift0"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowAccentShift1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshShowAccentShift2"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideAccentShift0"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideAccentShift1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshHideAccentShift2"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshTest0"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshTest1"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshTest2"
+    },
+    {
+      "type": "reappear",
+      "target": "btnShift"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshTestAccent0"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshTestAccent1"
+    },
+    {
+      "type": "reappear",
+      "target": "btnAccent"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshUpperTemp"
+    },
+    {
+      "type": "forceUpdate",
+      "target": "refreshAccentTemp"
+    }
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        102,
+        104,
+        107
+      ],
+      "labels": [
+        105,
+        106,
+        108,
+        109,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

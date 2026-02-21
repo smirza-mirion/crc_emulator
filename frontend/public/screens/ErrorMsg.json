@@ -1,0 +1,208 @@
+{
+  "name": "ErrorMsg",
+  "filename": "ErrorMsg.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page",
+    "GrayLCD.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Show Error Message (0xFF)",
+      "101": "Show Error Message without OK button (0xFF)"
+    },
+    "strings": {
+      "100": "Title",
+      "101": "Title",
+      "102": "Error Message",
+      "103": "Error Message",
+      "104": "Error Message",
+      "105": "Error Message",
+      "106": "OK"
+    }
+  },
+  "widgets": [
+    {
+      "type": "Image",
+      "name": "imgErrorBkg",
+      "x": 190,
+      "y": 90,
+      "width": 420,
+      "height": 420,
+      "params": {
+        "src": "Images/error.png",
+        "invisible": "FALSE"
+      },
+      "position_from": "backgnd"
+    },
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 243,
+      "y": 175,
+      "width": 315,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "fillColor": "#00000000",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "TOP",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "white",
+        "fontStyle": "BOLD|UNDERLINE",
+        "invisible": "FALSE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMessage",
+      "x": 220,
+      "y": 218,
+      "width": 360,
+      "height": 166,
+      "params": {
+        "border": "0",
+        "fillColor": "#00000000",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "initialCondition": "",
+        "printf": "%.101s",
+        "font": "Franklin Gothic Book",
+        "fontSize": "16pt",
+        "fontColor": "#FFFFFF",
+        "fontStyle": "BOLD",
+        "invisible": "FALSE"
+      },
+      "position_from": "message",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnOK",
+      "x": 300,
+      "y": 395,
+      "width": 200,
+      "height": 55,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "borderColor": "red",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "href": "%Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "button",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowError",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMessage"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnOK"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOK"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowErrorOnly",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMessage"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_ERROR_MSG"
+    }
+  ],
+  "referencedImages": [
+    "Images/error.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        102
+      ],
+      "labels": [
+        106
+      ]
+    }
+  }
+}

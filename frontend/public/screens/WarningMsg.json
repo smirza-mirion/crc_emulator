@@ -1,0 +1,216 @@
+{
+  "name": "WarningMsg",
+  "filename": "WarningMsg.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page",
+    "GrayLCD.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Show Warning Message (0xFF)"
+    },
+    "words": {
+      "101": "Background X",
+      "102": "Background Y",
+      "103": "Title X",
+      "104": "Title Y",
+      "105": "Message X",
+      "106": "Message Y",
+      "107": "Button X",
+      "108": "Button Y"
+    },
+    "strings": {
+      "100": "Title",
+      "101": "Title",
+      "102": "Warning Message",
+      "103": "Warning Message",
+      "104": "Warning Message",
+      "105": "Warning Message",
+      "106": "OK"
+    }
+  },
+  "widgets": [
+    {
+      "type": "Image",
+      "name": "imgWarningBkg",
+      "x": 190,
+      "y": 90,
+      "width": 420,
+      "height": 420,
+      "params": {
+        "src": "Images/warning.png",
+        "invisible": "FALSE"
+      },
+      "position_from": "backgnd"
+    },
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 300,
+      "y": 200,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "fillColor": "#00000000",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "TOP",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "black",
+        "fontStyle": "BOLD|UNDERLINE",
+        "invisible": "FALSE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMessage",
+      "x": 250,
+      "y": 250,
+      "width": 300,
+      "height": 100,
+      "params": {
+        "border": "0",
+        "fillColor": "#00000000",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "initialCondition": "",
+        "printf": "%.101s",
+        "font": "Franklin Gothic Book",
+        "fontSize": "16pt",
+        "fontColor": "black",
+        "fontStyle": "BOLD",
+        "invisible": "FALSE"
+      },
+      "position_from": "message",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnOK",
+      "x": 325,
+      "y": 365,
+      "width": 150,
+      "height": 55,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "black",
+        "fillColor": "#FFFFFF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "href": "%Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "button",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowWarning",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMessage"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnOK"
+        },
+        {
+          "type": "reappear",
+          "target": "btnOK"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowWarningNoOK",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMessage"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WARNING_MSG"
+    }
+  ],
+  "referencedImages": [
+    "Images/warning.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        102
+      ],
+      "labels": [
+        106
+      ]
+    }
+  }
+}

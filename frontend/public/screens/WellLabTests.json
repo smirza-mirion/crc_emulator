@@ -1,0 +1,251 @@
+{
+  "name": "WellLabTests",
+  "filename": "WellLabTests.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Lab Tests",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "StringField",
+      "name": "sfDetector",
+      "x": 0,
+      "y": 543,
+      "width": 170,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "22pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(9).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "currentdetector",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 9,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHome",
+      "x": 8,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/home_big.png",
+        "downImage": "Images/home_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "home"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSchilling",
+      "x": 0,
+      "y": 41,
+      "width": 400,
+      "height": 70,
+      "params": {
+        "label": "Schilling",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "%SetClear(%%SET_CLEAR_WELLSCHILLING)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnPlasma",
+      "x": 0,
+      "y": 41,
+      "width": 400,
+      "height": 70,
+      "params": {
+        "label": "Plasma",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "%SetClear(%%SET_CLEAR_WELLPLASMA)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRBC",
+      "x": 0,
+      "y": 41,
+      "width": 400,
+      "height": 70,
+      "params": {
+        "label": "RBC",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "%SetClear(%%SET_CLEAR_WELLRBC)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnRBCSurvival",
+      "x": 0,
+      "y": 41,
+      "width": 400,
+      "height": 70,
+      "params": {
+        "label": "RBC Survival",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "blue",
+        "fontStyle": "BOLD",
+        "fillColor": "#FFFFFF",
+        "href": "%SetClear(%%SET_CLEAR_WELLRBCSURVIVAL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowDetector",
+      "onVar": "internalRAM.byte(75)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(75)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDetector"
+        },
+        {
+          "type": "reappear",
+          "target": "btnSchilling"
+        },
+        {
+          "type": "reappear",
+          "target": "btnPlasma"
+        },
+        {
+          "type": "reappear",
+          "target": "btnRBC"
+        },
+        {
+          "type": "reappear",
+          "target": "btnRBCSurvival"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_LAB_TESTS"
+    }
+  ],
+  "referencedImages": [
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/home_big.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        9
+      ]
+    }
+  }
+}

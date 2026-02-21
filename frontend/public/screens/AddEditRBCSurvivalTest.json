@@ -1,0 +1,1515 @@
+{
+  "name": "AddEditRBCSurvivalTest",
+  "filename": "AddEditRBCSurvivalTest.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "87": "btnReactivate",
+      "88": "btnDelete",
+      "89": "btnInactivate",
+      "90": "btnCountTime",
+      "91": "sfCountTimeLock",
+      "92": "btnActivity",
+      "93": "sfActivityLock",
+      "94": "btnCalDate",
+      "95": "sfCalDateLock",
+      "96": "btnLotNum",
+      "97": "sfLotNumLock",
+      "98": "btnInjectionDate",
+      "99": "sfInjectionDateLock",
+      "100": "Display Screen"
+    },
+    "strings": {
+      "100": "Title",
+      "101": "Title",
+      "102": "First",
+      "103": "Last",
+      "104": "ID",
+      "105": "DOB",
+      "106": "Sex",
+      "107": "Physician",
+      "108": "TechID",
+      "109": "Count Time",
+      "110": "Activity",
+      "111": "Calibration Date",
+      "112": "Lot Num",
+      "113": "Injection Date",
+      "115": "Multiplier",
+      "116": "Multiplier Label"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 150,
+      "y": 0,
+      "width": 500,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "StringField",
+      "name": "sfFirst",
+      "x": 0,
+      "y": 80,
+      "width": 80,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "First:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "firstlabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnFirst",
+      "x": 80,
+      "y": 80,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(102).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter First Name:'), %ConfigMaxStrLen(17), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_RBC_SURVIVAL_ENTER_FIRSTNAME)",
+        "invisible": "TRUE"
+      },
+      "position_from": "firsttext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 102,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfLast",
+      "x": 400,
+      "y": 80,
+      "width": 80,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "Last:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "lastlabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnLast",
+      "x": 480,
+      "y": 80,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Last Name:'), %ConfigMaxStrLen(17), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_RBC_SURVIVAL_ENTER_LASTNAME)",
+        "invisible": "TRUE"
+      },
+      "position_from": "lasttext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfID",
+      "x": 0,
+      "y": 130,
+      "width": 80,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "ID:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "patientidlabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnID",
+      "x": 80,
+      "y": 130,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Patient ID:'), %ConfigMaxStrLen(10), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_RBC_SURVIVAL_ENTER_PATID)",
+        "invisible": "TRUE"
+      },
+      "position_from": "patientidtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDOB",
+      "x": 315,
+      "y": 130,
+      "width": 70,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "DOB:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "doblabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDOB",
+      "x": 385,
+      "y": 130,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter Date Of Birth:'),%ConfigDateOnly,%SetTime(%%SET_TIME_RBC_SURVIVAL_ENTER_DOB)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dobtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfSex",
+      "x": 620,
+      "y": 130,
+      "width": 70,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "PLAIN",
+        "initialCondition": "Sex:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "sexlabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnSex",
+      "x": 690,
+      "y": 130,
+      "width": 100,
+      "height": 40,
+      "params": {
+        "upImage": "Images/100x40.png",
+        "downImage": "Images/100x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Sex (M/F):'), %ConfigMaxStrLen(1), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_RBC_SURVIVAL_ENTER_SEX)",
+        "invisible": "TRUE"
+      },
+      "position_from": "sextext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfPhysician",
+      "x": 0,
+      "y": 180,
+      "width": 80,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "PLAIN",
+        "initialCondition": "Phys:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "physicianlabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPhysician",
+      "x": 80,
+      "y": 180,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(107).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Physician:'), %ConfigMaxStrLen(17), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_RBC_SURVIVAL_ENTER_PHYS)",
+        "invisible": "TRUE"
+      },
+      "position_from": "physiciantext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 107,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfTechID",
+      "x": 400,
+      "y": 180,
+      "width": 80,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "PLAIN",
+        "initialCondition": "Tech:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "techidlabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnTechID",
+      "x": 480,
+      "y": 180,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(108).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter TechID:'), %ConfigMaxStrLen(17), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_RBC_SURVIVAL_ENTER_TECHID)",
+        "invisible": "TRUE"
+      },
+      "position_from": "techidtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 108,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "Image",
+      "name": "line1",
+      "x": 0,
+      "y": 244,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "line1"
+    },
+    {
+      "type": "Image",
+      "name": "line2",
+      "x": 0,
+      "y": 245,
+      "width": 800,
+      "height": 2,
+      "params": {
+        "src": "Images/hline2.jpg",
+        "invisible": "TRUE"
+      },
+      "position_from": "line2"
+    },
+    {
+      "type": "StringField",
+      "name": "sfNuclide",
+      "x": 0,
+      "y": 269,
+      "width": 210,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "Nuclide: Cr51",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuclidelabel"
+    },
+    {
+      "type": "StringField",
+      "name": "sfCountTime",
+      "x": 360,
+      "y": 269,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "Count Time:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "counttimelabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnCountTime",
+      "x": 560,
+      "y": 269,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(109).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Count Time (sec):'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(0), %ConfigMinValue('10.0'), %ConfigMaxValue('9999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_RBC_SURVIVAL_ENTER_COUNTTIME)",
+        "invisible": "TRUE"
+      },
+      "position_from": "counttimetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 109,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfCountTimeLock",
+      "x": 560,
+      "y": 269,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(109).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "counttimetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 109,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfActivity",
+      "x": 0,
+      "y": 319,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "Activity:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "activitylabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnActivity",
+      "x": 150,
+      "y": 319,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(110).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Enter Calibration Activity'), %ConfigX(410), %ConfigY(91), %ConfigMaxStrLen(4), %ConfigActivity(%%CONFIG_ACTIVITY_SYSTEM), %SetActivity(%%SET_ACTIVITY_WELL_RBC_SURVIVAL_CAL_ACTIVITY)",
+        "invisible": "TRUE"
+      },
+      "position_from": "activitytext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 110,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfActivityLock",
+      "x": 150,
+      "y": 319,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(110).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "activitytext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 110,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfCalDate",
+      "x": 360,
+      "y": 319,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "Calibration Date:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "caldatelabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnCalDate",
+      "x": 560,
+      "y": 319,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(111).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Calibration Time:'),%ConfigDateAndTime,%SetTime(%%SET_TIME_RBC_SURVIVAL_ENTER_CALDATE)",
+        "invisible": "TRUE"
+      },
+      "position_from": "caldatetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 111,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfCalDateLock",
+      "x": 560,
+      "y": 319,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(111).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "caldatetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 111,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfLotNum",
+      "x": 0,
+      "y": 369,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "Lot Num:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "lotnumlabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnLotNum",
+      "x": 150,
+      "y": 369,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(112).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter LotNum:'), %ConfigMaxStrLen(10), %ConfigKeyboard(%%CONFIG_KEYBOARD_LOCK_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_RBC_SURVIVAL_ENTER_LOTNUM)",
+        "invisible": "TRUE"
+      },
+      "position_from": "lotnumtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 112,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfLotNumLock",
+      "x": 150,
+      "y": 369,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(112).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "lotnumtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 112,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfInjectionDate",
+      "x": 360,
+      "y": 369,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "Injection Date:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "injectiondatelabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnInjectionDate",
+      "x": 560,
+      "y": 369,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "upImage": "Images/200x40.png",
+        "downImage": "Images/200x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(113).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Injection Time:'),%ConfigDateAndTime,%SetTime(%%SET_TIME_RBC_SURVIVAL_ENTER_INJDATE)",
+        "invisible": "TRUE"
+      },
+      "position_from": "injectiondatetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 113,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfInjectionDateLock",
+      "x": 560,
+      "y": 369,
+      "width": 200,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(113).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "injectiondatetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 113,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDelete",
+      "x": 10,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Delete",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "%ConfigGenericItems(%%SET_GENERICITEMS_DELETE_RBC_SURVIVAL),%SetHTML(%%SET_HTML_GENERIC_ITEMS)",
+        "invisible": "TRUE"
+      },
+      "position_from": "delete"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "TRUE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(), %Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowDelete",
+      "onVar": "internalRAM.byte(88)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnDelete"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowCountTimeBtn",
+      "onVar": "internalRAM.byte(90)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnCountTime"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCountTime"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowCountTimeLock",
+      "onVar": "internalRAM.byte(91)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfCountTimeLock"
+        },
+        {
+          "type": "reappear",
+          "target": "sfCountTimeLock"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowActivityBtn",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnActivity"
+        },
+        {
+          "type": "reappear",
+          "target": "btnActivity"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowActivityLock",
+      "onVar": "internalRAM.byte(93)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfActivityLock"
+        },
+        {
+          "type": "reappear",
+          "target": "sfActivityLock"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowCalDateBtn",
+      "onVar": "internalRAM.byte(94)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnCalDate"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCalDate"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowCalDateLock",
+      "onVar": "internalRAM.byte(95)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfCalDateLock"
+        },
+        {
+          "type": "reappear",
+          "target": "sfCalDateLock"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowLotNumBtn",
+      "onVar": "internalRAM.byte(96)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnLotNum"
+        },
+        {
+          "type": "reappear",
+          "target": "btnLotNum"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowLotNumLock",
+      "onVar": "internalRAM.byte(97)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfLotNumLock"
+        },
+        {
+          "type": "reappear",
+          "target": "sfLotNumLock"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowInjectionDateBtn",
+      "onVar": "internalRAM.byte(98)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnInjectionDate"
+        },
+        {
+          "type": "reappear",
+          "target": "btnInjectionDate"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowInjectionDateLock",
+      "onVar": "internalRAM.byte(99)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfInjectionDateLock"
+        },
+        {
+          "type": "reappear",
+          "target": "sfInjectionDateLock"
+        }
+      ]
+    },
+    {
+      "name": "refreshDisplay",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfFirst"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnFirst"
+        },
+        {
+          "type": "reappear",
+          "target": "btnFirst"
+        },
+        {
+          "type": "reappear",
+          "target": "sfLast"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnLast"
+        },
+        {
+          "type": "reappear",
+          "target": "btnLast"
+        },
+        {
+          "type": "reappear",
+          "target": "sfID"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnID"
+        },
+        {
+          "type": "reappear",
+          "target": "btnID"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDOB"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDOB"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDOB"
+        },
+        {
+          "type": "reappear",
+          "target": "sfSex"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnSex"
+        },
+        {
+          "type": "reappear",
+          "target": "btnSex"
+        },
+        {
+          "type": "reappear",
+          "target": "sfPhysician"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnPhysician"
+        },
+        {
+          "type": "reappear",
+          "target": "btnPhysician"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTechID"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnTechID"
+        },
+        {
+          "type": "reappear",
+          "target": "btnTechID"
+        },
+        {
+          "type": "reappear",
+          "target": "line1"
+        },
+        {
+          "type": "reappear",
+          "target": "line2"
+        },
+        {
+          "type": "reappear",
+          "target": "sfNuclide"
+        },
+        {
+          "type": "reappear",
+          "target": "sfCountTime"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowCountTimeBtn"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowCountTimeLock"
+        },
+        {
+          "type": "reappear",
+          "target": "sfActivity"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowActivityBtn"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowActivityLock"
+        },
+        {
+          "type": "reappear",
+          "target": "sfCalDate"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowCalDateBtn"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowCalDateLock"
+        },
+        {
+          "type": "reappear",
+          "target": "sfLotNum"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowLotNumBtn"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowLotNumLock"
+        },
+        {
+          "type": "reappear",
+          "target": "sfInjectionDate"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowInjectionDateBtn"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowInjectionDateLock"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDelete"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCancel"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_ADDEDIT_RBC_SURVIVAL_TEST"
+    }
+  ],
+  "referencedImages": [
+    "Images/100x40.png",
+    "Images/200x40.png",
+    "Images/320x40.png",
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/hline2.jpg",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        109,
+        110,
+        111,
+        112,
+        113
+      ],
+      "labels": [
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

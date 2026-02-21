@@ -1,0 +1,464 @@
+{
+  "name": "WellAdvancedSetup",
+  "filename": "WellAdvancedSetup.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "90": "Show Wipe Test Button",
+      "91": "Show BioAssay Button",
+      "92": "Show Thyroid Uptake Button",
+      "93": "Show Thyroid Uptake Normal Value Button",
+      "94": "Show RBC Survival Normal Value Button",
+      "100": "Display Screen"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "Advanced Detector Setup",
+        "href": "Amulet:NOP()",
+        "printf": "%s"
+      },
+      "position_from": "title"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHome",
+      "x": 8,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Home",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/home_big.png",
+        "downImage": "Images/home_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "home"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "FALSE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "StringField",
+      "name": "sfDetector",
+      "x": 0,
+      "y": 543,
+      "width": 170,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "22pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(9).value()",
+        "printf": "%s",
+        "invisible": "FALSE"
+      },
+      "position_from": "currentdetector",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 9,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDetector",
+      "x": 170,
+      "y": 543,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Detector",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "%ConfigGenericItems(%%SET_GENERICITEMS_DETECTOR700),%SetHTML(%%SET_HTML_GENERIC_ITEMS)",
+        "invisible": "TRUE"
+      },
+      "position_from": "detector"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnTestSource",
+      "x": 0,
+      "y": 61,
+      "width": 380,
+      "height": 70,
+      "params": {
+        "label": "Test Source",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "%SetClear(%%SET_CLEAR_WELLSETUPTESTSOURCE)",
+        "invisible": "FALSE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnBioassay",
+      "x": 0,
+      "y": 61,
+      "width": 380,
+      "height": 70,
+      "params": {
+        "label": "Bio Assay",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "%SetClear(%%SET_CLEAR_SETUPBIOASSAY)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnEfficiencies",
+      "x": 0,
+      "y": 61,
+      "width": 380,
+      "height": 70,
+      "params": {
+        "label": "Efficiencies",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "%SetClear(%%SET_CLEAR_WELLSETUPEFFICIENCIES)",
+        "invisible": "FALSE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnThyroidUptake",
+      "x": 0,
+      "y": 61,
+      "width": 380,
+      "height": 70,
+      "params": {
+        "label": "Thyroid Uptake",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "%TUProtocolSetupMode,%SetClear(%%SET_CLEAR_SETUPTHYROIDUPTAKEPROTOCOL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnUserNuclides",
+      "x": 0,
+      "y": 61,
+      "width": 380,
+      "height": 70,
+      "params": {
+        "label": "User Nuclides",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "%SetClear(%%SET_CLEAR_WELLSETUPUSERNUCLIDES)",
+        "invisible": "FALSE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnThyroidUptakeNormal",
+      "x": 0,
+      "y": 61,
+      "width": 380,
+      "height": 70,
+      "params": {
+        "label": "Thyroid Uptake Normal Values",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "%EnterTUNormal,%SetClear(%%SET_CLEAR_WELLTHYROIDUPTAKEENTERNORMAL)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnWipe",
+      "x": 0,
+      "y": 61,
+      "width": 380,
+      "height": 70,
+      "params": {
+        "label": "Wipe Tests",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "%SetHTML(%%SET_HTML_SETUP_WIPES)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgnd1"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnSetupPassword",
+      "x": 0,
+      "y": 61,
+      "width": 380,
+      "height": 70,
+      "params": {
+        "label": "Setup Password",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "href": "%SetClear(%%SET_CLEAR_SETUPPASSWORD)",
+        "invisible": "FALSE"
+      },
+      "position_from": "backgnd1"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowDetector",
+      "onVar": "internalRAM.byte(75)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(75)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDetector"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDetectorButton",
+      "onVar": "internalRAM.byte(76)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(76)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnDetector"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowWipeButton",
+      "onVar": "internalRAM.byte(90)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(90)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnWipe"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowBioassayButton",
+      "onVar": "internalRAM.byte(91)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(91)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnBioassay"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowThyroidUptakeButton",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(92)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnThyroidUptake"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowThyroidUptakeNormalButton",
+      "onVar": "internalRAM.byte(93)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(93)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnThyroidUptakeNormal"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDisplay",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowWipeButton"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowBioassayButton"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowThyroidUptakeButton"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowThyroidUptakeNormalButton"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_ADVANCED_SETUP"
+    }
+  ],
+  "referencedImages": [
+    "Images/back_big.png",
+    "Images/bottom_bar.png",
+    "Images/home_big.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        9
+      ]
+    }
+  }
+}

@@ -1,0 +1,791 @@
+{
+  "name": "WellAddEditUserNuclides",
+  "filename": "WellAddEditUserNuclides.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Display Screen",
+      "101": "Display Measure Well Button",
+      "102": "Display Measure Beta Button"
+    },
+    "strings": {
+      "100": "Title",
+      "101": "Title",
+      "102": "Energy 1 Default",
+      "103": "Energy 2 Default",
+      "104": "Energy 3 Default",
+      "105": "Well Efficiency Default",
+      "106": "Beta Efficiency Default",
+      "107": "Energy 1 Current",
+      "108": "Energy 2 Current",
+      "109": "Energy 3 Current",
+      "110": "Well Efficiency Current",
+      "111": "Beta Efficiency Current",
+      "112": "Well Measured On",
+      "113": "Well Measured On",
+      "114": "Beta Measured On",
+      "115": "Beta Measured On"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 791,
+      "height": 50,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuclide",
+      "x": 305,
+      "y": 70,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(102).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Nuclide:'), %ConfigMaxStrLen(6), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_WELL_ADD_EDIT_NUCLIDES_NUCLIDE)",
+        "invisible": "TRUE"
+      },
+      "position_from": "nuclidetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 102,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnElement",
+      "x": 305,
+      "y": 115,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Element:'), %ConfigMaxStrLen(14), %ConfigKeyboard(%%CONFIG_KEYBOARD_TEMP_UPPER), %HideWildcardChar, %SetKeyboard(%%SET_KEYBOARD_WELL_ADD_EDIT_NUCLIDES_ELEMENT)",
+        "invisible": "TRUE"
+      },
+      "position_from": "elementtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnHalflife",
+      "x": 305,
+      "y": 160,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please enter Halflife'), %ConfigX(492), %ConfigY(110), %ConfigMaxStrLen(5), %ConfigActivity(%%CONFIG_ACTIVITY_TIME), %SetActivity(%%SET_ACTIVITY_WELL_ADD_EDIT_NUCLIDES_HALFLIFE)",
+        "invisible": "TRUE"
+      },
+      "position_from": "halflifetext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnEnergy1",
+      "x": 305,
+      "y": 205,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Energy 1:'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(3), %ConfigMinValue('1.0'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_ADD_EDIT_NUCLIDES_ENERGY1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "energy1text",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnEnergy2",
+      "x": 305,
+      "y": 250,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Energy 2:'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(3), %ConfigMinValue('1.0'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_ADD_EDIT_NUCLIDES_ENERGY2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "energy2text",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnEnergy3",
+      "x": 305,
+      "y": 295,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(107).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Energy 3:'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(3), %ConfigMinValue('1.0'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_ADD_EDIT_NUCLIDES_ENERGY3)",
+        "invisible": "TRUE"
+      },
+      "position_from": "energy3text",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 107,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnWellEff",
+      "x": 305,
+      "y": 340,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(108).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Well Eff:'), %ConfigMaxStrLen(2), %ConfigMaxFractionLen(3), %ConfigMinValue('.001'), %ConfigMaxValue('99.999'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_ADD_EDIT_NUCLIDES_WELL_EFF)",
+        "invisible": "TRUE"
+      },
+      "position_from": "wellefftext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 108,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnWellEffMeasure",
+      "x": 650,
+      "y": 340,
+      "width": 140,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "label": "Measure",
+        "href": "%AddEditUserNuclideWellDetector, %SetClear(%%SET_CLEAR_WELLMEASUREEFFICIENCY)",
+        "invisible": "TRUE"
+      },
+      "position_from": "welleffmeasure"
+    },
+    {
+      "type": "StringField",
+      "name": "sfHeader_ProbeEfficiency",
+      "x": 5,
+      "y": 385,
+      "width": 300,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontColor": "#000000",
+        "fontStyle": "ITALIC",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "MIDDLE",
+        "initialCondition": "Probe Efficiency(%):",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE",
+        "updateRate": "0.00"
+      },
+      "position_from": "probeefflabel"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnProbeEff",
+      "x": 305,
+      "y": 385,
+      "width": 320,
+      "height": 40,
+      "params": {
+        "upImage": "Images/320x40.png",
+        "downImage": "Images/320x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "fontStyle": "PLAIN",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(109).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%ConfigTitle('Please Enter Probe Eff:'), %ConfigMaxStrLen(2), %ConfigMaxFractionLen(3), %ConfigMinValue('.001'), %ConfigMaxValue('99.999'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_ADD_EDIT_NUCLIDES_PROBE_EFF)",
+        "invisible": "TRUE"
+      },
+      "position_from": "probeefftext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 109,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnProbeEffMeasure",
+      "x": 650,
+      "y": 385,
+      "width": 140,
+      "height": 40,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontColor": "blue",
+        "fillColor": "#FFFFFF",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "label": "Measure",
+        "href": "%AddEditUserNuclideProbeDetector, %SetClear(%%SET_CLEAR_WELLMEASUREEFFICIENCY)",
+        "invisible": "TRUE"
+      },
+      "position_from": "probeeffmeasure"
+    },
+    {
+      "type": "StringField",
+      "name": "sfWellMeasuredOn",
+      "x": 5,
+      "y": 430,
+      "width": 645,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "16pt",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "verticalAlign": "BOTTOM",
+        "horizontalAlign": "LEFT",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(110).value()",
+        "printf": "%.76s",
+        "invisible": "TRUE",
+        "updateRate": "0.00"
+      },
+      "position_from": "wellmeasuredon",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 110,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfProbeMeasuredOn",
+      "x": 5,
+      "y": 475,
+      "width": 645,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "fontSize": "16pt",
+        "fontColor": "#000000",
+        "fillColor": "#FFFFFF",
+        "verticalAlign": "BOTTOM",
+        "horizontalAlign": "LEFT",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(113).value()",
+        "printf": "%.76s",
+        "invisible": "TRUE",
+        "updateRate": "0.00"
+      },
+      "position_from": "probemeasuredon",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 113,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnDelete",
+      "x": 5,
+      "y": 542,
+      "width": 200,
+      "height": 50,
+      "params": {
+        "label": "Delete Nuclide",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnDelete.disappear(), Amulet:UART.word(0).setValue(0x0103)",
+        "invisible": "TRUE"
+      },
+      "position_from": "delete",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "FALSE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(), %Back",
+        "invisible": "FALSE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshDisplay",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuclide"
+        },
+        {
+          "type": "reappear",
+          "target": "btnNuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnElement"
+        },
+        {
+          "type": "reappear",
+          "target": "btnElement"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnHalflife"
+        },
+        {
+          "type": "reappear",
+          "target": "btnHalflife"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnEnergy1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEnergy1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnEnergy2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEnergy2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnEnergy3"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEnergy3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnWellEff"
+        },
+        {
+          "type": "reappear",
+          "target": "btnWellEff"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfWellMeasuredOn"
+        },
+        {
+          "type": "reappear",
+          "target": "sfWellMeasuredOn"
+        }
+      ]
+    },
+    {
+      "name": "refreshDisplayProbe",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfHeader_ProbeEfficiency"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnProbeEff"
+        },
+        {
+          "type": "reappear",
+          "target": "btnProbeEff"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfProbeMeasuredOn"
+        },
+        {
+          "type": "reappear",
+          "target": "sfProbeMeasuredOn"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowWellEffMeasure",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnWellEffMeasure"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowProbeEffMeasure",
+      "onVar": "internalRAM.byte(103)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(103)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnProbeEffMeasure"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDeleteButton",
+      "onVar": "internalRAM.byte(104)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(104)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnDelete"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_ADD_EDIT_USER_NUCLIDES"
+    }
+  ],
+  "referencedImages": [
+    "Images/320x40.png",
+    "Images/bottom_bar.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        110,
+        113
+      ],
+      "labels": [
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

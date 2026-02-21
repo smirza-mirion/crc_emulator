@@ -1,0 +1,1833 @@
+{
+  "name": "MainScreen",
+  "filename": "MainScreen.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page",
+    "NoClearLCD.NotThisPage"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "20": "Show Chamber Label\t\t\t(TOGGLE)",
+      "21": "Show Chamber Button\t\t\t(TOGGLE)",
+      "22": "Show Well Button\t\t\t(TOGGLE)",
+      "23": "Show Beta Button\t\t\t(TOGGLE)",
+      "100": "Language\t\t\t\t(STATE) English = 0, French = 1",
+      "101": "Show Screen\t\t\t\t(TOGGLE)",
+      "102": "Show Print Button\t\t\t(TOGGLE)",
+      "103": "Show Activty Unit\t\t\t(TOGGLE)",
+      "104": "Show Activity\t\t\t\t(TOGGLE)",
+      "105": "Show AutoLinearity Pause Status\t(TOGGLE)",
+      "106": "No Moly and Inventory\t\t\t(STATE) Show Moly and Invetory Buttons = 0, No Moly and Inventory Buttons = 1"
+    },
+    "strings": {
+      "0": "Current Nuclide",
+      "1": "Current Nuclide",
+      "2": "Current Time",
+      "3": "Cal Num",
+      "4": "Remote Indicator",
+      "6": "Future Time",
+      "7": "Future Activity",
+      "9": "Current Chamber",
+      "10": "Current Activity",
+      "11": "Current Unit",
+      "12": "Over Range Error",
+      "13": "Low Battery Warning",
+      "100": "Title",
+      "101": "HotKey 1",
+      "102": "HotKey 2",
+      "103": "HotKey 3",
+      "104": "HotKey 4",
+      "105": "HotKey 5",
+      "106": "HotKey 6",
+      "107": "HotKey 7",
+      "108": "HotKey 8",
+      "109": "AutoLinearity Paused!!!",
+      "110": "Please Select Nuclide:",
+      "111": "Please Select Nuclide:",
+      "112": "Please Enter Password:",
+      "113": "Please Enter Password:",
+      "114": "Please Enter Cal #:",
+      "115": "Please Enter Cal #:",
+      "116": "Please Enter Dose Time:",
+      "117": "Please Enter Dose Time:"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 227,
+      "y": 0,
+      "width": 346,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#00000000",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfChamb",
+      "x": 119,
+      "y": 543,
+      "width": 200,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(9).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "currentchamber",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 9,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfPausedAutoLin",
+      "x": 319,
+      "y": 543,
+      "width": 262,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(109).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "paused_autolin",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 109,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnCh",
+      "x": 8,
+      "y": 543,
+      "width": 101,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%SetHTML(%%SET_HTML_SELECT_CHAMBER)",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/ch_33.png",
+        "downImage": "Images/ch_33.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "chamb"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnWell",
+      "x": 8,
+      "y": 13,
+      "width": 101,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%SetClear(%%SET_CLEAR_WELLMAIN)",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/well_33.png",
+        "downImage": "Images/well_33.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "mca"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnWellFrench",
+      "x": 8,
+      "y": 13,
+      "width": 101,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%SetClear(%%SET_CLEAR_WELLMAIN)",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/french_well_33.png",
+        "downImage": "Images/french_well_33.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "mca",
+      "language": "french"
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnBeta",
+      "x": 8,
+      "y": 13,
+      "width": 110,
+      "height": 33,
+      "params": {
+        "font": "Arial Black Bold",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "label": "BETA",
+        "href": "%SetHTML(%%SET_HTML_BETA_MAINSCREEN)",
+        "invisible": "TRUE"
+      },
+      "position_from": "mca"
+    },
+    {
+      "type": "StringField",
+      "name": "sfActivityNum",
+      "x": 112,
+      "y": 205,
+      "width": 428,
+      "height": 114,
+      "params": {
+        "border": "0",
+        "fillColor": "#E0E0FF",
+        "font": "Arial Black Bold",
+        "fontSize": "72pt",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:InternalRAM.string(10).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.5"
+      },
+      "position_from": "activity",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 10,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnActivityNum",
+      "x": 112,
+      "y": 205,
+      "width": 428,
+      "height": 114,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.btnActivityNum.disappear(),Amulet:document.sfActivityNum.reappear(),Amulet:UART.byte(0).setValue(14)",
+        "invisible": "FALSE"
+      },
+      "position_from": "activity",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfOverRange",
+      "x": 430,
+      "y": 140,
+      "width": 350,
+      "height": 63,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Arial Black Bold",
+        "fontSize": "24pt",
+        "fontColor": "#FF0000",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:InternalRAM.string(12).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.5"
+      },
+      "position_from": "overrange",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 12,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfActivityUnit",
+      "x": 550,
+      "y": 205,
+      "width": 230,
+      "height": 114,
+      "params": {
+        "border": "0",
+        "fillColor": "#E0E0FF",
+        "font": "Arial Black Bold",
+        "fontSize": "72pt",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:InternalRAM.string(11).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.5"
+      },
+      "position_from": "units",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 11,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnActivityUnit",
+      "x": 550,
+      "y": 205,
+      "width": 230,
+      "height": 114,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "Amulet:document.btnActivityUnit.disappear(),Amulet:UART.byte(0).setValue(13)",
+        "invisible": "TRUE"
+      },
+      "position_from": "units",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfNuclide",
+      "x": 210,
+      "y": 322,
+      "width": 570,
+      "height": 90,
+      "params": {
+        "border": "0",
+        "fillColor": "#E0E0FF",
+        "font": "Arial Black Bold",
+        "fontSize": "22pt",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "BOTTOM",
+        "href": "Amulet:InternalRAM.string(0).value()",
+        "initialCondition": " ",
+        "options": " =0",
+        "printf": "%.51s",
+        "updateRate": "1"
+      },
+      "position_from": "nuclide",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnNuclide",
+      "x": 210,
+      "y": 322,
+      "width": 570,
+      "height": 90,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle(Amulet:internalRAM.string(110)), %ConfigNuclide(%%CONFIG_NUCLIDE_ONLY_CAL), %ClearNuclide(%%CLEAR_NUCLIDE_HIDE), %SetNuclide(%%SET_NUCLIDE_MEASURE)",
+        "invisible": "FALSE"
+      },
+      "position_from": "nuclide",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 110,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfTime",
+      "x": 430,
+      "y": 69,
+      "width": 350,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#E0E0FF",
+        "font": "Arial Black Bold",
+        "fontSize": "22pt",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "TOP",
+        "href": "Amulet:InternalRAM.string(2).value()",
+        "initialCondition": " ",
+        "options": " =0",
+        "printf": "%s",
+        "updateRate": "1"
+      },
+      "position_from": "time",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 2,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnTime",
+      "x": 430,
+      "y": 69,
+      "width": 350,
+      "height": 50,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle(Amulet:internalRAM.string(112)), %ConfigMaxStrLen(8), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('0.0'), %ConfigKeypad(%%CONFIG_KEYPAD_PASSWORD), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TIME_PASSWD)",
+        "invisible": "FALSE"
+      },
+      "position_from": "time",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 112,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfLowBattery",
+      "x": 130,
+      "y": 415,
+      "width": 340,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "font": "Arial Black Bold",
+        "fontSize": "24pt",
+        "fontColor": "red",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:InternalRAM.string(13).value()",
+        "initialCondition": " ",
+        "options": " =0",
+        "printf": "%s",
+        "updateRate": "1"
+      },
+      "position_from": "lowbattery",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 13,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfCalNum",
+      "x": 500,
+      "y": 415,
+      "width": 280,
+      "height": 50,
+      "params": {
+        "border": "0",
+        "fillColor": "#E0E0FF",
+        "font": "Arial Black Bold",
+        "fontSize": "24pt",
+        "horizontalAlign": "RIGHT",
+        "verticalAlign": "TOP",
+        "href": "Amulet:InternalRAM.string(3).value()",
+        "initialCondition": " ",
+        "options": " =0",
+        "printf": "Cal #: %s",
+        "updateRate": "0.5"
+      },
+      "position_from": "calnum",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 3,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCalnum",
+      "x": 500,
+      "y": 415,
+      "width": 280,
+      "height": 50,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle(Amulet:internalRAM.string(114)), %ConfigMaxStrLen(7), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('0.0'), %ConfigKeypad(%%CONFIG_KEYPAD_CALNUM), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_CALNUM)",
+        "invisible": "FALSE"
+      },
+      "position_from": "calnum",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 114,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfFutureTime",
+      "x": 130,
+      "y": 69,
+      "width": 290,
+      "height": 43,
+      "params": {
+        "border": "0",
+        "fillColor": "#E0E0FF",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "#FF0000",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BOTTOM",
+        "href": "Amulet:internalRAM.string(6).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.5"
+      },
+      "position_from": "futuretime",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 6,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfFutureActivity",
+      "x": 130,
+      "y": 112,
+      "width": 290,
+      "height": 83,
+      "params": {
+        "border": "0",
+        "fillColor": "#E0E0FF",
+        "font": "Arial Black Bold",
+        "fontSize": "36pt",
+        "fontStyle": "BOLD",
+        "fontColor": "#FF0000",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "TOP",
+        "href": "Amulet:internalRAM.string(7).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "updateRate": "0.5"
+      },
+      "position_from": "futureactivity",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 7,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnFuture",
+      "x": 130,
+      "y": 69,
+      "width": 290,
+      "height": 126,
+      "params": {
+        "borderColor": "#00000000",
+        "label": "",
+        "fillColor": "#00000000",
+        "href": "%ConfigTitle(Amulet:internalRAM.string(116)),%ConfigDateAndTime,%SetTime(%%SET_TIME_FUTURE_TIME)",
+        "invisible": "FALSE"
+      },
+      "position_from": "futuretime",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 116,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfRemote",
+      "x": 130,
+      "y": 322,
+      "width": 30,
+      "height": 35,
+      "params": {
+        "border": "0",
+        "fillColor": "#00000000",
+        "font": "Arial Black Bold",
+        "fontSize": "24pt",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:InternalRAM.string(4).value()",
+        "printf": "%s",
+        "updateRate": "0.5"
+      },
+      "position_from": "remote",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 4,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuclide1",
+      "x": 8,
+      "y": 70,
+      "width": 103,
+      "height": 48,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(101).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#FFFFFF",
+        "downImage": "Images/nuclide_top_down.png",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "href": "%SetHotkeyNuclide(%%SET_HOTKEY_NUCLIDE_1)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/nuclide_top_up.png",
+        "repeatRate": "0.00"
+      },
+      "position_from": "nuclide1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 101,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuclide2",
+      "x": 8,
+      "y": 118,
+      "width": 103,
+      "height": 47,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(102).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#FFFFFF",
+        "downImage": "Images/nuclide_middle_down.png",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "href": "%SetHotkeyNuclide(%%SET_HOTKEY_NUCLIDE_2)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/nuclide_middle_up.png",
+        "repeatRate": "0.00"
+      },
+      "position_from": "nuclide2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 102,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuclide3",
+      "x": 8,
+      "y": 165,
+      "width": 103,
+      "height": 47,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(103).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#FFFFFF",
+        "downImage": "Images/nuclide_middle_down.png",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "href": "%SetHotkeyNuclide(%%SET_HOTKEY_NUCLIDE_3)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/nuclide_middle_up.png",
+        "repeatRate": "0.00"
+      },
+      "position_from": "nuclide3",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 103,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuclide4",
+      "x": 8,
+      "y": 212,
+      "width": 103,
+      "height": 47,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#FFFFFF",
+        "downImage": "Images/nuclide_middle_down.png",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "href": "%SetHotkeyNuclide(%%SET_HOTKEY_NUCLIDE_4)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/nuclide_middle_up.png",
+        "repeatRate": "0.00"
+      },
+      "position_from": "nuclide4",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuclide5",
+      "x": 8,
+      "y": 259,
+      "width": 103,
+      "height": 47,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#FFFFFF",
+        "downImage": "Images/nuclide_middle_down.png",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "href": "%SetHotkeyNuclide(%%SET_HOTKEY_NUCLIDE_5)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/nuclide_middle_up.png",
+        "repeatRate": "0.00"
+      },
+      "position_from": "nuclide5",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuclide6",
+      "x": 8,
+      "y": 306,
+      "width": 103,
+      "height": 47,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(106).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#FFFFFF",
+        "downImage": "Images/nuclide_middle_down.png",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "href": "%SetHotkeyNuclide(%%SET_HOTKEY_NUCLIDE_6)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/nuclide_middle_up.png",
+        "repeatRate": "0.00"
+      },
+      "position_from": "nuclide6",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 106,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuclide7",
+      "x": 8,
+      "y": 353,
+      "width": 103,
+      "height": 47,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(107).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#FFFFFF",
+        "downImage": "Images/nuclide_middle_down.png",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "href": "%SetHotkeyNuclide(%%SET_HOTKEY_NUCLIDE_7)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/nuclide_middle_up.png",
+        "repeatRate": "0.00"
+      },
+      "position_from": "nuclide7",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 107,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnNuclide8",
+      "x": 8,
+      "y": 400,
+      "width": 103,
+      "height": 51,
+      "params": {
+        "label": "FromInitHref",
+        "initHref": "Amulet:internalRAM.label(108).value()",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#FFFFFF",
+        "downImage": "Images/nuclide_bottom_down.png",
+        "fontSize": "14pt",
+        "fontStyle": "BOLD",
+        "href": "%SetHotkeyNuclide(%%SET_HOTKEY_NUCLIDE_8)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/nuclide_bottom_up.png",
+        "repeatRate": "0.00"
+      },
+      "position_from": "nuclide8",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 108,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDaily",
+      "x": 8,
+      "y": 470,
+      "width": 72,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/daily_down.png",
+        "href": "%SetClear(%%SET_CLEAR_DAILY)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/daily_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "daily_key"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDailyFrench",
+      "x": 8,
+      "y": 470,
+      "width": 72,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/french_daily_down.png",
+        "href": "%SetClear(%%SET_CLEAR_DAILY)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/french_daily_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "daily_key",
+      "language": "french"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBackground",
+      "x": 80,
+      "y": 470,
+      "width": 139,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/background_down.png",
+        "href": "%SetHTML(%%SET_HTML_BACKGROUND)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/background_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "background_key"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBackgroundFrench",
+      "x": 80,
+      "y": 470,
+      "width": 139,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/french_background_down.png",
+        "href": "%SetHTML(%%SET_HTML_BACKGROUND)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/french_background_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "background_key",
+      "language": "french"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnVolts",
+      "x": 219,
+      "y": 470,
+      "width": 109,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/chamber_volts_down.png",
+        "href": "%SetHTML(%%SET_HTML_CHAMBERVOLTS)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/chamber_volts_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "volts_key"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnVoltsFrench",
+      "x": 219,
+      "y": 470,
+      "width": 109,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/french_chamber_volts_down.png",
+        "href": "%SetHTML(%%SET_HTML_CHAMBERVOLTS)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/french_chamber_volts_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "volts_key",
+      "language": "french"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnAccuracy",
+      "x": 328,
+      "y": 470,
+      "width": 107,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/accuracy_down.png",
+        "href": "%SetAccuracyAll,%SetClear(%%SET_CLEAR_ACCURACY)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/accuracy_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "accuracy_key"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnAccuracyFrench",
+      "x": 328,
+      "y": 470,
+      "width": 107,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/french_accuracy_down.png",
+        "href": "%SetAccuracyAll,%SetClear(%%SET_CLEAR_ACCURACY)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/french_accuracy_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "accuracy_key",
+      "language": "french"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnEnhanced",
+      "x": 435,
+      "y": 470,
+      "width": 101,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/enhanced_down.png",
+        "href": "%SetHTML(%%SET_HTML_ENHANCED)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/enhanced_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "enhanced_key"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnEnhancedFrench",
+      "x": 435,
+      "y": 470,
+      "width": 101,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/french_enhanced_down.png",
+        "href": "%SetHTML(%%SET_HTML_ENHANCED)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/french_enhanced_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "enhanced_key",
+      "language": "french"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMoly",
+      "x": 536,
+      "y": 470,
+      "width": 76,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/moly_down.png",
+        "href": "%SetClear(%%SET_CLEAR_MOLY)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/moly_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "moly_key"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnMolyEmpty",
+      "x": 536,
+      "y": 470,
+      "width": 76,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/moly_empty.png",
+        "href": "Amulet:NOP()",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/moly_empty.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "moly_key"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnInventory",
+      "x": 612,
+      "y": 470,
+      "width": 111,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/inventory_down.png",
+        "href": "%SetHTML(%%SET_HTML_INVENTORY)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/inventory_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "inventory_key"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnInventoryFrench",
+      "x": 612,
+      "y": 470,
+      "width": 111,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/french_inventory_down.png",
+        "href": "%SetHTML(%%SET_HTML_INVENTORY)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/french_inventory_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "inventory_key",
+      "language": "french"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnInventoryEmpty",
+      "x": 612,
+      "y": 470,
+      "width": 111,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/inventory_empty.png",
+        "href": "Amulet:NOP()",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/inventory_empty.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "inventory_key"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnInfo",
+      "x": 723,
+      "y": 470,
+      "width": 69,
+      "height": 47,
+      "params": {
+        "label": "",
+        "downImage": "Images/info_down.png",
+        "href": "%ShowDoseTableButton,%SetClear(%%SET_CLEAR_INFO)",
+        "onButtonPress": "CUSTOM",
+        "upImage": "Images/info_up.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "info_key"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPrint",
+      "x": 581,
+      "y": 543,
+      "width": 101,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "Amulet:document.btnPrint.disappear(),Amulet:UART.byte(0).setValue(11)",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/print_33.png",
+        "downImage": "Images/print_33.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "print",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnPrintFrench",
+      "x": 581,
+      "y": 543,
+      "width": 101,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "Amulet:document.btnPrintFrench.disappear(),Amulet:UART.byte(0).setValue(11)",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/french_print_33.png",
+        "downImage": "Images/french_print_33.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "print",
+      "language": "french",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "byte",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnSetup",
+      "x": 692,
+      "y": 543,
+      "width": 101,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%SetClear(%%SET_CLEAR_SETUP)",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/setup_33.png",
+        "downImage": "Images/setup_33.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "setup"
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnSetupFrench",
+      "x": 692,
+      "y": 543,
+      "width": 101,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%SetClear(%%SET_CLEAR_SETUP)",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/french_setup_33.png",
+        "downImage": "Images/french_setup_33.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "setup",
+      "language": "french"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    },
+    {
+      "src": "Images/bottom_bar.png",
+      "width": 800,
+      "height": 63,
+      "div_id": "bottombar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshChambString",
+      "onVar": "internalRAM.byte(20)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(20)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfChamb"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfChamb"
+        }
+      ]
+    },
+    {
+      "name": "refreshChambButton",
+      "onVar": "internalRAM.byte(21)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(21)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnCh"
+        }
+      ]
+    },
+    {
+      "name": "refreshWellButton",
+      "onVar": "internalRAM.byte(22)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(22)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowWellEnglish"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowWellFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshBetaButton",
+      "onVar": "internalRAM.byte(23)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(23)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnBeta"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowWellEnglish",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnWell"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowWellFrench",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnWellFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowVisibleEnglish",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnDaily"
+        },
+        {
+          "type": "reappear",
+          "target": "btnBackground"
+        },
+        {
+          "type": "reappear",
+          "target": "btnVolts"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccuracy"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEnhanced"
+        },
+        {
+          "type": "reappear",
+          "target": "btnInfo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnSetup"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowVisibleFrench",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnDailyFrench"
+        },
+        {
+          "type": "reappear",
+          "target": "btnBackgroundFrench"
+        },
+        {
+          "type": "reappear",
+          "target": "btnVoltsFrench"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccuracyFrench"
+        },
+        {
+          "type": "reappear",
+          "target": "btnEnhancedFrench"
+        },
+        {
+          "type": "reappear",
+          "target": "btnInfo"
+        },
+        {
+          "type": "reappear",
+          "target": "btnSetupFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowVisibleEnglishInventory",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnInventory"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowVisibleFrenchInventory",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnInventoryFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowMoly",
+      "onVar": "internalRAM.byte(106)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnMoly"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowVisibleEnglishInventory"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowVisibleFrenchInventory"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowNoMoly",
+      "onVar": "internalRAM.byte(106)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnMolyEmpty"
+        },
+        {
+          "type": "reappear",
+          "target": "btnInventoryEmpty"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPrintEnglish",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0x00",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnPrint"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPrintFrench",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0x01",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "btnPrintFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshDisplay",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuclide1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuclide2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuclide3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuclide4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuclide5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuclide6"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuclide7"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnNuclide8"
+        },
+        {
+          "type": "reappear",
+          "target": "sfFutureTime"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfFutureTime"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowVisibleEnglish"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowVisibleFrench"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowMoly"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowNoMoly"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPrint",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowPrintEnglish"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowPrintFrench"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowUnitButton",
+      "onVar": "internalRAM.byte(103)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(103)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnActivityUnit"
+        },
+        {
+          "type": "reappear",
+          "target": "sfActivityUnit"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowNumButton",
+      "onVar": "internalRAM.byte(104)",
+      "trigger": "0xFF",
+      "interval": "0.5",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(104)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "btnActivityNum"
+        },
+        {
+          "type": "reappear",
+          "target": "sfActivityNum"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowPausedAutoLin",
+      "onVar": "internalRAM.byte(105)",
+      "trigger": "0xFF",
+      "interval": "0.5",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(105)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfPausedAutoLin"
+        },
+        {
+          "type": "reappear",
+          "target": "sfPausedAutoLin"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_MAIN_SCREEN"
+    }
+  ],
+  "referencedImages": [
+    "Images/accuracy_down.png",
+    "Images/accuracy_up.png",
+    "Images/background_down.png",
+    "Images/background_up.png",
+    "Images/bottom_bar.png",
+    "Images/ch_33.png",
+    "Images/chamber_volts_down.png",
+    "Images/chamber_volts_up.png",
+    "Images/daily_down.png",
+    "Images/daily_up.png",
+    "Images/enhanced_down.png",
+    "Images/enhanced_up.png",
+    "Images/french_accuracy_down.png",
+    "Images/french_accuracy_up.png",
+    "Images/french_background_down.png",
+    "Images/french_background_up.png",
+    "Images/french_chamber_volts_down.png",
+    "Images/french_chamber_volts_up.png",
+    "Images/french_daily_down.png",
+    "Images/french_daily_up.png",
+    "Images/french_enhanced_down.png",
+    "Images/french_enhanced_up.png",
+    "Images/french_inventory_down.png",
+    "Images/french_inventory_up.png",
+    "Images/french_print_33.png",
+    "Images/french_setup_33.png",
+    "Images/french_well_33.png",
+    "Images/info_down.png",
+    "Images/info_up.png",
+    "Images/inventory_down.png",
+    "Images/inventory_empty.png",
+    "Images/inventory_up.png",
+    "Images/moly_down.png",
+    "Images/moly_empty.png",
+    "Images/moly_up.png",
+    "Images/nuclide_bottom_down.png",
+    "Images/nuclide_bottom_up.png",
+    "Images/nuclide_middle_down.png",
+    "Images/nuclide_middle_up.png",
+    "Images/nuclide_top_down.png",
+    "Images/nuclide_top_up.png",
+    "Images/print_33.png",
+    "Images/setup_33.png",
+    "Images/top_bar.png",
+    "Images/well_33.png"
+  ],
+  "hasFrenchVariants": true,
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        100,
+        109,
+        110,
+        112,
+        114,
+        116
+      ],
+      "labels": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108
+      ]
+    },
+    "UART": {
+      "bytes": [
+        0
+      ]
+    }
+  }
+}

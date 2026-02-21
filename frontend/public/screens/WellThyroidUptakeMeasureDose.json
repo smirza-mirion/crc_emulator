@@ -1,0 +1,3178 @@
+{
+  "name": "WellThyroidUptakeMeasureDose",
+  "filename": "WellThyroidUptakeMeasureDose.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "69": "Show Accept, Cancel Button",
+      "70": "Show Back Button",
+      "71": "Show Spectra 1 Value 1",
+      "72": "Show Spectra 2 Value 1",
+      "73": "Show Spectra 3 Value 1",
+      "74": "Show Spectra 4 Value 1",
+      "75": "Show Spectra 5 Value 1",
+      "76": "Show Spectra 1 Value 2",
+      "77": "Show Spectra 2 Value 2",
+      "78": "Show Spectra 3 Value 2",
+      "79": "Show Spectra 4 Value 2",
+      "80": "Show Spectra 5 Value 2",
+      "81": "Show Residual 1",
+      "82": "Show Residual 2",
+      "83": "Show Residual 3",
+      "84": "Show Residual 4",
+      "85": "Show Residual 5",
+      "91": "Show Dose 1",
+      "92": "Show Dose 2",
+      "93": "Show Dose 3",
+      "94": "Show Dose 4",
+      "95": "Show Dose 5",
+      "96": "Show Total",
+      "97": "Show Result 1",
+      "98": "Show Result 2",
+      "100": "Display All",
+      "102": "Save",
+      "103": "Background",
+      "104": "Dose 1 1",
+      "105": "Dose 1 2",
+      "106": "Dose 2 1",
+      "107": "Dose 2 2",
+      "108": "Dose 3 1",
+      "109": "Dose 3 2"
+    },
+    "strings": {
+      "80": "Patient ID",
+      "81": "Patient Name",
+      "82": "Patient Name",
+      "83": "Patient Status",
+      "84": "Background Stamp",
+      "85": "Background Stamp",
+      "86": "Background Value",
+      "87": "Dose 1 Label",
+      "88": "Dose 1 Label",
+      "89": "Dose 1 Value 1",
+      "90": "Dose 1 Value 2",
+      "91": "Dose 1 Average",
+      "92": "Dose 2 Label",
+      "93": "Dose 2 Label",
+      "94": "Dose 2 Value 1",
+      "95": "Dose 2 Value 2",
+      "96": "Dose 2 Average",
+      "97": "Dose 3 Label",
+      "98": "Dose 3 Label",
+      "99": "Dose 3 Value 1",
+      "100": "Dose 3 Value 2",
+      "101": "Dose 3 Average",
+      "102": "Dose 4 Label",
+      "103": "Dose 4 Label",
+      "104": "Dose 4 Value 1",
+      "105": "Dose 4 Value 2",
+      "106": "Dose 4 Average",
+      "107": "Dose 5 Label",
+      "108": "Dose 5 Label",
+      "109": "Dose 5 Value 1",
+      "110": "Dose 5 Value 2",
+      "111": "Dose 5 Average",
+      "112": "Total Dose",
+      "113": "Net CPM",
+      "114": "Net CPM",
+      "115": "Net CPM",
+      "116": "Net CPM",
+      "117": "cps or cpm",
+      "118": "Title",
+      "119": "Title"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 150,
+      "y": 0,
+      "width": 500,
+      "height": 69,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF00",
+        "fontColor": "#FFFFFF",
+        "fontSize": "24pt",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(118).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 118,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBack",
+      "x": 693,
+      "y": 13,
+      "width": 100,
+      "height": 50,
+      "params": {
+        "label": "",
+        "href": "%Back",
+        "onButtonPress": "GRAY",
+        "upImage": "Images/back_big.png",
+        "downImage": "Images/back_big.png",
+        "repeatRate": "0.00",
+        "invisible": "TRUE"
+      },
+      "position_from": "back"
+    },
+    {
+      "type": "StringField",
+      "name": "sfPatientIDLabel",
+      "x": 0,
+      "y": 70,
+      "width": 100,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "initialCondition": "Patient ID:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "patientIDlabel"
+    },
+    {
+      "type": "StringField",
+      "name": "sfPatientIDText",
+      "x": 100,
+      "y": 70,
+      "width": 700,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000090",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(80).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "patientIDtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 80,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfPatientNameLabel",
+      "x": 0,
+      "y": 100,
+      "width": 100,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "initialCondition": "Name:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "patientlabel"
+    },
+    {
+      "type": "StringField",
+      "name": "sfPatientNameText",
+      "x": 100,
+      "y": 100,
+      "width": 700,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000090",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(81).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "patienttext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 81,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfStatusLabel",
+      "x": 0,
+      "y": 130,
+      "width": 100,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "14pt",
+        "initialCondition": "Status:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "statuslabel"
+    },
+    {
+      "type": "StringField",
+      "name": "sfStatusText",
+      "x": 100,
+      "y": 130,
+      "width": 700,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000090",
+        "fontSize": "18pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(83).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "statustext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 83,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfBackgroundLabel",
+      "x": 0,
+      "y": 160,
+      "width": 340,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(117).value",
+        "printf": "Background(%s):",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgroundlabel",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 117,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBackground",
+      "x": 340,
+      "y": 160,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(86).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Background Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_BACKGROUND)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgroundtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 86,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnBackgroundS",
+      "x": 340,
+      "y": 160,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40_sp.png",
+        "downImage": "Images/150x40_sp.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(86).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "Amulet:document.btnBackgroundS.disappear(),Amulet:UART.word(0).setValue(0x0103)",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgroundtext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 86,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfBackgroundStamp",
+      "x": 500,
+      "y": 160,
+      "width": 300,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(84).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "backgroundstamp",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 84,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfFirst",
+      "x": 340,
+      "y": 200,
+      "width": 150,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "BOTTOM",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD|UNDERLINE",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(117).value()",
+        "printf": "Count 1(%s)",
+        "invisible": "TRUE"
+      },
+      "position_from": "first",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 117,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfSecond",
+      "x": 500,
+      "y": 200,
+      "width": 150,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "BOTTOM",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD|UNDERLINE",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(117).value()",
+        "printf": "Count 2(%s)",
+        "invisible": "TRUE"
+      },
+      "position_from": "second",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 117,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfAverage",
+      "x": 660,
+      "y": 200,
+      "width": 140,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "BOTTOM",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD|UNDERLINE",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(117).value()",
+        "printf": "Average(%s)",
+        "invisible": "TRUE"
+      },
+      "position_from": "average",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 117,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDose1Label",
+      "x": 0,
+      "y": 230,
+      "width": 340,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(87).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose1label",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 87,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose1Value1",
+      "x": 340,
+      "y": 230,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(89).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE1_VALUE1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose1text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 89,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose1Value1R",
+      "x": 340,
+      "y": 230,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(89).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE1_VALUE1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose1text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 89,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose1Value1S",
+      "x": 340,
+      "y": 230,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40_sp.png",
+        "downImage": "Images/150x40_sp.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(89).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "Amulet:document.btnDose1Value1S.disappear(),Amulet:UART.word(0).setValue(0x0104)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose1text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 89,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose1Value2",
+      "x": 500,
+      "y": 230,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(90).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE1_VALUE2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose1text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 90,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose1Value2R",
+      "x": 500,
+      "y": 230,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(90).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE1_VALUE2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose1text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 90,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose1Value2S",
+      "x": 500,
+      "y": 230,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40_sp.png",
+        "downImage": "Images/150x40_sp.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(90).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "Amulet:document.btnDose1Value2S.disappear(),Amulet:UART.word(0).setValue(0x0105)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose1text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 90,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDose1Average",
+      "x": 660,
+      "y": 230,
+      "width": 140,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(91).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose1average",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 91,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfResult1",
+      "x": 0,
+      "y": 330,
+      "width": 800,
+      "height": 100,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(113).value()",
+        "printf": "%.104s",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose3label",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 113,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDose2Label",
+      "x": 0,
+      "y": 280,
+      "width": 340,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(92).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose2label",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 92,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose2Value1",
+      "x": 340,
+      "y": 280,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(94).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE2_VALUE1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose2text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 94,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose2Value1R",
+      "x": 340,
+      "y": 280,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(94).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE2_VALUE1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose2text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 94,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose2Value1S",
+      "x": 340,
+      "y": 280,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40_sp.png",
+        "downImage": "Images/150x40_sp.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(94).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "Amulet:document.btnDose2Value1S.disappear(),Amulet:UART.word(0).setValue(0x0106)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose2text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 94,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose2Value2",
+      "x": 500,
+      "y": 280,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(95).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE2_VALUE2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose2text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 95,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose2Value2R",
+      "x": 500,
+      "y": 280,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(95).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE2_VALUE2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose2text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 95,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose2Value2S",
+      "x": 500,
+      "y": 280,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40_sp.png",
+        "downImage": "Images/150x40_sp.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(95).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "Amulet:document.btnDose2Value2S.disappear(),Amulet:UART.word(0).setValue(0x0107)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose2text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 95,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDose2Average",
+      "x": 660,
+      "y": 280,
+      "width": 140,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(96).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose2average",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 96,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDose3Label",
+      "x": 0,
+      "y": 330,
+      "width": 340,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(97).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose3label",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 97,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose3Value1",
+      "x": 340,
+      "y": 330,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(99).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE3_VALUE1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose3text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 99,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose3Value1R",
+      "x": 340,
+      "y": 330,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(99).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE3_VALUE1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose3text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 99,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose3Value1S",
+      "x": 340,
+      "y": 330,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40_sp.png",
+        "downImage": "Images/150x40_sp.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(99).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "Amulet:document.btnDose3Value1S.disappear(),Amulet:UART.word(0).setValue(0x0108)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose3text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 99,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose3Value2",
+      "x": 500,
+      "y": 330,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(100).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE3_VALUE2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose3text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 100,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose3Value2R",
+      "x": 500,
+      "y": 330,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(100).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE3_VALUE2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose3text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 100,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose3Value2S",
+      "x": 500,
+      "y": 330,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40_sp.png",
+        "downImage": "Images/150x40_sp.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(100).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "Amulet:document.btnDose3Value2S.disappear(),Amulet:UART.word(0).setValue(0x0109)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose3text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 100,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDose3Average",
+      "x": 660,
+      "y": 330,
+      "width": 140,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(101).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose3average",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 101,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDose4Label",
+      "x": 0,
+      "y": 380,
+      "width": 340,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose4label",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose4Value1",
+      "x": 340,
+      "y": 380,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE4_VALUE1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose4text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose4Value1R",
+      "x": 340,
+      "y": 380,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE4_VALUE1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose4text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose4Value1S",
+      "x": 340,
+      "y": 380,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40_sp.png",
+        "downImage": "Images/150x40_sp.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(104).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "Amulet:document.btnDose4Value1S.disappear(),Amulet:UART.word(0).setValue(0x010A)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose4text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 104,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose4Value2",
+      "x": 500,
+      "y": 380,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE4_VALUE2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose4text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose4Value2R",
+      "x": 500,
+      "y": 380,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE4_VALUE2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose4text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose4Value2S",
+      "x": 500,
+      "y": 380,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40_sp.png",
+        "downImage": "Images/150x40_sp.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(105).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "Amulet:document.btnDose4Value2S.disappear(),Amulet:UART.word(0).setValue(0x010B)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose4text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 105,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDose4Average",
+      "x": 660,
+      "y": 380,
+      "width": 140,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(106).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose4average",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 106,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDose5Label",
+      "x": 0,
+      "y": 430,
+      "width": 340,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(107).value()",
+        "printf": "%.51s",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose5label",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 107,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose5Value1",
+      "x": 340,
+      "y": 430,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(109).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE5_VALUE1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose5text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 109,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose5Value1R",
+      "x": 340,
+      "y": 430,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(109).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE5_VALUE1)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose5text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 109,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose5Value1S",
+      "x": 340,
+      "y": 430,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40_sp.png",
+        "downImage": "Images/150x40_sp.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(109).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "Amulet:document.btnDose5Value1S.disappear(),Amulet:UART.word(0).setValue(0x010C)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose5text1",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 109,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose5Value2",
+      "x": 500,
+      "y": 430,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(110).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE5_VALUE2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose5text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 110,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose5Value2R",
+      "x": 500,
+      "y": 430,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40.png",
+        "downImage": "Images/150x40.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(110).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE5_VALUE2)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose5text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 110,
+          "param": "initHref"
+        }
+      ]
+    },
+    {
+      "type": "CustomButton",
+      "name": "btnDose5Value2S",
+      "x": 500,
+      "y": 430,
+      "width": 150,
+      "height": 40,
+      "params": {
+        "upImage": "Images/150x40_sp.png",
+        "downImage": "Images/150x40_sp.png",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "MIDDLE",
+        "onButtonPress": "ALPHA",
+        "buttonType": "SPRING-LOADED",
+        "font": "Franklin Gothic Book",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "alphaColor": "#000000FF",
+        "label": "FromInitHref()",
+        "initHref": "Amulet:internalRAM.label(110).value()",
+        "noSdram": "TRUE",
+        "repeatDelay": "0.01",
+        "repeatRate": "0.00",
+        "href": "Amulet:document.btnDose5Value2S.disappear(),Amulet:UART.word(0).setValue(0x010D)",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose5text2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 110,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDose5Average",
+      "x": 660,
+      "y": 430,
+      "width": 140,
+      "height": 40,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(111).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "dose5average",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 111,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfTotalLabel",
+      "x": 500,
+      "y": 470,
+      "width": 150,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "RIGHT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "Total:",
+        "href": "Amulet:NOP()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "totallabel"
+    },
+    {
+      "type": "StringField",
+      "name": "sfTotalText",
+      "x": 660,
+      "y": 470,
+      "width": 140,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(112).value()",
+        "printf": "%s",
+        "invisible": "TRUE"
+      },
+      "position_from": "totaltext",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 112,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfResult2",
+      "x": 0,
+      "y": 506,
+      "width": 800,
+      "height": 30,
+      "params": {
+        "border": "0",
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "LEFT",
+        "fillColor": "#FFFFFF",
+        "fontColor": "#000000",
+        "fontSize": "16pt",
+        "fontStyle": "ITALIC|BOLD",
+        "initialCondition": "",
+        "href": "Amulet:internalRAM.string(113).value()",
+        "printf": "%.104s",
+        "invisible": "TRUE"
+      },
+      "position_from": "result2",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 113,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 490,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Accept",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "green",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0102)",
+        "invisible": "TRUE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 645,
+      "y": 542,
+      "width": 150,
+      "height": 50,
+      "params": {
+        "label": "Cancel",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "MIDDLE",
+        "font": "Franklin Gothic Book",
+        "fontSize": "18pt",
+        "fontStyle": "BOLD",
+        "fontColor": "red",
+        "fillColor": "#FFFFFF",
+        "href": "Amulet:document.btnCancel.disappear(), %Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "cancel"
+    }
+  ],
+  "staticImages": [
+    {
+      "src": "Images/top_bar.png",
+      "width": 800,
+      "height": 69,
+      "div_id": "topbar"
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshShowAcceptCancel",
+      "onVar": "internalRAM.byte(69)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnBackground"
+        },
+        {
+          "type": "reappear",
+          "target": "btnBackground"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCancel"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowBack",
+      "onVar": "internalRAM.byte(70)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnBackgroundS"
+        },
+        {
+          "type": "reappear",
+          "target": "btnBackgroundS"
+        },
+        {
+          "type": "reappear",
+          "target": "btnBack"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose1S",
+      "onVar": "internalRAM.byte(71)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose1Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose1Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose1Value1S"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose1Value1S"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose1Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose1Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose2S",
+      "onVar": "internalRAM.byte(72)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose2Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose2Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose2Value1S"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose2Value1S"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose2Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose2Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose3S",
+      "onVar": "internalRAM.byte(73)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose3Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose3Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose3Value1S"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose3Value1S"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose3Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose3Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose4S",
+      "onVar": "internalRAM.byte(74)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose4Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose4Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose4Value1S"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose4Value1S"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose4Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose4Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose5S",
+      "onVar": "internalRAM.byte(75)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose5Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose5Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose5Value1S"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose5Value1S"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose5Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose5Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose1S2",
+      "onVar": "internalRAM.byte(76)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnDose1Value2S"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose1Value2S"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose2S2",
+      "onVar": "internalRAM.byte(77)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnDose2Value2S"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose2Value2S"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose3S2",
+      "onVar": "internalRAM.byte(78)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnDose3Value2S"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose3Value2S"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose4S2",
+      "onVar": "internalRAM.byte(79)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnDose4Value2S"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose4Value2S"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose5S2",
+      "onVar": "internalRAM.byte(80)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "btnDose5Value2S"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose5Value2S"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose1R",
+      "onVar": "internalRAM.byte(81)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose1Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose1Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose1Value1R"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose1Value1R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose1Value2R"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose1Value2R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose1Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose1Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose2R",
+      "onVar": "internalRAM.byte(82)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose2Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose2Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose2Value1R"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose2Value1R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose2Value2R"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose2Value2R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose2Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose2Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose3R",
+      "onVar": "internalRAM.byte(83)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose3Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose3Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose3Value1R"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose3Value1R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose3Value2R"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose3Value2R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose3Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose3Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose4R",
+      "onVar": "internalRAM.byte(84)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose4Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose4Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose4Value1R"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose4Value1R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose4Value2R"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose4Value2R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose4Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose4Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose5R",
+      "onVar": "internalRAM.byte(85)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose5Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose5Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose5Value1R"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose5Value1R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose5Value2R"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose5Value2R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose5Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose5Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose1",
+      "onVar": "internalRAM.byte(91)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose1Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose1Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose1Value1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose1Value1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose1Value2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose1Value2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose1Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose1Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose2",
+      "onVar": "internalRAM.byte(92)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose2Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose2Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose2Value1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose2Value1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose2Value2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose2Value2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose2Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose2Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose3",
+      "onVar": "internalRAM.byte(93)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose3Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose3Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose3Value1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose3Value1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose3Value2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose3Value2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose3Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose3Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose4",
+      "onVar": "internalRAM.byte(94)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose4Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose4Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose4Value1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose4Value1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose4Value2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose4Value2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose4Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose4Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDose5",
+      "onVar": "internalRAM.byte(95)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfDose5Label"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose5Label"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose5Value1"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose5Value1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnDose5Value2"
+        },
+        {
+          "type": "reappear",
+          "target": "btnDose5Value2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDose5Average"
+        },
+        {
+          "type": "reappear",
+          "target": "sfDose5Average"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowTotal",
+      "onVar": "internalRAM.byte(96)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "reappear",
+          "target": "sfTotalLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTotalText"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTotalText"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowResult1",
+      "onVar": "internalRAM.byte(97)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfResult1"
+        },
+        {
+          "type": "reappear",
+          "target": "sfResult1"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowResult2",
+      "onVar": "internalRAM.byte(98)",
+      "trigger": "0xFF",
+      "interval": "0.00",
+      "actions": [
+        {
+          "type": "forceUpdate",
+          "target": "sfResult2"
+        },
+        {
+          "type": "reappear",
+          "target": "sfResult2"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowAll",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "reappear",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowBack"
+        },
+        {
+          "type": "reappear",
+          "target": "sfPatientIDLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfPatientIDText"
+        },
+        {
+          "type": "reappear",
+          "target": "sfPatientIDText"
+        },
+        {
+          "type": "reappear",
+          "target": "sfPatientNameLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfPatientNameText"
+        },
+        {
+          "type": "reappear",
+          "target": "sfPatientNameText"
+        },
+        {
+          "type": "reappear",
+          "target": "sfStatusLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfStatusText"
+        },
+        {
+          "type": "reappear",
+          "target": "sfStatusText"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfBackgroundLabel"
+        },
+        {
+          "type": "reappear",
+          "target": "sfBackgroundLabel"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfFirst"
+        },
+        {
+          "type": "reappear",
+          "target": "sfFirst"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfSecond"
+        },
+        {
+          "type": "reappear",
+          "target": "sfSecond"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfAverage"
+        },
+        {
+          "type": "reappear",
+          "target": "sfAverage"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfBackgroundStamp"
+        },
+        {
+          "type": "reappear",
+          "target": "sfBackgroundStamp"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose3"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose4"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose5"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose1R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose2R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose3R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose4R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose5R"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose1S"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose2S"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose3S"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose4S"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose5S"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose1S2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose2S2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose3S2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose4S2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowDose5S2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowTotal"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowResult1"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowResult2"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "refreshShowAcceptCancel"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_WELL_THYROID_UPTAKE_MEAS_DOSE"
+    }
+  ],
+  "referencedImages": [
+    "Images/150x40.png",
+    "Images/150x40_sp.png",
+    "Images/back_big.png",
+    "Images/top_bar.png"
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        80,
+        81,
+        83,
+        84,
+        87,
+        91,
+        92,
+        96,
+        97,
+        101,
+        102,
+        106,
+        107,
+        111,
+        112,
+        113,
+        117,
+        118
+      ],
+      "labels": [
+        86,
+        89,
+        90,
+        94,
+        95,
+        99,
+        100,
+        104,
+        105,
+        109,
+        110
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}

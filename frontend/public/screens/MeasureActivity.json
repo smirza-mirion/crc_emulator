@@ -1,0 +1,441 @@
+{
+  "name": "MeasureActivity",
+  "filename": "MeasureActivity.htm",
+  "resolution": {
+    "width": 800,
+    "height": 600
+  },
+  "directives": [
+    "ReloadInternalRAM.Page"
+  ],
+  "memoryMap": {
+    "bytes": {
+      "100": "Display Screen (0xFF)",
+      "101": "Refresh Display (0xFF)",
+      "102": "Refresh White Message (0xFF)",
+      "103": "Refresh Red Message (0xFF)"
+    },
+    "strings": {
+      "100": "Title",
+      "101": "Title",
+      "102": "Nuclide",
+      "103": "Display",
+      "104": "White Message",
+      "105": "White Message",
+      "106": "Red Message",
+      "107": "Red Message",
+      "108": "Accept",
+      "109": "Cancel"
+    }
+  },
+  "widgets": [
+    {
+      "type": "StringField",
+      "name": "sfTitle",
+      "x": 5,
+      "y": 0,
+      "width": 790,
+      "height": 60,
+      "params": {
+        "border": "0",
+        "fillColor": "#000030",
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BOTTOM",
+        "href": "Amulet:internalRAM.string(100).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Franklin Gothic Book",
+        "fontSize": "20pt",
+        "fontColor": "#FFFF30",
+        "fontStyle": "BOLD",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "title",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 100,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfNuclide",
+      "x": 0,
+      "y": 125,
+      "width": 800,
+      "height": 100,
+      "params": {
+        "border": "0",
+        "fillColor": "#000000",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "TOP",
+        "href": "Amulet:internalRAM.string(102).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "font": "Arial Black Bold",
+        "fontSize": "24pt",
+        "fontColor": "#FFFFFF",
+        "fontStyle": "BOLD",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "nuclide",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 102,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfDisplay",
+      "x": 10,
+      "y": 225,
+      "width": 780,
+      "height": 150,
+      "params": {
+        "border": "0",
+        "fillColor": "#FFFFFF",
+        "horizontalAlign": "MIDDLE",
+        "verticalAlign": "MIDDLE",
+        "href": "Amulet:internalRAM.string(103).value()",
+        "initialCondition": "",
+        "printf": "%s",
+        "font": "Arial Black Bold",
+        "fontSize": "72pt",
+        "fontColor": "#000000",
+        "fontStyle": "BOLD",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "display",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 103,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMessageWhite",
+      "x": 0,
+      "y": 375,
+      "width": 800,
+      "height": 100,
+      "params": {
+        "border": "0",
+        "fillColor": "#000000",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "BOTTOM",
+        "href": "Amulet:internalRAM.string(104).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Arial Black Bold",
+        "fontSize": "24pt",
+        "fontColor": "#FFFFFF",
+        "fontStyle": "BOLD",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "message",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 104,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "StringField",
+      "name": "sfMessageRed",
+      "x": 0,
+      "y": 375,
+      "width": 800,
+      "height": 100,
+      "params": {
+        "border": "0",
+        "fillColor": "#000000",
+        "horizontalAlign": "CENTER",
+        "verticalAlign": "BOTTOM",
+        "href": "Amulet:internalRAM.string(106).value()",
+        "initialCondition": "",
+        "printf": "%.51s",
+        "font": "Arial Black Bold",
+        "fontSize": "24pt",
+        "fontColor": "#FF0000",
+        "fontStyle": "BOLD",
+        "updateRate": "0.0",
+        "invisible": "FALSE"
+      },
+      "position_from": "message",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "string",
+          "index": 106,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnAccept",
+      "x": 483,
+      "y": 533,
+      "width": 154,
+      "height": 62,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontColor": "green",
+        "fontStyle": "BOLD",
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(108).value()",
+        "href": "Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0203)",
+        "invisible": "TRUE"
+      },
+      "position_from": "accept",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 108,
+          "param": "initHref"
+        },
+        {
+          "source": "UART",
+          "type": "word",
+          "index": 0,
+          "param": "href"
+        }
+      ]
+    },
+    {
+      "type": "FunctionButton",
+      "name": "btnCancel",
+      "x": 641,
+      "y": 533,
+      "width": 154,
+      "height": 62,
+      "params": {
+        "font": "Franklin Gothic Book",
+        "verticalAlign": "MIDDLE",
+        "horizontalAlign": "CENTER",
+        "fontSize": "18pt",
+        "fontColor": "red",
+        "fontStyle": "BOLD",
+        "label": "FromInitHref",
+        "initHref": "Amulet:InternalRAM.label(109).value()",
+        "href": "Amulet:document.btnCancel.disappear(),%Back",
+        "invisible": "TRUE"
+      },
+      "position_from": "cancel",
+      "bindings": [
+        {
+          "source": "internalRAM",
+          "type": "label",
+          "index": 109,
+          "param": "initHref"
+        }
+      ]
+    }
+  ],
+  "refreshTriggers": [
+    {
+      "name": "refreshDisplayMeasure",
+      "onVar": "internalRAM.byte(100)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(100)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnAccept"
+        },
+        {
+          "type": "reappear",
+          "target": "btnAccept"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnCancel"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCancel"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowDisplay",
+      "onVar": "internalRAM.byte(101)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(101)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfNuclide"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfDisplay"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowWhite",
+      "onVar": "internalRAM.byte(102)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(102)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMessageWhite"
+        }
+      ]
+    },
+    {
+      "name": "refreshShowRed",
+      "onVar": "internalRAM.byte(103)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(103)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMessageRed"
+        }
+      ]
+    },
+    {
+      "name": "refreshReappearWhite",
+      "onVar": "internalRAM.byte(104)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(104)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfMessageWhite"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMessageWhite"
+        }
+      ]
+    },
+    {
+      "name": "refreshReappearRed",
+      "onVar": "internalRAM.byte(105)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(105)",
+          "value": 0
+        },
+        {
+          "type": "reappear",
+          "target": "sfMessageRed"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfMessageRed"
+        }
+      ]
+    },
+    {
+      "name": "refreshDisplayCancel",
+      "onVar": "internalRAM.byte(106)",
+      "trigger": "0xFF",
+      "interval": "0.01",
+      "actions": [
+        {
+          "type": "setValue",
+          "target": "internalRAM.byte(106)",
+          "value": 0
+        },
+        {
+          "type": "forceUpdate",
+          "target": "sfTitle"
+        },
+        {
+          "type": "forceUpdate",
+          "target": "btnCancel"
+        },
+        {
+          "type": "reappear",
+          "target": "btnCancel"
+        }
+      ]
+    }
+  ],
+  "initActions": [
+    {
+      "type": "macro",
+      "macro": "SetScreen",
+      "args": "%%SCREEN_MEASURE"
+    }
+  ],
+  "ramUsage": {
+    "internalRAM": {
+      "strings": [
+        100,
+        102,
+        103,
+        104,
+        106
+      ],
+      "labels": [
+        108,
+        109
+      ]
+    },
+    "UART": {
+      "words": [
+        0
+      ]
+    }
+  }
+}
