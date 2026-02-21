@@ -1,0 +1,23 @@
+#pragma once
+void BioAssayInitialize(void);
+long long int BioAssayEfficiencyID(void);
+float BioAssayI131Efficiency(void);
+float BioAssayI125Efficiency(void);
+float BioAssayI123Efficiency(void);
+float BioAssayI131I125Contamination(void);
+float BioAssayI123I125Contamination(void);
+long long int BioAssaySettingID(void);
+bool BioAssayI131Active(void);
+bool BioAssayI125Active(void);
+bool BioAssayI123Active(void);
+float BioAssayI131Threshold(void);
+float BioAssayI125Threshold(void);
+float BioAssayI123Threshold(void);
+int BioAssayCountTime(void);
+int BioAssayProbeDistance(void);
+void BioAssaySaveSetting(PROBEBIOASSAYSETTING *setting);
+void BioAssayCopyCurrentEfficiency(PROBEBIOASSAYEFFICIENCY *eff);
+void BioAssaySaveEfficiency(PROBEBIOASSAYEFFICIENCY *eff, bool flgEnter);
+void BioAssaySaveTest(PROBEBIOASSAYTEST *test);
+void BioAssayUpdateEfficiencyFromROI(float I131StartkeV, float I131EndkeV, float I125StartkeV, float I125EndkeV, float I123StartkeV, float I123EndkeV);
+void BioAssayWriteROI(void);

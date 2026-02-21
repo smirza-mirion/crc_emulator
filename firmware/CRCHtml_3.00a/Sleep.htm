@@ -1,0 +1,55 @@
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Amulet" CONTENT="NoClearLCD.NotThisPage">
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0, 0.01; URL=%SetScreen(%%SCREEN_SLEEP);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(76).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(76).setValue(0),
+														    Amulet:document.pwmSleep.setPeriod(1),
+														    Amulet:document.pwmSleep.setPulseWidth(InternalRAM.word(76)),
+														    Amulet:document.pwmSleep.start();
+														    NAME=refreshSleep">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(77).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(77).setValue(0),
+														    Amulet:document.pwmSleep.setPeriod(1),
+														    Amulet:document.pwmSleep.setPulseWidth(InternalRAM.word(76)),
+														    Amulet:document.pwmSleep.start(),
+														    Amulet:UART.word(0).setValue(0xAEAF);
+														    NAME=refreshWake">
+														    
+		<style type="text/css">
+			#backgnd {position:absolute;left:10;top:10;width:0;height:0}
+			#backgnd1 {position:absolute;left:0;top:41;width:800;height:518}
+			#logo {position:absolute;left:5;top:4;width:0;height:0}
+			#title {position:absolute;left:5;top:4;width:0;height:0}
+			#message {position:absolute;left:5;top:563;width:0;height:0}
+			#back {position:absolute;left:695;top:4;width:0;height:0}
+			#print {position:absolute;left:695;top:563;width:0;height:0}
+			#setup {position:absolute;left:5;top:563;width:0;height:0}
+			#pwm {position:absolute;left:0;top:0;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="backgnd">
+			<APPLET CODE="FunctionButton.class" WIDTH="780" HEIGHT="580" NAME="btnActivate">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x46AD)">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="pwm">
+			<APPLET CODE="Pwm.class" WIDTH="0" HEIGHT="0" name="pwmSleep">
+				<PARAM NAME="channel" VALUE="0">
+				<PARAM NAME="initialCondition" VALUE="ON">
+				<PARAM NAME="periodIn_ms" VALUE=".99">
+				<PARAM NAME="pulseWidthIn_ms" VALUE="1">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

@@ -1,0 +1,615 @@
+<!--
+	Byte
+	99  - Enable keV Change
+	100 - Display Screen
+	101 - Display Measure Well Button
+	102 - Display Measure Beta Button
+	
+	String
+	100,101 - Nuclide Info
+	102	- Energy 1 Default
+	103	- Energy 2 Default
+	104	- Energy 3 Default
+	105	- Well Efficiency Default
+	106	- Beta Efficiency Default
+	107	- Energy 1 Current
+	108	- Energy 2 Current
+	109	- Energy 3 Current
+	110	- Well Efficiency Current
+	111	- Beta Efficiency Current
+	112,113 - Well Measured On
+	114,115 - Beta Measured On
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_WELL_EDIT_EFFICIENCIES);NAME=refreshInit">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0;ONVAR=Amulet:internalRAM.byte(99).value();TRIGGER=0xFF;URL=Amulet:document.btnEnergy1Current.reappear(),
+														   Amulet:document.btnEnergy1Default.reappear(),
+														   Amulet:document.btnEnergy2Current.reappear(),
+														   Amulet:document.btnEnergy2Default.reappear(),
+														   Amulet:document.btnEnergy3Current.reappear(),
+														   Amulet:document.btnEnergy3Default.reappear(),
+														   Amulet:document.sfEnergy1Current.forceUpdate(),
+														   Amulet:document.sfEnergy1Current.reappear(),
+														   Amulet:document.sfEnergy2Current.forceUpdate(),
+														   Amulet:document.sfEnergy2Current.reappear(),
+														   Amulet:document.sfEnergy3Current.forceUpdate(),
+														   Amulet:document.sfEnergy3Current.reappear();
+														   NAME=refreshShowKEV">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.refreshShowKEV.forceUpdate(),
+														     Amulet:document.sfNuclide.reappear(),
+														     Amulet:document.sfNuclide.forceUpdate(),
+														     Amulet:document.sfEnergy1Default.forceUpdate(),
+														     Amulet:document.sfEnergy1Default.reappear(),
+														     Amulet:document.sfEnergy2Default.forceUpdate(),
+														     Amulet:document.sfEnergy2Default.reappear(),
+														     Amulet:document.sfEnergy3Default.forceUpdate(),
+														     Amulet:document.sfEnergy3Default.reappear(),
+														     Amulet:document.sfWellEffDefault.reappear(),
+														     Amulet:document.sfWellEffDefault.forceUpdate(),
+														     Amulet:document.sfWellEffCurrent.reappear(),
+														     Amulet:document.sfWellEffCurrent.forceUpdate(),
+														     Amulet:document.btnWellEffDefault.reappear(),
+														     Amulet:document.sfWellMeasuredOn.forceUpdate();
+														     NAME=refreshDisplay">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+														     Amulet:document.sfHeader_ProbeEfficiency.reappear(),
+														     Amulet:document.sfProbeEffDefault.reappear(),
+														     Amulet:document.sfProbeEffDefault.forceUpdate(),
+														     Amulet:document.btnProbeEffCurrent.reappear(),
+														     Amulet:document.sfProbeEffCurrent.reappear(),
+														     Amulet:document.sfProbeEffCurrent.forceUpdate(),
+														     Amulet:document.btnProbeEffDefault.reappear(),
+														     Amulet:document.sfProbeMeasuredOn.forceUpdate();
+														     NAME=refreshDisplayProbe">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(102).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(102).setValue(0),
+														     Amulet:document.btnWellEffMeasure.reappear();
+														     NAME=refreshShowWellEffMeasure">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(103).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(103).setValue(0),
+														     Amulet:document.btnProbeEffMeasure.reappear();
+														     NAME=refreshShowProbeEffMeasure">
+		
+		<style type="text/css">
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#back {position:absolute;left:695;top:10;width:0;height:0}
+			
+			#nuclidelabel {position:absolute;left:5;top:70;width:0;height:0}
+			#defaultlabel {position:absolute;left:305;top:115;width:0;height:0}
+			#currentlabel {position:absolute;left:420;top:115;width:0;height:0}
+			
+			#energy1label {position:absolute;left:5;top:160;width:0;height:0}
+			#energy1defaulttext {position:absolute;left:305;top:160;width:0;height:0}
+			#energy1currenttext {position:absolute;left:420;top:160;width:0;height:0}
+			#energy1default {position:absolute;left:535;top:160;width:0;height:0}
+			
+			#energy2label {position:absolute;left:5;top:220;width:0;height:0}
+			#energy2defaulttext {position:absolute;left:305;top:220;width:0;height:0}
+			#energy2currenttext {position:absolute;left:420;top:220;width:0;height:0}
+			#energy2default {position:absolute;left:535;top:220;width:0;height:0}
+			
+			#energy3label {position:absolute;left:5;top:280;width:0;height:0}
+			#energy3defaulttext {position:absolute;left:305;top:280;width:0;height:0}
+			#energy3currenttext {position:absolute;left:420;top:280;width:0;height:0}
+			#energy3default {position:absolute;left:535;top:280;width:0;height:0}
+			
+			#wellefflabel {position:absolute;left:5;top:340;width:0;height:0}
+			#welleffdefaulttext {position:absolute;left:305;top:340;width:0;height:0}
+			#welleffcurrenttext {position:absolute;left:420;top:340;width:0;height:0}
+			#welleffdefault {position:absolute;left:535;top:340;width:0;height:0}
+			#welleffmeasure {position:absolute;left:650;top:340;width:0;height:0}
+			
+			#probeefflabel {position:absolute;left:5;top:400;width:0;height:0}
+			#probeeffdefaulttext {position:absolute;left:305;top:400;width:0;height:0}
+			#probeeffcurrenttext {position:absolute;left:420;top:400;width:0;height:0}
+			#probeeffdefault {position:absolute;left:535;top:400;width:0;height:0}
+			#probeeffmeasure {position:absolute;left:650;top:400;width:0;height:0}
+			
+			#wellmeasuredon {position:absolute;left:5;top:450;width:0;height:0}
+			#probemeasuredon {position:absolute;left:5;top:490;width:0;height:0}
+			
+			#accept {position:absolute;left:490;top:542;width:0;height:0}
+			#cancel {position:absolute;left:645;top:542;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="50" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="Edit Efficiencies">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+				
+		<DIV ID="nuclidelabel">
+			<APPLET CODE="Stringfield.class" WIDTH="790" HEIGHT="45" NAME="sfNuclide">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(100).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="defaultlabel">
+			<TABLE WIDTH="100" HEIGHT="40">
+				<TR>
+					<TD WIDTH="100" HEIGHT="40" ALIGN="CENTER"><FONT SIZE="5" FACE="Franklin Gothic Book"><U><I>Default</I></U></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="currentlabel">
+			<TABLE WIDTH="100" HEIGHT="40">
+				<TR>
+					<TD WIDTH="100" HEIGHT="40" ALIGN="CENTER"><FONT SIZE="5" FACE="Franklin Gothic Book"><U><I>Current</I></U></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="energy1label">
+			<TABLE WIDTH="300" HEIGHT="40">
+				<TR>
+					<TD WIDTH="300" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Energy1(keV):</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="energy1defaulttext">
+			<APPLET CODE="Stringfield.class" WIDTH="100" HEIGHT="40" NAME="sfEnergy1Default">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(102).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="energy1currenttext">
+			<APPLET CODE="Stringfield.class" WIDTH="100" HEIGHT="40" NAME="sfEnergy1Current">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(107).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="energy1currenttext">
+			<APPLET CODE="FunctionButton.class" WIDTH="100" HEIGHT="40" NAME="btnEnergy1Current">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Energy 1:'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(3), %ConfigMinValue('1.0'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_MCA_ENERGY1)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="energy1default">
+			<APPLET CODE="FunctionButton.class" WIDTH="100" HEIGHT="40" NAME="btnEnergy1Default">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="Clear">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0103)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="energy2label">
+			<TABLE WIDTH="300" HEIGHT="40">
+				<TR>
+					<TD WIDTH="300" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Energy2(keV):</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="energy2defaulttext">
+			<APPLET CODE="Stringfield.class" WIDTH="100" HEIGHT="40" NAME="sfEnergy2Default">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(103).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="energy2currenttext">
+			<APPLET CODE="Stringfield.class" WIDTH="100" HEIGHT="40" NAME="sfEnergy2Current">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(108).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="energy2currenttext">
+			<APPLET CODE="FunctionButton.class" WIDTH="100" HEIGHT="40" NAME="btnEnergy2Current">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Energy 2:'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(3), %ConfigMinValue('1.0'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_MCA_ENERGY2)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="energy2default">
+			<APPLET CODE="FunctionButton.class" WIDTH="100" HEIGHT="40" NAME="btnEnergy2Default">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="Clear">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0104)">
+				<PARAM NAME="invisible" VALUE="TRUE">				
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="energy3label">
+			<TABLE WIDTH="300" HEIGHT="40">
+				<TR>
+					<TD WIDTH="300" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Energy3(keV):</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="energy3defaulttext">
+			<APPLET CODE="Stringfield.class" WIDTH="100" HEIGHT="40" NAME="sfEnergy3Default">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(104).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="energy3currenttext">
+			<APPLET CODE="Stringfield.class" WIDTH="100" HEIGHT="40" NAME="sfEnergy3Current">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(109).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="energy3currenttext">
+			<APPLET CODE="FunctionButton.class" WIDTH="100" HEIGHT="40" NAME="btnEnergy3Current">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Energy 3:'), %ConfigMaxStrLen(4), %ConfigMaxFractionLen(3), %ConfigMinValue('1.0'), %ConfigMaxValue('2000.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_MCA_ENERGY3)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="energy3default">
+			<APPLET CODE="FunctionButton.class" WIDTH="100" HEIGHT="40" NAME="btnEnergy3Default">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="Clear">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0105)">
+				<PARAM NAME="invisible" VALUE="TRUE">				
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="wellefflabel">
+			<TABLE WIDTH="300" HEIGHT="40">
+				<TR>
+					<TD WIDTH="300" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Well Efficiency(%):</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="welleffdefaulttext">
+			<APPLET CODE="Stringfield.class" WIDTH="100" HEIGHT="40" NAME="sfWellEffDefault">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(105).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="welleffcurrenttext">
+			<APPLET CODE="Stringfield.class" WIDTH="100" HEIGHT="40" NAME="sfWellEffCurrent">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(110).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="welleffcurrenttext">
+			<APPLET CODE="FunctionButton.class" WIDTH="100" HEIGHT="40" NAME="btnWellEffCurrent">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Well Eff:'), %ConfigMaxStrLen(2), %ConfigMaxFractionLen(3), %ConfigMinValue('.001'), %ConfigMaxValue('99.999'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_MCA_WELL_EFF)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="welleffdefault">
+			<APPLET CODE="FunctionButton.class" WIDTH="100" HEIGHT="40" NAME="btnWellEffDefault">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="Clear">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0106)">
+				<PARAM NAME="invisible" VALUE="TRUE">				
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="welleffmeasure">
+			<APPLET CODE="FunctionButton.class" WIDTH="140" HEIGHT="40" NAME="btnWellEffMeasure">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="Measure">
+				<PARAM NAME="href" VALUE="%EditEfficiencyWellDetector, %SetClear(%%SET_CLEAR_WELLMEASUREEFFICIENCY)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probeefflabel">
+			<APPLET CODE="Stringfield.class" WIDTH="300" HEIGHT="40" NAME="sfHeader_ProbeEfficiency">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontStyle" VALUE="ITALIC">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="initialCondition" VALUE="Probe Efficiency(%):">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probeeffdefaulttext">
+			<APPLET CODE="Stringfield.class" WIDTH="100" HEIGHT="40" NAME="sfProbeEffDefault">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(106).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probeeffcurrenttext">
+			<APPLET CODE="Stringfield.class" WIDTH="100" HEIGHT="40" NAME="sfProbeEffCurrent">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(111).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probeeffcurrenttext">
+			<APPLET CODE="FunctionButton.class" WIDTH="100" HEIGHT="40" NAME="btnProbeEffCurrent">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Probe Eff:'), %ConfigMaxStrLen(2), %ConfigMaxFractionLen(3), %ConfigMinValue('.001'), %ConfigMaxValue('99.0'), %ConfigKeypad(%%CONFIG_KEYPAD_FLOAT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_MCA_BETA_EFF)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probeeffdefault">
+			<APPLET CODE="FunctionButton.class" WIDTH="100" HEIGHT="40" NAME="btnProbeEffDefault">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="Clear">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0107)">
+				<PARAM NAME="invisible" VALUE="TRUE">				
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probeeffmeasure">
+			<APPLET CODE="FunctionButton.class" WIDTH="140" HEIGHT="40" NAME="btnProbeEffMeasure">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="Measure">
+				<PARAM NAME="href" VALUE="%EditEfficiencyProbeDetector, %SetClear(%%SET_CLEAR_WELLMEASUREEFFICIENCY)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="wellmeasuredon">
+			<APPLET CODE="Stringfield.class" WIDTH="645" HEIGHT="40" NAME="sfWellMeasuredOn">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="verticalAlign" VALUE="BOTTOM">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(112).value()">
+				<PARAM NAME="printf" VALUE="%.76s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probemeasuredon">
+			<APPLET CODE="Stringfield.class" WIDTH="645" HEIGHT="40" NAME="sfProbeMeasuredOn">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="verticalAlign" VALUE="BOTTOM">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(115).value()">
+				<PARAM NAME="printf" VALUE="%.76s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+				<PARAM NAME="updateRate" VALUE="0.00">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="accept">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnAccept">
+				<PARAM NAME="label" VALUE="Accept">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="green">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0108)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="cancel">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnCancel">
+				<PARAM NAME="label" VALUE="Cancel">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnCancel.disappear(), %Back">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

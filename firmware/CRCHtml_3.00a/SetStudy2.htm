@@ -1,0 +1,306 @@
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Amulet" CONTENT="GrayLCD.Page">
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0, 0.01; URL=%SetScreen(%%SCREEN_STUDY2); NAME=refreshInit">
+
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(80).value();TRIGGER=0x00;URL=Amulet:document.radioNone.reappear(),
+														    Amulet:document.radioBone.reappear(),
+														    Amulet:document.radioLung.reappear(),
+														    Amulet:document.radioHIDA.reappear(),
+														    Amulet:document.radioHeart.reappear(),
+														    Amulet:document.radioRenal.reappear(),
+														    Amulet:document.radioLiver.reappear(),
+														    Amulet:document.radioBrain.reappear(),
+														    Amulet:document.radioLymph.reappear();
+														    NAME=refreshShowEnglishRadio">
+														
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(80).value();TRIGGER=0x01;URL=Amulet:document.radioNoneFrench.reappear(),
+														    Amulet:document.radioBoneFrench.reappear(),
+														    Amulet:document.radioLungFrench.reappear(),
+														    Amulet:document.radioHIDAFrench.reappear(),
+														    Amulet:document.radioHeartFrench.reappear(),
+														    Amulet:document.radioRenalFrench.reappear(),
+														    Amulet:document.radioLiverFrench.reappear(),
+														    Amulet:document.radioBrainFrench.reappear(),
+														    Amulet:document.radioLymphFrench.reappear();
+														    NAME=refreshShowFrenchRadio">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.sfTitle.forceUpdate(),
+														     Amulet:document.sfTitle.reappear(),
+														     Amulet:document.refreshShowEnglishRadio.forceUpdate(),
+														     Amulet:document.refreshShowFrenchRadio.forceUpdate();
+														     NAME=refreshShowAll">
+		
+		<style type="text/css">
+			#backgnd {position:absolute;left:380;top:240;width:0;height:0}
+			#none {position:absolute;left:400;top:290;width:0;height:0}
+			#bone {position:absolute;left:400;top:340;width:0;height:0}
+			#lung {position:absolute;left:400;top:390;width:0;height:0}
+			#hida {position:absolute;left:400;top:440;width:0;height:0}
+			#heart {position:absolute;left:400;top:490;width:0;height:0}
+			
+			#renal {position:absolute;left:550;top:290;width:0;height:0}
+			#liver {position:absolute;left:550;top:340;width:0;height:0}
+			#brain {position:absolute;left:550;top:390;width:0;height:0}
+			#lymph {position:absolute;left:550;top:440;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="backgnd">
+			<APPLET CODE="StringField.class" WIDTH="250" HEIGHT="40" NAME="sfTitle">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="fillColor" VALUE="#000030">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<!--PARAM NAME="initialCondition" VALUE="Please select study:"-->
+				<!--PARAM NAME="href" VALUE="Amulet:NOP()"-->
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(100).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontColor" VALUE="#FFFF30">
+				<PARAM NAME="updateRate" VALUE="0.0">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="none">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioNone">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a01)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="None">
+				<PARAM NAME="invisible" VALUE="True">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="none">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioNoneFrench">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a01)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Ninguno">
+				<PARAM NAME="invisible" VALUE="True">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="bone">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioBone">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a02)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Bone">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="bone">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioBoneFrench">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a02)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Hueso">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="lung">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioLung">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a03)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Lung">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="lung">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioLungFrench">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a03)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Pulmon">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="hida">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioHIDA">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a04)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Hida">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="hida">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioHIDAFrench">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a04)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Hepatobiliar">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="heart">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioHeart">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a05)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Heart">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="heart">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioHeartFrench">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a05)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Corazon">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="renal">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioRenal">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a06)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Renal">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="renal">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioRenalFrench">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a06)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Renal">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="liver">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioLiver">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a07)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Liver">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="liver">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioLiverFrench">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a07)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Higado">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="brain">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioBrain">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a08)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Brain">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="brain">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioBrainFrench">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a08)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Cerebro">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="lymph">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioLymph">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a09)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Lymph">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="lymph">
+			<APPLET CODE="RadioButton.class" WIDTH="100" HEIGHT="40" NAME="radioLymphFrench">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0a09)">
+				<PARAM NAME="groupName" VALUE="study">
+				<PARAM NAME="initialCondition" VALUE="OFF">
+				<PARAM NAME="label" VALUE="Linfa">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

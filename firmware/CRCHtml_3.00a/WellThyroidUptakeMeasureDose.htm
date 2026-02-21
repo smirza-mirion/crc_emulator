@@ -1,0 +1,1619 @@
+<!--
+	String
+	80 	- Patient ID
+	81,82 - Patient Name
+	83	- Patient Status
+	84,85 - Background Stamp
+	86	- Background Value
+	
+	87,88	- Dose 1 Label
+	89	- Dose 1 Value 1
+	90	- Dose 1 Value 2
+	91	- Dose 1 Average
+	
+	92,93	- Dose 2 Label
+	94	- Dose 2 Value 1
+	95	- Dose 2 Value 2
+	96	- Dose 2 Average
+	
+	97,98	- Dose 3 Label
+	99	- Dose 3 Value 1
+	100	- Dose 3 Value 2
+	101	- Dose 3 Average
+	
+	102,103	- Dose 4 Label
+	104	- Dose 4 Value 1
+	105	- Dose 4 Value 2
+	106	- Dose 4 Average
+	
+	107,108	- Dose 5 Label
+	109	- Dose 5 Value 1
+	110	- Dose 5 Value 2
+	111	- Dose 5 Average
+	
+	112	- Total Dose
+	
+	113,114,115,116 - Net CPM
+	
+	117	- cps or cpm
+	
+	118,119 - Title
+	
+	Byte
+	69	- Show Accept, Cancel Button
+	70	- Show Back Button
+	71	- Show Spectra 1 Value 1
+	72	- Show Spectra 2 Value 1
+	73	- Show Spectra 3 Value 1
+	74	- Show Spectra 4 Value 1
+	75	- Show Spectra 5 Value 1
+	76	- Show Spectra 1 Value 2
+	77	- Show Spectra 2 Value 2
+	78	- Show Spectra 3 Value 2
+	79	- Show Spectra 4 Value 2
+	80	- Show Spectra 5 Value 2
+	81	- Show Residual 1
+	82	- Show Residual 2
+	83	- Show Residual 3
+	84	- Show Residual 4
+	85	- Show Residual 5
+	91	- Show Dose 1
+	92	- Show Dose 2
+	93	- Show Dose 3
+	94	- Show Dose 4
+	95	- Show Dose 5
+	96	- Show Total
+	97	- Show Result 1
+	98	- Show Result 2
+	100	- Display All
+	
+	Button
+	0102	- Save
+	0103	- Background
+	0104	- Dose 1 1
+	0105	- Dose 1 2
+	0106	- Dose 2 1
+	0107	- Dose 2 2
+	0108	- Dose 3 1
+	0109	- Dose 3 2
+	010A	- Dose 4 1
+	010B	- Dose 4 2
+	010C	- Dose 5 1
+	010D	- Dose 5 2
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_WELL_THYROID_UPTAKE_MEAS_DOSE);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(69).value();TRIGGER=0xFF;URL=Amulet:document.btnBackground.forceUpdate(),
+														    Amulet:document.btnBackground.reappear(),
+														    Amulet:document.btnAccept.reappear(),
+														    Amulet:document.btnCancel.reappear();
+														    NAME=refreshShowAcceptCancel">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(70).value();TRIGGER=0xFF;URL=Amulet:document.btnBackgroundS.forceUpdate(),
+														    Amulet:document.btnBackgroundS.reappear(),
+														    Amulet:document.btnBack.reappear();
+														    NAME=refreshShowBack">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(71).value();TRIGGER=0xFF;URL=Amulet:document.sfDose1Label.forceUpdate(),
+														    Amulet:document.sfDose1Label.reappear(),
+														    Amulet:document.btnDose1Value1S.forceUpdate(),
+														    Amulet:document.btnDose1Value1S.reappear(),
+														    Amulet:document.sfDose1Average.forceUpdate(),
+														    Amulet:document.sfDose1Average.reappear();
+														    NAME=refreshShowDose1S">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(72).value();TRIGGER=0xFF;URL=Amulet:document.sfDose2Label.forceUpdate(),
+														    Amulet:document.sfDose2Label.reappear(),
+														    Amulet:document.btnDose2Value1S.forceUpdate(),
+														    Amulet:document.btnDose2Value1S.reappear(),
+														    Amulet:document.sfDose2Average.forceUpdate(),
+														    Amulet:document.sfDose2Average.reappear();
+														    NAME=refreshShowDose2S">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(73).value();TRIGGER=0xFF;URL=Amulet:document.sfDose3Label.forceUpdate(),
+														    Amulet:document.sfDose3Label.reappear(),
+														    Amulet:document.btnDose3Value1S.forceUpdate(),
+														    Amulet:document.btnDose3Value1S.reappear(),
+														    Amulet:document.sfDose3Average.forceUpdate(),
+														    Amulet:document.sfDose3Average.reappear();
+														    NAME=refreshShowDose3S">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(74).value();TRIGGER=0xFF;URL=Amulet:document.sfDose4Label.forceUpdate(),
+														    Amulet:document.sfDose4Label.reappear(),
+														    Amulet:document.btnDose4Value1S.forceUpdate(),
+														    Amulet:document.btnDose4Value1S.reappear(),
+														    Amulet:document.sfDose4Average.forceUpdate(),
+														    Amulet:document.sfDose4Average.reappear();
+														    NAME=refreshShowDose4S">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(75).value();TRIGGER=0xFF;URL=Amulet:document.sfDose5Label.forceUpdate(),
+														    Amulet:document.sfDose5Label.reappear(),
+														    Amulet:document.btnDose5Value1S.forceUpdate(),
+														    Amulet:document.btnDose5Value1S.reappear(),
+														    Amulet:document.sfDose5Average.forceUpdate(),
+														    Amulet:document.sfDose5Average.reappear();
+														    NAME=refreshShowDose5S">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(76).value();TRIGGER=0xFF;URL=Amulet:document.btnDose1Value2S.forceUpdate(),
+														    Amulet:document.btnDose1Value2S.reappear();
+														    NAME=refreshShowDose1S2">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(77).value();TRIGGER=0xFF;URL=Amulet:document.btnDose2Value2S.forceUpdate(),
+														    Amulet:document.btnDose2Value2S.reappear();
+														    NAME=refreshShowDose2S2">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(78).value();TRIGGER=0xFF;URL=Amulet:document.btnDose3Value2S.forceUpdate(),
+														    Amulet:document.btnDose3Value2S.reappear();
+														    NAME=refreshShowDose3S2">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(79).value();TRIGGER=0xFF;URL=Amulet:document.btnDose4Value2S.forceUpdate(),
+														    Amulet:document.btnDose4Value2S.reappear();
+														    NAME=refreshShowDose4S2">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(80).value();TRIGGER=0xFF;URL=Amulet:document.btnDose5Value2S.forceUpdate(),
+														    Amulet:document.btnDose5Value2S.reappear();
+														    NAME=refreshShowDose5S2">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(81).value();TRIGGER=0xFF;URL=Amulet:document.sfDose1Label.forceUpdate(),
+														    Amulet:document.sfDose1Label.reappear(),
+														    Amulet:document.btnDose1Value1R.forceUpdate(),
+														    Amulet:document.btnDose1Value1R.reappear(),
+														    Amulet:document.btnDose1Value2R.forceUpdate(),
+														    Amulet:document.btnDose1Value2R.reappear(),
+														    Amulet:document.sfDose1Average.forceUpdate(),
+														    Amulet:document.sfDose1Average.reappear();
+														    NAME=refreshShowDose1R">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(82).value();TRIGGER=0xFF;URL=Amulet:document.sfDose2Label.forceUpdate(),
+														    Amulet:document.sfDose2Label.reappear(),
+														    Amulet:document.btnDose2Value1R.forceUpdate(),
+														    Amulet:document.btnDose2Value1R.reappear(),
+														    Amulet:document.btnDose2Value2R.forceUpdate(),
+														    Amulet:document.btnDose2Value2R.reappear(),
+														    Amulet:document.sfDose2Average.forceUpdate(),
+														    Amulet:document.sfDose2Average.reappear();
+														    NAME=refreshShowDose2R">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(83).value();TRIGGER=0xFF;URL=Amulet:document.sfDose3Label.forceUpdate(),
+														    Amulet:document.sfDose3Label.reappear(),
+														    Amulet:document.btnDose3Value1R.forceUpdate(),
+														    Amulet:document.btnDose3Value1R.reappear(),
+														    Amulet:document.btnDose3Value2R.forceUpdate(),
+														    Amulet:document.btnDose3Value2R.reappear(),
+														    Amulet:document.sfDose3Average.forceUpdate(),
+														    Amulet:document.sfDose3Average.reappear();
+														    NAME=refreshShowDose3R">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(84).value();TRIGGER=0xFF;URL=Amulet:document.sfDose4Label.forceUpdate(),
+														    Amulet:document.sfDose4Label.reappear(),
+														    Amulet:document.btnDose4Value1R.forceUpdate(),
+														    Amulet:document.btnDose4Value1R.reappear(),
+														    Amulet:document.btnDose4Value2R.forceUpdate(),
+														    Amulet:document.btnDose4Value2R.reappear(),
+														    Amulet:document.sfDose4Average.forceUpdate(),
+														    Amulet:document.sfDose4Average.reappear();
+														    NAME=refreshShowDose4R">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(85).value();TRIGGER=0xFF;URL=Amulet:document.sfDose5Label.forceUpdate(),
+														    Amulet:document.sfDose5Label.reappear(),
+														    Amulet:document.btnDose5Value1R.forceUpdate(),
+														    Amulet:document.btnDose5Value1R.reappear(),
+														    Amulet:document.btnDose5Value2R.forceUpdate(),
+														    Amulet:document.btnDose5Value2R.reappear(),
+														    Amulet:document.sfDose5Average.forceUpdate(),
+														    Amulet:document.sfDose5Average.reappear();
+														    NAME=refreshShowDose5R">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(91).value();TRIGGER=0xFF;URL=Amulet:document.sfDose1Label.forceUpdate(),
+														    Amulet:document.sfDose1Label.reappear(),
+														    Amulet:document.btnDose1Value1.forceUpdate(),
+														    Amulet:document.btnDose1Value1.reappear(),
+														    Amulet:document.btnDose1Value2.forceUpdate(),
+														    Amulet:document.btnDose1Value2.reappear(),
+														    Amulet:document.sfDose1Average.forceUpdate(),
+														    Amulet:document.sfDose1Average.reappear();
+														    NAME=refreshShowDose1">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(92).value();TRIGGER=0xFF;URL=Amulet:document.sfDose2Label.forceUpdate(),
+														    Amulet:document.sfDose2Label.reappear(),
+														    Amulet:document.btnDose2Value1.forceUpdate(),
+														    Amulet:document.btnDose2Value1.reappear(),
+														    Amulet:document.btnDose2Value2.forceUpdate(),
+														    Amulet:document.btnDose2Value2.reappear(),
+														    Amulet:document.sfDose2Average.forceUpdate(),
+														    Amulet:document.sfDose2Average.reappear();
+														    NAME=refreshShowDose2">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(93).value();TRIGGER=0xFF;URL=Amulet:document.sfDose3Label.forceUpdate(),
+														    Amulet:document.sfDose3Label.reappear(),
+														    Amulet:document.btnDose3Value1.forceUpdate(),
+														    Amulet:document.btnDose3Value1.reappear(),
+														    Amulet:document.btnDose3Value2.forceUpdate(),
+														    Amulet:document.btnDose3Value2.reappear(),
+														    Amulet:document.sfDose3Average.forceUpdate(),
+														    Amulet:document.sfDose3Average.reappear();
+														    NAME=refreshShowDose3">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(94).value();TRIGGER=0xFF;URL=Amulet:document.sfDose4Label.forceUpdate(),
+														    Amulet:document.sfDose4Label.reappear(),
+														    Amulet:document.btnDose4Value1.forceUpdate(),
+														    Amulet:document.btnDose4Value1.reappear(),
+														    Amulet:document.btnDose4Value2.forceUpdate(),
+														    Amulet:document.btnDose4Value2.reappear(),
+														    Amulet:document.sfDose4Average.forceUpdate(),
+														    Amulet:document.sfDose4Average.reappear();
+														    NAME=refreshShowDose4">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(95).value();TRIGGER=0xFF;URL=Amulet:document.sfDose5Label.forceUpdate(),
+														    Amulet:document.sfDose5Label.reappear(),
+														    Amulet:document.btnDose5Value1.forceUpdate(),
+														    Amulet:document.btnDose5Value1.reappear(),
+														    Amulet:document.btnDose5Value2.forceUpdate(),
+														    Amulet:document.btnDose5Value2.reappear(),
+														    Amulet:document.sfDose5Average.forceUpdate(),
+														    Amulet:document.sfDose5Average.reappear();
+														    NAME=refreshShowDose5">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(96).value();TRIGGER=0xFF;URL=Amulet:document.sfTotalLabel.reappear(),
+														    Amulet:document.sfTotalText.forceUpdate(),
+														    Amulet:document.sfTotalText.reappear();
+														    NAME=refreshShowTotal">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(97).value();TRIGGER=0xFF;URL=Amulet:document.sfResult1.forceUpdate(),
+														    Amulet:document.sfResult1.reappear();
+														    NAME=refreshShowResult1">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(98).value();TRIGGER=0xFF;URL=Amulet:document.sfResult2.forceUpdate(),
+														    Amulet:document.sfResult2.reappear();
+														    NAME=refreshShowResult2">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.sfTitle.forceUpdate(),
+														     Amulet:document.sfTitle.reappear(),
+														     Amulet:document.refreshShowBack.forceUpdate(),
+														     Amulet:document.sfPatientIDLabel.reappear(),
+														     Amulet:document.sfPatientIDText.forceUpdate(),
+														     Amulet:document.sfPatientIDText.reappear(),
+														     Amulet:document.sfPatientNameLabel.reappear(),
+														     Amulet:document.sfPatientNameText.forceUpdate(),
+														     Amulet:document.sfPatientNameText.reappear(),
+														     Amulet:document.sfStatusLabel.reappear(),
+														     Amulet:document.sfStatusText.forceUpdate(),
+														     Amulet:document.sfStatusText.reappear(),
+														     Amulet:document.sfBackgroundLabel.forceUpdate(),
+														     Amulet:document.sfBackgroundLabel.reappear(),
+														     Amulet:document.sfFirst.forceUpdate(),
+														     Amulet:document.sfFirst.reappear(),
+														     Amulet:document.sfSecond.forceUpdate(),
+														     Amulet:document.sfSecond.reappear(),
+														     Amulet:document.sfAverage.forceUpdate(),
+														     Amulet:document.sfAverage.reappear(),
+														     Amulet:document.sfBackgroundStamp.forceUpdate(),
+														     Amulet:document.sfBackgroundStamp.reappear(),
+														     Amulet:document.refreshShowDose1.forceUpdate(),
+														     Amulet:document.refreshShowDose2.forceUpdate(),
+														     Amulet:document.refreshShowDose3.forceUpdate(),
+														     Amulet:document.refreshShowDose4.forceUpdate(),
+														     Amulet:document.refreshShowDose5.forceUpdate(),
+														     Amulet:document.refreshShowDose1R.forceUpdate(),
+														     Amulet:document.refreshShowDose2R.forceUpdate(),
+														     Amulet:document.refreshShowDose3R.forceUpdate(),
+														     Amulet:document.refreshShowDose4R.forceUpdate(),
+														     Amulet:document.refreshShowDose5R.forceUpdate(),
+														     Amulet:document.refreshShowDose1S.forceUpdate(),
+														     Amulet:document.refreshShowDose2S.forceUpdate(),
+														     Amulet:document.refreshShowDose3S.forceUpdate(),
+														     Amulet:document.refreshShowDose4S.forceUpdate(),
+														     Amulet:document.refreshShowDose5S.forceUpdate(),
+														     Amulet:document.refreshShowDose1S2.forceUpdate(),
+														     Amulet:document.refreshShowDose2S2.forceUpdate(),
+														     Amulet:document.refreshShowDose3S2.forceUpdate(),
+														     Amulet:document.refreshShowDose4S2.forceUpdate(),
+														     Amulet:document.refreshShowDose5S2.forceUpdate(),
+														     Amulet:document.refreshShowTotal.forceUpdate(),
+														     Amulet:document.refreshShowResult1.forceUpdate(),
+														     Amulet:document.refreshShowResult2.forceUpdate(),
+														     Amulet:document.refreshShowAcceptCancel.forceUpdate();
+														     NAME=refreshShowAll">
+		
+		<style type="text/css">
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:150;top:0;width:0;height:0}
+			#back {position:absolute;left:693;top:13;width:0;height:0}
+			#patientIDlabel {position:absolute;left:0;top:70;width:0;height:0}
+			#patientIDtext {position:absolute;left:100;top:70;width:0;height:0}
+			#patientlabel {position:absolute;left:0;top:100;width:0;height:0}
+			#patienttext {position:absolute;left:100;top:100;width:0;height:0}
+			#statuslabel {position:absolute;left:0;top:130;width:0;height:0}
+			#statustext {position:absolute;left:100;top:130;width:0;height:0}
+			
+			#backgroundlabel {position:absolute;left:0;top:160;width:0;height:0}
+			#backgroundtext {position:absolute;left:340;top:160;width:0;height:0}
+			#backgroundstamp {position:absolute;left:500;top:160;width:0;height:0}
+			
+			#first {position:absolute;left:340;top:200;width:0;height:0}
+			#second {position:absolute;left:500;top:200;width:0;height:0}
+			#average {position:absolute;left:660;top:200;width:0;height:0}
+			
+			#dose1label {position:absolute;left:0;top:230;width:0;height:0}
+			#dose1text1 {position:absolute;left:340;top:230;width:0;height:0}
+			#dose1text2 {position:absolute;left:500;top:230;width:0;height:0}
+			#dose1average {position:absolute;left:660;top:230;width:0;height:0}
+			
+			#dose2label {position:absolute;left:0;top:280;width:0;height:0}
+			#dose2text1 {position:absolute;left:340;top:280;width:0;height:0}
+			#dose2text2 {position:absolute;left:500;top:280;width:0;height:0}
+			#dose2average {position:absolute;left:660;top:280;width:0;height:0}
+			
+			#dose3label {position:absolute;left:0;top:330;width:0;height:0}
+			#dose3text1 {position:absolute;left:340;top:330;width:0;height:0}
+			#dose3text2 {position:absolute;left:500;top:330;width:0;height:0}
+			#dose3average {position:absolute;left:660;top:330;width:0;height:0}
+			
+			#dose4label {position:absolute;left:0;top:380;width:0;height:0}
+			#dose4text1 {position:absolute;left:340;top:380;width:0;height:0}
+			#dose4text2 {position:absolute;left:500;top:380;width:0;height:0}
+			#dose4average {position:absolute;left:660;top:380;width:0;height:0}
+			
+			#dose5label {position:absolute;left:0;top:430;width:0;height:0}
+			#dose5text1 {position:absolute;left:340;top:430;width:0;height:0}
+			#dose5text2 {position:absolute;left:500;top:430;width:0;height:0}
+			#dose5average {position:absolute;left:660;top:430;width:0;height:0}
+			
+			#totallabel {position:absolute;left:500;top:470;width:0;height:0}
+			#totaltext {position:absolute;left:660;top:470;width:0;height:0}
+			
+			#result2 {position:absolute;left:0;top:506;width:0;height:0}
+			
+			#accept {position:absolute;left:490;top:542;width:0;height:0}
+			#cancel {position:absolute;left:645;top:542;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="500" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(118).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBack">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="patientIDlabel">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="30" NAME="sfPatientIDLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="initialCondition" VALUE="Patient ID:">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="patientIDtext">
+			<APPLET CODE="StringField.class" WIDTH="700" HEIGHT="30" NAME="sfPatientIDText">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000090">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(80).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="patientlabel">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="30" NAME="sfPatientNameLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="initialCondition" VALUE="Name:">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="patienttext">
+			<APPLET CODE="StringField.class" WIDTH="700" HEIGHT="30" NAME="sfPatientNameText">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000090">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(81).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="statuslabel">
+			<APPLET CODE="StringField.class" WIDTH="100" HEIGHT="30" NAME="sfStatusLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="initialCondition" VALUE="Status:">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="statustext">
+			<APPLET CODE="StringField.class" WIDTH="700" HEIGHT="30" NAME="sfStatusText">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000090">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(83).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="backgroundlabel">
+			<APPLET CODE="StringField.class" WIDTH="340" HEIGHT="40" NAME="sfBackgroundLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(117).value">
+				<PARAM NAME="printf" VALUE="Background(%s):">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="backgroundtext">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnBackground">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(86).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Background Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_BACKGROUND)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="backgroundtext">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnBackgroundS">
+				<PARAM NAME="upImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(86).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="Amulet:document.btnBackgroundS.disappear(),Amulet:UART.word(0).setValue(0x0103)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="backgroundstamp">
+			<APPLET CODE="StringField.class" WIDTH="300" HEIGHT="40" NAME="sfBackgroundStamp">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(84).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="first">
+			<APPLET CODE="StringField.class" WIDTH="150" HEIGHT="30" NAME="sfFirst">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="BOTTOM">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD|UNDERLINE">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(117).value()">
+				<PARAM NAME="printf" VALUE="Count 1(%s)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="second">
+			<APPLET CODE="StringField.class" WIDTH="150" HEIGHT="30" NAME="sfSecond">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="BOTTOM">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD|UNDERLINE">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(117).value()">
+				<PARAM NAME="printf" VALUE="Count 2(%s)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="average">
+			<APPLET CODE="StringField.class" WIDTH="140" HEIGHT="30" NAME="sfAverage">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="BOTTOM">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD|UNDERLINE">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(117).value()">
+				<PARAM NAME="printf" VALUE="Average(%s)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose1label">
+			<APPLET CODE="StringField.class" WIDTH="340" HEIGHT="40" NAME="sfDose1Label">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(87).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose1text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose1Value1">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(89).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE1_VALUE1)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Dose1 Count1(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT1_1)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose1text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose1Value1R">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(89).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE1_VALUE1)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Residual1 Count1(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT1_1)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose1text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose1Value1S">
+				<PARAM NAME="upImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(89).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="Amulet:document.btnDose1Value1S.disappear(),Amulet:UART.word(0).setValue(0x0104)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose1text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose1Value2">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(90).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE1_VALUE2)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Dose1 Count2(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT1_2)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose1text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose1Value2R">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(90).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE1_VALUE2)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Residual1 Count2(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT1_2)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose1text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose1Value2S">
+				<PARAM NAME="upImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(90).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="Amulet:document.btnDose1Value2S.disappear(),Amulet:UART.word(0).setValue(0x0105)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose1average">
+			<APPLET CODE="StringField.class" WIDTH="140" HEIGHT="40" NAME="sfDose1Average">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(91).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose3label">
+			<APPLET CODE="StringField.class" WIDTH="800" HEIGHT="100" NAME="sfResult1">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(113).value()">
+				<PARAM NAME="printf" VALUE="%.104s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose2label">
+			<APPLET CODE="StringField.class" WIDTH="340" HEIGHT="40" NAME="sfDose2Label">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(92).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose2text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose2Value1">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(94).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE2_VALUE1)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Dose2 Count1(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT2_1)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose2text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose2Value1R">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(94).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE2_VALUE1)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Residual2 Count1(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT2_1)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose2text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose2Value1S">
+				<PARAM NAME="upImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(94).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="Amulet:document.btnDose2Value1S.disappear(),Amulet:UART.word(0).setValue(0x0106)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose2text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose2Value2">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(95).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE2_VALUE2)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Dose2 Count2(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT2_2)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose2text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose2Value2R">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(95).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE2_VALUE2)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Residual2 Count2(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT2_2)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose2text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose2Value2S">
+				<PARAM NAME="upImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(95).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="Amulet:document.btnDose2Value2S.disappear(),Amulet:UART.word(0).setValue(0x0107)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose2average">
+			<APPLET CODE="StringField.class" WIDTH="140" HEIGHT="40" NAME="sfDose2Average">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(96).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose3label">
+			<APPLET CODE="StringField.class" WIDTH="340" HEIGHT="40" NAME="sfDose3Label">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(97).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose3text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose3Value1">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(99).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE3_VALUE1)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Dose3 Count1(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT3_1)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose3text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose3Value1R">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(99).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE3_VALUE1)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Residual3 Count1(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT3_1)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose3text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose3Value1S">
+				<PARAM NAME="upImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(99).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="Amulet:document.btnDose3Value1S.disappear(),Amulet:UART.word(0).setValue(0x0108)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose3text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose3Value2">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(100).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE3_VALUE2)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Dose3 Count2(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT3_2)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose3text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose3Value2R">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(100).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE3_VALUE2)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Residual3 Count2(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT3_2)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose3text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose3Value2S">
+				<PARAM NAME="upImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(100).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="Amulet:document.btnDose3Value2S.disappear(),Amulet:UART.word(0).setValue(0x0109)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose3average">
+			<APPLET CODE="StringField.class" WIDTH="140" HEIGHT="40" NAME="sfDose3Average">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(101).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose4label">
+			<APPLET CODE="StringField.class" WIDTH="340" HEIGHT="40" NAME="sfDose4Label">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(102).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose4text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose4Value1">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(104).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE4_VALUE1)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Dose4 Count1(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT4_1)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose4text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose4Value1R">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(104).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE4_VALUE1)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Residual4 Count1(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT4_1)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose4text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose4Value1S">
+				<PARAM NAME="upImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(104).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="Amulet:document.btnDose4Value1S.disappear(),Amulet:UART.word(0).setValue(0x010A)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose4text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose4Value2">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(105).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE4_VALUE2)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Dose4 Count2(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT4_2)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose4text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose4Value2R">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(105).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE4_VALUE2)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Residual4 Count2(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT4_2)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose4text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose4Value2S">
+				<PARAM NAME="upImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(105).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="Amulet:document.btnDose4Value2S.disappear(),Amulet:UART.word(0).setValue(0x010B)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose4average">
+			<APPLET CODE="StringField.class" WIDTH="140" HEIGHT="40" NAME="sfDose4Average">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(106).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose5label">
+			<APPLET CODE="StringField.class" WIDTH="340" HEIGHT="40" NAME="sfDose5Label">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(107).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose5text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose5Value1">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(109).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE5_VALUE1)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Dose5 Count1(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT5_1)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose5text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose5Value1R">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(109).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE5_VALUE1)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Residual5 Count1(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT5_1)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose5text1">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose5Value1S">
+				<PARAM NAME="upImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(109).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="Amulet:document.btnDose5Value1S.disappear(),Amulet:UART.word(0).setValue(0x010C)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose5text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose5Value2">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(110).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Dose'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE5_VALUE2)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Dose5 Count2(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT5_2)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose5text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose5Value2R">
+				<PARAM NAME="upImage" VALUE="Images/150x40.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(110).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%LockDetector, %ConfigTitle('Measure Thyroid Uptake Residual'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_TU_DOSE5_VALUE2)">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Enter Residual5 Count2(cpm):'), %ConfigMaxStrLen(6), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('999999.0'), %ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_TU_TEST_MEAS_DOSE_COUNT5_2)"-->
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose5text2">
+			<APPLET CODE="CustomButton.class" WIDTH="150" HEIGHT="40" Name="btnDose5Value2S">
+				<PARAM NAME="upImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="downImage" VALUE="Images/150x40_sp.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref()">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(110).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="Amulet:document.btnDose5Value2S.disappear(),Amulet:UART.word(0).setValue(0x010D)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="dose5average">
+			<APPLET CODE="StringField.class" WIDTH="140" HEIGHT="40" NAME="sfDose5Average">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(111).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="totallabel">
+			<APPLET CODE="StringField.class" WIDTH="150" HEIGHT="30" NAME="sfTotalLabel">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="RIGHT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="Total:">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="totaltext">
+			<APPLET CODE="StringField.class" WIDTH="140" HEIGHT="30" NAME="sfTotalText">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(112).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="result2">
+			<APPLET CODE="StringField.class" WIDTH="800" HEIGHT="30" NAME="sfResult2">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="16pt">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|BOLD">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(113).value()">
+				<PARAM NAME="printf" VALUE="%.104s">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="accept">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnAccept">
+				<PARAM NAME="label" VALUE="Accept">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="green">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnAccept.disappear(), Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="cancel">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnCancel">
+				<PARAM NAME="label" VALUE="Cancel">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnCancel.disappear(), %Back">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

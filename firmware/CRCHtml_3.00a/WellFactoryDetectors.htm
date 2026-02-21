@@ -1,0 +1,651 @@
+<!--
+	Byte
+	96  - Probe Channels
+	97  - Probe Installed
+	98  - Well Channels
+	99  - Well Installed
+	100 - Show Screen
+	
+	String
+	101 - Probe Serial
+	102 - Probe Voltage
+	103 - Probe Threshold
+	104 - Well Serial
+	105 - Well Voltage
+	106 - Well Threshold
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_WELL_FACTORY_DETECTORS);NAME=refreshInit">
+		
+		<!--META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.btnProbeSerial.forceUpdate(),
+														     Amulet:document.btnProbeSerial.reappear(),
+														     Amulet:document.btnProbeVoltage.forceUpdate(),
+														     Amulet:document.btnProbeVoltage.reappear(),
+														     Amulet:document.btnProbeThreshold.forceUpdate(),
+														     Amulet:document.btnProbeThreshold.reappear(),
+														     Amulet:document.ProbeChannels.forceUpdate(),
+														     Amulet:document.ProbeInstalled.forceUpdate(),
+														     Amulet:document.btnWellSerial.forceUpdate(),
+														     Amulet:document.btnWellSerial.reappear(),
+														     Amulet:document.btnWellVoltage.forceUpdate(),
+														     Amulet:document.btnWellVoltage.reappear(),
+														     Amulet:document.btnWellThreshold.forceUpdate(),
+														     Amulet:document.btnWellThreshold.reappear(),
+														     Amulet:document.WellChannels.forceUpdate(),
+														     Amulet:document.WellInstalled.forceUpdate(),
+														     Amulet:document.btnAccept.reappear(),
+														     Amulet:document.btnCancel.reappear();
+														     NAME=refreshDisplay"-->
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.btnProbeSerial.forceUpdate(),
+														     Amulet:document.btnProbeSerial.reappear(),
+														     Amulet:document.btnProbeVoltage.forceUpdate(),
+														     Amulet:document.btnProbeVoltage.reappear(),
+														     Amulet:document.btnProbeThreshold.forceUpdate(),
+														     Amulet:document.btnProbeThreshold.reappear(),
+														     Amulet:document.ProbeInstalled.forceUpdate(),
+														     Amulet:document.btnWellSerial.forceUpdate(),
+														     Amulet:document.btnWellSerial.reappear(),
+														     Amulet:document.btnWellVoltage.forceUpdate(),
+														     Amulet:document.btnWellVoltage.reappear(),
+														     Amulet:document.btnWellThreshold.forceUpdate(),
+														     Amulet:document.btnWellThreshold.reappear(),
+														     Amulet:document.WellInstalled.forceUpdate(),
+														     Amulet:document.btnAccept.reappear(),
+														     Amulet:document.btnCancel.reappear();
+														     NAME=refreshDisplay">
+		
+		<style type="text/css">
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			
+			#probelabel {position:absolute;left:0;top:75;width:0;height:0}
+			
+			#probeseriallabel {position:absolute;left:0;top:125;width:0;height:0}
+			#probeserialtext {position:absolute;left:130;top:125;width:0;height:0}
+			
+			#probehvlabel {position:absolute;left:0;top:175;width:0;height:0}
+			#probehvtext {position:absolute;left:130;top:175;width:0;height:0}
+			
+			#probethresholdlabel {position:absolute;left:0;top:225;width:0;height:0}
+			#probethresholdtext {position:absolute;left:130;top:225;width:0;height:0}
+			
+			#probechannelslabel {position:absolute;left:0;top:275;width:0;height:0}
+			#probech256 {position:absolute;left:10;top:305;width:0;height:0}
+			#probech512 {position:absolute;left:133;top:305;width:0;height:0}
+			#probech1024 {position:absolute;left:266;top:305;width:0;height:0}
+			#probech2048 {position:absolute;left:67;top:345;width:0;height:0}
+			#probech4096 {position:absolute;left:200;top:345;width:0;height:0}
+			
+			#probeinstalledlabel {position:absolute;left:0;top:395;width:0;height:0}
+			#probeinstalled {position:absolute;left:10;top:425;width:0;height:0}
+			#drilledprobeinstalled {position:absolute;left:108;top:425;width:0;height:0}
+			#probenone {position:absolute;left:266;top:425;width:0;height:0}
+			
+			#welllabel {position:absolute;left:401;top:75;width:0;height:0}
+			
+			#wellseriallabel {position:absolute;left:401;top:125;width:0;height:0}
+			#wellserialtext {position:absolute;left:530;top:125;width:0;height:0}
+			
+			#wellhvlabel {position:absolute;left:401;top:175;width:0;height:0}
+			#wellhvtext {position:absolute;left:530;top:175;width:0;height:0}
+			
+			#wellthresholdlabel {position:absolute;left:401;top:225;width:0;height:0}
+			#wellthresholdtext {position:absolute;left:530;top:225;width:0;height:0}
+			
+			#wellchannelslabel {position:absolute;left:401;top:275;width:0;height:0}
+			#wellch256 {position:absolute;left:410;top:305;width:0;height:0}
+			#wellch512 {position:absolute;left:533;top:305;width:0;height:0}
+			#wellch1024 {position:absolute;left:666;top:305;width:0;height:0}
+			#wellch2048 {position:absolute;left:467;top:345;width:0;height:0}
+			#wellch4096 {position:absolute;left:600;top:345;width:0;height:0}
+			
+			#wellinstalledlabel {position:absolute;left:401;top:395;width:0;height:0}
+			#wellinstalled {position:absolute;left:467;top:425;width:0;height:0}
+			#wellnone {position:absolute;left:600;top:425;width:0;height:0}
+			
+			#accept {position:absolute;left:490;top:542;width:0;height:0}
+			#cancel {position:absolute;left:645;top:542;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="Detector Settings">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probelabel">
+			<TABLE WIDTH="400" HEIGHT="50">
+				<TR><TD WIDTH="400" HEIGHT="50" ALIGN="CENTER"><FONT SIZE="6" FACE="Franklin Gothic Book"><I><B><U>Probe</U></B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="probeseriallabel">
+			<TABLE WIDTH="130" HEIGHT="50">
+				<TR><TD WIDTH="130" HEIGHT="50" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Serial#:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="probeserialtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnProbeSerial">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(101).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter Probe Serial#'),%ConfigMaxStrLen(6),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('0.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_PROBE700_SERIAL)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probehvlabel">
+			<TABLE WIDTH="130" HEIGHT="50">
+				<TR><TD WIDTH="130" HEIGHT="50" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Voltage:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="probehvtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnProbeVoltage">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(102).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter Probe Voltage:'),%ConfigMaxStrLen(4),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('1077.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_PROBE700_VOLTAGE)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probethresholdlabel">
+			<TABLE WIDTH="130" HEIGHT="50">
+				<TR><TD WIDTH="130" HEIGHT="50" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Threshold:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="probethresholdtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnProbeThreshold">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(103).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter Probe Threshold'),%ConfigMaxStrLen(4),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('4095.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_PROBE700_THRESHOLD)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<!--DIV ID="probechannelslabel">
+			<TABLE WIDTH="200" HEIGHT="40">
+				<TR><TD WIDTH="200" HEIGHT="40" ALIGN="LEFT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Channels:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="probech256">
+			<APPLET CODE="RadioButton.class" WIDTH="123" HEIGHT="40" NAME="radioprobe256">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="ProbeChannels">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(96).value()">
+				<PARAM NAME="internalNumber" VALUE="1">
+				<PARAM NAME="label" VALUE="256 Ch">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probech512">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radioprobe512">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="ProbeChannels">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0103)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(96).value()">
+				<PARAM NAME="internalNumber" VALUE="2">
+				<PARAM NAME="label" VALUE="512 Ch">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probech1024">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radioprobe1024">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="ProbeChannels">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0104)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(96).value()">
+				<PARAM NAME="internalNumber" VALUE="3">
+				<PARAM NAME="label" VALUE="1024 Ch">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probech2048">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radioprobe2048">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="ProbeChannels">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0105)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(96).value()">
+				<PARAM NAME="internalNumber" VALUE="4">
+				<PARAM NAME="label" VALUE="2048 Ch">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probech4096">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radioprobe4096">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="ProbeChannels">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0106)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(96).value()">
+				<PARAM NAME="internalNumber" VALUE="5">
+				<PARAM NAME="label" VALUE="4096 Ch">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV-->
+		
+		<DIV ID="probeinstalledlabel">
+			<TABLE WIDTH="200" HEIGHT="40">
+				<TR><TD WIDTH="200" HEIGHT="40" ALIGN="LEFT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Installed:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="probeinstalled">
+			<APPLET CODE="RadioButton.class" WIDTH="98" HEIGHT="40" NAME="radioprobeinstalled">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="ProbeInstalled">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0107)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(97).value()">
+				<PARAM NAME="internalNumber" VALUE="1">
+				<PARAM NAME="label" VALUE="Probe">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="drilledprobeinstalled">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radiodrilledprobeinstalled">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="ProbeInstalled">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0108)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(97).value()">
+				<PARAM NAME="internalNumber" VALUE="2">
+				<PARAM NAME="label" VALUE="Drilled Probe">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="probenone">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radioprobenone">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="ProbeInstalled">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0109)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(97).value()">
+				<PARAM NAME="internalNumber" VALUE="3">
+				<PARAM NAME="label" VALUE="None">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="welllabel">
+			<TABLE WIDTH="400" HEIGHT="50">
+				<TR><TD WIDTH="400" HEIGHT="50" ALIGN="CENTER"><FONT SIZE="6" FACE="Franklin Gothic Book"><I><B><U>Well</U></B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="wellseriallabel">
+			<TABLE WIDTH="129" HEIGHT="50">
+				<TR><TD WIDTH="129" HEIGHT="50" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Serial#:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="wellserialtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnWellSerial">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(104).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter Well Serial#'),%ConfigMaxStrLen(6),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('0.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_WELL700_SERIAL)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="wellhvlabel">
+			<TABLE WIDTH="129" HEIGHT="50">
+				<TR><TD WIDTH="129" HEIGHT="50" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Voltage:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="wellhvtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnWellVoltage">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(105).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter Well Voltage:'),%ConfigMaxStrLen(4),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('1077.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_WELL700_VOLTAGE)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="wellthresholdlabel">
+			<TABLE WIDTH="129" HEIGHT="50">
+				<TR><TD WIDTH="129" HEIGHT="50" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Threshold:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="wellthresholdtext">
+			<APPLET CODE="CustomButton.class" WIDTH="200" HEIGHT="40" Name="btnWellThreshold">
+				<PARAM NAME="upImage" VALUE="Images/200x40.png">
+				<PARAM NAME="downImage" VALUE="Images/200x40.png">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="onButtonPress" VALUE="ALPHA">
+				<PARAM NAME="buttonType" VALUE="SPRING-LOADED">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontStyle" VALUE="PLAIN">
+				<PARAM NAME="alphaColor" VALUE="#000000FF">
+				<PARAM NAME="label" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.label(106).value()">
+				<PARAM NAME="noSdram" VALUE="TRUE">
+				<PARAM NAME="repeatDelay" VALUE="0.01">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Enter Well Threshold'),%ConfigMaxStrLen(4),%ConfigMaxFractionLen(0),%ConfigMinValue('0.0'),%ConfigMaxValue('4095.0'),%ConfigKeypad(%%CONFIG_KEYPAD_DEFAULT), %ConfigPlusMinus_OFF,%SetKeypad(%%SET_KEYPAD_WELL700_THRESHOLD)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<!--DIV ID="wellchannelslabel">
+			<TABLE WIDTH="200" HEIGHT="40">
+				<TR><TD WIDTH="200" HEIGHT="40" ALIGN="LEFT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Channels:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="wellch256">
+			<APPLET CODE="RadioButton.class" WIDTH="123" HEIGHT="40" NAME="radiowell256">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="WellChannels">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010A)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(98).value()">
+				<PARAM NAME="internalNumber" VALUE="1">
+				<PARAM NAME="label" VALUE="256 Ch">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="wellch512">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radiowell512">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="WellChannels">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010B)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(98).value()">
+				<PARAM NAME="internalNumber" VALUE="2">
+				<PARAM NAME="label" VALUE="512 Ch">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="wellch1024">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radiowell1024">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="WellChannels">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010C)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(98).value()">
+				<PARAM NAME="internalNumber" VALUE="3">
+				<PARAM NAME="label" VALUE="1024 Ch">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="wellch2048">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radiowell2048">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="WellChannels">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010D)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(98).value()">
+				<PARAM NAME="internalNumber" VALUE="4">
+				<PARAM NAME="label" VALUE="2048 Ch">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="wellch4096">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radiowell4096">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="WellChannels">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010E)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(98).value()">
+				<PARAM NAME="internalNumber" VALUE="5">
+				<PARAM NAME="label" VALUE="4096 Ch">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV-->
+		
+		<DIV ID="wellinstalledlabel">
+			<TABLE WIDTH="200" HEIGHT="40">
+				<TR><TD WIDTH="200" HEIGHT="40" ALIGN="LEFT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><B>Installed:</B></I></FONT></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="wellinstalled">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radiowellinstalled">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="WellInstalled">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x010F)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="1">
+				<PARAM NAME="label" VALUE="Well">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="wellnone">
+			<APPLET CODE="RadioButton.class" WIDTH="133" HEIGHT="40" NAME="radiowellnone">
+				<PARAM NAME="buttonAlign" VALUE="LEFT">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontColor" VALUE="BLACK">
+				<PARAM NAME="fontSize" VALUE="14">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="groupName" VALUE="WellInstalled">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0110)">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(99).value()">
+				<PARAM NAME="internalNumber" VALUE="2">
+				<PARAM NAME="label" VALUE="None">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="accept">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnAccept">
+				<PARAM NAME="label" VALUE="Accept">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="green">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnAccept.disappear(),Amulet:UART.word(0).setValue(0x0111)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="cancel">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnCancel">
+				<PARAM NAME="label" VALUE="Cancel">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="red">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="Amulet:document.btnCancel.disappear(), %Back">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

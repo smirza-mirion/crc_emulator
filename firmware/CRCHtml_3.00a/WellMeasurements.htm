@@ -1,0 +1,225 @@
+<!--
+	Byte
+
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_WELL_MEASUREMENTS);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(75).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(75).setValue(0),
+														    Amulet:document.sfDetector.forceUpdate();
+														    NAME=refreshShowDetector">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(76).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(76).setValue(0),
+														    Amulet:document.btnDetector.reappear();
+														    NAME=refreshShowDetectorButton">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.btnWipe.reappear(),
+														     Amulet:document.btnSetup.reappear();
+														     NAME=refreshShowWipeButton">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(101).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(101).setValue(0),
+														     Amulet:document.btnGeneral.reappear();
+														     NAME=refreshShowGeneral">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(102).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(102).setValue(0),
+														     Amulet:document.btnGeneralWell.reappear(),
+														     Amulet:document.btnGeneralProbe.reappear();
+														     NAME=refreshShowGeneralDrilledProbe">
+		
+		<style type="text/css">
+			#backgnd1 {position:absolute;left:0;top:41;width:800;height:518}
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#currentdetector {position:absolute;left:0;top:543;width:0;height:0}
+			#detector {position:absolute;left:170;top:543;width:0;height:0}
+			#home {position:absolute;left:8;top:13;width:0;height:0}
+			#back {position:absolute;left:693;top:13;width:0;height:0}
+			#setup {position:absolute;left:692;top:543;width:0;height:0}
+			#general_well {position:absolute;left:90;top:393;width:0;height:0}
+			#general_probe {position:absolute;left:410;top:393;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="Measurements">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="currentdetector">
+			<APPLET CODE="StringField.class" WIDTH="170" HEIGHT="50" NAME="sfDetector">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="22pt">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(9).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="detector">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnDetector">
+				<PARAM NAME="label" VALUE="Detector">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="%ConfigGenericItems(%%SET_GENERICITEMS_DETECTOR700),%SetHTML(%%SET_HTML_GENERIC_ITEMS)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="home">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnHome">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Home">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/home_big.png">
+				<PARAM NAME="downImage" VALUE="Images/home_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBack">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="setup">
+			<APPLET CODE="CustomButton.class" WIDTH="101" HEIGHT="50" NAME="btnSetup">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%ConfigTitle('Please Enter Password:'), %ConfigMaxStrLen(8), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('0.0'), %ConfigKeypad(%%CONFIG_KEYPAD_PASSWORD), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_WIPE_PASSWD)">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/setup_33.png">
+				<PARAM NAME="downImage" VALUE="Images/setup_33.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="backgnd1">
+			<TABLE WIDTH="800" HEIGHT="518">
+				<TR><TD></TD></TR>
+					<TR>
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="400" HEIGHT="70" NAME="btnBackground">
+								<PARAM NAME="label" VALUE="Measure Background">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%UnLockDetector, %ConfigTitle('Background Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_BACKGROUND)">
+								<PARAM NAME="invisible" VALUE="FALSE">
+							</APPLET>
+						</TD>
+					</TR>
+					
+					<TR>
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="400" HEIGHT="70" NAME="btnWipe">
+								<PARAM NAME="label" VALUE="Measure Wipes">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%SetClear(%%SET_CLEAR_WELLWIPELIST)">
+								<PARAM NAME="invisible" VALUE="TRUE">
+							</APPLET>
+						</TD>
+					</TR>
+					
+					<TR>
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="400" HEIGHT="70" NAME="btnGeneral">
+								<PARAM NAME="label" VALUE="General Measurement">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%UnLockDetector, %GeneralMeasFromInstalledDetector, %ConfigTitle('General Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_GENERAL)">
+								<PARAM NAME="invisible" VALUE="TRUE">
+							</APPLET>
+						</TD>
+					</TR>
+					
+				<TR><TD></TD></TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="general_well">
+			<APPLET CODE="FunctionButton.class" WIDTH="300" HEIGHT="70" NAME="btnGeneralWell">
+				<PARAM NAME="label" VALUE="General Measurement As Well">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="%LockDetector, %GeneralMeasFromDrilledProbeAsWell, %ConfigTitle('General Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_GENERAL)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="general_probe">
+			<APPLET CODE="FunctionButton.class" WIDTH="300" HEIGHT="70" NAME="btnGeneralProbe">
+				<PARAM NAME="label" VALUE="General Measurement As Probe">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="%LockDetector, %GeneralMeasFromDrilledProbeAsProbe, %ConfigTitle('General Measurement'), %SetWellMeasurement(%%SET_WELLMEASUREMENT_GENERAL)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

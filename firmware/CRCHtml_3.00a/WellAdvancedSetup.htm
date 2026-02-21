@@ -1,0 +1,275 @@
+<!--
+	Byte
+	90 - Show Wipe Test Button
+	91 - Show BioAssay Button
+	92 - Show Thyroid Uptake Button
+	93 - Show Thyroid Uptake Normal Value Button
+	94 - Show RBC Survival Normal Value Button
+	100 - Display Screen
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_WELL_ADVANCED_SETUP);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(75).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(75).setValue(0),
+														    Amulet:document.sfDetector.forceUpdate();
+														    NAME=refreshShowDetector">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(76).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(76).setValue(0),
+														    Amulet:document.btnDetector.reappear();
+														    NAME=refreshShowDetectorButton">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(90).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(90).setValue(0),
+														    Amulet:document.btnWipe.reappear();
+														    NAME=refreshShowWipeButton">
+
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(91).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(91).setValue(0),
+														    Amulet:document.btnBioassay.reappear();
+														    NAME=refreshShowBioassayButton">
+														    
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(92).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(92).setValue(0),
+														    Amulet:document.btnThyroidUptake.reappear();
+														    NAME=refreshShowThyroidUptakeButton">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(93).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(93).setValue(0),
+														    Amulet:document.btnThyroidUptakeNormal.reappear();
+														    NAME=refreshShowThyroidUptakeNormalButton">
+														    
+		<!--META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.btnBioassay.reappear(),
+														     Amulet:document.btnThyroidUptake.reappear(),
+														     Amulet:document.btnThyroidUptakeNormal.reappear();
+														     NAME=refreshShowBioAssayANDTU"-->
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.refreshShowWipeButton.forceUpdate(),
+														     Amulet:document.refreshShowBioassayButton.forceUpdate(),
+														     Amulet:document.refreshShowThyroidUptakeButton.forceUpdate(),
+														     Amulet:document.refreshShowThyroidUptakeNormalButton.forceUpdate();
+														     NAME=refreshShowDisplay">
+														     
+		<style type="text/css">
+			#backgnd1 {position:absolute;left:0;top:61;width:800;height:518}
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#currentdetector {position:absolute;left:0;top:543;width:0;height:0}
+			#detector {position:absolute;left:170;top:543;width:0;height:0}
+			#key {position:absolute;left:590;top:543;width:0;height:0}
+			#home {position:absolute;left:8;top:13;width:0;height:0}
+			#back {position:absolute;left:693;top:13;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="Advanced Detector Setup">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="home">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnHome">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Home">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/home_big.png">
+				<PARAM NAME="downImage" VALUE="Images/home_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBack">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="currentdetector">
+			<APPLET CODE="StringField.class" WIDTH="170" HEIGHT="50" NAME="sfDetector">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="22pt">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(9).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="detector">
+			<APPLET CODE="FunctionButton.class" WIDTH="150" HEIGHT="50" NAME="btnDetector">
+				<PARAM NAME="label" VALUE="Detector">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="href" VALUE="%ConfigGenericItems(%%SET_GENERICITEMS_DETECTOR700),%SetHTML(%%SET_HTML_GENERIC_ITEMS)">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="backgnd1">
+			<TABLE WIDTH="800" HEIGHT="478">
+					<TR>
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="380" HEIGHT="70" NAME="btnTestSource">
+								<PARAM NAME="label" VALUE="Test Source">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%SetClear(%%SET_CLEAR_WELLSETUPTESTSOURCE)">
+								<PARAM NAME="invisible" VALUE="FALSE">
+							</APPLET>
+						</TD>
+						
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="380" HEIGHT="70" NAME="btnBioassay">
+								<PARAM NAME="label" VALUE="Bio Assay">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%SetClear(%%SET_CLEAR_SETUPBIOASSAY)">
+								<PARAM NAME="invisible" VALUE="TRUE">
+							</APPLET>
+						</TD>
+					</TR>
+					
+					<TR>
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="380" HEIGHT="70" NAME="btnEfficiencies">
+								<PARAM NAME="label" VALUE="Efficiencies">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%SetClear(%%SET_CLEAR_WELLSETUPEFFICIENCIES)">
+								<PARAM NAME="invisible" VALUE="FALSE">
+							</APPLET>
+						</TD>
+						
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="380" HEIGHT="70" NAME="btnThyroidUptake">
+								<PARAM NAME="label" VALUE="Thyroid Uptake">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%TUProtocolSetupMode,%SetClear(%%SET_CLEAR_SETUPTHYROIDUPTAKEPROTOCOL)">
+								<PARAM NAME="invisible" VALUE="TRUE">
+							</APPLET>
+						</TD>
+					</TR>
+					
+					<TR>
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="380" HEIGHT="70" NAME="btnUserNuclides">
+								<PARAM NAME="label" VALUE="User Nuclides">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%SetClear(%%SET_CLEAR_WELLSETUPUSERNUCLIDES)">
+								<PARAM NAME="invisible" VALUE="FALSE">
+							</APPLET>
+						</TD>
+						
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="380" HEIGHT="70" NAME="btnThyroidUptakeNormal">
+								<PARAM NAME="label" VALUE="Thyroid Uptake Normal Values">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%EnterTUNormal,%SetClear(%%SET_CLEAR_WELLTHYROIDUPTAKEENTERNORMAL)">
+								<PARAM NAME="invisible" VALUE="TRUE">
+							</APPLET>
+						</TD>
+					</TR>
+					
+					<TR>
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="380" HEIGHT="70" NAME="btnWipe">
+								<PARAM NAME="label" VALUE="Wipe Tests">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%SetHTML(%%SET_HTML_SETUP_WIPES)">
+								<PARAM NAME="invisible" VALUE="TRUE">
+							</APPLET>
+						</TD>
+						
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="380" HEIGHT="70" NAME="btnSetupPassword">
+								<PARAM NAME="label" VALUE="Setup Password">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%SetClear(%%SET_CLEAR_SETUPPASSWORD)">
+								<PARAM NAME="invisible" VALUE="FALSE">
+							</APPLET>
+						</TD>
+					</TR>
+			</TABLE>
+		</DIV>
+	</BODY>
+</HTML>

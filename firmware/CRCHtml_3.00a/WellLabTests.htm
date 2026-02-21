@@ -1,0 +1,166 @@
+<!--
+	Byte
+
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_WELL_LAB_TESTS);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(75).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(75).setValue(0),
+														    Amulet:document.sfDetector.forceUpdate(),
+														    Amulet:document.btnSchilling.reappear(),
+														    Amulet:document.btnPlasma.reappear(),
+														    Amulet:document.btnRBC.reappear(),
+														    Amulet:document.btnRBCSurvival.reappear();
+														    NAME=refreshShowDetector">
+		
+		<style type="text/css">
+			#backgnd {position:absolute;left:0;top:0;width:800;height:600}
+			#backgnd1 {position:absolute;left:0;top:41;width:800;height:518}
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#currentdetector {position:absolute;left:0;top:543;width:0;height:0}
+			#home {position:absolute;left:8;top:13;width:0;height:0}
+			#back {position:absolute;left:693;top:13;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="Lab Tests">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="currentdetector">
+			<APPLET CODE="StringField.class" WIDTH="170" HEIGHT="50" NAME="sfDetector">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="22pt">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(9).value()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="home">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnHome">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Home">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/home_big.png">
+				<PARAM NAME="downImage" VALUE="Images/home_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBack">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="backgnd1">
+			<TABLE WIDTH="800" HEIGHT="518">
+				<TR><TD></TD></TR>
+					<TR>
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="400" HEIGHT="70" NAME="btnSchilling">
+								<PARAM NAME="label" VALUE="Schilling">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%SetClear(%%SET_CLEAR_WELLSCHILLING)">
+								<PARAM NAME="invisible" VALUE="TRUE">
+							</APPLET>
+						</TD>
+					</TR>
+					
+					<TR>
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="400" HEIGHT="70" NAME="btnPlasma">
+								<PARAM NAME="label" VALUE="Plasma">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%SetClear(%%SET_CLEAR_WELLPLASMA)">
+								<PARAM NAME="invisible" VALUE="TRUE">
+							</APPLET>
+						</TD>
+					</TR>
+					
+					<TR>
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="400" HEIGHT="70" NAME="btnRBC">
+								<PARAM NAME="label" VALUE="RBC">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%SetClear(%%SET_CLEAR_WELLRBC)">
+								<PARAM NAME="invisible" VALUE="TRUE">
+							</APPLET>
+						</TD>
+					</TR>
+					<TR>
+						<TD ALIGN="CENTER" VALIGN="MIDDLE">
+							<APPLET CODE="FunctionButton.class" WIDTH="400" HEIGHT="70" NAME="btnRBCSurvival">
+								<PARAM NAME="label" VALUE="RBC Survival">
+								<PARAM NAME="horizontalAlign" VALUE="CENTER">
+								<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+								<PARAM NAME="font" VALUE="Franklin Gothic Book">
+								<PARAM NAME="fontSize" VALUE="18pt">
+								<PARAM NAME="fontColor" VALUE="blue">
+								<PARAM NAME="fontStyle" VALUE="BOLD">
+								<PARAM NAME="fillColor" VALUE="#FFFFFF">
+								<PARAM NAME="href" VALUE="%SetClear(%%SET_CLEAR_WELLRBCSURVIVAL)">
+								<PARAM NAME="invisible" VALUE="TRUE">
+							</APPLET>
+						</TD>
+					</TR>					
+				<TR><TD></TD></TR>
+			</TABLE>
+		</DIV>
+	</BODY>
+</HTML>

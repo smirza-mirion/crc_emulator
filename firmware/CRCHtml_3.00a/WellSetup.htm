@@ -1,0 +1,236 @@
+<!--
+	Byte
+	59 - Change Brightness Level
+	100 - forceUpdate of Volume and Brightness
+	101 - Initial Volume Level
+	102 - Initial Brightness Level
+	Word
+	100 - Brightness Level
+-->
+
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_WELL_SETUP);NAME=refreshInit">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														     Amulet:document.sldVolume.forceUpdate(),
+														     Amulet:document.sldBrightness.forceUpdate();
+														     NAME=refreshSliders">
+														     
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(59).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(59).setValue(0),
+														   Amulet:document.pwm1.setPeriod(1),
+														   Amulet:document.pwm1.setPulseWidth(InternalRAM.word(100)),
+														   Amulet:document.pwm1.start();
+														   NAME=refreshBrightness">
+
+		<style type="text/css">
+			#backgnd {position:absolute;left:0;top:0;width:800;height:600}
+			#backgnd1 {position:absolute;left:0;top:41;width:800;height:518}
+			#top {position:absolute;left:0;top:0;width:0;height:0}
+			#bottom {position:absolute;left:0;top:556;width:0;height:0}
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#logo {position:absolute;left:5;top:1;width:0;height:0}
+			#title {position:absolute;left:5;top:0;width:0;height:0}
+			#message {position:absolute;left:5;top:563;width:0;height:0}
+			#back {position:absolute;left:695;top:10;width:0;height:0}
+			#print {position:absolute;left:695;top:563;width:0;height:0}
+			
+			#screen_saver_label {position:absolute;left:20;top:50;width:0;height:0}
+			#screen_saver_slider {position:absolute;left:220;top:50;width:0;height:0}
+			#screen_saver_text {position:absolute;left:730;top:50;width:0;height:0}
+			
+			#line1 {position:absolute;left:0;top:100;width:0;height:0}
+			
+			#brightness_label {position:absolute;left:20;top:110;width:0;height:0}
+			#brightness_slider {position:absolute;left:220;top:110;width:0;height:0}
+			#brightness_text {position:absolute;left:730;top:110;width:0;height:0}
+			
+			#line2 {position:absolute;left:0;top:160;width:0;height:0}
+			
+			#volume_label {position:absolute;left:20;top:170;width:0;height:0}
+			#volume_slider {position:absolute;left:220;top:170;width:0;height:0}
+			#volume_text {position:absolute;left:730;top:170;width:0;height:0}
+			
+			#line3 {position:absolute;left:0;top:220;width:0;height:0}
+			
+			#other_button {position:absolute;left:20;top:230;width:0;height:0}
+			#pwm {position:absolute;left:0;top:0;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="791" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				<PARAM NAME="initialCondition" VALUE="Well Setup">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="FunctionButton.class" WIDTH="100" HEIGHT="50" NAME="btnBack">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fontSize" VALUE="20pt">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="label" VALUE="Home">
+				<PARAM NAME="href" VALUE="%Back">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="line1">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="FALSE" NAME="line1">
+		</DIV>
+		
+		<DIV ID="line2">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="FALSE" NAME="line2">
+		</DIV>
+		
+		<DIV ID="line3">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2" INVISIBLE="FALSE" NAME="line3">
+		</DIV>
+		
+		<DIV ID="screen_saver_label">
+			<TABLE WIDTH="200" HEIGHT="40">
+				<TR>
+					<TD WIDTH="200" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Screen Saver:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="screen_saver_slider">
+			<APPLET CODE="Slider.class" WIDTH="500" HEIGHT="40" NAME="sldSaver">
+				<PARAM NAME="hrefEvent" VALUE="onPenUp">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="initialCondition" VALUE="0">
+				<PARAM NAME="max" VALUE="60">
+				<PARAM NAME="min" VALUE="0">
+				<PARAM NAME="minAt" VALUE="LEFT">
+				<PARAM NAME="tickCount" VALUE="12">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="screen_saver_text">
+			<APPLET CODE="Stringfield.class" WIDTH="60" HEIGHT="35" NAME="sfSaver">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialConditions" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="brightness_label">
+			<TABLE WIDTH="200" HEIGHT="40">
+				<TR>
+					<TD WIDTH="200" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Brightness:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="brightness_slider">
+			<APPLET CODE="Slider.class" WIDTH="500" HEIGHT="40" NAME="sldBrightness">
+				<PARAM NAME="hrefEvent" VALUE="onPenUp">
+				<PARAM NAME="href" VALUE="Amulet:UART.byte(29).setValue()">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(102).value()">
+				<PARAM NAME="max" VALUE="100">
+				<PARAM NAME="min" VALUE="10">
+				<PARAM NAME="minAt" VALUE="LEFT">
+				<PARAM NAME="tickCount" VALUE="10">
+			</APPLET>
+		</DIV>
+
+		<DIV ID="brightness_text">
+			<APPLET CODE="Stringfield.class" WIDTH="60" HEIGHT="35" NAME="sfBrightness">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialConditions" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:NOP()">
+				<PARAM NAME="printf" VALUE="%s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="volume_label">
+			<TABLE WIDTH="200" HEIGHT="40">
+				<TR>
+					<TD WIDTH="200" HEIGHT="40" ALIGN="RIGHT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I>Volume:</I></FONT></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		
+		<DIV ID="volume_slider">
+			<APPLET CODE="Slider.class" WIDTH="500" HEIGHT="40" NAME="sldVolume">
+				<PARAM NAME="hrefEvent" VALUE="onChange">
+				<PARAM NAME="href" VALUE="Amulet:UART.byte(27).setValue()">
+				<PARAM NAME="hrefOnHitOnly" VALUE="TRUE">
+				<PARAM NAME="initialCondition" VALUE="FromInitHref">
+				<PARAM NAME="initHref" VALUE="Amulet:internalRAM.byte(101).value()">
+				<PARAM NAME="max" VALUE="255">
+				<PARAM NAME="min" VALUE="0">
+				<PARAM NAME="minAt" VALUE="LEFT">
+				<PARAM NAME="tickCount" VALUE="10">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="volume_text">
+			<APPLET CODE="FunctionButton.class" WIDTH="60" HEIGHT="35" NAME="btnVolume">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="Blue">
+				<PARAM NAME="label" VALUE="Test">
+				<PARAM NAME="href" VALUE="Amulet:UART.word(0).setValue(0x0102)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="other_button">
+			<APPLET CODE="FunctionButton.class" WIDTH="200" HEIGHT="40" NAME="btnAdvanced">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontStyle" VALUE="BOLD">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="blue">
+				<PARAM NAME="label" VALUE="Advanced">
+				<PARAM NAME="href" VALUE="Amulet:document.refreshBrightness.disappear(),%ConfigTitle('Please Enter Passwd:'), %ConfigMaxStrLen(8), %ConfigMaxFractionLen(0), %ConfigMinValue('0.0'), %ConfigMaxValue('0.0'), %ConfigKeypad(%%CONFIG_KEYPAD_PASSWORD), %ConfigPlusMinus_OFF, %SetKeypad(%%SET_KEYPAD_WELL_SETUP_PASSWD)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="pwm">
+			<APPLET CODE="Pwm.class" WIDTH="0" HEIGHT="0" name="pwm1">
+				<PARAM NAME="channel" VALUE="0">
+				<PARAM NAME="initialCondition" VALUE="ON">
+				<PARAM NAME="periodIn_ms" VALUE=".99">
+				<PARAM NAME="pulseWidthIn_ms" VALUE="1">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

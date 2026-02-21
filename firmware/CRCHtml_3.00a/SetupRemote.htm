@@ -1,0 +1,700 @@
+<!--
+	Byte
+	92		= Language		(STATE) English = 0, French = 1
+	100 - Refresh Display
+	
+	String
+	101 - Remote R 1 Nuclide String
+	102 - Remote R 2 Nuclide String
+	103 - Remote R 3 Nuclide String
+	104 - Remote R 4 Nuclide String
+	105 - Remote R 5 Nuclide String
+	106 - Remote R 6 Nuclide String
+	107 - Remote R 7 Nuclide String
+	108 - Remote R 8 Nuclide String
+	109 - Remote P 1 Nuclide String
+	110 - Remote P 2 Nuclide String
+	111 - Remote P 3 Nuclide String
+	112 - Remote P 4 Nuclide String
+	113 - Remote P 5 Nuclide String
+	114 - Remote P 6 Nuclide String
+	115 - Remote P 7 Nuclide String
+	116 - Remote P 8 Nuclide String
+	120,121 - Title
+	122 - R Chamber
+	123 - P Chamber
+	124,125 - Please Select Nuclide
+	
+-->
+<HTML>
+	<HEAD>
+		<META Name="Amulet" CONTENT="ReloadInternalRAM.Page"></META>
+		<META NAME="Macro" SRC="Amulet.h">
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.0,0.01;URL=%SetScreen(%%SCREEN_SETUP_REMOTE);NAME=refreshInit">
+
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.0;URL=Amulet:document.refreshShowHomeEnglish.forceUpdate(),
+						    Amulet:document.refreshShowHomeFrench.forceUpdate();
+						    NAME=refreshShowHome">
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(92).value();TRIGGER=0x00;URL=Amulet:document.btnHome.reappear();
+													     NAME=refreshShowHomeEnglish">
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(92).value();TRIGGER=0x01;URL=Amulet:document.btnHomeFrench.reappear();
+													     NAME=refreshShowHomeFrench">
+													     
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.0;URL=Amulet:document.refreshHideHomeEnglish.forceUpdate(),
+						    Amulet:document.refreshHideHomeFrench.forceUpdate();
+						    NAME=refreshHideHome">
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(92).value();TRIGGER=0x00;URL=Amulet:document.btnHome.disappear();
+													     NAME=refreshHideHomeEnglish">
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(92).value();TRIGGER=0x01;URL=Amulet:document.btnHomeFrench.disappear();
+													     NAME=refreshHideHomeFrench">
+
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.0;URL=Amulet:document.refreshShowBackEnglish.forceUpdate(),
+						    Amulet:document.refreshShowBackFrench.forceUpdate();
+						    NAME=refreshShowBack">
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(92).value();TRIGGER=0x00;URL=Amulet:document.btnBack.reappear();
+													     NAME=refreshShowBackEnglish">
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(92).value();TRIGGER=0x01;URL=Amulet:document.btnBackFrench.reappear();
+													     NAME=refreshShowBackFrench">
+													     
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.0;URL=Amulet:document.refreshHideBackEnglish.forceUpdate(),
+						    Amulet:document.refreshHideBackFrench.forceUpdate();
+						    NAME=refreshHideBack">
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(92).value();TRIGGER=0x00;URL=Amulet:document.btnBack.disappear();
+													     NAME=refreshHideBackEnglish">
+	<META HTTP-EQUIV="REFRESH" CONTENT="0.00;ONVAR=Amulet:internalRAM.byte(92).value();TRIGGER=0x01;URL=Amulet:document.btnBackFrench.disappear();
+													     NAME=refreshHideBackFrench">
+
+
+
+		
+		<META HTTP-EQUIV="REFRESH" CONTENT="0.01;ONVAR=Amulet:internalRAM.byte(100).value();TRIGGER=0xFF;URL=Amulet:internalRAM.byte(100).setValue(0),
+														    Amulet:document.refreshShowHome.forceUpdate(),
+														    Amulet:document.refreshShowBack.forceUpdate(),
+													     	   Amulet:document.sfTitle.reappear(),
+													         Amulet:document.sfTitle.forceUpdate(),
+													     	   Amulet:document.sfRChamber.reappear(),
+													         Amulet:document.sfRChamber.forceUpdate(),
+													     	   Amulet:document.sfPChamber.reappear(),
+													         Amulet:document.sfPChamber.forceUpdate(),
+														     Amulet:document.sfR1.forceUpdate(),
+														     Amulet:document.sfR2.forceUpdate(),
+														     Amulet:document.sfR3.forceUpdate(),
+														     Amulet:document.sfR4.forceUpdate(),
+														     Amulet:document.sfR5.forceUpdate(),
+														     Amulet:document.sfR6.forceUpdate(),
+														     Amulet:document.sfR7.forceUpdate(),
+														     Amulet:document.sfR8.forceUpdate(),
+														     Amulet:document.sfP1.forceUpdate(),
+														     Amulet:document.sfP2.forceUpdate(),
+														     Amulet:document.sfP3.forceUpdate(),
+														     Amulet:document.sfP4.forceUpdate(),
+														     Amulet:document.sfP5.forceUpdate(),
+														     Amulet:document.sfP6.forceUpdate(),
+														     Amulet:document.sfP7.forceUpdate(),
+														     Amulet:document.sfP8.forceUpdate();
+														     NAME=refreshDisplay">
+		
+		<style type="text/css">
+			#backgnd {position:absolute;left:0;top:0;width:800;height:600}
+			#top {position:absolute;left:0;top:0;width:0;height:0}
+			#bottom {position:absolute;left:0;top:556;width:0;height:0}
+			#topbar {position:absolute;left:0;top:0;height:0;width:0}
+			#bottombar {position:absolute;left:0;top:537;height:0;width:0}
+			#logo {position:absolute;left:5;top:4;width:0;height:0}
+			#title {position:absolute;left:130;top:0;width:0;height:0}
+			#message {position:absolute;left:5;top:563;width:0;height:0}
+			
+			#rtitle {position:absolute;left:10;top:70;width:0;height:0}
+			#r1 {position:absolute;left:5;top:120;width:0;height:0}
+			#r2 {position:absolute;left:205;top:120;width:0;height:0}
+			#r3 {position:absolute;left:405;top:120;width:0;height:0}
+			#r4 {position:absolute;left:605;top:120;width:0;height:0}
+			#r5 {position:absolute;left:5;top:210;width:0;height:0}
+			#r6 {position:absolute;left:205;top:210;width:0;height:0}
+			#r7 {position:absolute;left:405;top:210;width:0;height:0}
+			#r8 {position:absolute;left:605;top:210;width:0;height:0}
+			#line {position:absolute;left:0;top:300;width:0;height:0}
+			#ptitle {position:absolute;left:10;top:305;width:0;height:0}
+			#p1 {position:absolute;left:5;top:380;width:0;height:0}
+			#p2 {position:absolute;left:205;top:380;width:0;height:0}
+			#p3 {position:absolute;left:405;top:380;width:0;height:0}
+			#p4 {position:absolute;left:605;top:380;width:0;height:0}
+			#p5 {position:absolute;left:5;top:470;width:0;height:0}
+			#p6 {position:absolute;left:205;top:470;width:0;height:0}
+			#p7 {position:absolute;left:405;top:470;width:0;height:0}
+			#p8 {position:absolute;left:605;top:470;width:0;height:0}
+			
+			#home {position:absolute;left:8;top:13;width:0;height:0}
+			#back {position:absolute;left:693;top:13;width:0;height:0}
+		</style>
+	</HEAD>
+	<BODY>
+		<DIV ID="topbar">
+			<IMG SRC="Images/top_bar.png" WIDTH="800" HEIGHT="69">
+		</DIV>
+	
+		<DIV ID="bottombar">
+			<IMG SRC="Images/bottom_bar.png" WIDTH="800" HEIGHT="63">
+		</DIV>
+		<DIV ID="title">
+			<APPLET CODE="StringField.class" WIDTH="560" HEIGHT="69" NAME="sfTitle">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="horizontalAlign" VALUE="CENTER">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF00">
+				<PARAM NAME="fontColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontSize" VALUE="24pt">
+				!--<PARAM NAME="initialCondition" VALUE="Setup Remote Nuclides">
+				<PARAM NAME="href" VALUE="Amulet:NOP()"-->
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(120).value()">
+				<PARAM NAME="printf" VALUE="%.51s">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="home">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnHome">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Home">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/home_big.png">
+				<PARAM NAME="downImage" VALUE="Images/home_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="home">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnHomeFrench">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Home">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/french_home_big.png">
+				<PARAM NAME="downImage" VALUE="Images/french_home_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBack">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="back">
+			<APPLET CODE="CustomButton.class" WIDTH="100" HEIGHT="50" NAME="btnBackFrench">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="href" VALUE="%Back">
+				<PARAM NAME="onButtonPress" VALUE="GRAY">
+				<PARAM NAME="upImage" VALUE="Images/french_back_big.png">
+				<PARAM NAME="downImage" VALUE="Images/french_back_big.png">
+				<PARAM NAME="repeatRate" VALUE="0.00">
+				<PARAM NAME="invisible" VALUE="TRUE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="rtitle">
+			<!--TABLE WIDTH="300" HEIGHT="40">
+				<TR>
+					<TD WIDTH="300" HEIGHT="40" ALIGN="LEFT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><U>R Chamber</U></I></FONT></TD>
+				</TR>
+			</TABLE-->
+			<APPLET CODE="Stringfield.class" WIDTH="300" HEIGHT="40" NAME="sfRChamber">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(122).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r1">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfR1">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(101).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r1">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnR1">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R1)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R1)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r2">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfR2">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(102).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r2">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnR2">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R2)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R2)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r3">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfR3">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(103).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r3">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnR3">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R3)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R3)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r4">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfR4">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(104).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r4">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnR4">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R4)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R4)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r5">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfR5">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(105).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r5">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnR5">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R5)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R5)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r6">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfR6">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(106).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r6">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnR6">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R6)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R6)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r7">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfR7">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(107).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r7">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnR7">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R7)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R7)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r8">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfR8">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(108).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="r8">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnR8">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R8)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_R_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_R8)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="line">
+			<IMG SRC="Images/hline2.jpg" WIDTH="800" HEIGHT="2">
+		</DIV>
+		
+		<DIV ID="ptitle">
+			<!--TABLE WIDTH="300" HEIGHT="40">
+				<TR>
+					<TD WIDTH="300" HEIGHT="40" ALIGN="LEFT"><FONT SIZE="5" FACE="Franklin Gothic Book"><I><U>P Chamber</U></I></FONT></TD>
+				</TR>
+			</TABLE-->
+			<APPLET CODE="Stringfield.class" WIDTH="300" HEIGHT="40" NAME="sfPChamber">
+				<PARAM NAME="border" VALUE="0">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="18pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="fontStyle" VALUE="ITALIC|UNDERLINE">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(123).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p1">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfP1">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(109).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p1">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnP1">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P1)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P1)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p2">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfP2">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(110).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p2">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnP2">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P2)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P2)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p3">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfP3">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(111).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p3">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnP3">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P3)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P3)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p4">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfP4">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(112).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p4">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnP4">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P4)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P4)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p5">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfP5">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(113).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p5">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnP5">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P5)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P5)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p6">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfP6">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(114).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p6">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnP6">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P6)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P6)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p7">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfP7">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(115).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p7">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnP7">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P7)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P7)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p8">
+			<APPLET CODE="Stringfield.class" WIDTH="190" HEIGHT="40" NAME="sfP8">
+				<PARAM NAME="border" VALUE="1">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="fontSize" VALUE="14pt">
+				<PARAM NAME="fontColor" VALUE="#000000">
+				<PARAM NAME="fillColor" VALUE="#FFFFFF">
+				<PARAM NAME="initialCondition" VALUE="">
+				<PARAM NAME="horizontalAlign" VALUE="LEFT">
+				<PARAM NAME="verticalAlign" VALUE="MIDDLE">
+				<PARAM NAME="href" VALUE="Amulet:internalRAM.string(116).value()">
+				<PARAM NAME="printf" VALUE=" %s">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+		
+		<DIV ID="p8">
+			<APPLET CODE="FunctionButton.class" WIDTH="190" HEIGHT="40" NAME="btnP8">
+				<PARAM NAME="borderColor" VALUE="#00000000">
+				<PARAM NAME="font" VALUE="Franklin Gothic Book">
+				<PARAM NAME="label" VALUE="">
+				<PARAM NAME="fillColor" VALUE="#00000000">
+				<!--PARAM NAME="href" VALUE="%ConfigTitle('Please Select Nuclide'), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW),%SetNuclide(%%SET_NUCLIDE_REMOTE_P8)"-->
+				<PARAM NAME="href" VALUE="%ConfigTitle(Amulet:internalRAM.string(124)), %ConfigNuclide(%%CONFIG_NUCLIDE_P_ONLY_ALL), %ClearNuclide(%%CLEAR_NUCLIDE_SHOW), %SetNuclide(%%SET_NUCLIDE_REMOTE_P8)">
+				<PARAM NAME="invisible" VALUE="FALSE">
+			</APPLET>
+		</DIV>
+	</BODY>
+</HTML>

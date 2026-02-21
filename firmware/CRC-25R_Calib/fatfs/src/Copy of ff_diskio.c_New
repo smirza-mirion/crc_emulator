@@ -1,0 +1,712 @@
+#include <string.h>
+#include "coldfire.h"
+#include "crc.h"
+#include "keyboard.h"
+
+#define fnPr iprintf
+#define CLKIN SYSCLK
+
+#define PORTB_DIR cf.gpio.ddrb
+#define PORTB_DATA cf.gpio.portbp
+#define PORTB_ASSIGN cf.gpio.pbcdpar
+#define PORTQ_ASSIGN cf.gpio.pqspar
+
+#define SPIPORT_DIR PORTB_DIR
+#define SPIPORT PORTB_DATA
+#define SPIPORT_ASSIGN PORTQ_ASSIGN
+
+#define SPIWP  (1<<0)  //write protect
+#define SPICD  (1<<1)  //card detect
+
+/* SD card info type structure specification */
+typedef struct {
+	long initok;
+
+	long CSD_STR;
+	long SPEC_VERS;
+
+	long TAAC;
+	long NSAC;
+	long TRANSPEED;
+	long CCC;
+	long R_BL_LEN;
+	long R_BL_PART;
+	long WR_BL_MIS;
+	long RD_BL_MIS;
+	long DSR_IMP;
+
+	long CSIZE;
+	long RC_MIN;
+	long RC_MAX;
+	long WC_MAX;
+	long WC_MIN;
+	long C_SIZE_M;
+	long ERASE_G_S;
+	long ERASE_G_M;
+	long WP_G_S;
+	long WP_G_EN;
+	long DEF_ECC;
+	long R2W_FACT;
+	long WR_BL_LEN;
+	long WR_BL_PAR;
+
+	long C_PR_APP;
+	long F_FORMATG;
+	long COPY;
+	long P_WR_PROT;
+	long T_WR_PROT;
+	long F_FORMAT;
+	long ECC;
+	long CRC7;
+} MMC_TYPE;
+MMC_TYPE g_mmc_type_2;
+
+unsigned long CRCtbl_2[ 256 ];
+unsigned long rxdata_2=0;
+unsigned long bitcou_2=0;
+
+static void spi2Rx(void);
+static void spi2TxByte(unsigned char ch);
+static void spi2TxWord(unsigned short data16);
+static void spi2TxLong(unsigned long data32);
+static long spi2GetBit(void);
+static long spi2GetBit32(void);
+static long spi2DataBits(long bits, unsigned long *pcrc);
+static int spi2WaitStartBit(void);
+static int spi2WaitBusy(void);
+static long spi2Cmd(long cmd, long data);
+static int spi2GetDataBlock(unsigned long *dwaddr, unsigned long addr);
+static int spi2SetDataBlock(unsigned long *dwaddr, unsigned long addr);
+static int spi2CSDBlock(void);
+static unsigned long crc16_2( unsigned long crc, unsigned char c);
+
+/** spiInit					 **
+ * Init SPI ports, directions */
+static void spi2Init(void){
+	long a;
+
+	for(a=0; a<256; a++) CRCtbl_2[a]=crc16_2(0, (unsigned char)a );
+
+	memset(&g_mmc_type_2,0, sizeof(MMC_TYPE));
+
+	//Should only do once during system init
+	SPIPORT_ASSIGN=0x7f; 	/* set PORTQ to QSPI Primary OPeration, Use CS0-3 */
+
+	cf.qspi.qwr=0x9000;		// stop + active low
+	cf.qspi.qmr=0xC0FF;		// Master mode, Dout is high impedance, 16 bit Transfers(ignored), Clock Active High, Data on Leading Edge of CLK, Lowest Clock Speed
+	cf.qspi.qdlyr=0x2020;	// Delay = 0x20 for CS to CLK, Delay after Transfer
+
+	cf.qspi.qar=0x20;		// Set Address to the start of Command Ram
+	cf.qspi.qdr=0xBe00;		// Set CS remains enabled after each transfer, 8 bit Transfers, Use QDLYR values, e is QSPI_CS for flash card
+	cf.qspi.qdr=0xBe00;		// Set CS remains enabled after each transfer, 8 bit Transfers, Use QDLYR values, e is QSPI_CS for flash card
+	cf.qspi.qdr=0xBe00;		// Set CS remains enabled after each transfer, 8 bit Transfers, Use QDLYR values, e is QSPI_CS for flash card
+	cf.qspi.qdr=0xBe00;		// Set CS remains enabled after each transfer, 8 bit Transfers, Use QDLYR values, e is QSPI_CS for flash card
+}
+
+/** spiSDinit
+  inti Card protocols via spi
+  RETURNS
+  0 - if successful
+  other if any error **/
+static int spi2SDinit(){
+	long a;
+	long retry;
+
+	g_mmc_type_2.initok=0;
+
+	//cf.qspi.qmr=0xC0FF;
+
+	for(a=0; a<1000; a++) spi2TxLong(0xffffffff); //wait some
+
+	// Reset SD Card, try 10 times before signaling an error
+	for(retry=0;; retry++){
+		if((a = spi2Cmd(0, 0)) != 0xff) break;
+		if(retry==10) return 1;
+	}
+	spi2TxLong(0xffffffff); //some fake
+
+	// Initialize SD Card, try 1000 times before signaling an error
+	for(retry=0;; retry++ ){
+		if(retry == 1000) return 1;
+		if(!spi2Cmd(1, 0)) break;
+	}
+
+	// Set Block Length to 512 bytes
+	if(spi2Cmd(16, 512)) return 13; //set blk lenght 512 byte
+	spi2TxLong(0xffffffff); //some fake
+
+	// Turn on CRC
+	if(spi2Cmd(59, 1)) return 14; //set crc on
+	spi2TxLong(0xffffffff); //some fake
+
+	//
+	if(spi2CSDBlock()) return 24;
+	g_mmc_type_2.initok=1;
+   return 0;
+}
+
+static void spi2Rx(void){
+	register int i;
+	int CompletedQueuePointer;
+	//for (i=0,rxdata_2=0,cf.qspi.qar=0x10;i<=((cf.qspi.qwr&0xf0)>>4);rxdata_2|=( (cf.qspi.qdr&0xff)<< ( (3-i++)<<3 )   ));
+
+	rxdata_2=0;			// Clear rxdata
+	cf.qspi.qar=0x10;	// Point to start of Receive RAM
+	CompletedQueuePointer = (int)((cf.qspi.qwr & 0xF0) >> 4);	// Calculate end of receive queue
+	for(i=0; i<=CompletedQueuePointer ;i++){
+		rxdata_2 |= ((cf.qspi.qdr & 0xFF) << ((3-i) << 3));		// Move data from receive buffer into rxdata_2, hibyte hiword first
+	}
+	bitcou_2 = i<<3;	// Bits captured in rxdata_2
+	return;
+}
+
+static void spi2TxByte(unsigned char ch){
+	cf.qspi.qar = 0;				// Point to start of Transmit RAM
+	cf.qspi.qdr = ch;				// Copy value first Transmit RAM
+	cf.qspi.qwr = 0x1000;			// Active Low, Start Queue Pointer = 0, End Queue Pointer = 0
+	cf.qspi.qir |= 1;				// Clear SPIF flag
+	cf.qspi.qdlyr |= 0x8000;		// Start QSPI
+	while((cf.qspi.qir & 1) == 0);	// Wait until SPIF flag is set, which signals the end of the transfer
+}
+
+static void spi2TxWord(unsigned short data16){
+	cf.qspi.qar=0;
+	cf.qspi.qdr=data16>>8;
+	cf.qspi.qdr=data16&0xff;
+	cf.qspi.qwr=0x1100;
+	cf.qspi.qir|=1;
+	cf.qspi.qdlyr|=0x8000;
+	while((cf.qspi.qir&1)==0);
+}
+
+static void spi2TxLong(unsigned long data32){
+	cf.qspi.qar = 0;						// Point to start of Transmit RAM
+	cf.qspi.qdr = data32 >> 24;				// Copy HiByte of HiWord to first Transmit RAM
+	cf.qspi.qdr = (data32 >> 16) & 0xff;	// Copy LoByte of HiWord to second Transmit RAM
+	cf.qspi.qdr = (data32 >> 8) & 0xff;		// Copy HiByte of LoWord to third Transmit RAM
+	cf.qspi.qdr = data32 & 0xff;			// Copy LoByte of LoWord to fourth Transmit RAM
+	cf.qspi.qwr = 0x1300;					// Active Low, Start Queue Pointer = 0, End Queue Pointer = 3
+	cf.qspi.qir|=1;							// Clear SPIF flag
+	cf.qspi.qdlyr|=0x8000;					// Start QSPI
+	while((cf.qspi.qir & 1) == 0);			// Wait until SPIF flag is set, which signals the end of the transfer
+}
+
+static long spi2GetBit(void){
+	if(!bitcou_2){
+		cf.qspi.qar = 0;				// Point to start of Transmit RAM
+		cf.qspi.qdr = 0xff;				// Set first Transmit RAM to 0xFF
+		cf.qspi.qwr = 0x1000;			// Active Low, Start Queue Pointer = 0, End Queue Pointer = 0
+		cf.qspi.qir |= 1;				// Clear SPIF flag
+		cf.qspi.qdlyr |= 0x8000;		// Start QSPI
+		while((cf.qspi.qir & 1) == 0);	// Wait until SPIF flag is set, which signals the end of the transfer
+
+		spi2Rx();						// Populate rxdata_2 and bitcou_2 from receive buffer
+	}
+
+	if(bitcou_2){
+		bitcou_2--;						// Decrement bits to process
+		if (rxdata_2 & 0x80000000){		// Return 1, if Bit is 1
+			rxdata_2 <<= 1;				// Shift to expose next bit
+			return 1;					// Return 1, if Bit is 1
+		}
+		rxdata_2 <<= 1;					// Shift to expose next bit
+		return 0;						// Return 0, if Bit is 0
+	}
+	else return 1;						// Should never get here
+}
+
+static long spi2GetBit32(void){
+	long ret=rxdata_2;
+	long oldbitcou=bitcou_2;
+
+	cf.qspi.qar=0;
+	cf.qspi.qdr=0xff;
+	cf.qspi.qdr=0xff;
+	cf.qspi.qdr=0xff;
+	cf.qspi.qdr=0xff;
+	cf.qspi.qwr=0x1300;
+	cf.qspi.qir|=1;
+	cf.qspi.qdlyr|=0x8000;
+	while((cf.qspi.qir&1)==0);
+	spi2Rx();
+
+	ret |= rxdata_2 >> oldbitcou;
+	rxdata_2 <<= 32 - oldbitcou;
+	bitcou_2 = oldbitcou;
+	return ret;
+}
+
+/** spiDataBits
+  Receive any bits on spi and calculates crc16 on incoming data
+  INPUTS
+  bits - how many bits need to be received
+  pcrc - pointer to crc
+  RETURNS
+  received any bits data **/
+static long spi2DataBits(long bits, unsigned long *pcrc){
+	long a;
+	long data=0;
+	unsigned long crc=*pcrc;
+
+	for(a=0; a<bits; a++){
+		data<<=1;
+
+		if(spi2GetBit()){
+			crc ^= 0x8000;
+			data |= 1;
+		}
+
+		if(crc & 0x8000) crc = (crc << 1) ^ 0x1021;
+		else crc = crc << 1;
+	}
+
+	*pcrc=crc;
+	return data;
+}
+
+/** spiWaitStartBit
+  Wait data start bit on spi and send one more clock
+  RETURNS
+  0 - if received
+  other if time out **/
+static int spi2WaitStartBit(void){
+	long a= 50000; //500000;
+
+	bitcou_2=0;
+	while(a--){
+		service_watchdog();
+		if(!spi2GetBit()) return 0;		// Wait for a start bit of Zero
+	}
+	return 1;
+}
+
+/** spiWaitBusy
+ * Wait until SPI datain line goes hi
+ * RETURNS
+ * 0 - if ok
+ * other if time out **/
+static int spi2WaitBusy(void){
+	long a=50000; //500000;
+	while(--a){
+		service_watchdog();
+		if(spi2GetBit()) return 0;
+	}
+	return 1;
+}
+
+/** spiCmd
+  Send command to SPI, it adds startbit and stopbit and calculates crc7 also
+  sent, and Wait response start bit on spi and r1 response
+  INPUTS
+  cmd - command to send
+  data - argument of the command
+  RETURNS
+  r1 if received or 0xff if any error **/
+static long spi2Cmd(long cmd, long data){
+	register long a;
+	register long crc7 = 0;
+
+	cmd |= 0xffffff40; //add start bit and 1
+
+	spi2TxLong(cmd);  //send cmd and some fake bits before it
+	// calculate CRC for low byte of cmd
+	for(a=0; a<8; a++){ //send start and cmd
+		if(cmd & 0x80) crc7 ^= 0x40;
+		cmd <<= 1;
+		if(crc7 & 0x40) crc7 = (crc7 << 1) ^ 0x09;
+		else crc7 = crc7 << 1;
+	}
+
+	spi2TxLong(data); //send data
+	// Calculate CRC for data
+	for(a=0; a<32; a++){ //send 32bit argument
+		if(data & 0x80000000) crc7 ^= 0x40;
+		data <<= 1;
+		if(crc7 & 0x40) crc7 = (crc7 << 1) ^ 0x09;
+		else crc7 = crc7 << 1;
+	}
+
+	crc7 <<= 1;  //set crc7 into correct position
+	crc7 |= 1;   //add endbit
+	spi2TxByte((unsigned char)crc7); //send crc7 and endbit
+
+	if(spi2WaitStartBit() == 0){
+		for(a=0; a<7; a++){
+			data <<= 1;
+			data |= spi2GetBit();
+		}
+		return(data);
+	}
+	return 0xff;
+}
+
+/** spiGetDataBlock
+  Getting a datablock from SD
+  INPUTS
+  dwaddr - long pointer where to store received data (512bytes)
+  addr - address where to start read card, it has to be sector aligned
+  RETURNS
+  0 - if successful
+  other if any error (crc,timeouts) **/
+static int spi2GetDataBlock(unsigned long *dwaddr, unsigned long addr){
+	register unsigned long crc;
+	if(!g_mmc_type_2.initok) {return 17;}//card is not initialized
+
+	if((SPIPORT) & SPICD) {return 18;}//card is missing
+   //if (!mmc_present) return 18;
+
+	if(spi2Cmd(17,addr)){
+		g_mmc_type_2.initok=0;
+		return 1;
+	}
+
+	if(spi2WaitStartBit()){
+		return 2;
+	}
+
+	crc=0;
+	{
+		register long a;
+		register unsigned long *crctable=CRCtbl_2;
+		for(a=0; a<128; a++){ //get data 128long 512bytes
+			register unsigned long data=spi2GetBit32();
+
+			*dwaddr++=data;
+
+			crc = ( crc << 8UL ) ^ crctable[ ( (crc >> 8UL) ^ (data>>24)) & 0x0FFUL  ];
+			crc = ( crc << 8UL ) ^ crctable[ ( (crc >> 8UL) ^ (data>>16)) & 0x0FFUL  ];
+			crc = ( crc << 8UL ) ^ crctable[ ( (crc >> 8UL) ^ (data>>8)) & 0x0FFUL  ];
+			crc = ( crc << 8UL ) ^ crctable[ ( (crc >> 8UL) ^ data) & 0x0FFUL  ];
+		}
+
+		for(a=0; a<16; a++){ //check crc in next two bytes
+			if(spi2GetBit()){
+				crc^=0x8000;
+			}
+
+			if( crc & 0x8000 ) crc = (crc << 1) ^ 0x1021;
+			else crc = crc << 1;
+		}
+	}
+
+	if(crc){
+		return 3; //crc error
+	}
+	return 0;
+}
+
+/** spiSetDataBlock
+  Write data into SD
+  INPUTS
+  dwaddr - long pointer where original data is (512bytes)
+  addr - where to store in the card (address has to be sector aligned)
+  RETURNS
+  0 - if successful
+  other if any error **/
+static int spi2SetDataBlock(unsigned long *dwaddr, unsigned long addr){
+	register unsigned long crc;
+
+	if(!g_mmc_type_2.initok) return 17;//card is not initialized
+
+	if((SPIPORT) & SPICD) return 18;//card is missing
+//	if ((SPIPORT) & SPIWP) return 4; //write protected!!
+//	if (!mmc_present) return 18;
+
+// NOTE: CLIVE:  No Way to detect Write Protect Yet!!
+
+	if(spi2Cmd(24,addr)){
+		g_mmc_type_2.initok=0;
+		return 13;
+	}
+
+	spi2TxLong(0xfffffffe); //startbit
+	crc=0;
+	{
+		register long a;
+		register unsigned long *crctable=CRCtbl_2;
+		register unsigned long data;
+
+		for(a=0; a<128; a++){ //sends 128long 512bytes
+			data=*dwaddr++;
+
+			spi2TxLong(data);
+
+			crc = ( crc << 8UL ) ^ crctable[ ( (crc >> 8UL) ^ (data>>24)) & 0x0FFUL  ];
+			crc = ( crc << 8UL ) ^ crctable[ ( (crc >> 8UL) ^ (data>>16)) & 0x0FFUL  ];
+			crc = ( crc << 8UL ) ^ crctable[ ( (crc >> 8UL) ^ (data>>8)) & 0x0FFUL  ];
+			crc = ( crc << 8UL ) ^ crctable[ ( (crc >> 8UL) ^ data) & 0x0FFUL  ];
+		}
+
+		spi2TxWord((unsigned short)crc);
+
+		if(spi2WaitStartBit()){
+			return 1;
+		}
+
+		data=0;
+		for(a=0; a<4; a++){   //get data ack
+			data<<=1;
+			if(spi2GetBit()) data|=1;
+		}
+
+		data &= 0x1f; //keep valid bits
+
+		if(data!=0x05){ //read accepted?
+			return (int)((data<<8)+1);
+		}
+	}
+
+	if(spi2WaitBusy()){
+		return 8;
+	}
+
+	return 0;
+}
+
+/** mmc_readsector
+  read one sector from the card
+  INPUTS
+  data - pointer where to store data
+  sector - which sector is needed
+  RETURNS
+  0 - if successful
+  other if any error
+int mmc_readsector(void *data, unsigned long sector){
+	int ret;
+
+	ret=spiGetDataBlock((unsigned long*)data,sector*512);
+//	if (ret) fnPr("RDERROR: %d\n",ret);
+	return ret;
+} */
+
+/** mmc_writesector
+ * write one sector into the card
+ * INPUTS
+ * data - pointer where original data is
+ * sector - which sector needs to be written
+ * RETURNS
+ * 0 - if successful
+ * other if any error
+int mmc_writesector(void *data, unsigned long sector){
+	int ret;
+
+	ret=spiSetDataBlock((unsigned long*)data,sector*512);
+//	if (ret) fnPr("WRERROR: %d\n",ret);
+	return ret;
+} */
+
+/** spiCSDBlock
+  Get Card Specific Data
+  RETURNS
+  0 - if successful
+  other if any error **/
+static int spi2CSDBlock(void){
+	unsigned long crc;
+	unsigned long time;
+
+	if(spi2Cmd(9, 0)) return 2; //r1 any error
+
+	if(spi2WaitStartBit()) return 3;
+
+	crc=0;
+	g_mmc_type_2.CSD_STR   = spi2DataBits(2, &crc);
+	g_mmc_type_2.SPEC_VERS = spi2DataBits(4, &crc);
+	spi2DataBits(2, &crc); //reserved
+
+	g_mmc_type_2.TAAC      = spi2DataBits(8, &crc);
+	g_mmc_type_2.NSAC      = spi2DataBits(8, &crc);
+	g_mmc_type_2.TRANSPEED = spi2DataBits(8, &crc);
+	g_mmc_type_2.CCC       = spi2DataBits(12,&crc);
+	g_mmc_type_2.R_BL_LEN  = spi2DataBits(4, &crc);
+	g_mmc_type_2.R_BL_PART = spi2DataBits(1, &crc);
+	g_mmc_type_2.WR_BL_MIS = spi2DataBits(1, &crc);
+	g_mmc_type_2.RD_BL_MIS = spi2DataBits(1, &crc);
+	g_mmc_type_2.DSR_IMP   = spi2DataBits(1, &crc);
+	spi2DataBits(2, &crc); //reserved
+
+	g_mmc_type_2.CSIZE     = spi2DataBits(12,&crc);
+	g_mmc_type_2.RC_MIN    = spi2DataBits(3, &crc);
+	g_mmc_type_2.RC_MAX    = spi2DataBits(3, &crc);
+	g_mmc_type_2.WC_MAX    = spi2DataBits(3, &crc);
+	g_mmc_type_2.WC_MIN    = spi2DataBits(3, &crc);
+	g_mmc_type_2.C_SIZE_M  = spi2DataBits(3, &crc);
+	g_mmc_type_2.ERASE_G_S = spi2DataBits(5, &crc);
+	g_mmc_type_2.ERASE_G_M = spi2DataBits(5, &crc);
+	g_mmc_type_2.WP_G_S    = spi2DataBits(5, &crc);
+	g_mmc_type_2.WP_G_EN   = spi2DataBits(1, &crc);
+	g_mmc_type_2.DEF_ECC   = spi2DataBits(2, &crc);
+	g_mmc_type_2.R2W_FACT  = spi2DataBits(3, &crc);
+	g_mmc_type_2.WR_BL_LEN = spi2DataBits(4, &crc);
+	g_mmc_type_2.WR_BL_PAR = spi2DataBits(1, &crc);
+	spi2DataBits(4, &crc); //reserved
+
+	g_mmc_type_2.C_PR_APP  = spi2DataBits(1, &crc);
+	g_mmc_type_2.F_FORMATG = spi2DataBits(1, &crc);
+	g_mmc_type_2.COPY      = spi2DataBits(1, &crc);
+	g_mmc_type_2.P_WR_PROT = spi2DataBits(1, &crc);
+	g_mmc_type_2.T_WR_PROT = spi2DataBits(1, &crc);
+	g_mmc_type_2.F_FORMAT  = spi2DataBits(2, &crc);
+	g_mmc_type_2.ECC       = spi2DataBits(2, &crc);
+	g_mmc_type_2.CRC7      = spi2DataBits(7, &crc);
+	spi2DataBits(1, &crc); //reserved
+
+	spi2DataBits(16, &crc); //crc
+
+	if(crc) return 10;
+
+	switch(g_mmc_type_2.TRANSPEED & 7){
+		case 0:
+			time=1; //100K
+			break;
+		case 1:
+			time=10; //1M
+			break;
+		case 2:
+			time=100; //10M
+			break;
+		case 3:
+			time=1000; //100M
+			break;
+		default:
+			return 0;
+	}
+
+	switch((g_mmc_type_2.TRANSPEED >> 3) &0x0f){
+		case 0:
+			return 0;
+		case 1:
+			time*=10;
+			break; //1.0
+		case 2:
+			time*=12;
+			break; //1.2
+		case 3:
+			time*=13;
+			break; //1.3
+		case 4:
+			time*=15;
+			break; //1.5
+		case 5:
+			time*=20;
+			break; //2.0
+		case 6:
+			time*=25;
+			break; //2.5
+		case 7:
+			time*=30;
+			break; //3.0
+		case 8:
+			time*=35;
+			break; //3.5
+		case 9:
+			time*=40;
+			break; //4.0
+		case 10:
+			time*=45;
+			break; //4.5
+		case 11:
+			time*=50;
+			break; //5.0
+		case 12:
+			time*=55;
+			break; //5.5
+		case 13:
+			time*=60;
+			break; //6.0
+		case 14:
+			time*=70;
+			break; //7.0
+		case 15:
+			time*=80;
+			break; //8.0
+	}
+
+	time<<=1;
+	time=((CLKIN/10000)+(time-1))/time;
+	if (time<2) time=2;
+	if (time>0xff) time=0xff;
+	cf.qspi.qmr=0xC000+time;
+
+	return 0;
+}
+
+static unsigned long crc16_2( unsigned long crc, unsigned char c){
+	long a;
+
+	crc = crc ^ ((unsigned long) c << 8UL);
+	for( a=0; a<8; a++ ) {
+		if( crc & 0x8000 ) crc = (crc << 1) ^ 0x1021;
+		else crc = crc << 1;
+	}
+	return crc;
+}
+
+/** mmc_getstatus
+  get status of card, missing or/and removed,changed,writeprotect
+  RETURNS
+  F_ST_xxx code for high level
+static long mmc_getstatus(){
+	long state=0;
+//	if ((SPIPORT) & SPIWP) state|=F_ST_WRPROTECT;
+//	NOTE: CLIVE:  No Way to detect Write Protect Yet!!
+
+	if((SPIPORT) & SPICD){
+		g_mmc_type.initok=0;
+		state|=F_ST_MISSING;
+	}else{
+		if(!g_mmc_type.initok) spiSDinit();
+		if(spiWaitBusy()==0){
+//			fnPr("*");
+			if(spiCmd(13, 0)){
+//				fnPr("!");
+				state|=F_ST_CHANGED;
+				spiSDinit();
+			}
+		}else{
+//			fnPr("#");
+			state|=F_ST_CHANGED;
+			spiSDinit();
+		}
+	}
+
+	if(!g_mmc_type.initok) state|=F_ST_MISSING; //card is not initialized
+   return state;
+}*/
+
+/** mmc_getphy
+  determinate flash card physicals
+  INPUTS
+  phy - this structure has to be filled with physical information
+  RETURNS
+  error code or zero if successful
+int mmc_getphy(F_PHY *phy){
+	int ret=spiSDinit();
+
+	if(ret) return ret;
+
+	phy->number_of_cylinders=0;
+	phy->sector_per_track=63;
+	phy->number_of_heads=255;
+	phy->number_of_sectors=((1UL<<(g_mmc_type.C_SIZE_M+2))*(1UL<<g_mmc_type.R_BL_LEN)*(g_mmc_type.CSIZE+1))/512UL;
+
+	return 0;
+} */
+
+/** mmc_initfunc
+  this init function has to be passed for highlevel to initiate the
+  driver functions
+  INPUTS
+  func - structure, where to fill functions
+  RETURNS
+  error code or zero if successful
+int mmc_initfunc(F_FUNC *func){
+	g_mmc_type.initok=0;
+
+	spiInit();
+
+	func->readsector=mmc_readsector;
+	func->writesector=mmc_writesector;
+	func->getstatus=mmc_getstatus;
+	func->getphy=mmc_getphy;
+	return 0;
+} */
