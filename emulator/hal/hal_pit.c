@@ -344,25 +344,37 @@ void usb_interrupt(void)
 
 /* ---- Delay Loop (centisecond-based) ---- */
 
+/* Re-entrancy guard for delayloop. Prevents infinite recursion:
+ *   delayloop → service_amulet → amulet_menu → menu_handler → delayloop
+ * When already inside delayloop, nested calls just sleep without
+ * calling service_amulet() again. */
+static volatile int delayloop_depth = 0;
+
 /* Blocking delay in centiseconds (10ms units). The firmware uses this
  * during initialization and other places where it needs to wait while
  * still servicing the Amulet display and ADC. In the emulator, we
  * use OS sleep for timing and call service_amulet() periodically to
- * keep the UI responsive. */
+ * keep the UI responsive — but only at the outermost call level. */
 void delayloop(unsigned long int csec)
 {
     unsigned long wait;
 
+    delayloop_depth++;
     wait = g_csec_tstamp + csec;
     while (wait > g_csec_tstamp) {
         service_watchdog();
-        service_amulet();
+        /* Only call service_amulet at the outermost delayloop level
+         * to prevent recursive re-entry into menu handlers */
+        if (delayloop_depth == 1) {
+            service_amulet();
+        }
 #ifdef PLATFORM_WINDOWS
         Sleep(10);
 #else
         usleep(10000); /* 10ms sleep per iteration */
 #endif
     }
+    delayloop_depth--;
 }
 
 /* ---- Millisecond Counter ---- */

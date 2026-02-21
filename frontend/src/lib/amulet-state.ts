@@ -93,6 +93,13 @@ export class AmuletStateManager {
     if (idx >= 0) this.pageHandlers.splice(idx, 1)
   }
 
+  // Locally set the page (used by frontend-initiated navigation)
+  setPageLocally(page: number) {
+    this.currentPage = page
+    this.onPageChange?.(page)
+    this.pageHandlers.forEach(h => h(page))
+  }
+
   // Send user interaction to firmware
   pressButton(byteIndex: number, value: number) {
     this.ws.send({ type: 'buttonPress', byteIndex, value })

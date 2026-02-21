@@ -62,11 +62,8 @@ export const AmuletStringField: React.FC<Props> = ({ widget, stateManager, visib
   const textAlign = mapAlign(params.horizontalAlign)
   const vertAlign = mapVertAlign(params.verticalAlign)
 
-  // Handle invisible
-  const isInvisible = params.invisible?.toUpperCase() === 'TRUE'
-  const shouldShow = visible && (!isInvisible || text !== '')
-
-  if (!shouldShow) return null
+  // Visibility managed by ScreenRenderer; for StringFields, also hide if no text
+  if (!visible) return null
 
   // Parse fill color (handle 8-digit hex with alpha)
   const bgColor = parseFillColor(fillColor)

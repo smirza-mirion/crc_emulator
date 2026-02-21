@@ -33,8 +33,7 @@ export const AmuletBarGraph: React.FC<Props> = ({ widget, stateManager, visible 
     }
   }, [byteIndex, stateManager])
 
-  const isInvisible = params.invisible?.toUpperCase() === 'TRUE'
-  if (!visible || isInvisible) return null
+  if (!visible) return null
 
   const range = max - min
   const pct = range > 0 ? Math.min(100, Math.max(0, ((value - min) / range) * 100)) : 0

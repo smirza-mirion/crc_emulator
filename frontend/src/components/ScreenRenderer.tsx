@@ -40,18 +40,68 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
 
     const loadPage = async (page: number) => {
       const def = await loadScreenByPage(page)
-      if (!cancelled) {
+      if (!cancelled && def) {
+        // Collect all widgets that start invisible
+        const initiallyHidden = new Set<string>()
+        for (const w of def.widgets) {
+          if (w.params?.invisible?.toUpperCase() === 'TRUE') {
+            initiallyHidden.add(w.name)
+          }
+        }
+
         setScreenDef(def)
-        setHiddenWidgets(new Set())
+        setHiddenWidgets(initiallyHidden)
         setShownWidgets(new Set())
         setDrawCommands([])
+
+        // Replay current byte values against triggers to set initial visibility.
+        // The firmware may have already sent byte values (e.g. language byte 100)
+        // before this screen loaded, so we need to evaluate triggers now.
+        if (def.refreshTriggers) {
+          const toShow = new Set<string>()
+          const toHide = new Set<string>()
+
+          for (const trigger of def.refreshTriggers) {
+            if (!trigger.onVar || !trigger.trigger || !trigger.actions) continue
+
+            const varMatch = trigger.onVar.match(/byte\((\d+)\)/)
+            if (!varMatch) continue
+            const byteIdx = parseInt(varMatch[1])
+            const currentVal = stateManager.getByte(byteIdx)
+
+            const triggerVal = parseTriggerValue(trigger.trigger)
+            if (triggerVal === null || triggerVal !== currentVal) continue
+
+            for (const action of trigger.actions) {
+              if (action.type === 'reappear' && action.target) {
+                toShow.add(action.target)
+                toHide.delete(action.target)
+              } else if (action.type === 'disappear' && action.target) {
+                toHide.add(action.target)
+                toShow.delete(action.target)
+              }
+            }
+          }
+
+          if (toShow.size > 0 || toHide.size > 0) {
+            setShownWidgets(toShow)
+            setHiddenWidgets(prev => {
+              const next = new Set(prev)
+              for (const name of toShow) next.delete(name)
+              for (const name of toHide) next.add(name)
+              return next
+            })
+          }
+        }
+      } else if (!cancelled) {
+        setScreenDef(def)
       }
     }
 
     loadPage(pageIndex)
 
     return () => { cancelled = true }
-  }, [pageIndex])
+  }, [pageIndex, stateManager])
 
   // Listen for page changes from firmware
   useEffect(() => {

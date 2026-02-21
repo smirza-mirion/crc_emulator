@@ -12,8 +12,7 @@ interface Props {
 export const AmuletImage: React.FC<Props> = ({ widget, visible }) => {
   const params = widget.params || {}
 
-  const isInvisible = params.invisible?.toUpperCase() === 'TRUE'
-  if (!visible || isInvisible) return null
+  if (!visible) return null
 
   const src = normalizeImagePath(params.src)
   if (!src) return null

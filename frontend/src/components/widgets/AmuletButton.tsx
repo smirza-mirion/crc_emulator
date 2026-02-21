@@ -19,8 +19,8 @@ export const AmuletButton: React.FC<Props> = ({ widget, stateManager, ws, visibl
   const params = widget.params || {}
   const [pressed, setPressed] = useState(false)
 
-  const isInvisible = params.invisible?.toUpperCase() === 'TRUE'
-  if (!visible || isInvisible) return null
+  // Visibility is managed by ScreenRenderer (hiddenWidgets/shownWidgets)
+  if (!visible) return null
 
   const upImage = normalizeImagePath(params.upImage)
   const downImage = normalizeImagePath(params.downImage) || upImage
@@ -30,7 +30,7 @@ export const AmuletButton: React.FC<Props> = ({ widget, stateManager, ws, visibl
     if (!href) return
 
     const actions = parseHrefActions(href)
-    executeActions(actions, ws)
+    executeActions(actions, ws, stateManager)
   }
 
   return (
@@ -49,7 +49,7 @@ export const AmuletButton: React.FC<Props> = ({ widget, stateManager, ws, visibl
       onMouseLeave={() => setPressed(false)}
       onClick={handleClick}
     >
-      {upImage ? (
+      {upImage && (
         <img
           src={pressed ? (downImage || upImage) : upImage}
           width={widget.width}
@@ -57,21 +57,6 @@ export const AmuletButton: React.FC<Props> = ({ widget, stateManager, ws, visibl
           style={{ display: 'block', opacity: pressed ? 0.8 : 1 }}
           draggable={false}
         />
-      ) : (
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: pressed ? '#ccc' : '#ddd',
-            border: '1px solid #999',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '12px',
-          }}
-        >
-          {params.label || widget.name}
-        </div>
       )}
     </div>
   )
