@@ -61,8 +61,58 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
           const toShow = new Set<string>()
           const toHide = new Set<string>()
 
+          // Helper to execute actions including forceUpdate chains
+          const allTriggers = def.refreshTriggers!
+          const execActions = (
+            actions: NonNullable<typeof allTriggers[0]['actions']>,
+            depth: number,
+          ) => {
+            if (depth > 5) return
+            for (const action of actions) {
+              if (action.type === 'reappear' && action.target) {
+                toShow.add(action.target)
+                toHide.delete(action.target)
+              } else if (action.type === 'disappear' && action.target) {
+                toHide.add(action.target)
+                toShow.delete(action.target)
+              } else if (action.type === 'forceUpdate' && action.target) {
+                const target = action.target
+                let matched = false
+                for (const t of allTriggers) {
+                  if (t.name && (t.name === target || t.name.startsWith(target))) {
+                    matched = true
+                    const vm = t.onVar?.match(/byte\((\d+)\)/)
+                    if (!vm) continue
+                    const bIdx = parseInt(vm[1])
+                    const curV = stateManager.getByte(bIdx)
+                    if (!t.trigger) continue
+                    const trgV = parseTriggerValue(t.trigger)
+                    if (trgV !== null && trgV === curV && t.actions) {
+                      execActions(t.actions, depth + 1)
+                    }
+                  }
+                }
+                if (!matched) {
+                  toShow.add(target)
+                  toHide.delete(target)
+                }
+              }
+            }
+          }
+
+          // Only fire "toggle" triggers during initial replay.
+          // Toggle triggers have a setValue action to reset the byte after firing
+          // (e.g., byte(20)=0xFF → refreshChambString resets byte(20) to 0).
+          // "State" triggers (e.g., byte(80)=0 for language) should NOT fire
+          // during initial replay because both "show" and "hide" triggers match
+          // the same byte value, and the last one would win incorrectly.
+          // State triggers only fire via forceUpdate chains from toggle triggers.
           for (const trigger of def.refreshTriggers) {
             if (!trigger.onVar || !trigger.trigger || !trigger.actions) continue
+
+            // Check if this is a toggle trigger (has setValue action)
+            const isToggle = trigger.actions.some(a => a.type === 'setValue')
+            if (!isToggle) continue
 
             const varMatch = trigger.onVar.match(/byte\((\d+)\)/)
             if (!varMatch) continue
@@ -72,15 +122,7 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
             const triggerVal = parseTriggerValue(trigger.trigger)
             if (triggerVal === null || triggerVal !== currentVal) continue
 
-            for (const action of trigger.actions) {
-              if (action.type === 'reappear' && action.target) {
-                toShow.add(action.target)
-                toHide.delete(action.target)
-              } else if (action.type === 'disappear' && action.target) {
-                toHide.add(action.target)
-                toShow.delete(action.target)
-              }
-            }
+            execActions(trigger.actions, 0)
           }
 
           if (toShow.size > 0 || toHide.size > 0) {
@@ -138,38 +180,96 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
   useEffect(() => {
     if (!screenDef?.refreshTriggers) return
 
+    const triggers = screenDef.refreshTriggers!
+
+    /**
+     * Execute a list of trigger actions. Handles:
+     * - reappear/disappear: widget visibility
+     * - forceUpdate: re-evaluate named triggers (prefix match) or refresh widgets
+     * - setValue: update byte values (used to reset trigger flags)
+     */
+    const executeActions = (
+      actions: NonNullable<typeof triggers[0]['actions']>,
+      toShow: Set<string>,
+      toHide: Set<string>,
+      depth: number,
+    ) => {
+      if (depth > 5) return // Prevent infinite recursion
+
+      for (const action of actions) {
+        if (action.type === 'reappear' && action.target) {
+          toShow.add(action.target)
+          toHide.delete(action.target)
+        } else if (action.type === 'disappear' && action.target) {
+          toHide.add(action.target)
+          toShow.delete(action.target)
+        } else if (action.type === 'forceUpdate' && action.target) {
+          // forceUpdate on a named trigger: find triggers whose name starts
+          // with the target, evaluate their conditions, and execute their actions
+          // if conditions are met. This is how the Amulet display chains triggers.
+          const target = action.target
+          let matched = false
+          for (const t of triggers) {
+            if (t.name && (t.name === target || t.name.startsWith(target))) {
+              matched = true
+              const varMatch = t.onVar?.match(/byte\((\d+)\)/)
+              if (!varMatch) continue
+              const byteIdx = parseInt(varMatch[1])
+              const curVal = stateManager.getByte(byteIdx)
+              if (!t.trigger) continue
+              const trigVal = parseTriggerValue(t.trigger)
+              if (trigVal !== null && trigVal === curVal && t.actions) {
+                executeActions(t.actions, toShow, toHide, depth + 1)
+              }
+            }
+          }
+          // If no trigger matched, treat as a widget forceUpdate (reappear)
+          if (!matched) {
+            toShow.add(target)
+            toHide.delete(target)
+          }
+        }
+        // setValue actions are handled by the firmware (it resets the byte);
+        // we don't need to process them in the frontend
+      }
+    }
+
     const handler = (byteIndex: number, byteValue: number) => {
-      for (const trigger of screenDef.refreshTriggers!) {
+      const toShow = new Set<string>()
+      const toHide = new Set<string>()
+
+      for (const trigger of triggers) {
         if (!trigger.onVar || !trigger.trigger || !trigger.actions) continue
 
-        // Parse onVar: "internalRAM.byte(N)"
+        // Only fire "toggle" triggers directly (those with setValue).
+        // State triggers (like language byte(80)) fire via forceUpdate chains.
+        const isToggle = trigger.actions.some(a => a.type === 'setValue')
+        if (!isToggle) continue
+
         const varMatch = trigger.onVar.match(/byte\((\d+)\)/)
         if (!varMatch) continue
         const triggerByteIndex = parseInt(varMatch[1])
         if (triggerByteIndex !== byteIndex) continue
 
-        // Parse trigger value
         const triggerValue = parseTriggerValue(trigger.trigger)
         if (triggerValue === null || triggerValue !== byteValue) continue
 
-        // Execute display-side actions
-        for (const action of trigger.actions) {
-          if (action.type === 'reappear' && action.target) {
-            setShownWidgets(prev => new Set([...prev, action.target!]))
-            setHiddenWidgets(prev => {
-              const next = new Set(prev)
-              next.delete(action.target!)
-              return next
-            })
-          } else if (action.type === 'disappear' && action.target) {
-            setHiddenWidgets(prev => new Set([...prev, action.target!]))
-            setShownWidgets(prev => {
-              const next = new Set(prev)
-              next.delete(action.target!)
-              return next
-            })
-          }
-        }
+        executeActions(trigger.actions, toShow, toHide, 0)
+      }
+
+      if (toShow.size > 0 || toHide.size > 0) {
+        setShownWidgets(prev => {
+          const next = new Set(prev)
+          for (const name of toShow) next.add(name)
+          for (const name of toHide) next.delete(name)
+          return next
+        })
+        setHiddenWidgets(prev => {
+          const next = new Set(prev)
+          for (const name of toShow) next.delete(name)
+          for (const name of toHide) next.add(name)
+          return next
+        })
       }
     }
 
