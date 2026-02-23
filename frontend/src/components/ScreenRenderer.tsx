@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { AmuletStateManager } from '../lib/amulet-state'
 import { WebSocketManager } from '../lib/websocket'
 import { loadScreenByPage, loadScreenMap, ScreenDef, WidgetDef } from '../lib/screen-loader'
+import { executeActions as executeRemoteActions } from '../lib/action-resolver'
 import { AmuletStringField } from './widgets/AmuletStringField'
 import { AmuletButton } from './widgets/AmuletButton'
 import { AmuletFunctionButton } from './widgets/AmuletFunctionButton'
@@ -81,11 +82,18 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
                 for (const t of allTriggers) {
                   if (t.name && (t.name === target || t.name.startsWith(target))) {
                     matched = true
-                    const vm = t.onVar?.match(/byte\((\d+)\)/)
-                    if (!vm) continue
-                    const bIdx = parseInt(vm[1])
-                    const curV = stateManager.getByte(bIdx)
-                    if (!t.trigger) continue
+                    if (!t.onVar || !t.trigger) continue
+                    // Support both byte() and word() triggers
+                    const byteMatch = t.onVar.match(/byte\((\d+)\)/)
+                    const wordMatch = t.onVar.match(/word\((\d+)\)/)
+                    let curV: number
+                    if (byteMatch) {
+                      curV = stateManager.getByte(parseInt(byteMatch[1]))
+                    } else if (wordMatch) {
+                      curV = stateManager.getWord(parseInt(wordMatch[1]))
+                    } else {
+                      continue
+                    }
                     const trgV = parseTriggerValue(t.trigger)
                     if (trgV !== null && trgV === curV && t.actions) {
                       execActions(t.actions, depth + 1)
@@ -114,15 +122,33 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
             const isToggle = trigger.actions.some(a => a.type === 'setValue')
             if (!isToggle) continue
 
-            const varMatch = trigger.onVar.match(/byte\((\d+)\)/)
-            if (!varMatch) continue
-            const byteIdx = parseInt(varMatch[1])
-            const currentVal = stateManager.getByte(byteIdx)
+            // Support both byte() and word() triggers
+            const byteMatch = trigger.onVar.match(/byte\((\d+)\)/)
+            const wordMatch = trigger.onVar.match(/word\((\d+)\)/)
+            let currentVal: number
+            if (byteMatch) {
+              currentVal = stateManager.getByte(parseInt(byteMatch[1]))
+            } else if (wordMatch) {
+              currentVal = stateManager.getWord(parseInt(wordMatch[1]))
+            } else {
+              continue
+            }
 
             const triggerVal = parseTriggerValue(trigger.trigger)
             if (triggerVal === null || triggerVal !== currentVal) continue
 
             execActions(trigger.actions, 0)
+          }
+
+          // Also process forceUpdate/reappear/disappear from initActions.
+          // These explicitly initialize widget visibility that may not be
+          // reachable through toggle trigger chains (e.g., language triggers).
+          if (def.initActions) {
+            for (const action of def.initActions) {
+              if (action.type === 'forceUpdate' || action.type === 'reappear' || action.type === 'disappear') {
+                execActions([action], 0)
+              }
+            }
           }
 
           if (toShow.size > 0 || toHide.size > 0) {
@@ -134,6 +160,19 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
               return next
             })
           }
+
+        }
+
+        // Send firmware-side initActions (SetScreen macro, setValue, etc.)
+        // via WebSocket. This tells the firmware which menu handler to
+        // activate for this screen (critical handshake on page load).
+        if (def.initActions) {
+          const remoteActions = def.initActions.filter(a =>
+            a.type === 'macro' || a.type === 'setValue'
+          )
+          if (remoteActions.length > 0) {
+            executeRemoteActions(remoteActions, wsManager, stateManager)
+          }
         }
       } else if (!cancelled) {
         setScreenDef(def)
@@ -143,7 +182,7 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
     loadPage(pageIndex)
 
     return () => { cancelled = true }
-  }, [pageIndex, stateManager])
+  }, [pageIndex, stateManager, wsManager])
 
   // Listen for page changes from firmware
   useEffect(() => {
@@ -212,11 +251,18 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
           for (const t of triggers) {
             if (t.name && (t.name === target || t.name.startsWith(target))) {
               matched = true
-              const varMatch = t.onVar?.match(/byte\((\d+)\)/)
-              if (!varMatch) continue
-              const byteIdx = parseInt(varMatch[1])
-              const curVal = stateManager.getByte(byteIdx)
-              if (!t.trigger) continue
+              if (!t.onVar || !t.trigger) continue
+              // Support both byte() and word() triggers
+              const byteMatch = t.onVar.match(/byte\((\d+)\)/)
+              const wordMatch = t.onVar.match(/word\((\d+)\)/)
+              let curVal: number
+              if (byteMatch) {
+                curVal = stateManager.getByte(parseInt(byteMatch[1]))
+              } else if (wordMatch) {
+                curVal = stateManager.getWord(parseInt(wordMatch[1]))
+              } else {
+                continue
+              }
               const trigVal = parseTriggerValue(t.trigger)
               if (trigVal !== null && trigVal === curVal && t.actions) {
                 executeActions(t.actions, toShow, toHide, depth + 1)
@@ -234,7 +280,24 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
       }
     }
 
-    const handler = (byteIndex: number, byteValue: number) => {
+    const applyVisibilityChanges = (toShow: Set<string>, toHide: Set<string>) => {
+      if (toShow.size > 0 || toHide.size > 0) {
+        setShownWidgets(prev => {
+          const next = new Set(prev)
+          for (const name of toShow) next.add(name)
+          for (const name of toHide) next.delete(name)
+          return next
+        })
+        setHiddenWidgets(prev => {
+          const next = new Set(prev)
+          for (const name of toShow) next.delete(name)
+          for (const name of toHide) next.add(name)
+          return next
+        })
+      }
+    }
+
+    const byteHandler = (byteIndex: number, byteValue: number) => {
       const toShow = new Set<string>()
       const toHide = new Set<string>()
 
@@ -257,24 +320,40 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
         executeActions(trigger.actions, toShow, toHide, 0)
       }
 
-      if (toShow.size > 0 || toHide.size > 0) {
-        setShownWidgets(prev => {
-          const next = new Set(prev)
-          for (const name of toShow) next.add(name)
-          for (const name of toHide) next.delete(name)
-          return next
-        })
-        setHiddenWidgets(prev => {
-          const next = new Set(prev)
-          for (const name of toShow) next.delete(name)
-          for (const name of toHide) next.add(name)
-          return next
-        })
-      }
+      applyVisibilityChanges(toShow, toHide)
     }
 
-    stateManager.onByteChange(handler)
-    return () => stateManager.offByteChange(handler)
+    // Also listen for word changes to fire word-based triggers
+    const wordHandler = (wordIndex: number, wordValue: number) => {
+      const toShow = new Set<string>()
+      const toHide = new Set<string>()
+
+      for (const trigger of triggers) {
+        if (!trigger.onVar || !trigger.trigger || !trigger.actions) continue
+
+        const isToggle = trigger.actions.some(a => a.type === 'setValue')
+        if (!isToggle) continue
+
+        const varMatch = trigger.onVar.match(/word\((\d+)\)/)
+        if (!varMatch) continue
+        const triggerWordIndex = parseInt(varMatch[1])
+        if (triggerWordIndex !== wordIndex) continue
+
+        const triggerValue = parseTriggerValue(trigger.trigger)
+        if (triggerValue === null || triggerValue !== wordValue) continue
+
+        executeActions(trigger.actions, toShow, toHide, 0)
+      }
+
+      applyVisibilityChanges(toShow, toHide)
+    }
+
+    stateManager.onByteChange(byteHandler)
+    stateManager.onWordChange(wordHandler)
+    return () => {
+      stateManager.offByteChange(byteHandler)
+      stateManager.offWordChange(wordHandler)
+    }
   }, [screenDef, stateManager])
 
   if (!screenDef) {
