@@ -3,7 +3,7 @@
 # Cleanly shuts down the emulator backend and Vite frontend.
 
 $EmuPort = 9876
-$VitePort = 5173
+$VitePort = 3000
 $Killed = 0
 
 Write-Host "Stopping CRC-25R Emulator services..."

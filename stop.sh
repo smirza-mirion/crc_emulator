@@ -4,7 +4,7 @@
 # Cleanly shuts down the emulator backend and Vite frontend.
 
 EMU_PORT=9876
-VITE_PORT=5173
+VITE_PORT=3000
 KILLED=0
 
 echo "Stopping CRC-25R Emulator services..."

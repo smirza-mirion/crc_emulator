@@ -9,7 +9,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 EMU_BIN="$SCRIPT_DIR/build/emulator/crc_emulator"
 FRONTEND_DIR="$SCRIPT_DIR/frontend"
 EMU_PORT=9876
-VITE_PORT=5173
+VITE_PORT=3000
 
 # ---- Cleanup any previous instances ----
 echo "Stopping any existing processes..."
@@ -51,8 +51,9 @@ echo "  Emulator running (PID $EMU_PID)"
 
 # ---- Start Vite dev server ----
 echo "Starting frontend on port $VITE_PORT..."
-(cd "$FRONTEND_DIR" && npx vite > /tmp/crc_vite.log 2>&1 &)
+cd "$FRONTEND_DIR" && npx vite > /tmp/crc_vite.log 2>&1 &
 VITE_PID=$!
+cd "$SCRIPT_DIR"
 
 # Wait for Vite to be ready
 for i in $(seq 1 30); do

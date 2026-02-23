@@ -7,7 +7,7 @@ $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $EmuBin = Join-Path $ScriptDir "build\emulator\crc_emulator.exe"
 $FrontendDir = Join-Path $ScriptDir "frontend"
 $EmuPort = 9876
-$VitePort = 5173
+$VitePort = 3000
 
 # ---- Cleanup any previous instances ----
 Write-Host "Stopping any existing processes..."
