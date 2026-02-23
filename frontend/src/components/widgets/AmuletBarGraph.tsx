@@ -25,6 +25,9 @@ export const AmuletBarGraph: React.FC<Props> = ({ widget, stateManager, visible 
 
   useEffect(() => {
     if (byteIndex >= 0) {
+      // Load initial value so the bar doesn't start at 0
+      setValue(stateManager.getByte(byteIndex))
+
       const handler = (index: number, val: number) => {
         if (index === byteIndex) setValue(val)
       }

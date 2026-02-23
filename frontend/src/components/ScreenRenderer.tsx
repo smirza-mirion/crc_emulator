@@ -8,6 +8,8 @@ import { AmuletButton } from './widgets/AmuletButton'
 import { AmuletFunctionButton } from './widgets/AmuletFunctionButton'
 import { AmuletBarGraph } from './widgets/AmuletBarGraph'
 import { AmuletImage } from './widgets/AmuletImage'
+import { AmuletRadioButton } from './widgets/AmuletRadioButton'
+import { AmuletCheckBox } from './widgets/AmuletCheckBox'
 
 interface Props {
   stateManager: AmuletStateManager
@@ -391,7 +393,7 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
       {/* Draw commands (lines, fill rects) from firmware */}
       <svg style={{
         position: 'absolute', top: 0, left: 0, width: 800, height: 600,
-        pointerEvents: 'none', zIndex: 1,
+        pointerEvents: 'none', zIndex: 0,
       }}>
         {drawCommands.map((cmd, i) => {
           if (cmd.type === 'drawLine') {
@@ -463,6 +465,12 @@ function WidgetRenderer({
 
     case 'Image':
       return <AmuletImage widget={widget} visible={visible} />
+
+    case 'RadioButton':
+      return <AmuletRadioButton widget={widget} stateManager={stateManager} ws={ws} visible={visible} />
+
+    case 'CheckBox':
+      return <AmuletCheckBox widget={widget} stateManager={stateManager} ws={ws} visible={visible} />
 
     default:
       return null
