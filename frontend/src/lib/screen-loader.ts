@@ -41,6 +41,8 @@ export interface RefreshTrigger {
 
 export interface StaticImage {
   src: string
+  x?: number
+  y?: number
   width: number
   height: number
   div_id?: string

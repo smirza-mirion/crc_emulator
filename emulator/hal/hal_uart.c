@@ -303,7 +303,9 @@ short unsigned int QueryPendingUart2Rx(void)
 
 short unsigned int QueryPendingUart2Tx(void)
 {
-    return ring_count(uart2_tx.head, uart2_tx.tail);
+    /* TX buffer is not used in emulator (bridge processes bytes directly).
+     * Always report empty so SendUart2Tx never thinks the buffer is full. */
+    return 0;
 }
 
 char PushUart2Rx(char cInput)
@@ -313,12 +315,6 @@ char PushUart2Rx(char cInput)
 
 char PushUart2Tx(char cInput, char raw)
 {
-    unsigned short next = (uart2_tx.head + 1) % UART_BUFFER_SIZE;
-    if (next == uart2_tx.tail) return 0; /* full */
-    uart2_tx.buffer[uart2_tx.head] = cInput;
-    uart2_tx.raw[uart2_tx.head] = raw;
-    uart2_tx.head = next;
-
     /* Feed the encoded byte to the Amulet bridge for WebSocket forwarding.
      * We pass cInput (the encoded/protocol byte) not raw.
      * For regular commands, cInput contains hex-encoded chars; raw is 0.
@@ -326,6 +322,11 @@ char PushUart2Tx(char cInput, char raw)
      * The bridge uses the raw flag to distinguish binary vs hex-encoded packets. */
     amulet_bridge_process_tx((unsigned char)cInput, (unsigned char)raw);
 
+    /* In the emulator, the UART2 TX buffer is not drained by hardware interrupt
+     * (UartRoutines.c's TX ISR is not used). The bridge processes each byte
+     * immediately above, so we don't need to buffer TX data. Keep the buffer
+     * empty to prevent it from filling up and blocking subsequent commands. */
+    /* (Don't store in uart2_tx buffer - just return success) */
 
     return 1;
 }

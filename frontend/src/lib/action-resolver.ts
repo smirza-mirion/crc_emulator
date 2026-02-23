@@ -61,42 +61,56 @@ function executeMacro(action: RefreshAction, ws: WebSocketManager, stateManager?
 
   switch (macro) {
     case 'SetHTML': {
-      // %SetHTML(%%SET_HTML_XXX) -> sends byte(3) = resolved value AND changes page
-      const value = resolveMacroArg(args)
-      if (value !== null) {
+      // %SetHTML(%%SET_HTML_XXX) = UART.byte(255).setValue(N) from CRCHtml_3.00a/Amulet.h
+      // On real hardware: Amulet navigates display, then page load sends byte(3) = SCREEN_*.
+      // We navigate locally and send byte(3) with the correct SCREEN value for m_iMenu.
+      const htmlValue = resolveMacroArg(args)
+      if (htmlValue !== null) {
         // Navigate the frontend to the target page (display-side responsibility)
-        const targetPage = SET_HTML_TO_PAGE[value]
+        const targetPage = SET_HTML_TO_PAGE[htmlValue]
         if (targetPage !== undefined && stateManager) {
           stateManager.setPageLocally(targetPage)
         }
-        ws.send({ type: 'buttonPress', byteIndex: 3, value })
+        // Send byte(3) = SCREEN value for menu registration (sets m_iMenu)
+        const screenValue = SET_HTML_TO_SCREEN[htmlValue]
+        if (screenValue !== undefined) {
+          ws.send({ type: 'buttonPress', byteIndex: 3, value: screenValue })
+        }
       }
       break
     }
     case 'SetClear': {
-      // %SetClear(%%SET_CLEAR_XXX) -> sends byte(3) = resolved value AND changes page
-      const value = resolveMacroArg(args)
-      if (value !== null) {
-        // Navigate the frontend to the target page
-        const targetPage = SET_HTML_TO_PAGE[value]
+      // %SetClear(%%SET_CLEAR_XXX) = UART.byte(14).setValue(N)
+      // On real hardware: sends byte(14) to firmware, firmware navigates + sets m_ucClear,
+      // then page load sends byte(3) = SCREEN_* to set m_iMenu.
+      const clearValue = resolveMacroArg(args)
+      if (clearValue !== null) {
+        // Navigate the frontend locally for instant feedback
+        const targetPage = SET_CLEAR_TO_PAGE[clearValue]
         if (targetPage !== undefined && stateManager) {
           stateManager.setPageLocally(targetPage)
         }
-        ws.send({ type: 'buttonPress', byteIndex: 3, value })
+        // Send byte(14) = clear value to firmware (sets m_ucClear + navigates)
+        ws.send({ type: 'buttonPress', byteIndex: 14, value: clearValue })
+        // Send byte(3) = SCREEN value to firmware (sets m_iMenu for menu handler)
+        const screenValue = SET_CLEAR_TO_SCREEN[clearValue]
+        if (screenValue !== undefined) {
+          ws.send({ type: 'buttonPress', byteIndex: 3, value: screenValue })
+        }
       }
       break
     }
     case 'Home': {
-      // %Home -> navigate to main screen
+      // %Home = UART.byte(0).setValue(0x16) from CRCHtml_3.00a/Amulet.h
       if (stateManager) {
         stateManager.setPageLocally(0x09) // MAINSCREEN_HTM
       }
-      ws.send({ type: 'buttonPress', byteIndex: 3, value: 16 }) // SET_HTML_MAINSCREEN
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 0x16 })
       break
     }
     case 'Back': {
-      // %Back -> navigate back (firmware tracks back stack)
-      ws.send({ type: 'buttonPress', byteIndex: 4, value: 1 }) // back command
+      // %Back = UART.byte(0).setValue(4) from CRCHtml_3.00a/Amulet.h
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 4 })
       break
     }
     case 'Beep':
@@ -109,39 +123,181 @@ function executeMacro(action: RefreshAction, ws: WebSocketManager, stateManager?
       }
       break
     }
+    // Macros with fixed byte(0) values (no args) from CRCHtml_3.00a/Amulet.h
     case 'SetAccuracyAll':
-    case 'SetAccuracyDaily':
-    case 'ShowDoseTableButton':
-    case 'ConfigTitle':
-    case 'ConfigNuclide':
-    case 'ClearNuclide':
-    case 'SetNuclide':
-    case 'ConfigKeypad':
-    case 'SetKeypad':
-    case 'ConfigMaxStrLen':
-    case 'ConfigMaxFractionLen':
-    case 'ConfigMinValue':
-    case 'ConfigMaxValue':
-    case 'ConfigPlusMinus_OFF':
-    case 'ConfigPlusMinus_ON':
-    case 'ConfigDateAndTime':
-    case 'SetTime':
-    case 'ConfigX':
-    case 'ConfigY':
-    case 'SelectMode':
-    case 'ActiveStaff':
-    case 'ConfigTestIdent':
-    case 'ConfigInvalidate':
-      // These are Amulet-side configuration macros
-      // They configure dialog/input parameters before showing a dialog
-      // For now, if they have a numeric arg, send as byte(3)
-      {
-        const value = resolveMacroArg(args)
-        if (value !== null) {
-          ws.send({ type: 'buttonPress', byteIndex: 3, value })
-        }
-      }
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 9 })
       break
+    case 'SetAccuracyDaily':
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 10 })
+      break
+    case 'ShowDoseTableButton':
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 0x22 })
+      break
+    case 'HideDoseTableButton':
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 0x23 })
+      break
+    case 'ConfigPlusMinus_ON':
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 15 })
+      break
+    case 'ConfigPlusMinus_OFF':
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 16 })
+      break
+    case 'ConfigDateAndTime':
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 0x20 })
+      break
+    case 'ConfigDateOnly':
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 0x21 })
+      break
+    case 'SelectMode':
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 0x39 })
+      break
+    case 'ActiveStaff':
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 0x3B })
+      break
+    case 'AllStaff':
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 0x3A })
+      break
+    case 'SecurityMode':
+      ws.send({ type: 'buttonPress', byteIndex: 0, value: 0x38 })
+      break
+    // Macros with specific byte indices (take args)
+    case 'ConfigMaxStrLen': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 1, value })
+      break
+    }
+    case 'ConfigMaxFractionLen': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 2, value })
+      break
+    }
+    case 'SetNuclide': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 6, value })
+      break
+    }
+    case 'SetSpecialFunction': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 15, value })
+      break
+    }
+    case 'ConfigKeypad': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 16, value })
+      break
+    }
+    case 'SetKeyboard': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 18, value })
+      break
+    }
+    case 'SetTime': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 20, value })
+      break
+    }
+    case 'SetActivity': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 19, value })
+      break
+    }
+    case 'ConfigActivity': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 23, value })
+      break
+    }
+    case 'SetMeasurement': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 21, value })
+      break
+    }
+    case 'SendCheckboxValue': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 24, value })
+      break
+    }
+    case 'ConfigNuclide': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 26, value })
+      break
+    }
+    case 'ConfigKeyboard': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 28, value })
+      break
+    }
+    case 'SetWellMeasurement': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 30, value })
+      break
+    }
+    case 'ClearNuclide': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 32, value })
+      break
+    }
+    case 'ConfigGenericItems': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 35, value })
+      break
+    }
+    case 'ConfigInvalidate': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 36, value })
+      break
+    }
+    case 'ConfigTestIdent': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 37, value })
+      break
+    }
+    case 'ConfigGenericYesNo': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 38, value })
+      break
+    }
+    case 'SendPrintSummaryValue': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'buttonPress', byteIndex: 39, value })
+      break
+    }
+    // Word-based macros
+    case 'SetKeypad': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'wordChanged', wordIndex: 5, value })
+      break
+    }
+    case 'ConfigX': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'wordChanged', wordIndex: 2, value })
+      break
+    }
+    case 'ConfigY': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'wordChanged', wordIndex: 3, value })
+      break
+    }
+    case 'ConfigWellTime_hold': {
+      const value = resolveMacroArg(args)
+      if (value !== null) ws.send({ type: 'wordChanged', wordIndex: 4, value })
+      break
+    }
+    // String-based macros
+    case 'ConfigTitle': {
+      const value = String(args || '')
+      ws.send({ type: 'stringInput', stringIndex: 1, value })
+      break
+    }
+    case 'ConfigMinValue': {
+      const value = String(args || '')
+      ws.send({ type: 'stringInput', stringIndex: 2, value })
+      break
+    }
+    case 'ConfigMaxValue': {
+      const value = String(args || '')
+      ws.send({ type: 'stringInput', stringIndex: 3, value })
+      break
+    }
     default:
       console.log('[action] Unknown macro:', macro, args)
   }
@@ -395,25 +551,122 @@ const MACRO_TABLE: Record<string, number> = {
   SET_HTML_WELLEDITFULLEFFICIENCY: 70,
   SET_HTML_SETUPCALIBSERIAL: 71,
 
-  // SET_CLEAR values (same numbering as SET_HTML for page navigation)
-  SET_CLEAR_ACCURACY: 1,
-  SET_CLEAR_DAILY: 4,
-  SET_CLEAR_MOLY: 18,
-  SET_CLEAR_SETUP: 25,
-  SET_CLEAR_INFO: 31,
-  SET_CLEAR_WELLMAIN: 48,
-  SET_CLEAR_SECURITY: 127,
-  SET_CLEAR_INACTIVATE: 108,
-  SET_CLEAR_TESTIDENT: 114,
-  SET_CLEAR_CHAMBERDAILYTESTSEARCH: 160,
-  SET_CLEAR_CHAMBERACCURACYSEARCH: 164,
-  SET_CLEAR_CHAMBERZEROSEARCH: 161,
-  SET_CLEAR_CHAMBERBACKGROUNDSEARCH: 162,
-  SET_CLEAR_CHAMBERVOLTAGESEARCH: 163,
-  SET_CLEAR_CHAMBERAUTOCONSTANCYSEARCH: 165,
-  SET_CLEAR_WELLSETUPADDLOCATION: 100,
-  SET_CLEAR_WELLSETUPEDITLOCATION: 100,
-  SET_CLEAR_WELLSETUPDELETELOCATION: 101,
+  // SET_CLEAR values from CRCHtml_3.00a/Amulet.h (%SetClear = UART.byte(14).setValue)
+  SET_CLEAR_ADD_INV: 1,
+  SET_CLEAR_WITHDRAW_INV: 2,
+  SET_CLEAR_KIT_INV: 3,
+  SET_CLEAR_INFO: 4,
+  SET_CLEAR_SETUP: 5,
+  SET_CLEAR_SETUPSOURCES: 6,
+  SET_CLEAR_SETUPMOLY: 7,
+  SET_CLEAR_SETUPNUCLIDE: 8,
+  SET_CLEAR_SETUPLINEARITY: 9,
+  SET_CLEAR_SETUPREMOTE: 10,
+  SET_CLEAR_SETUPCALNUM: 11,
+  SET_CLEAR_SETUPLINEARITYSTANDARD: 12,
+  SET_CLEAR_SETUPLINEARITYLINEATOR: 13,
+  SET_CLEAR_SETUPLINEARITYCALICHECK: 14,
+  SET_CLEAR_DOSETABLE: 15,
+  SET_CLEAR_WELLMAIN: 16,
+  SET_CLEAR_WELLAUTOCALIBRATE: 17,
+  SET_CLEAR_WELLMEASUREMENT: 18,
+  SET_CLEAR_WELLSETUPNUCLIDE: 19,
+  SET_CLEAR_WELLSETUPSEALED: 20,
+  SET_CLEAR_WELLSETUPSEALED2: 21,
+  SET_CLEAR_WELLSETUPTESTSOURCE: 22,
+  SET_CLEAR_WELLSETUPTRIGGERLEVEL: 23,
+  SET_CLEAR_WELLSETUPEFFICIENCIES: 24,
+  SET_CLEAR_WELLEDITEFFICIENCIES: 25,
+  SET_CLEAR_WELLMEASUREEFFICIENCY: 26,
+  SET_CLEAR_DAILY: 27,
+  SET_CLEAR_ACCURACY: 28,
+  SET_CLEAR_AUTOCONSTANCY: 29,
+  SET_CLEAR_LINEARITY: 30,
+  SET_CLEAR_ONESTRIP: 31,
+  SET_CLEAR_TWOSTRIP: 32,
+  SET_CLEAR_HMPAO: 33,
+  SET_CLEAR_MAG3: 34,
+  SET_CLEAR_MOLY: 35,
+  SET_CLEAR_FACTORY: 36,
+  SET_CLEAR_SETUPCHAMBER: 37,
+  SET_CLEAR_WELLMEASUREMENTS: 38,
+  SET_CLEAR_WELLEDITFULLEFFICIENCY: 39,
+  SET_CLEAR_EDITCALIBSERIAL: 40,
+  SET_CLEAR_WELLSCHILLING: 41,
+  SET_CLEAR_WELLPLASMA: 42,
+  SET_CLEAR_WELLRBC: 43,
+  SET_CLEAR_WELLFACTORY: 44,
+  SET_CLEAR_WELLMDA: 45,
+  SET_CLEAR_WELLCHI: 46,
+  SET_CLEAR_SETUPRHOTKEYS: 47,
+  SET_CLEAR_SETUPPHOTKEYS: 48,
+  SET_CLEAR_LOWLEVEL: 49,
+  SET_CLEAR_WELLSTABILITYTEST: 50,
+  SET_CLEAR_SETUPCOMMUNICATIONS: 51,
+  SET_CLEAR_ETHERNET: 52,
+  SET_CLEAR_WELLSETUPBACKGROUNDTYPE: 53,
+  SET_CLEAR_WELLSETUPWORKAREATYPE: 54,
+  SET_CLEAR_WELLSETUPUNRESTRICTIVETYPE: 55,
+  SET_CLEAR_WELLSETUPSEALEDTYPE: 56,
+  SET_CLEAR_WELLSETUPPACKAGETYPE: 57,
+  SET_CLEAR_WELLSETUPADDLOCATION: 58,
+  SET_CLEAR_WELLSETUPEDITLOCATION: 59,
+  SET_CLEAR_WELLSETUPDELETELOCATION: 60,
+  SET_CLEAR_WELLWIPELIST: 61,
+  SET_CLEAR_WELLSEARCHWIPE: 62,
+  SET_CLEAR_INACTIVATE: 63,
+  SET_CLEAR_WELLSEARCHSYSTEMTEST: 64,
+  SET_CLEAR_WELLSEARCHMDA: 65,
+  SET_CLEAR_WELLSEARCHCHI: 66,
+  SET_CLEAR_TESTIDENT: 67,
+  SET_CLEAR_WELLSEARCHSCHILLING: 68,
+  SET_CLEAR_WELLSEARCHPLASMA: 69,
+  SET_CLEAR_WELLSEARCHRBC: 70,
+  SET_CLEAR_WELLSEARCHAUTOCAL: 71,
+  SET_CLEAR_WELLFACTORYDETECTORS: 72,
+  SET_CLEAR_WELLSETUPUSERNUCLIDES: 73,
+  SET_CLEAR_WELLADDEDITUSERNUCLIDES: 74,
+  SET_CLEAR_LOGIN: 75,
+  SET_CLEAR_SECURITY: 76,
+  SET_CLEAR_ADDEDIT_USER: 77,
+  SET_CLEAR_WELLSETUPADVANCED: 78,
+  SET_CLEAR_SETUPADVANCED: 79,
+  SET_CLEAR_SETUPBIOASSAY: 80,
+  SET_CLEAR_SETUPBIOASSAYENTEREFF: 81,
+  SET_CLEAR_SETUPBIOASSAYMEASUREEFF: 82,
+  SET_CLEAR_WELLBIOASSAY: 83,
+  SET_CLEAR_WELLBIOASSAYANALYSIS: 84,
+  SET_CLEAR_WELLSEARCHBIOASSAY: 85,
+  SET_CLEAR_SETUPBIOASSAYENTERROI: 86,
+  SET_CLEAR_SETUPTHYROIDUPTAKEPROTOCOL: 87,
+  SET_CLEAR_ADDEDITTHYROIDUPTAKEPROTOCOL: 88,
+  SET_CLEAR_WELLTHYROIDUPTAKE: 89,
+  SET_CLEAR_ADDEDITTHYROIDUPTAKETEST: 90,
+  SET_CLEAR_WELLTHYROIDUPTAKETEST: 91,
+  SET_CLEAR_WELLTHYROIDUPTAKEENTERADMIN: 92,
+  SET_CLEAR_WELLTHYROIDUPTAKEMEASDOSE: 93,
+  SET_CLEAR_WELLTHYROIDUPTAKEMEASPAT: 94,
+  SET_CLEAR_WELLTHYROIDUPTAKEENTERNORMAL: 95,
+  SET_CLEAR_WELLTHYROIDUPTAKEREPORT: 96,
+  SET_CLEAR_WELLREPEATEDMEASUREMENT: 97,
+  SET_CLEAR_WELLSEARCHREPEATEDMEASUREMENT: 98,
+  SET_CLEAR_WELLRBCSURVIVAL: 99,
+  SET_CLEAR_ADDEDITRBCSURVIVALTEST: 100,
+  SET_CLEAR_WELLRBCSURVIVALTEST: 101,
+  SET_CLEAR_WELLRBCSURVIVALMEASUREMENT: 102,
+  SET_CLEAR_WELLRBCSURVIVALREPORT: 103,
+  SET_CLEAR_WELLRBCSURVIVALENTERNORMAL: 104,
+  SET_CLEAR_AUTOLINEARITYTEST: 105,
+  SET_CLEAR_AUTOLINEARITYVIEW: 106,
+  SET_CLEAR_AUTOLINEAIRTYSEARCH: 107,
+  SET_CLEAR_CHAMBERDAILYTESTSEARCH: 108,
+  SET_CLEAR_CHAMBERZEROSEARCH: 109,
+  SET_CLEAR_CHAMBERBACKGROUNDSEARCH: 110,
+  SET_CLEAR_CHAMBERVOLTAGESEARCH: 111,
+  SET_CLEAR_CHAMBERACCURACYSEARCH: 112,
+  SET_CLEAR_HALFLIFECALC: 113,
+  SET_CLEAR_SETUPKEY: 114,
+  SET_CLEAR_SETUPPASSWORD: 115,
 
   // SET_HOTKEY_NUCLIDE
   SET_HOTKEY_NUCLIDE_1: 1,
@@ -530,4 +783,179 @@ const SET_HTML_TO_PAGE: Record<number, number> = {
   69: 0x44, // SET_HTML_WELLMEASUREMENTS → WELLMEASUREMENTS_HTM
   70: 0x45, // SET_HTML_WELLEDITFULLEFFICIENCY → WELLEDITFULLEFFICIENCY_HTM
   71: 0x46, // SET_HTML_SETUPCALIBSERIAL → SETUPCALIBSERIALNUM_HTM
+}
+
+/**
+ * Mapping from SET_CLEAR value (byte(14)) → page index for frontend local navigation.
+ * Derived from the firmware's byte(14) handler in Amulet.c which calls
+ * SetAmuletHTML(AmuletHTMLIndex[*_HTM]) for each case.
+ */
+const SET_CLEAR_TO_PAGE: Record<number, number> = {
+  1:  0x07, // ADD_INV → INVENTORYADD_HTM
+  2:  0x08, // WITHDRAW_INV → INVENTORYWITHDRAW_HTM
+  3:  0x1B, // KIT_INV → INVENTORYKIT_HTM
+  4:  0x1E, // INFO → INFO_HTM
+  5:  0x19, // SETUP → SETUP_HTM
+  6:  0x20, // SETUPSOURCES → SETUPSOURCES_HTM
+  7:  0x21, // SETUPMOLY → SETUPMOLY_HTM
+  8:  0x22, // SETUPNUCLIDE → SETUPNUCLIDE_HTM
+  9:  0x23, // SETUPLINEARITY → SETUPLINEARITY_HTM
+  10: 0x24, // SETUPREMOTE → SETUPREMOTE_HTM
+  11: 0x25, // SETUPCALNUM → SETUPCALNUM_HTM
+  12: 0x29, // SETUPLINEARITYSTANDARD → SETUPLINEARITYSTANDARD_HTM
+  13: 0x2A, // SETUPLINEARITYLINEATOR → SETUPLINEARITYLINEATOR_HTM
+  14: 0x2B, // SETUPLINEARITYCALICHECK → SETUPLINEARITYCALICHECK_HTM
+  15: 0x2C, // DOSETABLE → DOSETABLE_HTM
+  16: 0x2F, // WELLMAIN → WELLMAINSCREEN_HTM
+  17: 0x32, // WELLAUTOCALIBRATE → WELLAUTOCALIBRATE_HTM
+  18: 0x31, // WELLMEASUREMENT → WELLMEASUREMENT_HTM
+  27: 0x10, // DAILY → DAILY_HTM
+  28: 0x14, // ACCURACY → ACCURACY_HTM
+  29: 0x3E, // AUTOCONSTANCY → AUTOCONSTANCY_HTM
+  30: 0x15, // LINEARITY → LINEARITY_HTM
+  31: 0x0C, // ONESTRIP → ONESTRIP_HTM
+  32: 0x0D, // TWOSTRIP → TWOSTRIP_HTM
+  33: 0x0E, // HMPAO → HMPAO_HTM
+  34: 0x0F, // MAG3 → MAG3_HTM
+  35: 0x17, // MOLY → MOLY_HTM
+  36: 0x40, // FACTORY → FACTORY_HTM
+  37: 0x41, // SETUPCHAMBER → SETUPCHAMBER_HTM
+}
+
+/**
+ * Mapping from SET_CLEAR value (byte(14)) → SCREEN value (byte(3)) for menu registration.
+ * The SCREEN values match MENU_* defines in the firmware's Headers/Amulet.h exactly.
+ * On real hardware, when a page loads on the Amulet display, it sends byte(3) = SCREEN_*
+ * to tell the firmware which menu handler to run.
+ */
+const SET_CLEAR_TO_SCREEN: Record<number, number> = {
+  1:  15, // ADD_INV → MENU_ADD_INVENTORY
+  2:  21, // WITHDRAW_INV → MENU_WITHDRAW_INVENTORY
+  3:  23, // KIT_INV → MENU_KIT_INVENTORY
+  4:  25, // INFO → MENU_INFO
+  5:  26, // SETUP → MENU_SETUP
+  6:  27, // SETUPSOURCES → MENU_SETUP_SOURCES
+  7:  28, // SETUPMOLY → MENU_SETUP_MOLY
+  8:  29, // SETUPNUCLIDE → MENU_SETUP_NUCLIDE
+  9:  30, // SETUPLINEARITY → MENU_SETUP_LINEARITY
+  10: 31, // SETUPREMOTE → MENU_SETUP_REMOTE
+  11: 33, // SETUPCALNUM → MENU_SETUP_CALNUM
+  12: 37, // SETUPLINEARITYSTANDARD → MENU_SETUP_LINEARITY_STANDARD
+  13: 38, // SETUPLINEARITYLINEATOR → MENU_SETUP_LINEARITY_LINEATOR
+  14: 39, // SETUPLINEARITYCALICHECK → MENU_SETUP_LINEARITY_CALICHECK
+  15: 40, // DOSETABLE → MENU_DOSE_TABLE
+  16: 44, // WELLMAIN → MENU_WELL_MAIN_SCREEN
+  17: 46, // WELLAUTOCALIBRATE → MENU_WELL_AUTOCALIBRATE
+  18: 45, // WELLMEASUREMENT → MENU_WELL_MEASUREMENT
+  19: 49, // WELLSETUPNUCLIDE → MENU_WELL_SETUP_NUCLIDE
+  20: 50, // WELLSETUPSEALED → MENU_WELL_SETUP_SEALED
+  21: 51, // WELLSETUPSEALED2 → MENU_WELL_SETUP_SEALED2
+  22: 52, // WELLSETUPTESTSOURCE → MENU_WELL_SETUP_TEST_SOURCE
+  23: 53, // WELLSETUPTRIGGERLEVEL → MENU_WELL_SETUP_TRIGGER_LEVEL
+  24: 54, // WELLSETUPEFFICIENCIES → MENU_WELL_SETUP_EFFICIENCIES
+  25: 55, // WELLEDITEFFICIENCIES → MENU_WELL_EDIT_EFFICIENCIES
+  26: 57, // WELLMEASUREEFFICIENCY → MENU_WELL_MEASURE_EFFICIENCY
+  27: 1,  // DAILY → MENU_DAILY
+  28: 4,  // ACCURACY → MENU_ACCURACY
+  29: 59, // AUTOCONSTANCY → MENU_AUTOCONSTANCY
+  30: 6,  // LINEARITY → MENU_LINEARITY
+  31: 7,  // ONESTRIP → MENU_ONESTRIP
+  32: 8,  // TWOSTRIP → MENU_TWOSTRIP
+  33: 9,  // HMPAO → MENU_HMPAO
+  34: 10, // MAG3 → MENU_MAG3
+  35: 11, // MOLY → MENU_MOLY
+  36: 62, // FACTORY → MENU_FACTORY
+  37: 63, // SETUPCHAMBER → MENU_SETUPCHAMBER
+  38: 66, // WELLMEASUREMENTS → MENU_WELL_MEASUREMENTS
+  39: 67, // WELLEDITFULLEFFICIENCY → MENU_WELL_EDITFULLEFFICIENCY
+  40: 68, // EDITCALIBSERIAL → MENU_SETUPCALIBSERIAL
+  41: 70, // WELLSCHILLING → MENU_WELL_SCHILLING
+  42: 71, // WELLPLASMA → MENU_WELL_PLASMA
+  43: 72, // WELLRBC → MENU_WELL_RBC
+  44: 73, // WELLFACTORY → MENU_WELL_FACTORY
+  45: 65, // WELLMDA → MENU_WELL_MDA_TEST
+  46: 78, // WELLCHI → MENU_WELL_CHITEST
+  47: 82, // SETUPRHOTKEYS → MENU_SETUP_RHOTKEYS
+  48: 83, // SETUPPHOTKEYS → MENU_SETUP_PHOTKEYS
+  49: 89, // LOWLEVEL → MENU_LOW_LEVEL
+  50: 90, // WELLSTABILITYTEST → MENU_WELL_STABILITYTEST
+  51: 91, // SETUPCOMMUNICATIONS → MENU_SETUP_COMMUNICATIONS
+  52: 93, // ETHERNET → MENU_ETHERNET
+  63: 103, // INACTIVATE → MENU_INACTIVATE
+  67: 109, // TESTIDENT → MENU_TEST_IDENT
+  75: 123, // LOGIN → MENU_LOGIN
+  76: 124, // SECURITY → MENU_SECURITY
+  77: 125, // ADDEDIT_USER → MENU_ADD_EDIT_USER
+  105: 150, // AUTOLINEARITYTEST → MENU_AUTOLINEARITY_TEST
+  107: 152, // AUTOLINEARITYSEARCH → MENU_AUTOLINEARITY_SEARCH
+  108: 154, // CHAMBERDAILYTESTSEARCH → MENU_CHAMBER_SEARCH
+  109: 154, // CHAMBERZEROSEARCH → MENU_CHAMBER_SEARCH
+  110: 154, // CHAMBERBACKGROUNDSEARCH → MENU_CHAMBER_SEARCH
+  111: 154, // CHAMBERVOLTAGESEARCH → MENU_CHAMBER_SEARCH
+  112: 154, // CHAMBERACCURACYSEARCH → MENU_CHAMBER_SEARCH
+  113: 161, // HALFLIFECALC → MENU_CHAMBER_HALFLIFE_CALC
+  114: 162, // SETUPKEY → MENU_SETUP_KEY
+  115: 163, // SETUPPASSWORD → MENU_SETUP_PASSWORD
+}
+
+/**
+ * Mapping from SET_HTML value (byte(255)) → SCREEN value (byte(3)) for menu registration.
+ * When %SetHTML navigates to a page, the page sends byte(3) = SCREEN_* on load.
+ * SCREEN_* values match MENU_* defines 1:1 in the firmware.
+ */
+const SET_HTML_TO_SCREEN: Record<number, number> = {
+  1:  4,  // ACCURACY → SCREEN_ACCURACY
+  2:  2,  // BACKGROUND → SCREEN_BKG
+  3:  3,  // CHAMBERVOLTS → SCREEN_CHAMBERVOLTS
+  4:  1,  // DAILY → SCREEN_DAILY
+  5:  5,  // GEOMETRY → SCREEN_GEOMETRY
+  6:  58, // GEOMETRYREPORT → SCREEN_GEOMETRY_REPORT
+  7:  9,  // HMPAO → SCREEN_HMPAO
+  8:  42, // INDEX → SCREEN_INITIAL
+  9:  12, // INVENTORY → SCREEN_INVENTORY
+  10: 15, // INVENTORYADD → SCREEN_ADD_INVENTORY
+  11: 21, // INVENTORYWITHDRAW → SCREEN_WITHDRAW_INVENTORY
+  12: 17, // KEYBOARD2 → SCREEN_KEYBOARD
+  13: 16, // KEYPAD2 → SCREEN_KEYPAD
+  14: 6,  // LINEARITY → SCREEN_LINEARITY
+  15: 10, // MAG3 → SCREEN_MAG3
+  16: 32, // MAINSCREEN → SCREEN_MAIN_SCREEN
+  17: 19, // MEASUREACTIVITY → SCREEN_ACTIVITY
+  18: 11, // MOLY → SCREEN_MOLY
+  19: 13, // NUCLIDE2 → SCREEN_NUCLIDE
+  20: 7,  // ONESTRIP → SCREEN_ONESTRIP
+  21: 88, // QC → SCREEN_QC
+  22: 19, // SETACTIVITY → SCREEN_ACTIVITY
+  23: 18, // SETSTUDY → SCREEN_STUDY
+  24: 14, // SETTIME2 → SCREEN_TIME
+  25: 26, // SETUP → SCREEN_SETUP
+  26: 8,  // TWOSTRIP → SCREEN_TWOSTRIP
+  27: 22, // INVENTORYDELETE → SCREEN_DELETE_INVENTORY
+  28: 23, // INVENTORYKIT → SCREEN_KIT_INVENTORY
+  29: 24, // SETSTUDY2 → SCREEN_STUDY2
+  30: 61, // ENHANCED → SCREEN_ENHANCED
+  31: 25, // INFO → SCREEN_INFO
+  32: 43, // PSETUP → SCREEN_OTHER
+  33: 27, // SETUPSOURCES → SCREEN_SETUP_SOURCES
+  34: 28, // SETUPMOLY → SCREEN_SETUP_MOLY
+  35: 29, // SETUPNUCLIDE → SCREEN_SETUP_NUCLIDE
+  36: 30, // SETUPLINEARITY → SCREEN_SETUP_LINEARITY
+  37: 31, // SETUPREMOTE → SCREEN_SETUP_REMOTE
+  38: 33, // SETUPCALNUM → SCREEN_SETUP_CALNUM
+  39: 34, // ERRORMSG → SCREEN_ERROR_MSG
+  40: 35, // WARNINGMSG → SCREEN_WARNING_MSG
+  41: 36, // NOTIFICATIONMSG → SCREEN_NOTIFICATION_MSG
+  42: 37, // SETUPLINEARITYSTANDARD → SCREEN_SETUP_LINEARITY_STANDARD
+  43: 38, // SETUPLINEARITYLINEATOR → SCREEN_SETUP_LINEARITY_LINEATOR
+  44: 39, // SETUPLINEARITYCALICHECK → SCREEN_SETUP_LINEARITY_CALICHECK
+  45: 40, // DOSETABLE → SCREEN_DOSE_TABLE
+  46: 41, // SELECT_CHAMBER → SCREEN_SELECT_CHAMBER
+  48: 44, // WELLMAINSCREEN → SCREEN_WELL_MAIN_SCREEN
+  50: 45, // WELLMEASUREMENT → SCREEN_WELL_MEASUREMENT
+  51: 46, // WELLAUTOCALIBRATE → SCREEN_WELL_AUTOCALIBRATE
+  52: 47, // WELLPEAKS → SCREEN_WELL_PEAKS
+  53: 48, // WELLADVANCEDSETUP → SCREEN_WELL_ADVANCED_SETUP
+  63: 59, // AUTOCONSTANCY → SCREEN_AUTOCONSTANCY
+  65: 62, // FACTORY → SCREEN_FACTORY
+  66: 63, // SETUPCHAMBER → SCREEN_SETUPCHAMBER
 }

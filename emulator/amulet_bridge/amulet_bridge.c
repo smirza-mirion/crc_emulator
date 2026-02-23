@@ -475,95 +475,22 @@ static void handle_tx_packet(const unsigned char *pkt, int len)
 /* ---- RX Injection (WebSocket -> Firmware) ---- */
 
 /*
- * Mapping from SET_HTML/SET_CLEAR values to HTM enum indices.
- * When byte(3) is set via a button press, the Amulet display changes pages.
- * This table lets the bridge track the current page for fullState responses.
- * Index: SET_HTML value (1-71), Value: HTM enum index.
- * Derived from the CallHTML() switch in Amulet.c.
+ * NOTE: The old set_html_to_htm[] table has been removed.
+ * Page tracking is now handled from the firmware TX side:
+ * - SetAmuletHTML() calls -> handle_set_page() updates current_page
+ * - Frontend navigates locally for instant feedback
+ * - byte(3) now carries SCREEN / MENU values (not SET_HTML values)
  */
-static const unsigned char set_html_to_htm[72] = {
-    0xFF,       /* 0: unused (main screen is at m_iMenu=0) */
-    0x14,       /* 1: SET_HTML_ACCURACY    → ACCURACY_HTM */
-    0x11,       /* 2: SET_HTML_BACKGROUND  → BACKGROUND_HTM */
-    0x12,       /* 3: SET_HTML_CHAMBERVOLTS → CHAMBERVOLTS_HTM */
-    0x10,       /* 4: SET_HTML_DAILY       → DAILY_HTM */
-    0x13,       /* 5: SET_HTML_GEOMETRY    → GEOMETRY_HTM */
-    0x0A,       /* 6: SET_HTML_GEOMETRYREPORT → GEOMETRYREPORT_HTM */
-    0x0E,       /* 7: SET_HTML_HMPAO       → HMPAO_HTM */
-    0x00,       /* 8: SET_HTML_INDEX       → INDEX_HTM */
-    0x18,       /* 9: SET_HTML_INVENTORY   → INVENTORY_HTM */
-    0x07,       /* 10: SET_HTML_INVENTORYADD → INVENTORYADD_HTM */
-    0x08,       /* 11: SET_HTML_INVENTORYWITHDRAW → INVENTORYWITHDRAW_HTM */
-    0x03,       /* 12: SET_HTML_KEYBOARD2  → KEYBOARD2_HTM */
-    0x02,       /* 13: SET_HTML_KEYPAD2    → KEYPAD2_HTM */
-    0x15,       /* 14: SET_HTML_LINEARITY  → LINEARITY_HTM */
-    0x0F,       /* 15: SET_HTML_MAG3       → MAG3_HTM */
-    0x09,       /* 16: SET_HTML_MAINSCREEN → MAINSCREEN_HTM */
-    0x06,       /* 17: SET_HTML_MEASUREACTIVITY → MEASUREACTIVITY_HTM */
-    0x17,       /* 18: SET_HTML_MOLY       → MOLY_HTM */
-    0x01,       /* 19: SET_HTML_NUCLIDE2   → NUCLIDE2_HTM */
-    0x0C,       /* 20: SET_HTML_ONESTRIP   → ONESTRIP_HTM */
-    0x16,       /* 21: SET_HTML_QC         → QC_HTM */
-    0x05,       /* 22: SET_HTML_SETACTIVITY → SETACTIVITY_HTM */
-    0x0B,       /* 23: SET_HTML_SETSTUDY   → SETSTUDY_HTM */
-    0x04,       /* 24: SET_HTML_SETTIME2   → SETTIME2_HTM */
-    0x19,       /* 25: SET_HTML_SETUP      → SETUP_HTM */
-    0x0D,       /* 26: SET_HTML_TWOSTRIP   → TWOSTRIP_HTM */
-    0x1A,       /* 27: SET_HTML_INVENTORYDELETE → INVENTORYDELETE_HTM */
-    0x1B,       /* 28: SET_HTML_INVENTORYKIT → INVENTORYKIT_HTM */
-    0x1C,       /* 29: SET_HTML_SETSTUDY2  → SETSTUDY2_HTM */
-    0x1D,       /* 30: SET_HTML_ENHANCED   → ENHANCED_HTM */
-    0x1E,       /* 31: SET_HTML_INFO       → INFO_HTM */
-    0x1F,       /* 32: SET_HTML_PSETUP     → OTHER_HTM */
-    0x20,       /* 33: SET_HTML_SETUPSOURCES → SETUPSOURCES_HTM */
-    0x21,       /* 34: SET_HTML_SETUPMOLY  → SETUPMOLY_HTM */
-    0x22,       /* 35: SET_HTML_SETUPNUCLIDE → SETUPNUCLIDE_HTM */
-    0x23,       /* 36: SET_HTML_SETUPLINEARITY → SETUPLINEARITY_HTM */
-    0x24,       /* 37: SET_HTML_SETUPREMOTE → SETUPREMOTE_HTM */
-    0x25,       /* 38: SET_HTML_SETUPCALNUM → SETUPCALNUM_HTM */
-    0x26,       /* 39: SET_HTML_ERRORMSG   → ERRORMSG_HTM */
-    0x27,       /* 40: SET_HTML_WARNINGMSG → WARNINGMSG_HTM */
-    0x28,       /* 41: SET_HTML_NOTIFICATIONMSG → NOTIFICATIONMSG_HTM */
-    0x29,       /* 42: SET_HTML_SETUPLINEARITYSTANDARD */
-    0x2A,       /* 43: SET_HTML_SETUPLINEARITYLINEATOR */
-    0x2B,       /* 44: SET_HTML_SETUPLINEARITYCALICHECK */
-    0x2C,       /* 45: SET_HTML_DOSETABLE  → DOSETABLE_HTM */
-    0x2D,       /* 46: SET_HTML_SELECT_CHAMBER → CHAMBER_HTM */
-    0x2E,       /* 47: SET_HTML_GRADIENT   → GRADIENT_HTM */
-    0x2F,       /* 48: SET_HTML_WELLMAINSCREEN → WELLMAINSCREEN_HTM */
-    0x30,       /* 49: SET_HTML_BETAMAINSCREEN → BETAMAINSCREEN_HTM */
-    0x31,       /* 50: SET_HTML_WELLMEASUREMENT → WELLMEASUREMENT_HTM */
-    0x32,       /* 51: SET_HTML_WELLAUTOCALIBRATE */
-    0x33,       /* 52: SET_HTML_WELLPEAKS  → WELLPEAKS_HTM */
-    0x34,       /* 53: SET_HTML_WELLADVANCEDSETUP */
-    0x35,       /* 54: SET_HTML_WELLSETUPNUCLIDE */
-    0x37,       /* 55: SET_HTML_WELLSETUPSEALED2 */
-    0x37,       /* 56: SET_HTML_WELLSETUPSEALED2 */
-    0x38,       /* 57: SET_HTML_WELLSETUPTESTSOURCE */
-    0x39,       /* 58: SET_HTML_WELLSETUPTRIGGERLEVEL */
-    0x3A,       /* 59: SET_HTML_WELLSETUPEFFICIENCIES */
-    0x3B,       /* 60: SET_HTML_WELLEDITEFFICIENCIES */
-    0x3C,       /* 61: SET_HTML_WELLMANUAL → WELLMANUAL_HTM */
-    0x3D,       /* 62: SET_HTML_WELLMEASUREEFFICIENCY */
-    0x3E,       /* 63: SET_HTML_AUTOCONSTANCY */
-    0x3F,       /* 64: SET_HTML_SLEEP      → SLEEP_HTM */
-    0x40,       /* 65: SET_HTML_FACTORY    → FACTORY_HTM */
-    0x41,       /* 66: SET_HTML_SETUPCHAMBER */
-    0x42,       /* 67: SET_HTML_INVENTORYDELETEALL */
-    0x43,       /* 68: SET_HTML_WELLMDATEST */
-    0x44,       /* 69: SET_HTML_WELLMEASUREMENTS */
-    0x45,       /* 70: SET_HTML_WELLEDITFULLEFFICIENCY */
-    0x46,       /* 71: SET_HTML_SETUPCALIBSERIAL */
-};
 
 /*
  * Inject a byte-changed event directly into the firmware's master message queue.
  * Packet format: 0xD5 + hex(index,2) + hex(value,2) + '\0'
  * Bypasses UART2 RX and the interrupt handler framing logic.
  *
- * When byte index 3 is set (navigation command), also update current_page
- * and broadcast a setPage message so the frontend can track page changes
- * without relying on the firmware to call SetAmuletHTML().
+ * Page tracking for byte(3) = SCREEN_* values is NOT done here.
+ * Page changes are tracked from the firmware's TX side: when the firmware
+ * calls SetAmuletHTML(), handle_set_page() updates current_page.
+ * The frontend navigates locally for instant feedback.
  */
 static void inject_byte_event(unsigned char index, unsigned char value)
 {
@@ -573,25 +500,6 @@ static void inject_byte_event(unsigned char index, unsigned char value)
     byte_to_hex(index, &pkt[1]);
     byte_to_hex(value, &pkt[3]);
     pkt[5] = '\0';
-
-    /* Track page changes when byte(3) is set */
-    if (index == 3 && value > 0 && value < 72) {
-        unsigned char htm_page = set_html_to_htm[value];
-        if (htm_page != 0xFF) {
-            current_page = htm_page;
-            snprintf(json_buf, JSON_MAX,
-                     "{\"type\":\"setPage\",\"page\":%d}",
-                     (int)htm_page);
-            ws_broadcast(json_buf, (int)strlen(json_buf));
-        }
-    } else if (index == 3 && value == 0) {
-        /* value 0 = return to measurement screen (MainScreen) */
-        current_page = 0x09; /* MAINSCREEN_HTM */
-        snprintf(json_buf, JSON_MAX,
-                 "{\"type\":\"setPage\",\"page\":%d}",
-                 (int)current_page);
-        ws_broadcast(json_buf, (int)strlen(json_buf));
-    }
 
     PushMasterMessage(pkt);
 }
@@ -829,8 +737,21 @@ void amulet_bridge_process_tx(unsigned char encoded_byte, unsigned char raw_flag
         tx_is_binary = 0;
     }
 
-    /* Null terminator signals end of packet */
+    /* Null terminator signals end of packet.
+     * For binary HTML packets (0xA0 0x02 <high> <low> <checksum>), the page
+     * number's high byte can be 0x00, which would be misinterpreted as the
+     * terminator. Binary HTML packets are always 5 data bytes followed by
+     * a null terminator, so only treat 0x00 as a terminator when we have
+     * enough bytes (>= 5) or we're not in binary mode. */
     if (encoded_byte == 0x00) {
+        if (tx_is_binary && tx_packet_len < 5) {
+            /* Data 0x00 inside binary packet - accumulate it */
+            if (tx_packet_len < TX_PACKET_MAX - 1) {
+                tx_packet[tx_packet_len++] = encoded_byte;
+            }
+            EMU_MUTEX_UNLOCK(bridge_mutex);
+            return;
+        }
         if (tx_packet_len > 0) {
             handle_tx_packet(tx_packet, tx_packet_len);
         }
@@ -866,47 +787,65 @@ void amulet_bridge_poll_rx(void)
  * Send the complete current display state to all connected WebSocket clients.
  * Called when a new client connects so it can render the current screen.
  */
+/* Large buffer for fullState message (bytes+words+strings can be large) */
+#define FULLSTATE_MAX (128 * 1024)
+static char fullstate_buf[FULLSTATE_MAX];
+
 void amulet_bridge_send_full_state(void)
 {
-    int i;
+    int i, pos, first;
     char escaped[512];
 
-    /* Send current page */
-    snprintf(json_buf, JSON_MAX,
-             "{\"type\":\"fullState\",\"page\":%d}",
-             (int)current_page);
-    ws_broadcast(json_buf, (int)strlen(json_buf));
+    /* Build a single combined fullState message with all state data.
+     * The frontend expects: {"type":"fullState","page":N,"bytes":{...},"words":{...},"strings":{...}}
+     * Sending as individual messages creates a race condition where the frontend
+     * starts loading the screen before byte values arrive. */
 
-    /* Send all non-zero bytes */
+    pos = snprintf(fullstate_buf, FULLSTATE_MAX,
+                   "{\"type\":\"fullState\",\"page\":%d",
+                   (int)current_page);
+
+    /* Bytes object */
+    pos += snprintf(fullstate_buf + pos, FULLSTATE_MAX - pos, ",\"bytes\":{");
+    first = 1;
     for (i = 0; i < 256; i++) {
         if (amulet_bytes[i] != 0) {
-            snprintf(json_buf, JSON_MAX,
-                     "{\"type\":\"setByte\",\"index\":%d,\"value\":%d}",
-                     i, (int)amulet_bytes[i]);
-            ws_broadcast(json_buf, (int)strlen(json_buf));
+            pos += snprintf(fullstate_buf + pos, FULLSTATE_MAX - pos,
+                            "%s\"%d\":%d", first ? "" : ",",
+                            i, (int)amulet_bytes[i]);
+            first = 0;
         }
     }
+    pos += snprintf(fullstate_buf + pos, FULLSTATE_MAX - pos, "}");
 
-    /* Send all non-zero words */
+    /* Words object */
+    pos += snprintf(fullstate_buf + pos, FULLSTATE_MAX - pos, ",\"words\":{");
+    first = 1;
     for (i = 0; i < 256; i++) {
         if (amulet_words[i] != 0) {
-            snprintf(json_buf, JSON_MAX,
-                     "{\"type\":\"setWord\",\"index\":%d,\"value\":%d}",
-                     i, (int)amulet_words[i]);
-            ws_broadcast(json_buf, (int)strlen(json_buf));
+            pos += snprintf(fullstate_buf + pos, FULLSTATE_MAX - pos,
+                            "%s\"%d\":%d", first ? "" : ",",
+                            i, (int)amulet_words[i]);
+            first = 0;
         }
     }
+    pos += snprintf(fullstate_buf + pos, FULLSTATE_MAX - pos, "}");
 
-    /* Send all non-empty strings */
+    /* Strings object */
+    pos += snprintf(fullstate_buf + pos, FULLSTATE_MAX - pos, ",\"strings\":{");
+    first = 1;
     for (i = 0; i < 256; i++) {
         if (amulet_strings[i][0] != '\0') {
             json_escape_string(escaped, sizeof(escaped), amulet_strings[i]);
-            snprintf(json_buf, JSON_MAX,
-                     "{\"type\":\"setString\",\"index\":%d,\"value\":\"%s\"}",
-                     i, escaped);
-            ws_broadcast(json_buf, (int)strlen(json_buf));
+            pos += snprintf(fullstate_buf + pos, FULLSTATE_MAX - pos,
+                            "%s\"%d\":\"%s\"", first ? "" : ",",
+                            i, escaped);
+            first = 0;
         }
     }
+    pos += snprintf(fullstate_buf + pos, FULLSTATE_MAX - pos, "}}");
+
+    ws_broadcast(fullstate_buf, pos);
 }
 
 /* ---- State Accessors ---- */

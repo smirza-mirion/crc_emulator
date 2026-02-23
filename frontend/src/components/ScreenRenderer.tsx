@@ -291,8 +291,8 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
       {/* Static background images from the HTM file */}
       {screenDef.staticImages?.map((img, i) => {
         const src = normalizeImagePath(img.src)
-        // Get position from CSS positions (mapped by div_id)
-        const positions = getStaticImagePosition(img.div_id, screenDef)
+        // Get position from explicit x/y or CSS positions (mapped by div_id)
+        const positions = getStaticImagePosition(img, screenDef)
         return (
           <img
             key={`static-${i}`}
@@ -514,19 +514,28 @@ function normalizeImagePath(src: string): string {
 }
 
 /**
- * Get position for a static image based on its parent DIV ID.
- * The CSS positions are parsed from the HTM file and stored in the screen definition.
+ * Get position for a static image. Uses explicit x/y from JSON if available,
+ * otherwise falls back to known positions by div_id.
  */
-function getStaticImagePosition(divId: string | undefined, _screenDef: ScreenDef): { x: number; y: number } {
-  if (!divId) return { x: 0, y: 0 }
+function getStaticImagePosition(img: { x?: number; y?: number; div_id?: string }, _screenDef: ScreenDef): { x: number; y: number } {
+  // Prefer explicit coordinates from the parser (resolved from HTM CSS)
+  if (img.x !== undefined && img.y !== undefined && (img.x !== 0 || img.y !== 0)) {
+    return { x: img.x, y: img.y }
+  }
 
-  // Common DIV positions from the HTM CSS (hardcoded for known layouts)
+  const divId = img.div_id
+  if (!divId) return { x: img.x ?? 0, y: img.y ?? 0 }
+
+  // Fallback: common DIV positions from the HTM CSS
   const knownPositions: Record<string, { x: number; y: number }> = {
     topbar: { x: 0, y: 0 },
+    top: { x: 0, y: 0 },
     bottombar: { x: 0, y: 537 },
+    bottom: { x: 0, y: 556 },
+    backgnd: { x: 0, y: 70 },
     backgnd1: { x: 0, y: 70 },
     gradient: { x: 0, y: 0 },
   }
 
-  return knownPositions[divId] || { x: 0, y: 0 }
+  return knownPositions[divId] || { x: img.x ?? 0, y: img.y ?? 0 }
 }

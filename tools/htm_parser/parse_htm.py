@@ -814,10 +814,11 @@ def parse_amulet_directives(content):
 # Static Images Parser
 # ---------------------------------------------------------------------------
 
-def parse_static_images(content):
+def parse_static_images(content, css_positions=None):
     """
     Parse static (unnamed) IMG elements that serve as backgrounds.
     Only includes images directly in DIVs, not inside APPLETs.
+    Resolves x/y positions from the parent DIV's CSS when css_positions is provided.
     """
     images = []
     clean = _strip_html_comments(content)
@@ -848,8 +849,17 @@ def parse_static_images(content):
             for div_m in RE_DIV_OPEN.finditer(preceding):
                 parent_div = div_m.group(1)
 
+            # Resolve position from parent DIV's CSS
+            x, y = 0, 0
+            if parent_div and css_positions and parent_div in css_positions:
+                css_props = css_positions[parent_div]
+                x = css_props.get("left", 0)
+                y = css_props.get("top", 0)
+
             img_entry = OrderedDict()
             img_entry["src"] = attrs["SRC"]
+            img_entry["x"] = x
+            img_entry["y"] = y
             img_entry["width"] = _safe_int(attrs.get("WIDTH", "0"))
             img_entry["height"] = _safe_int(attrs.get("HEIGHT", "0"))
             if parent_div:
@@ -893,8 +903,8 @@ def parse_htm_file(filepath):
     # Parse widgets
     widgets = parse_widgets(content, css_positions)
 
-    # Parse static images
-    static_images = parse_static_images(content)
+    # Parse static images (pass css_positions for coordinate resolution)
+    static_images = parse_static_images(content, css_positions)
 
     # Extract init actions from refresh triggers
     init_actions = parse_init_actions(refresh_triggers)
