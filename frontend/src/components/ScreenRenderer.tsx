@@ -31,6 +31,7 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
   const [hiddenWidgets, setHiddenWidgets] = useState<Set<string>>(new Set())
   const [shownWidgets, setShownWidgets] = useState<Set<string>>(new Set())
   const [drawCommands, setDrawCommands] = useState<DrawCommand[]>([])
+  const [positionOverrides, setPositionOverrides] = useState<Record<string, { x?: number; y?: number }>>({})
 
   // Preload screen map on mount
   useEffect(() => {
@@ -56,6 +57,7 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
         setHiddenWidgets(initiallyHidden)
         setShownWidgets(new Set())
         setDrawCommands([])
+        setPositionOverrides({})
 
         // Replay current byte values against triggers to set initial visibility.
         // The firmware may have already sent byte values (e.g. language byte 100)
@@ -64,8 +66,14 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
           const toShow = new Set<string>()
           const toHide = new Set<string>()
 
-          // Helper to execute actions including forceUpdate chains
+          // Helper to execute actions including forceUpdate chains.
+          // evaluatedConditions tracks (onVar:trigger) pairs that have already
+          // been evaluated. On the real Amulet display, repeated forceUpdate
+          // evaluations of the same condition are no-ops (change-detection).
+          // This prevents Show/Hide trigger pairs from conflicting at init.
           const allTriggers = def.refreshTriggers!
+          const evaluatedConditions = new Set<string>()
+          const initPosOverrides: Record<string, { x?: number; y?: number }> = {}
           const execActions = (
             actions: NonNullable<typeof allTriggers[0]['actions']>,
             depth: number,
@@ -78,6 +86,8 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
               } else if (action.type === 'disappear' && action.target) {
                 toHide.add(action.target)
                 toShow.delete(action.target)
+              } else if (action.type === 'raw' && action.expression) {
+                applyRawExpression(action.expression, stateManager, initPosOverrides)
               } else if (action.type === 'forceUpdate' && action.target) {
                 const target = action.target
                 let matched = false
@@ -85,6 +95,10 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
                   if (t.name && (t.name === target || t.name.startsWith(target))) {
                     matched = true
                     if (!t.onVar || !t.trigger) continue
+                    // Deduplicate: skip if this exact condition was already evaluated
+                    const condKey = `${t.onVar}:${t.trigger}`
+                    if (evaluatedConditions.has(condKey)) continue
+                    evaluatedConditions.add(condKey)
                     // Support both byte() and word() triggers
                     const byteMatch = t.onVar.match(/byte\((\d+)\)/)
                     const wordMatch = t.onVar.match(/word\((\d+)\)/)
@@ -151,6 +165,11 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
                 execActions([action], 0)
               }
             }
+          }
+
+          // Apply position overrides from raw setX/setY expressions
+          if (Object.keys(initPosOverrides).length > 0) {
+            setPositionOverrides(initPosOverrides)
           }
 
           if (toShow.size > 0 || toHide.size > 0) {
@@ -234,6 +253,7 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
       toShow: Set<string>,
       toHide: Set<string>,
       depth: number,
+      posOverrides?: Record<string, { x?: number; y?: number }>,
     ) => {
       if (depth > 5) return // Prevent infinite recursion
 
@@ -244,6 +264,8 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
         } else if (action.type === 'disappear' && action.target) {
           toHide.add(action.target)
           toShow.delete(action.target)
+        } else if (action.type === 'raw' && action.expression && posOverrides) {
+          applyRawExpression(action.expression, stateManager, posOverrides)
         } else if (action.type === 'forceUpdate' && action.target) {
           // forceUpdate on a named trigger: find triggers whose name starts
           // with the target, evaluate their conditions, and execute their actions
@@ -267,7 +289,7 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
               }
               const trigVal = parseTriggerValue(t.trigger)
               if (trigVal !== null && trigVal === curVal && t.actions) {
-                executeActions(t.actions, toShow, toHide, depth + 1)
+                executeActions(t.actions, toShow, toHide, depth + 1, posOverrides)
               }
             }
           }
@@ -282,7 +304,7 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
       }
     }
 
-    const applyVisibilityChanges = (toShow: Set<string>, toHide: Set<string>) => {
+    const applyChanges = (toShow: Set<string>, toHide: Set<string>, posOverrides: Record<string, { x?: number; y?: number }>) => {
       if (toShow.size > 0 || toHide.size > 0) {
         setShownWidgets(prev => {
           const next = new Set(prev)
@@ -297,11 +319,15 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
           return next
         })
       }
+      if (Object.keys(posOverrides).length > 0) {
+        setPositionOverrides(prev => ({ ...prev, ...posOverrides }))
+      }
     }
 
     const byteHandler = (byteIndex: number, byteValue: number) => {
       const toShow = new Set<string>()
       const toHide = new Set<string>()
+      const posOverrides: Record<string, { x?: number; y?: number }> = {}
 
       for (const trigger of triggers) {
         if (!trigger.onVar || !trigger.trigger || !trigger.actions) continue
@@ -319,16 +345,17 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
         const triggerValue = parseTriggerValue(trigger.trigger)
         if (triggerValue === null || triggerValue !== byteValue) continue
 
-        executeActions(trigger.actions, toShow, toHide, 0)
+        executeActions(trigger.actions, toShow, toHide, 0, posOverrides)
       }
 
-      applyVisibilityChanges(toShow, toHide)
+      applyChanges(toShow, toHide, posOverrides)
     }
 
     // Also listen for word changes to fire word-based triggers
     const wordHandler = (wordIndex: number, wordValue: number) => {
       const toShow = new Set<string>()
       const toHide = new Set<string>()
+      const posOverrides: Record<string, { x?: number; y?: number }> = {}
 
       for (const trigger of triggers) {
         if (!trigger.onVar || !trigger.trigger || !trigger.actions) continue
@@ -344,10 +371,10 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
         const triggerValue = parseTriggerValue(trigger.trigger)
         if (triggerValue === null || triggerValue !== wordValue) continue
 
-        executeActions(trigger.actions, toShow, toHide, 0)
+        executeActions(trigger.actions, toShow, toHide, 0, posOverrides)
       }
 
-      applyVisibilityChanges(toShow, toHide)
+      applyChanges(toShow, toHide, posOverrides)
     }
 
     stateManager.onByteChange(byteHandler)
@@ -427,6 +454,7 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
           ws={wsManager}
           hiddenWidgets={hiddenWidgets}
           shownWidgets={shownWidgets}
+          positionOverrides={positionOverrides}
         />
       ))}
     </div>
@@ -439,38 +467,45 @@ interface WidgetRendererProps {
   ws: WebSocketManager
   hiddenWidgets: Set<string>
   shownWidgets: Set<string>
+  positionOverrides: Record<string, { x?: number; y?: number }>
 }
 
 function WidgetRenderer({
-  widget, stateManager, ws, hiddenWidgets, shownWidgets,
+  widget, stateManager, ws, hiddenWidgets, shownWidgets, positionOverrides,
 }: WidgetRendererProps) {
   // Determine visibility from refresh trigger state
   const isHidden = hiddenWidgets.has(widget.name)
   const isForceShown = shownWidgets.has(widget.name)
   const visible = isForceShown || !isHidden
 
-  switch (widget.type) {
+  // Apply position overrides from raw setX/setY expressions
+  const posOverride = positionOverrides[widget.name]
+  const effectiveWidget = posOverride
+    ? { ...widget, x: posOverride.x ?? widget.x, y: posOverride.y ?? widget.y }
+    : widget
+
+  switch (effectiveWidget.type) {
     case 'StringField':
     case 'NumericField':
-      return <AmuletStringField widget={widget} stateManager={stateManager} visible={visible} />
+      return <AmuletStringField widget={effectiveWidget} stateManager={stateManager} visible={visible} />
 
     case 'CustomButton':
-      return <AmuletButton widget={widget} stateManager={stateManager} ws={ws} visible={visible} />
+      return <AmuletButton widget={effectiveWidget} stateManager={stateManager} ws={ws} visible={visible} />
 
     case 'FunctionButton':
-      return <AmuletFunctionButton widget={widget} stateManager={stateManager} ws={ws} visible={visible} />
+      return <AmuletFunctionButton widget={effectiveWidget} stateManager={stateManager} ws={ws} visible={visible} />
 
     case 'BarGraph':
-      return <AmuletBarGraph widget={widget} stateManager={stateManager} visible={visible} />
+      return <AmuletBarGraph widget={effectiveWidget} stateManager={stateManager} visible={visible} />
 
     case 'Image':
-      return <AmuletImage widget={widget} visible={visible} />
+      return <AmuletImage widget={effectiveWidget} visible={visible} />
 
     case 'RadioButton':
-      return <AmuletRadioButton widget={widget} stateManager={stateManager} ws={ws} visible={visible} />
+      return <AmuletRadioButton widget={effectiveWidget} stateManager={stateManager} ws={ws} visible={visible} />
 
     case 'CheckBox':
-      return <AmuletCheckBox widget={widget} stateManager={stateManager} ws={ws} visible={visible} />
+      return <AmuletCheckBox widget={effectiveWidget} stateManager={stateManager} ws={ws} visible={visible} />
 
     default:
       return null
@@ -625,4 +660,34 @@ function getStaticImagePosition(img: { x?: number; y?: number; div_id?: string }
   }
 
   return knownPositions[divId] || { x: img.x ?? 0, y: img.y ?? 0 }
+}
+
+/**
+ * Process raw Amulet expressions like:
+ *   document.widgetName.setX(Amulet:internalRAM.word(N).value())
+ *   document.widgetName.setY(Amulet:internalRAM.word(N).value())
+ * Updates the posOverrides map with the new position values.
+ */
+function applyRawExpression(
+  expression: string,
+  stateManager: AmuletStateManager,
+  posOverrides: Record<string, { x?: number; y?: number }>,
+) {
+  // Match: document.<widgetName>.setX(Amulet:internalRAM.word(<index>).value())
+  const setXMatch = expression.match(/document\.(\w+)\.setX\(.*?word\((\d+)\)/)
+  if (setXMatch) {
+    const [, widgetName, wordIdx] = setXMatch
+    const val = stateManager.getWord(parseInt(wordIdx))
+    if (!posOverrides[widgetName]) posOverrides[widgetName] = {}
+    posOverrides[widgetName].x = val
+    return
+  }
+  const setYMatch = expression.match(/document\.(\w+)\.setY\(.*?word\((\d+)\)/)
+  if (setYMatch) {
+    const [, widgetName, wordIdx] = setYMatch
+    const val = stateManager.getWord(parseInt(wordIdx))
+    if (!posOverrides[widgetName]) posOverrides[widgetName] = {}
+    posOverrides[widgetName].y = val
+    return
+  }
 }
