@@ -420,7 +420,7 @@ export function ScreenRenderer({ stateManager, wsManager }: Props) {
       {/* Draw commands (lines, fill rects) from firmware */}
       <svg style={{
         position: 'absolute', top: 0, left: 0, width: 800, height: 600,
-        pointerEvents: 'none', zIndex: 0,
+        pointerEvents: 'none', zIndex: 5,
       }}>
         {drawCommands.map((cmd, i) => {
           if (cmd.type === 'drawLine') {

@@ -91,6 +91,31 @@ RE_DIV_CLOSE = re.compile(
     re.IGNORECASE,
 )
 
+RE_TABLE_OPEN = re.compile(
+    r"<TABLE\b([^>]*)>",
+    re.IGNORECASE,
+)
+
+RE_TABLE_CLOSE = re.compile(
+    r"</TABLE\s*>",
+    re.IGNORECASE,
+)
+
+RE_TR_OPEN = re.compile(
+    r"<TR\b[^>]*>",
+    re.IGNORECASE,
+)
+
+RE_TD_OPEN = re.compile(
+    r"<TD\b([^>]*)>",
+    re.IGNORECASE,
+)
+
+RE_TD_CLOSE = re.compile(
+    r"</TD\s*>",
+    re.IGNORECASE,
+)
+
 # META REFRESH trigger pattern. The CONTENT attribute spans across newlines.
 # We match from <META HTTP-EQUIV="REFRESH" to the closing > accounting for
 # multiline content values.
@@ -199,46 +224,123 @@ def parse_widgets(content, css_positions):
 
     Returns a list of widget dicts with type, name, position, dimensions,
     params, and language variant detection.
+
+    Handles TABLE/TR/TD structures: widgets inside table cells get their
+    position computed from the table's row/column layout rather than just
+    inheriting the parent DIV's CSS position.
     """
     widgets = []
 
-    # We need to track DIV -> APPLET relationships for position resolution.
-    # Strategy: find each APPLET block, then look backwards for its parent DIV ID.
-
-    # First, strip HTML comments to avoid parsing commented-out elements.
-    # But preserve the structure for position tracking.
+    # Strip HTML comments to avoid parsing commented-out elements.
     clean = _strip_html_comments(content)
 
-    # Find all DIV+APPLET blocks
-    # We iterate through the clean content tracking DIV contexts.
+    # Pre-scan: count TRs per TABLE (keyed by TABLE start position in clean)
+    table_tr_counts = {}
+    for tm in RE_TABLE_OPEN.finditer(clean):
+        tc = RE_TABLE_CLOSE.search(clean, tm.end())
+        if tc:
+            block = clean[tm.end():tc.start()]
+            table_tr_counts[tm.start()] = len(RE_TR_OPEN.findall(block))
+
+    # Tag types to scan for during the main loop
+    TAG_SCANNERS = [
+        (RE_DIV_OPEN, 'div_open'),
+        (RE_DIV_CLOSE, 'div_close'),
+        (RE_TABLE_OPEN, 'table_open'),
+        (RE_TABLE_CLOSE, 'table_close'),
+        (RE_TR_OPEN, 'tr_open'),
+        (RE_TD_OPEN, 'td_open'),
+        (RE_TD_CLOSE, 'td_close'),
+        (RE_APPLET_OPEN, 'applet_open'),
+    ]
+
     pos = 0
     div_stack = []
+    table_context = None   # Set when inside a TABLE
+    current_td_width = 0   # WIDTH of the current TD
 
     while pos < len(clean):
-        # Check for DIV open
-        div_match = RE_DIV_OPEN.search(clean, pos)
-        applet_match = RE_APPLET_OPEN.search(clean, pos)
+        # Find the earliest significant tag from current position
+        best = None  # (start_pos, tag_type, match)
+        for regex, tag_type in TAG_SCANNERS:
+            m = regex.search(clean, pos)
+            if m and (best is None or m.start() < best[0]):
+                best = (m.start(), tag_type, m)
 
-        # Find the earliest match
-        next_div_pos = div_match.start() if div_match else len(clean)
-        next_applet_pos = applet_match.start() if applet_match else len(clean)
+        if best is None:
+            break
 
-        if next_div_pos < next_applet_pos:
-            div_id = div_match.group(1)
+        _, tag_type, match = best
+
+        if tag_type == 'div_open':
+            div_id = match.group(1)
             div_stack.append(div_id)
-            pos = div_match.end()
-
-            # Check for named IMG inside this DIV before next APPLET or DIV close
+            pos = match.end()
             _scan_for_named_imgs(clean, pos, div_id, css_positions, widgets)
 
-        elif next_applet_pos < len(clean):
-            # Found an APPLET tag
-            applet_attrs = extract_applet_attrs(applet_match.group(1))
+        elif tag_type == 'div_close':
+            if div_stack:
+                div_stack.pop()
+            pos = match.end()
+
+        elif tag_type == 'table_open':
+            # Extract TABLE WIDTH and HEIGHT attributes
+            attrs = {}
+            for m in RE_ATTR.finditer(match.group(1)):
+                attrs[m.group(1).upper()] = m.group(2)
+
+            table_height = _safe_int(attrs.get("HEIGHT", "0"))
+
+            # Base position from parent DIV's CSS
+            parent_div_id = div_stack[-1] if div_stack else None
+            base_x, base_y = 0, 0
+            if parent_div_id and parent_div_id in css_positions:
+                base_x = css_positions[parent_div_id].get("left", 0)
+                base_y = css_positions[parent_div_id].get("top", 0)
+
+            tr_count = table_tr_counts.get(match.start(), 1)
+            row_height = table_height // max(tr_count, 1)
+
+            table_context = {
+                'base_x': base_x,
+                'base_y': base_y,
+                'row_height': row_height,
+                'row_index': -1,
+                'col_offset': 0,
+            }
+            pos = match.end()
+
+        elif tag_type == 'table_close':
+            table_context = None
+            pos = match.end()
+
+        elif tag_type == 'tr_open':
+            if table_context is not None:
+                table_context['row_index'] += 1
+                table_context['col_offset'] = 0
+            pos = match.end()
+
+        elif tag_type == 'td_open':
+            if table_context is not None:
+                attrs = {}
+                for m in RE_ATTR.finditer(match.group(1)):
+                    attrs[m.group(1).upper()] = m.group(2)
+                current_td_width = _safe_int(attrs.get("WIDTH", "0"))
+            pos = match.end()
+
+        elif tag_type == 'td_close':
+            if table_context is not None:
+                table_context['col_offset'] += current_td_width
+                current_td_width = 0
+            pos = match.end()
+
+        elif tag_type == 'applet_open':
+            applet_attrs = extract_applet_attrs(match.group(1))
 
             # Find the closing </APPLET>
-            close_match = RE_APPLET_CLOSE.search(clean, applet_match.end())
+            close_match = RE_APPLET_CLOSE.search(clean, match.end())
             if close_match:
-                applet_block = clean[applet_match.start():close_match.end()]
+                applet_block = clean[match.start():close_match.end()]
                 params = extract_params(applet_block)
 
                 # Determine widget type
@@ -249,13 +351,17 @@ def parse_widgets(content, css_positions):
                 width = _safe_int(applet_attrs.get("WIDTH", "0"))
                 height = _safe_int(applet_attrs.get("HEIGHT", "0"))
 
-                # Resolve position from parent DIV's CSS ID
-                parent_div_id = div_stack[-1] if div_stack else None
-                x, y = 0, 0
-                if parent_div_id and parent_div_id in css_positions:
-                    css_props = css_positions[parent_div_id]
-                    x = css_props.get("left", 0)
-                    y = css_props.get("top", 0)
+                # Resolve position: table context takes priority
+                if table_context is not None:
+                    x = table_context['base_x'] + table_context['col_offset']
+                    y = table_context['base_y'] + table_context['row_index'] * table_context['row_height']
+                else:
+                    parent_div_id = div_stack[-1] if div_stack else None
+                    x, y = 0, 0
+                    if parent_div_id and parent_div_id in css_positions:
+                        css_props = css_positions[parent_div_id]
+                        x = css_props.get("left", 0)
+                        y = css_props.get("top", 0)
 
                 # Detect language variant
                 is_french = _detect_french_variant(name, params)
@@ -272,6 +378,7 @@ def parse_widgets(content, css_positions):
                 widget["height"] = height
                 widget["params"] = dict(params)
 
+                parent_div_id = div_stack[-1] if div_stack else None
                 if parent_div_id:
                     widget["position_from"] = parent_div_id
 
@@ -286,27 +393,7 @@ def parse_widgets(content, css_positions):
                 pos = close_match.end()
             else:
                 # Malformed - no closing tag, skip
-                pos = applet_match.end()
-        else:
-            # No more DIVs or APPLETs
-            break
-
-        # Also check for DIV closes to pop the stack
-        # Look for any </DIV> between old pos and the match we just processed
-        while div_stack:
-            close_div = RE_DIV_CLOSE.search(clean, pos)
-            next_open_div = RE_DIV_OPEN.search(clean, pos)
-            next_open_app = RE_APPLET_OPEN.search(clean, pos)
-
-            close_pos = close_div.start() if close_div else len(clean)
-            open_div_pos = next_open_div.start() if next_open_div else len(clean)
-            open_app_pos = next_open_app.start() if next_open_app else len(clean)
-
-            if close_pos < open_div_pos and close_pos < open_app_pos:
-                div_stack.pop() if div_stack else None
-                pos = close_div.end()
-            else:
-                break
+                pos = match.end()
 
     return widgets
 
