@@ -33,7 +33,7 @@ export const AmuletFunctionButton: React.FC<Props> = ({ widget, stateManager, ws
   const isVisible = fillColor !== 'transparent'
 
   // Resolve label from initHref binding if needed
-  const fromInitHrefMatch = params.label?.match(/^FromInitHref(?:\((\d+)\))?$/)
+  const fromInitHrefMatch = params.label?.match(/^FromInitHref(?:\((\d+)?\))?$/)
   const isFromInitHref = !!fromInitHrefMatch
 
   // Find the string index for the label binding

@@ -24,7 +24,7 @@ export const AmuletButton: React.FC<Props> = ({ widget, stateManager, ws, visibl
   const [labelText, setLabelText] = useState('')
 
   // Resolve label from initHref binding if needed
-  const fromInitHrefMatch = params.label?.match(/^FromInitHref(?:\((\d+)\))?$/)
+  const fromInitHrefMatch = params.label?.match(/^FromInitHref(?:\((\d+)?\))?$/)
   const isFromInitHref = !!fromInitHrefMatch
 
   // Find the string/label index for the binding

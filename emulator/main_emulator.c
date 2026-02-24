@@ -65,6 +65,7 @@ extern void AmuletAutoLinearityTest_clearTest(void);
 
 /* Database */
 extern void initDB(bool flag);
+extern void DB_ReadAllHotkey(void);
 extern void WipesInitialize(void);
 extern void BioAssayInitialize(void);
 extern void ThyroidUptakeInitialize(void);
@@ -383,6 +384,7 @@ int main(int argc, char *argv[])
     /* 9. Initialize Database (SQLite - works as-is) */
     printf("[Init] Initializing SQLite database...\n");
     initDB(FALSE);
+    DB_ReadAllHotkey();  /* Populate hotkey nuclide IDs from database */
     WipesInitialize();
     BioAssayInitialize();
     ThyroidUptakeInitialize();

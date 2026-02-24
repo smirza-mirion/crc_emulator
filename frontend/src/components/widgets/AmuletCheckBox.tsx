@@ -49,12 +49,13 @@ export const AmuletCheckBox: React.FC<Props> = ({ widget, stateManager, ws, visi
 
   const handleClick = () => {
     const newChecked = !checked
-    // Send the new value to the byte
+    // On the real Amulet display, clicking a checkbox directly updates
+    // the bound byte in internal RAM. We replicate this locally.
     if (byteIndex >= 0) {
       const newVal = newChecked ? checkedValue : unCheckedValue
-      ws.send({ type: 'buttonPress', byteIndex, value: newVal })
+      stateManager.setByteLocally(byteIndex, newVal)
     }
-    // Execute the href action
+    // Execute the href action (typically UART word write to firmware)
     const href = params.href || ''
     if (href) {
       const actions = parseHrefActions(href)

@@ -49,6 +49,14 @@ export const AmuletRadioButton: React.FC<Props> = ({ widget, stateManager, ws, v
   if (!visible) return null
 
   const handleClick = () => {
+    // On the real Amulet display, clicking a radio button directly updates
+    // the bound byte in internal RAM. We replicate this by setting the byte
+    // locally for immediate visual feedback.
+    if (byteIndex >= 0) {
+      stateManager.setByteLocally(byteIndex, internalNumber)
+    }
+    // Also send the href action (typically UART.word(0).setValue(N)) to
+    // notify the firmware of the user's selection.
     const href = params.href || ''
     if (!href) return
     const actions = parseHrefActions(href)

@@ -100,6 +100,16 @@ export class AmuletStateManager {
     this.pageHandlers.forEach(h => h(page))
   }
 
+  // Locally set a byte value (used when the Amulet display would update
+  // its own internal RAM directly, e.g. radio button / checkbox clicks).
+  // Updates internal state, notifies listeners, and syncs to bridge.
+  setByteLocally(index: number, value: number) {
+    this.bytes[index] = value
+    this.byteHandlers.forEach(h => h(index, value))
+    // Sync to bridge so fullState stays consistent
+    this.ws.send({ type: 'setInternalByte', byteIndex: index, value })
+  }
+
   // Send user interaction to firmware
   pressButton(byteIndex: number, value: number) {
     this.ws.send({ type: 'buttonPress', byteIndex, value })

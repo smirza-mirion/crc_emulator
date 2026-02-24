@@ -649,6 +649,20 @@ static void on_ws_message(const char *message, int len)
             inject_word_event((unsigned char)index_val, (unsigned short)value_val);
         }
     }
+    else if (strcmp(type_buf, "setInternalByte") == 0) {
+        /* Update internal Amulet byte state without injecting into firmware.
+         * Used for display-local state changes (radio button, checkbox clicks)
+         * where the real Amulet display would update its own RAM directly. */
+        if (json_get_int(message, "byteIndex", &index_val) &&
+            json_get_int(message, "value", &value_val)) {
+            amulet_bytes[(unsigned char)index_val] = (unsigned char)value_val;
+            /* Broadcast to all clients so other tabs stay in sync */
+            snprintf(json_buf, JSON_MAX,
+                     "{\"type\":\"setByte\",\"index\":%d,\"value\":%d}",
+                     index_val, value_val);
+            ws_broadcast(json_buf, (int)strlen(json_buf));
+        }
+    }
     else if (strcmp(type_buf, "requestState") == 0) {
         amulet_bridge_send_full_state();
     }
